@@ -2,11 +2,11 @@
 
 
 ## Sciagniecie i Instalacja
-Pobierz https://nodejs.org/en/download/ <br />
-git  clone https://wojciechgrazawski@bitbucket.org/wojciechgrazawski/tackpadweb.git <br />
-cd tackpadweb <br />
-npm install <br />
-npm start <br />
+##Pobierz https://nodejs.org/en/download/
+##git  clone https://wojciechgrazawski@bitbucket.org/wojciechgrazawski/tackpadweb.git
+##cd tackpadweb 
+##npm install
+##npm start
 
 ## Biblioteki
 Angular 2, Bootstrap 4, Webpack and lots of awesome modules and plugins
