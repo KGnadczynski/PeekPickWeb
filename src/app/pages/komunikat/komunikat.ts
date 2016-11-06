@@ -37,7 +37,7 @@
         companyBranch: CompanyBranch;
         distance: number;
     }
-    
+
     export interface Komunikat {
         objectList: ObjectList[];
         isLastPage: boolean;

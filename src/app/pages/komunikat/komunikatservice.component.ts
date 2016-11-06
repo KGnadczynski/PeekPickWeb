@@ -1,15 +1,25 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Rx';
+import {Komunikat} from "./komunikat";
 
 @Injectable()
 export class KomunikatService {
   private _carsUrl:string = "https://tackpad-1316.appspot.com/messages/page/1";
   constructor(private _http: Http){ }
 
-  getKomunikaty(){
-    return this._http.get(this._carsUrl).map(res => res.json());
+  getKomunikaty() : Observable<Komunikat> {
+    return  this._http.get(this._carsUrl)
+      .map((res : Response) => res.json())
+      .catch(this.handleError);
+  }
+
+  handleError(error: any) {
+    console.error(error);
+    return Observable.throw(error.json().error || 'Server error');
   }
   postCarRestful(productCode:string,productName:string,productLine:string,buyPrice:number ){
 
@@ -20,9 +30,5 @@ export class KomunikatService {
     return this._http.post(this._carsUrl, body,options)
       .map(res => res.json())
       .catch(this.handleError);*/
-  }
-  private handleError (error: Response) {
-    console.error(error);
-    return Observable.throw(error.json().error || ' error');
   }
 }

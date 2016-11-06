@@ -1,1 +1,22 @@
-<p>Is rest working {{komunikatyList.isLastPage}}</p>
+<div class="feed-messages-container">
+  <div class="feed-message" *ngFor="let komunikat of komunikatyList.objectList" (click)="expandMessage(komunikat)">
+
+    <div class="text-block PROMOTION">
+      <div class="message-header">
+        <span class="author">{{ komunikat.companyBranch.name }} {{ komunikat.companyBranch.city}}</span>
+      </div>
+      <div class="message-content line-clamp" [ngClass]="{'line-clamp-2' : !komunikat.expanded}">
+        <span *ngIf="komunikat.expanded">{{ komunikat.companyBranch.company.name }} </span>{{ komunikat.companyBranch.company.category.name }}
+      </div>
+
+      <div [ngClass]="{'hidden': !komunikat.expanded}" class="message-time">
+        <div class="post-time">
+          {{ komunikat.startDate }}
+        </div>
+        <div class="ago-time">
+          {{ komunikat.endDate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

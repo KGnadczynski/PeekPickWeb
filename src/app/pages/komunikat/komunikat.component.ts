@@ -1,15 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {KomunikatService} from "./komunikatservice.component.ts";
 import {Komunikat} from "./komunikat.ts";
+import { Observable } from 'rxjs/Rx';
 // Our HTTP Component
 @Component({
   selector: 'komunikatcomponent',
   templateUrl: './komunikat.html',
+  encapsulation: ViewEncapsulation.None,
+  styles: [require('./komunikat.scss')],
   providers: [KomunikatService]
 
 })
 export class KomunikatComponent implements OnInit {
-  komunikatyList: Komunikat;
+  komunikatyList: Komunikat[] = [];
 
   constructor(private _komunikatyService: KomunikatService){
   }
@@ -19,10 +22,13 @@ export class KomunikatComponent implements OnInit {
   getDataFromServer (){
     this._komunikatyService.getKomunikaty()
       .subscribe(
-        komunikatyList => this.komunikatyList = komunikatyList, // put the data returned from the server in our variable
-        error => console.log("Error HTTP GET Service"), // in case of failure show this message
-        () => console.log(this.komunikatyList)//run this code in all cases
+        (data: Komunikat[]) => this.komunikatyList = data
       );
+  }
+
+
+  expandMessage (komunikat){
+    komunikat.expanded = !komunikat.expanded;
   }
   postDataToServer (){
 /*    this._httpCarService.postCarRestful(this.productCode,this.productName,this.productLine,this.buyPrice).subscribe(//call the post
