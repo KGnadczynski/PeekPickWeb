@@ -9,7 +9,7 @@ import {Komunikat} from "./komunikat.ts";
 
 })
 export class KomunikatComponent implements OnInit {
-  komunikatyList: Komunikat[];
+  komunikatyList: Komunikat;
 
   constructor(private _komunikatyService: KomunikatService){
   }

@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class KomunikatService {
-  private _carsUrl:string = "https://jsonplaceholder.typicode.com/posts";
+  private _carsUrl:string = "https://tackpad-1316.appspot.com/messages/page/1";
   constructor(private _http: Http){ }
 
   getKomunikaty(){
