@@ -1,5 +1,8 @@
 <div class="feed-messages-container">
   <div class="feed-message" *ngFor="let komunikat of komunikatyList.objectList" (click)="expandMessage(komunikat)">
+    <div class="message-icon" *ngIf="komunikat.type == 'PROMOTION'">
+      <img class="photo-icon" src="assets/img/app/profile/kamil.png">
+    </div>
 
     <div class="text-block text-message">
       <div class="message-header">
@@ -7,6 +10,12 @@
       </div>
       <div class="message-content line-clamp">
         <span >{{ komunikat.content}} </span>
+      </div>
+
+      <div class="preview" [ngClass]="{'hidden': !komunikat.expanded}" *ngIf="komunikat.type">
+        <a href="http://api.ning.com/files/DtcI2O2Ry7A7VhVxeiWfGU9WkHcMy4WSTWZ79oxJq*h0iXvVGndfD7CIYy-Ax-UAFCBCdqXI4GCBw3FOLKTTjQc*2cmpdOXJ/1082127884.jpeg" target="_blank">
+          <img src="assets/img/app/feed/my-little-kitten.png">
+        </a>
       </div>
 
       <div [ngClass]="{'hidden': !komunikat.expanded}" class="message-time">
