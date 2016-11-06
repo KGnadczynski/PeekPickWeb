@@ -1,12 +1,12 @@
 <div class="feed-messages-container">
   <div class="feed-message" *ngFor="let komunikat of komunikatyList.objectList" (click)="expandMessage(komunikat)">
 
-    <div class="text-block PROMOTION">
+    <div class="text-block text-message">
       <div class="message-header">
         <span class="author">{{ komunikat.companyBranch.name }} {{ komunikat.companyBranch.city}}</span>
       </div>
-      <div class="message-content line-clamp" [ngClass]="{'line-clamp-2' : !komunikat.expanded}">
-        <span *ngIf="komunikat.expanded">{{ komunikat.companyBranch.company.name }} </span>{{ komunikat.companyBranch.company.category.name }}
+      <div class="message-content line-clamp">
+        <span >{{ komunikat.content}} </span>
       </div>
 
       <div [ngClass]="{'hidden': !komunikat.expanded}" class="message-time">

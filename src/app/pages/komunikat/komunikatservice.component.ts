@@ -11,7 +11,7 @@ export class KomunikatService {
   private _carsUrl:string = "https://tackpad-1316.appspot.com/messages/page/1";
   constructor(private _http: Http){ }
 
-  getKomunikaty() : Observable<Komunikat> {
+  getKomunikaty() : Observable<Komunikat[]> {
     return  this._http.get(this._carsUrl)
       .map((res : Response) => res.json())
       .catch(this.handleError);
