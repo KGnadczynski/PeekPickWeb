@@ -1,0 +1,7 @@
+<div>
+    <div style="padding:4px;border-radius:4px;margin-bottom:8px;float:right" [ngStyle]="{border: border}">
+        {{selectedTextNormal}}
+    </div>
+    <my-date-picker [options]="myDatePickerNormalOptions" (dateChanged)="onDateChanged($event)"
+                    [selDate]="selectedDateNormal" [locale]="locale"></my-date-picker>
+</div>

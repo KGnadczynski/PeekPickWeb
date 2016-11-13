@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {KomunikatService} from "./komunikatservice.component.ts";
 import {Komunikat} from "./komunikat.ts";
+
 import { Observable } from 'rxjs/Rx';
 // Our HTTP Component
 @Component({
@@ -12,6 +13,7 @@ import { Observable } from 'rxjs/Rx';
 
 })
 export class KomunikatComponent implements OnInit {
+
   komunikatyList: Komunikat[] = [];
 
   constructor(private _komunikatyService: KomunikatService){
@@ -30,10 +32,6 @@ export class KomunikatComponent implements OnInit {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }
 
-
-  expandMessage (komunikat){
-    komunikat.expanded = !komunikat.expanded;
-  }
   postDataToServer (){
 /*    this._httpCarService.postCarRestful(this.productCode,this.productName,this.productLine,this.buyPrice).subscribe(//call the post
       data => this.postMyCarToServer = JSON.stringify(data), // put the data returned from the server in our variable

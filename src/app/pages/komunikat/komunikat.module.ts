@@ -5,6 +5,7 @@ import { CommonModule }  from '@angular/common';
 import { KomunikatComponent } from './komunikat.component.ts';
 import { routing } from './komunikat.routing.ts';
 import { MyDatePickerModule } from 'mydatepicker';
+import {SampleDatePickerNormal} from './sample-date-picker-normal';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     routing
   ],
   declarations: [
-    KomunikatComponent
+    KomunikatComponent,
+    SampleDatePickerNormal
   ]
 })
 export default class  KomunikatModule {}
