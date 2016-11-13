@@ -1,40 +1,56 @@
-<form *ngIf="logged">
-  <ul class="form-style-1">
-    <li><label>Full Name <span class="required">*</span></label><input type="text" name="field1" class="field-divided" placeholder="First" />&nbsp;<input type="text" name="field2" class="field-divided" placeholder="Last" /></li>
-    <li>
-      <label>Email <span class="required">*</span></label>
-      <input type="email" name="field3" class="field-long" />
-    </li>
-    <li>
+
+<div *ngIf="logged">
+<div class="input-group">
+  <span class="input-group-addon input-group-addon-primary addon-left" id="basic-addon1">@</span>
+  <input type="text" class="form-control with-primary-addon" placeholder="Username" aria-describedby="basic-addon1">
+</div>
+
+<div class="input-group">
+  <input type="text" class="form-control with-warning-addon" placeholder="Recipient's username" aria-describedby="basic-addon2">
+  <span class="input-group-addon input-group-addon-warning addon-right" id="basic-addon2">@example.com</span>
+</div>
+
+<div class="input-group">
+  <span class="input-group-addon addon-left input-group-addon-success">$</span>
+  <input type="text" class="form-control with-success-addon" aria-label="Amount (to the nearest dollar)">
+  <span class="input-group-addon addon-right input-group-addon-success">.00</span>
+</div>
+
+<div class="input-group">
+  <input type="text" class="form-control with-danger-addon" placeholder="Search for...">
+  <span class="input-group-btn">
+      <button class="btn btn-danger" type="button">Go!</button>
+  </span>
+</div>
+
+  <div class="input-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+  </div>
+  <div class="input-group">
       <div class="datepicker">
         <div class="sub-left">
+        <label>Data rozpoczecia</label>
           <sample-date-picker-normal>loading...</sample-date-picker-normal>
         </div>
         <div class="sub-right">
+        <label>Data zakonczenia</label>
           <sample-date-picker-normal>loading...</sample-date-picker-normal>
         </div>
       </div>
-    </li>
-    <li>
-      <label>Rodzaj</label>
-      <select name="field4" class="field-select">
-        <option value="Promocja">Promocja</option>
-        <option value="Praca">Praca</option>
-        <option value="Wydarzenie">Wydarzenie</option>
-        <option value="Oferta krotkoterminowa">Oferta krótkoterminowa</option>
-        <option value="Warto zajrzec">Warto zajrzeć</option>
-        <option value="General Question">General</option>
-      </select>
-    </li>
-    <li>
-      <label>Your Message <span class="required">*</span></label>
-      <textarea name="field5" id="field5" class="field-long field-textarea"></textarea>
-    </li>
-    <li>
-      <input type="submit" value="Submit" />
-    </li>
-  </ul>
-</form>
+  </div>
+
+  <div class="input-group">
+    <label for="rodzajSelect">Rodzaj</label>
+    <select class="form-control" id="rodzajSelect">
+      <option value="Promocja">Promocja</option>
+      <option value="Praca">Praca</option>
+      <option value="Wydarzenie">Wydarzenie</option>
+      <option value="Oferta krotkoterminowa">Oferta krótkoterminowa</option>
+      <option value="Warto zajrzec">Warto zajrzeć</option>
+    </select>
+  </div>
+</div>
 <div class="feed-messages-container">
   <div class="feed-message" *ngFor="let komunikat of komunikatyList.objectList" (click)="expandMessage(komunikat)">
     <div class="message-icon" *ngIf="komunikat.type == 'PROMOTION'">

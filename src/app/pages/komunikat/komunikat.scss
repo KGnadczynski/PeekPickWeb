@@ -314,16 +314,13 @@ select{
 }
 .sub-left {
   float: left;
-  width:45%
 }
 .sub-right {
-  float: right;
-  width:45%
+  float: left;
 }
 .datepicker {
-  clear: none;
 }
 
 li {
-  margin-bottom : 5px;
+  margin: 5px;
 }
