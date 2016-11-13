@@ -26,6 +26,10 @@ export class KomunikatComponent implements OnInit {
       );
   }
 
+  onDateChanged(event:any) {
+    console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+  }
+
 
   expandMessage (komunikat){
     komunikat.expanded = !komunikat.expanded;

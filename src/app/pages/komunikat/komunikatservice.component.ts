@@ -8,7 +8,7 @@ import {Komunikat} from "./komunikat";
 
 @Injectable()
 export class KomunikatService {
-  private _carsUrl:string = "https://tackpad-1316.appspot.com/messages/page/1";
+  private _carsUrl:string = "http://localhost:8081/messages/page/1";
   constructor(private _http: Http){ }
 
   getKomunikaty() : Observable<Komunikat[]> {
