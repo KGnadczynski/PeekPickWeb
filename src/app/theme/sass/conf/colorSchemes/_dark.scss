@@ -1,5 +1,5 @@
 $default: rgba(#000000, 0.2);
-$body-bg: #F0F3F4;
+$body-bg: #FFFFFF;
 
 $default-text: #000000;
 $content-text: $default-text;
@@ -14,7 +14,8 @@ $input-border: transparent;
 $input-background: rgba(#000000, 0.15);
 $dropdown-text: #7d7d7d;
 
-$sidebar: #A20E12;
+$sidebar: #CCCCCC;
+$sidebartop: #A20E12;
 $sidebar-text: #ffffff;
 
 $mail-box: whitesmoke;
@@ -59,9 +60,9 @@ $hoverlink: $primary-dark;
 @mixin body-bg() {
   background-color: $body-bg;
 
-  $mainBgUrl: $images-root + 'blur-bg.jpg';
+ // $mainBgUrl: $images-root + 'blur-bg.jpg';
 
-  &::before {
+/*  &::before {
     content: '';
     position: fixed;
     width: 100%;
@@ -72,7 +73,7 @@ $hoverlink: $primary-dark;
     background-size: cover;
     will-change: transform;
     z-index: 0;
-  }
+  }*/
 }
 @mixin additional-bg() {
   //display: block; // additional background layer, hidden by default
