@@ -227,7 +227,7 @@
 
 .form-style-1 {
   margin:10px auto;
-  max-width: 400px;
+  max-width: 800px;
   padding: 20px 12px 10px 20px;
   font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
@@ -312,4 +312,13 @@ select{
   float: left;
   clear: none;
 }
+.sub-left {
+  float: left;
+}
+.sub-right {
+  float: right;
+}
 
+li {
+  margin-bottom : 5px;
+}
