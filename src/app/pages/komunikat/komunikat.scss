@@ -226,7 +226,7 @@
 }
 
 .form-style-1 {
-  margin:10px auto;
+  margin:5px auto;
   max-width: 800px;
   padding: 20px 12px 10px 20px;
   font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -314,9 +314,14 @@ select{
 }
 .sub-left {
   float: left;
+  width:45%
 }
 .sub-right {
   float: right;
+  width:45%
+}
+.datepicker {
+  clear: none;
 }
 
 li {

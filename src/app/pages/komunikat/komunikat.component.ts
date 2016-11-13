@@ -16,6 +16,8 @@ export class KomunikatComponent implements OnInit {
 
   komunikatyList: Komunikat[] = [];
 
+  logged = true;
+
   constructor(private _komunikatyService: KomunikatService){
   }
 
