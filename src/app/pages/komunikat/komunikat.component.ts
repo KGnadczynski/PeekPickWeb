@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {KomunikatService} from "./komunikatservice.component.ts";
 import {Komunikat} from "./komunikat.ts";
 
@@ -14,19 +14,35 @@ import { Observable } from 'rxjs/Rx';
 })
 export class KomunikatComponent implements OnInit {
 
+
+array = [];
+  sum = 100;
+  pageNumber = 1;
+  throttle = 300;
+  scrollDistance = 1;
   komunikatyList: Komunikat[] = [];
-
-  logged = true;
-
-  constructor(private _komunikatyService: KomunikatService){
+  logged = false;
+  
+  onScrollDown () {
+    this.pageNumber+=1
+    console.log('scrolled!!'+this.pageNumber);
+    this.getDataFromServer(this.pageNumber)
+    
   }
 
-  ngOnInit() { this.getDataFromServer(); }
 
-  getDataFromServer (){
-    this._komunikatyService.getKomunikaty()
+  constructor(private _komunikatyService: KomunikatService,private cd: ChangeDetectorRef){
+  }
+
+  ngOnInit() { this.getDataFromServer(this.pageNumber); }
+
+  getDataFromServer (page :any){
+    this._komunikatyService.getKomunikaty(page)
       .subscribe(
-        (data: Komunikat[]) => this.komunikatyList = data
+        (data: Komunikat[]) =>{ 
+          this.komunikatyList=data;
+          this.cd.detectChanges();
+        }
       );
   }
 

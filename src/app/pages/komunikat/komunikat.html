@@ -1,5 +1,5 @@
 
-<div *ngIf="logged">
+<!--<div *ngIf="logged">
 <div class="input-group">
   <span class="input-group-addon input-group-addon-primary addon-left" id="basic-addon1">@</span>
   <input type="text" class="form-control with-primary-addon" placeholder="Username" aria-describedby="basic-addon1">
@@ -51,6 +51,13 @@
     </select>
   </div>
 </div>
+-->
+
+<div class="search-results"
+         infinite-scroll
+         [infiniteScrollDistance]="scrollDistance"
+         [infiniteScrollThrottle]="throttle"
+         (scrolled)="onScrollDown()">
 <div class="feed-messages-container">
   <div class="feed-message" *ngFor="let komunikat of komunikatyList.objectList" (click)="expandMessage(komunikat)">
     <div class="message-icon" *ngIf="komunikat.type == 'PROMOTION'">
@@ -59,7 +66,7 @@
 
     <div class="text-block text-message">
       <div class="message-header">
-        <span class="author">{{ komunikat.companyBranch.name }} {{ komunikat.companyBranch.city}} {{ komunikat.companyBranch.street}} {{ komunikat.companyBranch.streetNo}}
+        <span class="author">{{ komunikat.companyBranch.name }} {{ komunikat.status}} {{ komunikat.companyBranch.street}} {{ komunikat.companyBranch.streetNo}}
 
         </span>
       </div>
@@ -81,4 +88,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

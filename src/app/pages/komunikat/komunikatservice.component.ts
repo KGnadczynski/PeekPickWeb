@@ -8,11 +8,11 @@ import {Komunikat} from "./komunikat";
 
 @Injectable()
 export class KomunikatService {
-  private _carsUrl:string = "http://localhost:8081/messages/page/1";
+  private _carsUrl:string = "http://localhost:8080/messages/page/";
   constructor(private _http: Http){ }
 
-  getKomunikaty() : Observable<Komunikat[]> {
-    return  this._http.get(this._carsUrl)
+  getKomunikaty(page :any) : Observable<Komunikat[]> {
+    return  this._http.get(this._carsUrl+page)
       .map((res : Response) => res.json())
       .catch(this.handleError);
   }
