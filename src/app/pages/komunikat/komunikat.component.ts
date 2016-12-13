@@ -1,9 +1,8 @@
-import {Component, OnInit, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
-import {KomunikatService} from "./komunikatservice.component.ts";
-import {Komunikat} from "./komunikat.ts";
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {KomunikatService} from './komunikatservice.component';
+import {KomunikatyList} from "./komunikatlist.model";
 
-import { Observable } from 'rxjs/Rx';
-// Our HTTP Component
+
 @Component({
   selector: 'komunikatcomponent',
   templateUrl: './komunikat.html',
@@ -14,37 +13,43 @@ import { Observable } from 'rxjs/Rx';
 })
 export class KomunikatComponent implements OnInit {
 
-
-array = [];
+  array = [];
   sum = 100;
   pageNumber = 1;
   throttle = 300;
   scrollDistance = 1;
-  komunikatyList: Komunikat[] = [];
+  private komunikatyList: KomunikatyList;
   logged = false;
-  
+
   onScrollDown () {
     this.pageNumber+=1
     console.log('scrolled!!'+this.pageNumber);
-    this.getDataFromServer(this.pageNumber)
-    
+    this.getDataFromServer(this.pageNumber);
   }
 
 
-  constructor(private _komunikatyService: KomunikatService,private cd: ChangeDetectorRef){
+  constructor(private _komunikatyService: KomunikatService){
   }
 
-  ngOnInit() { this.getDataFromServer(this.pageNumber); }
+  ngOnInit() {
+    this.komunikatyList = new KomunikatyList();
+    this.getDataFromServer(this.pageNumber);
+  }
 
   getDataFromServer (page :any){
     this._komunikatyService.getKomunikaty(page)
       .subscribe(
-        (data: Komunikat[]) =>{ 
-          this.komunikatyList=data;
-          this.cd.detectChanges();
-        }
-      );
+        (result => {
+            if (page === 1) {
+              this.komunikatyList = result;
+            } else {
+              this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
+            }
+          }
+        ));
   }
+
+
 
   onDateChanged(event:any) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);

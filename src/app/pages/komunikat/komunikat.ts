@@ -1,10 +1,10 @@
- export interface Category {
+ export class Category {
         id: number;
         name: string;
         parentCategory?: any;
     }
 
-    export interface Company {
+    export class Company {
         id?: any;
         name: string;
         city?: any;
@@ -15,7 +15,7 @@
         category: Category;
     }
 
-    export interface CompanyBranch {
+    export class CompanyBranch {
         id: number;
         name: string;
         city: string;
@@ -26,7 +26,7 @@
         company: Company;
     }
 
-    export interface ObjectList {
+    export class ObjectList {
         id: number;
         content: string;
         type: string;
@@ -38,8 +38,5 @@
         distance: number;
     }
 
-    export interface Komunikat {
-        objectList: ObjectList[];
-        isLastPage: boolean;
-    }
+
 

@@ -4,17 +4,26 @@ import {Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
-import {Komunikat} from "./komunikat";
+import {KomunikatyList} from "./komunikatlist.model";
 
 @Injectable()
 export class KomunikatService {
   private _carsUrl:string = "http://localhost:8080/messages/page/";
   constructor(private _http: Http){ }
 
-  getKomunikaty(page :any) : Observable<Komunikat[]> {
+  getKomunikaty(page :any) : Observable<KomunikatyList> {
     return  this._http.get(this._carsUrl+page)
-      .map((res : Response) => res.json())
+      .map(this.mapKomunikaty)
       .catch(this.handleError);
+  }
+
+  mapKomunikaty(res:Response) {
+    let body = res.json();
+    let listing = new KomunikatyList();
+
+    listing.komunikaty =body.objectList;
+    listing.isLastPage = body.isLastPage;
+    return listing;
   }
 
   handleError(error: any) {

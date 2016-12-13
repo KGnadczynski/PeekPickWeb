@@ -59,7 +59,7 @@
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()">
 <div class="feed-messages-container">
-  <div class="feed-message" *ngFor="let komunikat of komunikatyList.objectList" (click)="expandMessage(komunikat)">
+  <div class="feed-message" *ngFor="let komunikat of komunikatyList.komunikaty" (click)="expandMessage(komunikat)">
     <div class="message-icon" *ngIf="komunikat.type == 'PROMOTION'">
       <img class="photo-icon" src="assets/img/app/profile/kamil.png">
     </div>
