@@ -1,6 +1,6 @@
 {
   "name": "ng2-admin",
-  "version": "1.0.0",
+  "version": "0.7.0",
   "description": "Angular 2 and Bootstrap 4 Admin Template.",
   "author": "akveo",
   "homepage": "http://akveo.github.io/ng2-admin/",
@@ -161,7 +161,7 @@
     "url": "https://github.com/akveo/ng2-admin/issues"
   },
   "engines": {
-    "node": ">= 4.2.1",
-    "npm": ">= 3"
+    "node": "6.9.1",
+    "npm": "4.0.3"
   }
 }
