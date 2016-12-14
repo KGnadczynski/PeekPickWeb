@@ -153,15 +153,8 @@
     "build:electron.main": "npm run webpack -- --config config/electron/webpack.electron.prod.js",
     "electron:start": "electron build"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/akveo/ng2-admin.git"
-  },
-  "bugs": {
-    "url": "https://github.com/akveo/ng2-admin/issues"
-  },
   "engines": {
     "node": "6.9.1",
-    "npm": "4.0.3"
+    "npm": "4.0.5"
   }
 }
