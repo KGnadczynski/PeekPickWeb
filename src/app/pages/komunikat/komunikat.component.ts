@@ -13,7 +13,7 @@ import {KomunikatyList} from "./komunikatlist.model";
 })
 export class KomunikatComponent implements OnInit {
 
-  array = [];
+  typyKomunikatow = ["Promocja" ,"Praca" , "Wydarzenie" ,"Oferta krótkoterminowa" ,"Warto zajrzeć"];
   sum = 100;
   pageNumber = 1;
   throttle = 300;
@@ -54,9 +54,7 @@ export class KomunikatComponent implements OnInit {
   onDateChanged(event:any) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }
-  expandMessage (komunikat){
-    komunikat.expanded = !komunikat.expanded;
-  }
+ 
 
 
   postDataToServer (){

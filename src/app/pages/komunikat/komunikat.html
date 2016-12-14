@@ -52,15 +52,16 @@
   </div>
 </div>
 -->
-
+<div class="row">
+  <ba-card class="col-xlg-6 col-xl-9 col-lg-12 col-sm-12 col-xs-12">
 <div class="search-results"
          infinite-scroll
          [infiniteScrollDistance]="scrollDistance"
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()">
 <div class="feed-messages-container">
-  <div class="feed-message" *ngFor="let komunikat of komunikatyList.komunikaty" (click)="expandMessage(komunikat)">
-    <div class="message-icon" *ngIf="komunikat.type == 'PROMOTION'">
+  <div class="feed-message" *ngFor="let komunikat of komunikatyList.komunikaty" >
+    <div class="message-icon" >
       <img class="photo-icon" src="assets/img/app/profile/kamil.png">
     </div>
 
@@ -74,11 +75,10 @@
         <span >{{ komunikat.content}} </span>
       </div>
 
-      <div class="preview" [ngClass]="{'hidden': !komunikat.expanded}" *ngIf="komunikat.type">
-          <img src="assets/img/app/feed/my-little-kitten.png">
-      </div>
-
-      <div [ngClass]="{'hidden': !komunikat.expanded}" class="message-time">
+      <div class="message-time">
+        <div class="top-time">
+        Data rozpoczęcia
+        </div>
         <div class="post-time">
           {{ komunikat.startDate }}
         </div>
@@ -86,7 +86,41 @@
           {{ komunikat.endDate }}
         </div>
       </div>
+
+      <div class="preview"  *ngIf="komunikat.type">
+          <img src="https://4.bp.blogspot.com/-NC7nLIBRiYM/VIS5lENiSAI/AAAAAAABY2I/Rgsq6dQgqMg/s0/Louvre%2BPyramid%2BUHD.jpg">
+      </div>
+
+      
     </div>
   </div>
 </div>
+</div>
+</ba-card>
+ <ba-card class="col-xlg-6 col-xl-3 col-lg-12 col-sm-12 col-xs-12"
+           title="Filtruj " baCardClass="medium-card">
+    <div class="filtruj-lokalizacja">
+      Lokalizacja
+    </div>       
+    <ng2-slider 
+    min="3"
+    max="103"
+    value="3"
+     [rangeRibbonStyle] = "{
+                'height': '2px',
+                'border': 'none',
+                'top': '8px',
+                'background': '#A20E12'
+        }"
+    [normalHandlerStyle]="{ 'background-color': '#A20E12'}"
+    [slidingHandlerStyle]="{
+          'border-radius': '9px',
+          'background-color': '#A20E12'
+    }">
+</ng2-slider>
+<li *ngFor="let typKomunikatow of typyKomunikatow">
+    <md-checkbox >
+      {{typKomunikatow}}
+    </md-checkbox>
+  </ba-card>
 </div>
