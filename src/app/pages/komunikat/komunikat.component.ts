@@ -1,7 +1,8 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import {KomunikatService} from './komunikatservice.component';
 import {KomunikatyList} from "./komunikatlist.model";
-
+import { AgmCoreModule,MapsAPILoader } from 'angular2-google-maps/core';
+import {  FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: 'komunikatcomponent',
@@ -14,12 +15,32 @@ import {KomunikatyList} from "./komunikatlist.model";
 export class KomunikatComponent implements OnInit {
 
   typyKomunikatow = ["Promocja" ,"Praca" , "Wydarzenie" ,"Oferta krótkoterminowa" ,"Warto zajrzeć"];
+  kulturairozrywka = ["artyści, zespoły", "escape roomy, parki rozrywki", "kino, teatr" ,"muzeum, wystawy" ,"inne"];
+  gastronomiainocnezycie = ["food truck","kawiarnie","kluby","puby","restauracje" , "inne"];
+
+
   sum = 100;
   pageNumber = 1;
   throttle = 300;
   scrollDistance = 1;
   private komunikatyList: KomunikatyList;
   logged = false;
+  public isCollapsed:boolean = true;
+  public isCollapsedGastro:boolean = true;
+  public latitude: number;
+  public longitude: number;
+  public searchControl: FormControl;
+  @ViewChild("search")
+  public searchElementRef: ElementRef;
+
+ 
+  public collapsed(event:any):void {
+    console.log(event);
+  }
+ 
+  public expanded(event:any):void {
+    console.log(event);
+  }
 
   onScrollDown () {
     this.pageNumber+=1
@@ -28,12 +49,27 @@ export class KomunikatComponent implements OnInit {
   }
 
 
-  constructor(private _komunikatyService: KomunikatService){
+  constructor(private _komunikatyService: KomunikatService, private mapsAPILoader: MapsAPILoader){
+    
   }
 
   ngOnInit() {
     this.komunikatyList = new KomunikatyList();
     this.getDataFromServer(this.pageNumber);
+    this.mapsAPILoader.load().then(() => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+        //get the place result
+        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+        //set latitude and longitude
+        this.latitude = place.geometry.location.lat();
+        this.longitude = place.geometry.location.lng();
+      });
+    });
+  
   }
 
   getDataFromServer (page :any){

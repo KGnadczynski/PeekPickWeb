@@ -52,6 +52,7 @@
   </div>
 </div>
 -->
+
 <div class="row">
   <ba-card class="col-xlg-6 col-xl-9 col-lg-12 col-sm-12 col-xs-12">
 <div class="search-results"
@@ -98,10 +99,14 @@
 </div>
 </ba-card>
  <ba-card class="col-xlg-6 col-xl-3 col-lg-12 col-sm-12 col-xs-12"
-           title="Filtruj " baCardClass="medium-card">
+           title="Filtruj ">
     <div class="filtruj-lokalizacja">
       Lokalizacja
-    </div>       
+    </div>      
+  <div class="form-group">
+        <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+      </div>
+
     <ng2-slider 
     min="3"
     max="103"
@@ -118,9 +123,47 @@
           'background-color': '#A20E12'
     }">
 </ng2-slider>
-<li *ngFor="let typKomunikatow of typyKomunikatow">
+  <div class="filtruj-typ-wiadomosci">
+      Typ wiadomości
+    </div>      
+<div *ngFor="let typKomunikatow of typyKomunikatow">
     <md-checkbox >
       {{typKomunikatow}}
-    </md-checkbox>
+    </md-checkbox>  
+    </div>
+    <div class="filtruj-typ-wiadomosci">
+      Branża
+    </div>
+   <button type="button"
+        (click)="isCollapsed = !isCollapsed">Kultura i rozrywka
+</button>
+<div (collapsed)="collapsed($event)"
+     (expanded)="expanded($event)"
+     [collapse]="isCollapsed"
+     >
+  <div *ngFor="let kulturairozrywk of kulturairozrywka">
+    <md-checkbox >
+      {{kulturairozrywk}}
+    </md-checkbox>  
+    </div>
+</div>
+ <button type="button"
+        (click)="isCollapsedGastro = !isCollapsedGastro">Gastronomia i Nocne Życie
+</button>
+<div (collapsed)="collapsed($event)"
+     (expanded)="expanded($event)"
+     [collapse]="isCollapsedGastro"
+     >
+  <div *ngFor="let gastronomiainocnezyci of gastronomiainocnezycie">
+    <md-checkbox >
+      {{gastronomiainocnezyci}}
+    </md-checkbox>  
+    </div>
+</div>
+
+<button type="button" class="btn btn-primary"
+        >Wyszukaj
+</button>
+      
   </ba-card>
 </div>
