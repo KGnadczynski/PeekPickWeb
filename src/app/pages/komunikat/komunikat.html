@@ -92,7 +92,7 @@
           <img src="https://4.bp.blogspot.com/-NC7nLIBRiYM/VIS5lENiSAI/AAAAAAABY2I/Rgsq6dQgqMg/s0/Louvre%2BPyramid%2BUHD.jpg">
       </div>
 
-      
+
     </div>
   </div>
 </div>
@@ -102,68 +102,68 @@
            title="Filtruj ">
     <div class="filtruj-lokalizacja">
       Lokalizacja
-    </div>      
-  <div class="form-group">
-        <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
-      </div>
-
-    <ng2-slider 
-    min="3"
-    max="103"
-    value="3"
-     [rangeRibbonStyle] = "{
-                'height': '2px',
-                'border': 'none',
-                'top': '8px',
-                'background': '#A20E12'
-        }"
-    [normalHandlerStyle]="{ 'background-color': '#A20E12'}"
-    [slidingHandlerStyle]="{
-          'border-radius': '9px',
-          'background-color': '#A20E12'
-    }">
-</ng2-slider>
-  <div class="filtruj-typ-wiadomosci">
-      Typ wiadomości
-    </div>      
-<div *ngFor="let typKomunikatow of typyKomunikatow">
-    <md-checkbox >
-      {{typKomunikatow}}
-    </md-checkbox>  
     </div>
+   <!-- <div class="form-group">
+          <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+        </div>-->
+
+      <ng2-slider
+      min="3"
+      max="103"
+      value="3"
+       [rangeRibbonStyle] = "{
+                  'height': '2px',
+                  'border': 'none',
+                  'top': '8px',
+                  'background': '#A20E12'
+          }"
+      [normalHandlerStyle]="{ 'background-color': '#A20E12'}"
+      [slidingHandlerStyle]="{
+            'border-radius': '9px',
+            'background-color': '#A20E12'
+      }">
+  </ng2-slider>
     <div class="filtruj-typ-wiadomosci">
-      Branża
-    </div>
+        Typ wiadomości
+      </div>
+  <div *ngFor="let typKomunikatow of typyKomunikatow">
+      <md-checkbox >
+        {{typKomunikatow}}
+      </md-checkbox>
+      </div>
+      <div class="filtruj-typ-wiadomosci">
+        Branża
+      </div>
+     <button type="button"
+          (click)="isCollapsed = !isCollapsed">Kultura i rozrywka
+  </button>
+  <div (collapsed)="collapsed($event)"
+       (expanded)="expanded($event)"
+       [collapse]="isCollapsed"
+       >
+    <div *ngFor="let kulturairozrywk of kulturairozrywka">
+      <md-checkbox >
+        {{kulturairozrywk}}
+      </md-checkbox>
+      </div>
+  </div>
    <button type="button"
-        (click)="isCollapsed = !isCollapsed">Kultura i rozrywka
-</button>
-<div (collapsed)="collapsed($event)"
-     (expanded)="expanded($event)"
-     [collapse]="isCollapsed"
-     >
-  <div *ngFor="let kulturairozrywk of kulturairozrywka">
-    <md-checkbox >
-      {{kulturairozrywk}}
-    </md-checkbox>  
-    </div>
-</div>
- <button type="button"
-        (click)="isCollapsedGastro = !isCollapsedGastro">Gastronomia i Nocne Życie
-</button>
-<div (collapsed)="collapsed($event)"
-     (expanded)="expanded($event)"
-     [collapse]="isCollapsedGastro"
-     >
-  <div *ngFor="let gastronomiainocnezyci of gastronomiainocnezycie">
-    <md-checkbox >
-      {{gastronomiainocnezyci}}
-    </md-checkbox>  
-    </div>
-</div>
+          (click)="isCollapsedGastro = !isCollapsedGastro">Gastronomia i Nocne Życie
+  </button>
+  <div (collapsed)="collapsed($event)"
+       (expanded)="expanded($event)"
+       [collapse]="isCollapsedGastro"
+       >
+    <div *ngFor="let gastronomiainocnezyci of gastronomiainocnezycie">
+      <md-checkbox >
+        {{gastronomiainocnezyci}}
+      </md-checkbox>
+      </div>
+  </div>
 
-<button type="button" class="btn btn-primary"
-        >Wyszukaj
-</button>
-      
-  </ba-card>
-</div>
+  <button type="button" class="btn btn-primary"
+          >Wyszukaj
+  </button>
+
+    </ba-card>
+  </div>

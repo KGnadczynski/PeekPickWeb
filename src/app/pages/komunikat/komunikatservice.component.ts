@@ -8,7 +8,7 @@ import {KomunikatyList} from "./komunikatlist.model";
 
 @Injectable()
 export class KomunikatService {
-  private _carsUrl:string = "http://localhost:8080/messages/page/";
+  private _carsUrl:string = "https://damp-temple-52216.herokuapp.com/messages/page/";
   constructor(private _http: Http){ }
 
   getKomunikaty(page :any) : Observable<KomunikatyList> {

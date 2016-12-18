@@ -1,8 +1,7 @@
-import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {KomunikatService} from './komunikatservice.component';
 import {KomunikatyList} from "./komunikatlist.model";
-import { AgmCoreModule,MapsAPILoader } from 'angular2-google-maps/core';
-import {  FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
+
 
 @Component({
   selector: 'komunikatcomponent',
@@ -29,15 +28,12 @@ export class KomunikatComponent implements OnInit {
   public isCollapsedGastro:boolean = true;
   public latitude: number;
   public longitude: number;
-  public searchControl: FormControl;
-  @ViewChild("search")
-  public searchElementRef: ElementRef;
 
- 
+
   public collapsed(event:any):void {
     console.log(event);
   }
- 
+
   public expanded(event:any):void {
     console.log(event);
   }
@@ -49,27 +45,13 @@ export class KomunikatComponent implements OnInit {
   }
 
 
-  constructor(private _komunikatyService: KomunikatService, private mapsAPILoader: MapsAPILoader){
-    
+  constructor(private _komunikatyService: KomunikatService){
+
   }
 
   ngOnInit() {
     this.komunikatyList = new KomunikatyList();
     this.getDataFromServer(this.pageNumber);
-    this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
-      });
-      autocomplete.addListener("place_changed", () => {
-        //get the place result
-        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-        //set latitude and longitude
-        this.latitude = place.geometry.location.lat();
-        this.longitude = place.geometry.location.lng();
-      });
-    });
-  
   }
 
   getDataFromServer (page :any){
@@ -90,7 +72,7 @@ export class KomunikatComponent implements OnInit {
   onDateChanged(event:any) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }
- 
+
 
 
   postDataToServer (){
