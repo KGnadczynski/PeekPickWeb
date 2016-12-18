@@ -28,7 +28,7 @@ export class KomunikatService {
 
   handleError(error: any) {
     console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
+    return Observable.throw(error.json().error || 'Server errore');
   }
   postCarRestful(productCode:string,productName:string,productLine:string,buyPrice:number ){
 
