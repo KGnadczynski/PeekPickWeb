@@ -134,7 +134,8 @@
       <div class="filtruj-typ-wiadomosci">
         Branża
       </div>
-     <button type="button"
+   <div>
+   <button type="button"
           (click)="isCollapsed = !isCollapsed">Kultura i rozrywka
   </button>
   <div (collapsed)="collapsed($event)"
@@ -147,6 +148,8 @@
       </md-checkbox>
       </div>
   </div>
+</div>
+   <div>
    <button type="button"
           (click)="isCollapsedGastro = !isCollapsedGastro">Gastronomia i Nocne Życie
   </button>
@@ -160,6 +163,7 @@
       </md-checkbox>
       </div>
   </div>
+   </div>
 
   <button type="button" class="btn btn-primary"
           >Wyszukaj
