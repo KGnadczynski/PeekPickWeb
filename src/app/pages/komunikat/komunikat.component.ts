@@ -4,7 +4,6 @@ import {KomunikatService} from './komunikatservice.component';
 import {KomunikatyList} from "./komunikatlist.model";
 
 
-declare var google:any;
 @Component({
   selector: 'komunikatcomponent',
   templateUrl: './komunikat.html',
@@ -19,7 +18,7 @@ export class KomunikatComponent implements OnInit {
   kulturairozrywka = ["artyści, zespoły", "escape roomy, parki rozrywki", "kino, teatr" ,"muzeum, wystawy" ,"inne"];
   gastronomiainocnezycie = ["food truck","kawiarnie","kluby","puby","restauracje" , "inne"];
 
-
+  google:any;
   pageNumber = 1;
   private komunikatyList: KomunikatyList;
   logged = false;
