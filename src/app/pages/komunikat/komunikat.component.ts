@@ -1,6 +1,8 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+///<reference path="../../../../node_modules/@types/googlemaps/index.d.ts"/>
+import {Component, OnInit, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {KomunikatService} from './komunikatservice.component';
 import {KomunikatyList} from "./komunikatlist.model";
+
 
 
 @Component({
@@ -18,16 +20,15 @@ export class KomunikatComponent implements OnInit {
   gastronomiainocnezycie = ["food truck","kawiarnie","kluby","puby","restauracje" , "inne"];
 
 
-  sum = 100;
   pageNumber = 1;
-  throttle = 300;
-  scrollDistance = 1;
   private komunikatyList: KomunikatyList;
   logged = false;
   public isCollapsed:boolean = true;
   public isCollapsedGastro:boolean = true;
-  public latitude: number;
-  public longitude: number;
+
+
+  @ViewChild("google_places_ac")
+  public searchElementRef: ElementRef;
 
 
   public collapsed(event:any):void {
@@ -52,6 +53,14 @@ export class KomunikatComponent implements OnInit {
   ngOnInit() {
     this.komunikatyList = new KomunikatyList();
     this.getDataFromServer(this.pageNumber);
+
+
+    var autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      var place = autocomplete.getPlace();
+      console.log(place)
+    });
+
   }
 
   getDataFromServer (page :any){
