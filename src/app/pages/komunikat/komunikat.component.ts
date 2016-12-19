@@ -4,7 +4,7 @@ import {KomunikatService} from './komunikatservice.component';
 import {KomunikatyList} from "./komunikatlist.model";
 
 
-
+declare var google:any;
 @Component({
   selector: 'komunikatcomponent',
   templateUrl: './komunikat.html',
