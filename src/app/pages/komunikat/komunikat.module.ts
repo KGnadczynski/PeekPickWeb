@@ -12,6 +12,8 @@ import { SlideAbleDirective } from 'ng2-slideable-directive/slideable.directive'
 import { Ng2StyledDirective } from 'ng2-styled-directive/ng2-styled.directive';
 import {MdCheckbox} from '@angular2-material/checkbox';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
+import {BusyModule} from 'angular2-busy';
+
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
     MyDatePickerModule,
     InfiniteScrollModule,
     CollapseModule,
+    BusyModule,
     routing
   ],
   declarations: [

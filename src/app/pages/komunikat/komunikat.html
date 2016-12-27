@@ -52,7 +52,6 @@
   </div>
 </div>
 -->
-
 <div class="row">
   <ba-card class="col-xlg-6 col-xl-9 col-lg-12 col-sm-12 col-xs-12">
 <div class="search-results"
@@ -61,7 +60,8 @@
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()">
 <div class="feed-messages-container">
-  <div class="feed-message" *ngFor="let komunikat of komunikatyList.komunikaty" >
+  <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
+    <div class="feed-message" *ngFor="let komunikat of komunikatyList.komunikaty" >
     <div class="message-icon" >
       <img class="photo-icon" src="assets/img/app/profile/kamil.png">
     </div>

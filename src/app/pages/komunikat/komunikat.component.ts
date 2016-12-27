@@ -2,6 +2,7 @@
 import {Component, OnInit, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {KomunikatService} from './komunikatservice.component';
 import {KomunikatyList} from "./komunikatlist.model";
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class KomunikatComponent implements OnInit {
   logged = false;
   public isCollapsed:boolean = true;
   public isCollapsedGastro:boolean = true;
+  busy: Subscription;
 
 
   @ViewChild("google_places_ac")
@@ -65,7 +67,7 @@ export class KomunikatComponent implements OnInit {
 
   getDataFromServer (page :any,params = null){
     if(params != null) {
-      this._komunikatyService.getKomunikaty(page,params)
+     this.busy = this._komunikatyService.getKomunikaty(page,params)
             .subscribe(
               (result => {
                   if (page === 1) {
@@ -76,7 +78,7 @@ export class KomunikatComponent implements OnInit {
                 }
               ));
     } else {
-    this._komunikatyService.getKomunikaty(page)
+   this.busy = this._komunikatyService.getKomunikaty(page)
       .subscribe(
         (result => {
             if (page === 1) {
