@@ -7,18 +7,18 @@ import {KomunikatyList} from "./komunikatlist.model";
 
 @Injectable()
 export class KomunikatService {
-  private _carsUrl:string = "https://damp-temple-52216.herokuapp.com/messages/page/";
+  private _Url:string = "https://damp-temple-52216.herokuapp.com/messages/page/";
   constructor(private _http: Http){ }
 
-  getKomunikaty(page :any,params = null) : Observable<KomunikatyList> {
-    if(params != null){
+  getKomunikaty(page :any,params = []) : Observable<KomunikatyList> {
+    if(params.length != 0){
      let params2 = new URLSearchParams();
-      params2.append('messageTypeList', 'SHORT_TERM_OFFER');
-        return  this._http.get(this._carsUrl+page,{ search: params2 })
+      params2.append('messageTypeList',params.join(";"));
+        return  this._http.get(this._Url+page,{ search: params2 })
               .map(this.mapKomunikaty)
               .catch(this.handleError);
     } else {
-        return  this._http.get(this._carsUrl+page)
+        return  this._http.get(this._Url+page)
           .map(this.mapKomunikaty)
           .catch(this.handleError);
     }

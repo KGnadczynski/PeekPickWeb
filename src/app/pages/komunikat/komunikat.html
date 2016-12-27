@@ -127,7 +127,7 @@
         Typ wiadomości
       </div>
   <div *ngFor="let typKomunikatow of typyKomunikatow">
-      <md-checkbox  (click)="toggle(typKomunikatow)">
+      <md-checkbox  (change)="toggle(typKomunikatow)">
         {{typKomunikatow}}
       </md-checkbox>
       </div>

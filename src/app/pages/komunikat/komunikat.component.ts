@@ -15,7 +15,7 @@ import {Subscription} from 'rxjs';
 })
 export class KomunikatComponent implements OnInit {
 
-  typyKomunikatow = ["Promocja" ,"Praca" , "Wydarzenie" ,"Oferta krótkoterminowa" ,"Warto zajrzeć"];
+  typyKomunikatow = [ "WORK", "PROMOTION", "EVENT", "SHORT_TERM_OFFER", "WORTH_SEEING"];
   kulturairozrywka = ["artyści, zespoły", "escape roomy, parki rozrywki", "kino, teatr" ,"muzeum, wystawy" ,"inne"];
   gastronomiainocnezycie = ["food truck","kawiarnie","kluby","puby","restauracje" , "inne"];
   selected = [];
@@ -42,9 +42,11 @@ export class KomunikatComponent implements OnInit {
   }
 
   onScrollDown () {
-    this.pageNumber+=1
-    console.log('scrolled!!'+this.pageNumber);
-    this.getDataFromServer(this.pageNumber);
+    if(!this.komunikatyList.isLastPage) {
+      this.pageNumber+=1
+      console.log('scrolled!!'+this.pageNumber);
+      this.getDataFromServer(this.pageNumber);
+    }
   }
 
 
@@ -65,8 +67,8 @@ export class KomunikatComponent implements OnInit {
 
   }
 
-  getDataFromServer (page :any,params = null){
-    if(params != null) {
+  getDataFromServer (page :any,params = []){
+    if(params.length !=0) {
      this.busy = this._komunikatyService.getKomunikaty(page,params)
             .subscribe(
               (result => {
@@ -74,6 +76,7 @@ export class KomunikatComponent implements OnInit {
                     this.komunikatyList = result;
                   } else {
                     this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
+                    this.komunikatyList.isLastPage = result.isLastPage;
                   }
                 }
               ));
@@ -85,6 +88,7 @@ export class KomunikatComponent implements OnInit {
               this.komunikatyList = result;
             } else {
               this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
+              this.komunikatyList.isLastPage = result.isLastPage;
             }
           }
         ));
@@ -106,6 +110,7 @@ export class KomunikatComponent implements OnInit {
     var index = this.selected.indexOf(id);
     if (index === -1) this.selected.push(id);
     else this.selected.splice(index, 1);
+
   }
 
 
