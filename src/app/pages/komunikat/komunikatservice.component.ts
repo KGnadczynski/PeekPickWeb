@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http, Response,URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
@@ -10,10 +10,18 @@ export class KomunikatService {
   private _carsUrl:string = "https://damp-temple-52216.herokuapp.com/messages/page/";
   constructor(private _http: Http){ }
 
-  getKomunikaty(page :any) : Observable<KomunikatyList> {
-    return  this._http.get(this._carsUrl+page)
-      .map(this.mapKomunikaty)
-      .catch(this.handleError);
+  getKomunikaty(page :any,params = null) : Observable<KomunikatyList> {
+    if(params != null){
+     let params2 = new URLSearchParams();
+      params2.append('messageTypeList', 'SHORT_TERM_OFFER');
+        return  this._http.get(this._carsUrl+page,{ search: params2 })
+              .map(this.mapKomunikaty)
+              .catch(this.handleError);
+    } else {
+        return  this._http.get(this._carsUrl+page)
+          .map(this.mapKomunikaty)
+          .catch(this.handleError);
+    }
   }
 
   mapKomunikaty(res:Response) {

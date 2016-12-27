@@ -127,7 +127,7 @@
         Typ wiadomości
       </div>
   <div *ngFor="let typKomunikatow of typyKomunikatow">
-      <md-checkbox >
+      <md-checkbox  (click)="toggle(typKomunikatow)">
         {{typKomunikatow}}
       </md-checkbox>
       </div>
@@ -165,7 +165,7 @@
   </div>
    </div>
 
-  <button type="button" class="btn btn-primary"
+  <button type="button" class="btn btn-primary" (click)="clicked()"
           >Wyszukaj
   </button>
 

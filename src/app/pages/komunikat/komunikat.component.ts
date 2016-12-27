@@ -17,6 +17,7 @@ export class KomunikatComponent implements OnInit {
   typyKomunikatow = ["Promocja" ,"Praca" , "Wydarzenie" ,"Oferta krótkoterminowa" ,"Warto zajrzeć"];
   kulturairozrywka = ["artyści, zespoły", "escape roomy, parki rozrywki", "kino, teatr" ,"muzeum, wystawy" ,"inne"];
   gastronomiainocnezycie = ["food truck","kawiarnie","kluby","puby","restauracje" , "inne"];
+  selected = [];
 
   google:any;
   pageNumber = 1;
@@ -62,7 +63,19 @@ export class KomunikatComponent implements OnInit {
 
   }
 
-  getDataFromServer (page :any){
+  getDataFromServer (page :any,params = null){
+    if(params != null) {
+      this._komunikatyService.getKomunikaty(page,params)
+            .subscribe(
+              (result => {
+                  if (page === 1) {
+                    this.komunikatyList = result;
+                  } else {
+                    this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
+                  }
+                }
+              ));
+    } else {
     this._komunikatyService.getKomunikaty(page)
       .subscribe(
         (result => {
@@ -74,6 +87,7 @@ export class KomunikatComponent implements OnInit {
           }
         ));
   }
+  }
 
 
 
@@ -81,6 +95,16 @@ export class KomunikatComponent implements OnInit {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }
 
+  clicked(event) {
+     console.log('clicked');
+     this.getDataFromServer(this.pageNumber,this.selected);
+  }
+
+  toggle(id) {
+    var index = this.selected.indexOf(id);
+    if (index === -1) this.selected.push(id);
+    else this.selected.splice(index, 1);
+  }
 
 
   postDataToServer (){
