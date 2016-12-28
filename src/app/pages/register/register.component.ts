@@ -1,25 +1,44 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
+import {RegisterService} from "./registerservice.component";
+import {MainBranze} from "./mainbranze";
 
 @Component({
   selector: 'register',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./register.scss')],
   template: require('./register.html'),
+  providers: [RegisterService]
 })
-export class Register {
+export class Register implements OnInit {
 
-  public form:FormGroup;
-  public name:AbstractControl;
-  public email:AbstractControl;
-  public password:AbstractControl;
-  public repeatPassword:AbstractControl;
-  public passwords:FormGroup;
+  public form: FormGroup;
+  public name: AbstractControl;
+  public email: AbstractControl;
+  public password: AbstractControl;
+  public repeatPassword: AbstractControl;
+  public passwords: FormGroup;
 
-  public submitted:boolean = false;
+  public submitted: boolean = false;
 
-  constructor(fb:FormBuilder) {
+  user: any = {};
+  result: any;
+  kategorieGlowne = Array<MainBranze>();
+  selectedKategoria: MainBranze;
+  podKategorie = Array<MainBranze>();
+
+  ngOnInit() {
+    this.registerService.getBranze().subscribe(
+      data => {
+        this.kategorieGlowne = data;
+      },
+      error => {
+      });
+  }
+
+
+  constructor(fb: FormBuilder, private registerService: RegisterService) {
 
     this.form = fb.group({
       'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -37,11 +56,27 @@ export class Register {
     this.repeatPassword = this.passwords.controls['repeatPassword'];
   }
 
-  public onSubmit(values:Object):void {
+  public onSubmit(values: Object): void {
     this.submitted = true;
     if (this.form.valid) {
-      // your code goes here
-      // console.log(values);
+      this.registerService.register(this.user)
+        .subscribe(
+          data => {
+            this.result = data;
+          },
+          error => {
+          });
+    }
+  }
+
+  changePodkategorie() {
+    if (this.selectedKategoria) {
+      this.registerService.getPodBranze(this.selectedKategoria.id).subscribe(
+        data => {
+          this.podKategorie = data;
+        },
+        error => {
+        });
     }
   }
 }
