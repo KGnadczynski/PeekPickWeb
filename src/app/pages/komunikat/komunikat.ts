@@ -36,6 +36,7 @@
         status: string;
         companyBranch: CompanyBranch;
         distance: number;
+        mainImageUrl:string;
     }
 
 
