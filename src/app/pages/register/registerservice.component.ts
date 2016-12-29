@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response,URLSearchParams} from '@angular/http';
+import {Http, Response, URLSearchParams, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
@@ -21,7 +21,9 @@ export class RegisterService {
     return Observable.throw(error.json().error || 'Server error');
   }
   register(user: User) {
-    return this.http.post(this.Url+'users/business', user)
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.Url+'users/business', JSON.stringify(user),{ headers: headers })
       .map(this.mapKomunikaty)
       .catch(this.handleError);
   }

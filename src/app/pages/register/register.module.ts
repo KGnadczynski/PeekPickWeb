@@ -5,6 +5,7 @@ import { NgaModule } from '../../theme/nga.module';
 
 import { Register } from './register.component';
 import { routing }       from './register.routing';
+import {BusyModule} from "angular2-busy";
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { routing }       from './register.routing';
     ReactiveFormsModule,
     FormsModule,
     NgaModule,
+    BusyModule,
     routing
   ],
   declarations: [
