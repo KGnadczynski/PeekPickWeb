@@ -34,18 +34,13 @@ export class Login {
   public onSubmit(values:Object):void {
     this.submitted = true;
     if (this.form.valid) {
-      this.userJson = new UserLogin();
-      this.userJson.email = this.user.email;
-      this.userJson.password = this.user.email.password;
-      this.userJson.client_id = "clientapp";
-      this.userJson.client_secret = "client_secret";
-      this.userJson.grant_type = "password";
       let body = new URLSearchParams();
+      body.set('password', this.user.password);
       body.set('username', this.user.email);
-      body.set('password', this.user.email.password);
-      body.set('client_id', "clientapp");
-      body.set('client_secret', "client_secret");
       body.set('grant_type', "password");
+      body.set('client_secret', "client_secret");
+      body.set('client_id', "clientapp");
+
       this.loginService.login(body).subscribe(
           data => {
             this.router.navigate(['/komunikat']);
