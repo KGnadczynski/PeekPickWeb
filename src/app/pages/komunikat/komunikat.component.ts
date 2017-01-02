@@ -1,8 +1,11 @@
 ///<reference path="../../../../node_modules/@types/googlemaps/index.d.ts"/>
-import {Component, OnInit, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild, ElementRef,ViewContainerRef} from '@angular/core';
 import {KomunikatService} from './komunikatservice.component';
 import {KomunikatyList} from "./komunikatlist.model";
 import {Subscription} from 'rxjs';
+import { Modal,BSModalContext } from 'angular2-modal/plugins/bootstrap';
+import { Overlay, overlayConfigFactory } from 'angular2-modal';
+import { CustomModalContext, CustomModal } from './custom-modal-sample';
 
 
 @Component({
@@ -10,7 +13,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './komunikat.html',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./komunikat.scss')],
-  providers: [KomunikatService]
+  providers: [KomunikatService,Modal]
 
 })
 export class KomunikatComponent implements OnInit {
@@ -50,7 +53,7 @@ export class KomunikatComponent implements OnInit {
   }
 
 
-  constructor(private _komunikatyService: KomunikatService){
+  constructor(private _komunikatyService: KomunikatService, public modal: Modal){
 
   }
 
@@ -111,6 +114,26 @@ export class KomunikatComponent implements OnInit {
     if (index === -1) this.selected.push(id);
     else this.selected.splice(index, 1);
 
+  }
+
+   onClick() {
+    this.modal.prompt()
+        .size('lg')
+        .showClose(true)
+        .title('Dodaj komunikat')
+        .body(`
+            
+      <input type="file" name="pic" accept="image/*">
+      <input type="submit">
+      <p><strong>Note:</strong> The accept attribute of the input tag is not supported in Internet Explorer 9 (and earlier versions), and Safari 5 (and earlier).</p>
+      <p><strong>Note:</strong> Because of security issues, this example will not allow you to upload files.</p>
+
+            `)
+        .open();
+  }
+
+  openCustom() {
+    return this.modal.open(CustomModal,  overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
   }
 
 

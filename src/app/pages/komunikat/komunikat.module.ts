@@ -13,8 +13,9 @@ import { Ng2StyledDirective } from 'ng2-styled-directive/ng2-styled.directive';
 import {MdCheckbox} from '@angular2-material/checkbox';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 import {BusyModule} from 'angular2-busy';
-
-
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import { ModalModule } from 'angular2-modal';
+import { CustomModal } from './custom-modal-sample';
 
 @NgModule({
   imports: [
@@ -25,6 +26,8 @@ import {BusyModule} from 'angular2-busy';
     InfiniteScrollModule,
     CollapseModule,
     BusyModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule,
     routing
   ],
   declarations: [
@@ -32,9 +35,10 @@ import {BusyModule} from 'angular2-busy';
     SampleDatePickerNormal,
     SlideAbleDirective,
     Ng2StyledDirective,
+    CustomModal,
     MdCheckbox,
     Ng2SliderComponent
   ],
-
+  entryComponents: [ CustomModal ]
 })
 export default class  KomunikatModule {}
