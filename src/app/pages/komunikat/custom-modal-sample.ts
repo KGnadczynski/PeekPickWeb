@@ -48,8 +48,15 @@ export class CustomModalContext extends BSModalContext {
 <my-date-picker [options]="myDatePickerOptions"
                 (dateChanged)="onDateChanged($event)"
                 [selDate]="selectedDate"></my-date-picker>
+
+        <select   class="form-control" >
+            <option *ngFor="let typ of typyKomunikatow" [ngValue]="kategoria">{{typ}}</option>
+          </select>
   <button type="button" class="btn btn-primary" (click)="clicked()"
           >Dodaj
+  </button>
+    <button type="button" class="btn btn-primary" (click)="clickedAnuluj()"
+          >Anuluj
   </button>
         
                 </div>
@@ -58,7 +65,7 @@ export class CustomModalContext extends BSModalContext {
 })
 export class CustomModal implements CloseGuard, ModalComponent<CustomModalContext> {
   context: CustomModalContext;
-
+typyKomunikatow = [ "WORK", "PROMOTION", "EVENT", "SHORT_TERM_OFFER", "WORTH_SEEING"];
   public wrongAnswer: boolean;
   public tekst: any;
 
@@ -83,6 +90,10 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
 
   clicked(){
     console.log(this.tekst);
+    this.dialog.close();
+  }
+
+  clickedAnuluj(){
     this.dialog.close();
   }
 
