@@ -83,7 +83,7 @@ export class Register implements OnInit {
       this.busy = this.registerService.register(this.userJson)
         .subscribe(
           data => {
-            this.router.navigate(['/login']);
+            this.router.navigate(['/emailconfirm']);
           },
           error => {
           });

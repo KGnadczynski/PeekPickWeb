@@ -10,6 +10,11 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => System.import('./register/register.module')
   },
+
+  {
+    path: 'emailconfirm',
+    loadChildren: () => System.import('./emailconfirm/emailconfirm.module')
+  },
   {
     path: 'pages',
     component: Pages,
@@ -24,7 +29,7 @@ const routes: Routes = [
       { path: 'tables', loadChildren: () => System.import('./tables/tables.module') },
       { path: 'maps', loadChildren: () => System.import('./maps/maps.module') },
       { path: 'komunikat',  loadChildren: () => System.import('./komunikat/komunikat.module.ts') },
-      { path: 'kulturairozrywka',  loadChildren: () => System.import('./kulturairozrywka/kulturairozrywka.module.ts') }
+      { path: 'kulturairozrywka',  loadChildren: () => System.import('./kulturairozrywka/emailconfirm.module.ts') }
     ]
   }
 ];
