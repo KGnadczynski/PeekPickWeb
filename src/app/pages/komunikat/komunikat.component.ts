@@ -59,9 +59,12 @@ export class KomunikatComponent implements OnInit {
 
   ngOnInit() {
     this.komunikatyList = new KomunikatyList();
+    var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+    if(currentUser != null) {
+      var token = currentUser.token
+      this.logged = true;
+    }
     this.getDataFromServer(this.pageNumber);
-
-
     var autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
       var place = autocomplete.getPlace();
@@ -80,6 +83,7 @@ export class KomunikatComponent implements OnInit {
                   } else {
                     this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
                     this.komunikatyList.isLastPage = result.isLastPage;
+                    this.komunikatyList.komunikaty.reverse();
                   }
                 }
               ));
@@ -92,6 +96,7 @@ export class KomunikatComponent implements OnInit {
             } else {
               this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
               this.komunikatyList.isLastPage = result.isLastPage;
+              this.komunikatyList.komunikaty.reverse();
             }
           }
         ));

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
+import {KomunikatService} from "./komunikatservice.component";
+import {KomunikatDodanie} from "./komunikatdodanie";
 
 export class CustomModalContext extends BSModalContext {
   public num1: number;
@@ -39,17 +41,17 @@ export class CustomModalContext extends BSModalContext {
             </div>
             <div class="row" [ngClass]="{'myclass' : shouldUseMyClass}">
                 <div class="col-xs-12">
-                 <input class="form-control" type="text" [(ngModel)]="tekst" placeholder="Dodaj treść komunikatu">
+                 <input class="form-control" type="text" [(ngModel)]="komunikatModel.content" placeholder="Dodaj treść komunikatu">
     
     <input  type='file' name='userFile' accept="image/*" ><br>
-<my-date-picker [options]="myDatePickerOptions"
+<my-date-picker  [options]="myDatePickerOptions"
                 (dateChanged)="onDateChanged($event)"
                 [selDate]="selectedDate"></my-date-picker>
-<my-date-picker [options]="myDatePickerOptions"
+<my-date-picker  [options]="myDatePickerOptions"
                 (dateChanged)="onDateChanged($event)"
                 [selDate]="selectedDate"></my-date-picker>
 
-        <select   class="form-control" >
+        <select   class="form-control"  [(ngModel)]="komunikatModel.type">
             <option *ngFor="let typ of typyKomunikatow" [ngValue]="kategoria">{{typ}}</option>
           </select>
   <button type="button" class="btn btn-primary" (click)="clicked()"
@@ -65,11 +67,14 @@ export class CustomModalContext extends BSModalContext {
 })
 export class CustomModal implements CloseGuard, ModalComponent<CustomModalContext> {
   context: CustomModalContext;
-typyKomunikatow = [ "WORK", "PROMOTION", "EVENT", "SHORT_TERM_OFFER", "WORTH_SEEING"];
+  typyKomunikatow = [ "WORK", "PROMOTION", "EVENT", "SHORT_TERM_OFFER", "WORTH_SEEING"];
   public wrongAnswer: boolean;
   public tekst: any;
+  result:any;
+  komunikatDodanie:KomunikatDodanie;
+  komunikatModel:any = {};
 
-  constructor(public dialog: DialogRef<CustomModalContext>) {
+  constructor(public dialog: DialogRef<CustomModalContext>,private komunikatyService: KomunikatService) {
     this.context = dialog.context;
     this.wrongAnswer = true;
   }
@@ -90,6 +95,26 @@ typyKomunikatow = [ "WORK", "PROMOTION", "EVENT", "SHORT_TERM_OFFER", "WORTH_SEE
 
   clicked(){
     console.log(this.tekst);
+    this.komunikatDodanie = new KomunikatDodanie();
+    this.komunikatDodanie.content = this.komunikatModel.content;
+    this.komunikatDodanie.type = this.komunikatModel.type;
+    this.komunikatDodanie.startDate = "2017-04-23T18:25:43Z";//this.komunikatModel.startDate;
+    this.komunikatDodanie.endDate = "2017-04-23T18:25:43Z";//this.komunikatModel.endDate;
+    this.komunikatDodanie.createDate ="2017-04-23T18:25:43Z" ;//this.komunikatModel.startDate;
+    this.komunikatDodanie.status = "NEW";
+    this.komunikatDodanie.companyBranch.id = 2;
+    this.komunikatDodanie.companyBranch.city = "Chwaszczyno";
+    this.komunikatDodanie.companyBranch.name  = "aaaaaaa";
+    this.komunikatDodanie.companyBranch.street  = "Gdyńska";
+    this.komunikatDodanie.companyBranch.streetNo  = "34";
+    this.komunikatDodanie.companyBranch.latitude = "53.32131";
+    this.komunikatDodanie.companyBranch.longitude = "53.32131";
+    this.komunikatyService.postKomunikat(this.komunikatDodanie).subscribe(
+      data => {
+        this.result = data;
+      },
+      error => {
+      });
     this.dialog.close();
   }
 

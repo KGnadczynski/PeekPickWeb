@@ -1,24 +1,25 @@
 import {Injectable} from '@angular/core';
-import {Http, Response,URLSearchParams} from '@angular/http';
+import {Http, Response, URLSearchParams, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
 import {KomunikatyList} from "./komunikatlist.model";
+import {KomunikatDodanie} from "./komunikatdodanie";
 
 @Injectable()
 export class KomunikatService {
-  private _Url:string = "https://damp-temple-52216.herokuapp.com/messages/page/";
+  private _Url:string = "https://damp-temple-52216.herokuapp.com/";
   constructor(private _http: Http){ }
 
   getKomunikaty(page :any,params = []) : Observable<KomunikatyList> {
     if(params.length != 0){
      let params2 = new URLSearchParams();
       params2.append('messageTypeList',params.join(";"));
-        return  this._http.get(this._Url+page,{ search: params2 })
+        return  this._http.get(this._Url+'messages/page/'+page,{ search: params2 })
               .map(this.mapKomunikaty)
               .catch(this.handleError);
     } else {
-        return  this._http.get(this._Url+page)
+        return  this._http.get(this._Url+'messages/page/'+page)
           .map(this.mapKomunikaty)
           .catch(this.handleError);
     }
@@ -37,14 +38,20 @@ export class KomunikatService {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
-  postCarRestful(productCode:string,productName:string,productLine:string,buyPrice:number ){
+  postKomunikat(komunikat:KomunikatDodanie){
 
-  /*  let body = JSON.stringify({ "productCode":productCode,"productName":productName,"productLine":productLine,"buyPrice":buyPrice });
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers, method: "post" });
 
-    return this._http.post(this._carsUrl, body,options)
+    var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+    if(currentUser != null) {
+      var token = currentUser.token
+    }
+    let headers = new Headers();
+    var autorizationHeader = 'Bearer '+token.access_token;
+    headers.append('Authorization', 'Bearer 63ef2179-a547-4f5a-9c80-1a282f71da1f');
+    headers.append('Content-Type', 'application/json');
+
+    return this._http.post(this._Url+"messages", JSON.stringify(komunikat),{ headers: headers })
       .map(res => res.json())
-      .catch(this.handleError);*/
+      .catch(this.handleError);
   }
 }

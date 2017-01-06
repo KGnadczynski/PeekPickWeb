@@ -43,6 +43,7 @@ export class Login {
 
       this.loginService.login(body).subscribe(
           data => {
+            localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
             this.router.navigate(['/komunikat']);
           },
           error => {
