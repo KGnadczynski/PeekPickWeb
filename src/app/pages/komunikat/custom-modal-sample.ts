@@ -51,7 +51,7 @@ export class CustomModalContext extends BSModalContext {
                 (dateChanged)="onDateChanged($event)"
                 [selDate]="selectedDate"></my-date-picker>
 
-        <select   class="form-control"  [(ngModel)]="komunikatModel.type">
+        <select   name="sel2" class="form-control"  [(ngModel)]="selectedTyp">
             <option *ngFor="let typ of typyKomunikatow" [ngValue]="kategoria">{{typ}}</option>
           </select>
   <button type="button" class="btn btn-primary" (click)="clicked()"
@@ -73,6 +73,7 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
   result:any;
   komunikatDodanie:KomunikatDodanie;
   komunikatModel:any = {};
+  selectedTyp:string;
 
   constructor(public dialog: DialogRef<CustomModalContext>,private komunikatyService: KomunikatService) {
     this.context = dialog.context;
@@ -97,7 +98,7 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
     console.log(this.tekst);
     this.komunikatDodanie = new KomunikatDodanie();
     this.komunikatDodanie.content = this.komunikatModel.content;
-    this.komunikatDodanie.type = this.komunikatModel.type;
+    this.komunikatDodanie.type = "WORK";
     this.komunikatDodanie.startDate = "2017-04-23T18:25:43Z";//this.komunikatModel.startDate;
     this.komunikatDodanie.endDate = "2017-04-23T18:25:43Z";//this.komunikatModel.endDate;
     this.komunikatDodanie.createDate ="2017-04-23T18:25:43Z" ;//this.komunikatModel.startDate;
@@ -121,6 +122,11 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
   clickedAnuluj(){
     this.dialog.close();
   }
+  changeTyp(event:any){
+    console.log(event);
+    this.komunikatModel.type.toString
+  }
+
 
   onDateChanged(event:any) {
   console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
