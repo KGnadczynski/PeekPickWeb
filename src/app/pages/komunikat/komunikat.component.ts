@@ -83,7 +83,6 @@ export class KomunikatComponent implements OnInit {
                   } else {
                     this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
                     this.komunikatyList.isLastPage = result.isLastPage;
-                    this.komunikatyList.komunikaty.reverse();
                   }
                 }
               ));
@@ -96,7 +95,6 @@ export class KomunikatComponent implements OnInit {
             } else {
               this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
               this.komunikatyList.isLastPage = result.isLastPage;
-              this.komunikatyList.komunikaty.reverse();
             }
           }
         ));

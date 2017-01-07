@@ -101,7 +101,7 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
     this.komunikatDodanie.type = "WORK";
     this.komunikatDodanie.startDate = "2017-04-23T18:25:43Z";//this.komunikatModel.startDate;
     this.komunikatDodanie.endDate = "2017-04-23T18:25:43Z";//this.komunikatModel.endDate;
-    this.komunikatDodanie.createDate ="2017-04-23T18:25:43Z" ;//this.komunikatModel.startDate;
+   // this.komunikatDodanie.createDate ="2017-04-23T18:25:43Z" ;//this.komunikatModel.startDate;
     this.komunikatDodanie.status = "NEW";
     this.komunikatDodanie.companyBranch.id = 2;
     this.komunikatDodanie.companyBranch.city = "Chwaszczyno";

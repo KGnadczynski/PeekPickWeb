@@ -47,7 +47,7 @@ export class KomunikatService {
     }
     let headers = new Headers();
     var autorizationHeader = 'Bearer '+token.access_token;
-    headers.append('Authorization', 'Bearer 63ef2179-a547-4f5a-9c80-1a282f71da1f');
+    headers.append('Authorization', autorizationHeader);
     headers.append('Content-Type', 'application/json');
 
     return this._http.post(this._Url+"messages", JSON.stringify(komunikat),{ headers: headers })
