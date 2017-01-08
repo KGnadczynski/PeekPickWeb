@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {KomunikatService} from "./komunikatservice.component";
 import {KomunikatDodanie} from "./komunikatdodanie";
+import {CommunicationService} from "./communicationservice.component";
 
 export class CustomModalContext extends BSModalContext {
   public num1: number;
@@ -65,7 +66,9 @@ export class CustomModalContext extends BSModalContext {
             </div>
         </div>`
 })
-export class CustomModal implements CloseGuard, ModalComponent<CustomModalContext> {
+export class CustomModal implements CloseGuard, ModalComponent<CustomModalContext>, OnInit {
+
+
   context: CustomModalContext;
   typyKomunikatow = [ "WORK", "PROMOTION", "EVENT", "SHORT_TERM_OFFER", "WORTH_SEEING"];
   public wrongAnswer: boolean;
@@ -75,9 +78,13 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
   komunikatModel:any = {};
   selectedTyp:string;
 
-  constructor(public dialog: DialogRef<CustomModalContext>,private komunikatyService: KomunikatService) {
+  constructor(public dialog: DialogRef<CustomModalContext>,private komunikatyService: KomunikatService,private communicationservice: CommunicationService) {
     this.context = dialog.context;
     this.wrongAnswer = true;
+  }
+
+  ngOnInit() {
+
   }
 
   onKeyUp(value) {
@@ -113,6 +120,7 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
     this.komunikatyService.postKomunikat(this.komunikatDodanie).subscribe(
       data => {
         this.result = data;
+        this.communicationservice.dodanoKomunikat("Dodano");
       },
       error => {
       });

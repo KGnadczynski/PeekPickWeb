@@ -16,6 +16,7 @@ import {BusyModule} from 'angular2-busy';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { ModalModule } from 'angular2-modal';
 import { CustomModal } from './custom-modal-sample';
+import {CommunicationService} from "./communicationservice.component";
 
 @NgModule({
   imports: [
@@ -38,6 +39,9 @@ import { CustomModal } from './custom-modal-sample';
     CustomModal,
     MdCheckbox,
     Ng2SliderComponent
+  ],
+  providers: [
+     CommunicationService
   ],
   entryComponents: [ CustomModal ]
 })

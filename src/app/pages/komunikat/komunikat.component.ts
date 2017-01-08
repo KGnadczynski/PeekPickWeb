@@ -1,11 +1,13 @@
 ///<reference path="../../../../node_modules/@types/googlemaps/index.d.ts"/>
-import {Component, OnInit, ViewEncapsulation, ViewChild, ElementRef,ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {KomunikatService} from './komunikatservice.component';
 import {KomunikatyList} from "./komunikatlist.model";
 import {Subscription} from 'rxjs';
 import { Modal,BSModalContext } from 'angular2-modal/plugins/bootstrap';
-import { Overlay, overlayConfigFactory } from 'angular2-modal';
-import { CustomModalContext, CustomModal } from './custom-modal-sample';
+import {overlayConfigFactory } from 'angular2-modal';
+import { CustomModal } from './custom-modal-sample';
+import {CommunicationService} from "./communicationservice.component";
+
 
 
 @Component({
@@ -53,8 +55,11 @@ export class KomunikatComponent implements OnInit {
   }
 
 
-  constructor(private _komunikatyService: KomunikatService, public modal: Modal){
-
+  constructor(private _komunikatyService: KomunikatService, public modal: Modal,private communicationservice: CommunicationService){
+    communicationservice.dodanieKomunkatuSubject$.subscribe(
+      data => {
+        this.getDataFromServer(1);
+      });
   }
 
   ngOnInit() {
@@ -139,12 +144,4 @@ export class KomunikatComponent implements OnInit {
     return this.modal.open(CustomModal,  overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
   }
 
-
-  postDataToServer (){
-/*    this._httpCarService.postCarRestful(this.productCode,this.productName,this.productLine,this.buyPrice).subscribe(//call the post
-      data => this.postMyCarToServer = JSON.stringify(data), // put the data returned from the server in our variable
-      error => console.log("Error HTTP Post Service"), // in case of failure show this message
-      () => console.log("Job Done Post !")//run this code in all cases
-    );*/
-  }
 }
