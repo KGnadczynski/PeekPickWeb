@@ -5,6 +5,7 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
 import {KomunikatyList} from "./komunikatlist.model";
 import {KomunikatDodanie} from "./komunikatdodanie";
+import {ImageModel} from "./imagemodel";
 
 @Injectable()
 export class KomunikatService {
@@ -53,5 +54,43 @@ export class KomunikatService {
     return this._http.post(this._Url+"messages", JSON.stringify(komunikat),{ headers: headers })
       .map(res => res.json())
       .catch(this.handleError);
+  }
+
+  postKomunikatImage(imageModel:ImageModel) {
+  return Observable.fromPromise(new Promise((resolve, reject) => {
+      var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+      if(currentUser != null) {
+        var token = currentUser.token
+      }
+      let headers = new Headers();
+      var autorizationHeader = 'Bearer '+token.access_token;
+
+      let formData: FormData = new FormData(),
+        xhr: XMLHttpRequest = new XMLHttpRequest();
+
+      formData.append('file', imageModel.file,imageModel.file.name);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+              resolve(JSON.parse(xhr.response))
+          } else {
+              reject(xhr.response)
+          }
+        }
+      };
+
+      xhr.open('POST', this._Url+"messageimages/messageId/"+imageModel.messageId, true);
+      xhr.setRequestHeader('Authorization', autorizationHeader);
+      xhr.send(formData);
+        }));
+
+  }
+
+
+
+
+  mapKomunikatyImage(res:Response) {
+    let body = res.json();
+    return body;
   }
 }

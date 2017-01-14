@@ -57,8 +57,16 @@ export class KomunikatComponent implements OnInit {
 
   constructor(private _komunikatyService: KomunikatService, public modal: Modal,private communicationservice: CommunicationService){
     communicationservice.dodanieKomunkatuSubject$.subscribe(
-      data => {
-        this.getDataFromServer(1);
+      messageId=> {
+          if( messageId.file == null) {
+            this.getDataFromServer(1);    
+          } else {
+            this._komunikatyService.postKomunikatImage(messageId).subscribe(
+                  (result => {
+                      this.getDataFromServer(1);
+                      }
+          ))
+        }
       });
   }
 
