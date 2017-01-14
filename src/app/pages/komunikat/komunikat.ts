@@ -1,17 +1,17 @@
  export class Category {
         id: number;
         name: string;
-        parentCategory?: any;
+        parentCategory: any;
     }
 
     export class Company {
-        id?: any;
+        id: any;
         name: string;
-        city?: any;
-        street?: any;
-        streetNo?: any;
-        latitude?: any;
-        longitude?: any;
+        city: any;
+        street: any;
+        streetNo: any;
+        latitude: any;
+        longitude: any;
         category: Category;
     }
 

@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
-import {KomunikatService} from "./komunikatservice.component";
-import {KomunikatDodanie} from "./komunikatdodanie";
-import {CommunicationService} from "./communicationservice.component";
+import {KomunikatService} from "./../komunikatservice.component.ts";
+import {KomunikatDodanie} from "./../komunikatdodanie";
+import {CommunicationService} from "./../communicationservice.component.ts";
 
 export class CustomModalContext extends BSModalContext {
   public num1: number;
@@ -66,7 +66,7 @@ export class CustomModalContext extends BSModalContext {
             </div>
         </div>`
 })
-export class CustomModal implements CloseGuard, ModalComponent<CustomModalContext>, OnInit {
+export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomModalContext>, OnInit {
 
 
   context: CustomModalContext;

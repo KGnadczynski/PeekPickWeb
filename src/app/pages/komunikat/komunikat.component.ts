@@ -5,8 +5,10 @@ import {KomunikatyList} from "./komunikatlist.model";
 import {Subscription} from 'rxjs';
 import { Modal,BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {overlayConfigFactory } from 'angular2-modal';
-import { CustomModal } from './custom-modal-sample';
+import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
+import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
+import {ObjectList} from "./komunikat.ts"
 
 
 
@@ -149,7 +151,11 @@ export class KomunikatComponent implements OnInit {
   }
 
   openCustom() {
-    return this.modal.open(CustomModal,  overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
+    return this.modal.open(DodajKomunikatModal, overlayConfigFactory({ num1: 2, num2: 3 },BSModalContext));
+  }
+
+  handleClick(e:MouseEvent, komunikat: ObjectList) {
+    return this.modal.open(ClickedKomunikatModal,  overlayConfigFactory({ komunikat: komunikat }, BSModalContext));
   }
 
 }
