@@ -43,8 +43,8 @@ export class CustomModalContext extends BSModalContext {
             <div class="row" [ngClass]="{'myclass' : shouldUseMyClass}">
                 <div class="col-xs-12">
                  <input class="form-control" type="text" [(ngModel)]="komunikatModel.content" placeholder="Dodaj treść komunikatu">
-    
-    <input  type='file' name='userFile' accept="image/*" ><br>
+
+     <input  type='file' name='userFile'   (change)="fileChange($event)"accept="image/*" ><br>
 <my-date-picker  [options]="myDatePickerOptions"
                 (dateChanged)="onDateChanged($event)"
                 [selDate]="selectedDate"></my-date-picker>
@@ -61,7 +61,7 @@ export class CustomModalContext extends BSModalContext {
     <button type="button" class="btn btn-primary" (click)="clickedAnuluj()"
           >Anuluj
   </button>
-        
+
                 </div>
             </div>
         </div>`
@@ -77,6 +77,7 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
   komunikatDodanie:KomunikatDodanie;
   komunikatModel:any = {};
   selectedTyp:string;
+  image:File;
 
   constructor(public dialog: DialogRef<CustomModalContext>,private komunikatyService: KomunikatService,private communicationservice: CommunicationService) {
     this.context = dialog.context;
@@ -120,7 +121,7 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
     this.komunikatyService.postKomunikat(this.komunikatDodanie).subscribe(
       data => {
         this.result = data;
-        this.communicationservice.dodanoKomunikat("Dodano");
+        this.communicationservice.dodanoKomunikat(this.result.id,this.image);
       },
       error => {
       });
@@ -139,4 +140,11 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
   onDateChanged(event:any) {
   console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
 }
+
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.image = fileList[0];
+    }
+  }
 }

@@ -57,8 +57,16 @@ export class KomunikatComponent implements OnInit {
 
   constructor(private _komunikatyService: KomunikatService, public modal: Modal,private communicationservice: CommunicationService){
     communicationservice.dodanieKomunkatuSubject$.subscribe(
-      data => {
-        this.getDataFromServer(1);
+      messageId=> {
+        if( messageId.file == null) {
+          this.getDataFromServer(1);
+        } else {
+          this._komunikatyService.postKomunikatImage(messageId).subscribe(
+            (result => {
+                this.getDataFromServer(1);
+              }
+            ))
+        }
       });
   }
 
@@ -130,7 +138,7 @@ export class KomunikatComponent implements OnInit {
         .showClose(true)
         .title('Dodaj komunikat')
         .body(`
-            
+
       <input type="file" name="pic" accept="image/*">
       <input type="submit">
       <p><strong>Note:</strong> The accept attribute of the input tag is not supported in Internet Explorer 9 (and earlier versions), and Safari 5 (and earlier).</p>
