@@ -5,6 +5,7 @@ import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {KomunikatService} from "./../komunikatservice.component.ts";
 import {KomunikatDodanie} from "./../komunikatdodanie";
 import {CommunicationService} from "./../communicationservice.component.ts";
+import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 
 export class CustomModalContext extends BSModalContext {
   public num1: number;
@@ -44,7 +45,11 @@ export class CustomModalContext extends BSModalContext {
                 <div class="col-xs-12">
                  <input class="form-control" type="text" [(ngModel)]="komunikatModel.content" placeholder="Dodaj treść komunikatu">
 
-     <input  type='file' name='userFile'   (change)="fileChange($event)"accept="image/*" ><br>
+
+      <input type="file" image-upload
+        (imageSelected)="selected($event)"
+        [resizeOptions]="resizeOptions" accept="image/*"  >
+        <img [src]="src" [hidden]="!src"><br>
 <my-date-picker  [options]="myDatePickerOptions"
                 (dateChanged)="onDateChanged($event)"
                 [selDate]="selectedDate"></my-date-picker>
@@ -78,6 +83,11 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
   komunikatModel:any = {};
   selectedTyp:string;
   image:File;
+  src: string = "";
+  resizeOptions: ResizeOptions = {
+    resizeMaxHeight: 300,
+    resizeMaxWidth: 300
+  };
 
   constructor(public dialog: DialogRef<CustomModalContext>,private komunikatyService: KomunikatService,private communicationservice: CommunicationService) {
     this.context = dialog.context;
@@ -146,5 +156,10 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
     if (fileList.length > 0) {
       this.image = fileList[0];
     }
+  }
+  selected(imageResult: ImageResult) {
+    this.src = imageResult.resized
+      && imageResult.resized.dataURL
+      || imageResult.dataURL;
   }
 }

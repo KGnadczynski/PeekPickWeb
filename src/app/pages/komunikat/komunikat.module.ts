@@ -18,6 +18,7 @@ import { ModalModule } from 'angular2-modal';
 import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
 import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
+import { ImageUploadModule } from 'ng2-imageupload';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import {CommunicationService} from "./communicationservice.component";
     BusyModule,
     ModalModule.forRoot(),
     BootstrapModalModule,
+    ImageUploadModule,
     routing
   ],
   declarations: [
