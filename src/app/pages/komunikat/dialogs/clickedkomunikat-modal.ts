@@ -23,7 +23,7 @@ export class CustomModalContext extends BSModalContext {
    <div class="container-fluid custom-modal-container">
   <div class="feed-messages-container">
         <div class="message-icon" >
-      <img class="photo-icon" src="assets/img/app/profile/kamil.png" height="100" width="100">
+      <img class="photo-icon" src="assets/img/app/profile/kamil.png" height="50" width="50">
     </div>
 
       <div class="text-block text-message">
@@ -49,7 +49,7 @@ export class CustomModalContext extends BSModalContext {
         </div>
 
         <div class="preview"  *ngIf="context.komunikat.type">
-            <img src="{{ context.komunikat.mainImageUrl}}"   height="300" width="300">
+            <img src="{{ context.komunikat.mainImageUrl}}"   height="500" width="500">
         </div>
       </div>
     </div>
