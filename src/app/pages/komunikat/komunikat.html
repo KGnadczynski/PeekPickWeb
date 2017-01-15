@@ -65,7 +65,7 @@
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()">
 <div class="feed-messages-container">
-  <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
+  <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: true, delay: 200, minDuration: 600}"></div>
     <div class="feed-message" *ngFor="let komunikat of komunikatyList.komunikaty" (click)='handleClick($event, komunikat)' >
     <div class="message-icon" >
       <img class="photo-icon" src="assets/img/app/profile/kamil.png">
