@@ -22,7 +22,7 @@ export class CustomModalContext extends BSModalContext {
         }
 
         .custom-modal-header {
-            background-color: #219161;
+            background-color: #A20E12;
             color: #fff;
             -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
             -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
