@@ -64,6 +64,7 @@ export class KomunikatComponent implements OnInit {
   constructor(private _komunikatyService: KomunikatService, public modal: Modal,private communicationservice: CommunicationService){
     communicationservice.dodanieKomunkatuSubject$.subscribe(
       messageId=> {
+        this.pageNumber = 1;
         if( messageId.file == null) {
           this.getDataFromServer(1);
         } else {
