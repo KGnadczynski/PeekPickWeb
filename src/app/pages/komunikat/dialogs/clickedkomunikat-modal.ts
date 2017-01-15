@@ -47,11 +47,10 @@ export class CustomModalContext extends BSModalContext {
             {{ context.komunikat.endDate }}
           </div>
         </div>
-
-        <div class="preview"  *ngIf="context.komunikat.type">
-            <img src="{{ context.komunikat.mainImageUrl}}"   height="500" width="500">
+          <div class="preview" *ngIf="context.komunikat.mainImageUrl !== null">
+              <img src="{{ context.komunikat.mainImageUrl}}"   height="500" width="500">
+          </div>
         </div>
-      </div>
     </div>
      <button type="button" class="btn btn-primary" (click)="clickedZamknij()"
           >Zamknij
