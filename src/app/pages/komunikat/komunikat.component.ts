@@ -33,6 +33,7 @@ export class KomunikatComponent implements OnInit {
   logged = false;
   public isCollapsed:boolean = true;
   public isCollapsedGastro:boolean = true;
+  canScrool = true;
   busy: Subscription;
 
 
@@ -50,9 +51,12 @@ export class KomunikatComponent implements OnInit {
 
   onScrollDown () {
     if(!this.komunikatyList.isLastPage) {
-      this.pageNumber+=1
-      console.log('scrolled!!'+this.pageNumber);
-      this.getDataFromServer(this.pageNumber);
+      if(this.canScrool){
+        this.pageNumber+=1
+        this.canScrool = false;
+        console.log('scrolled!!'+this.pageNumber);
+        this.getDataFromServer(this.pageNumber);
+      }
     }
   }
 
@@ -98,6 +102,7 @@ export class KomunikatComponent implements OnInit {
                   } else {
                     this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
                     this.komunikatyList.isLastPage = result.isLastPage;
+                    this.canScrool = true;
                   }
                 }
               ));
@@ -110,6 +115,7 @@ export class KomunikatComponent implements OnInit {
             } else {
               this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
               this.komunikatyList.isLastPage = result.isLastPage;
+              this.canScrool = true;
             }
           }
         ));
