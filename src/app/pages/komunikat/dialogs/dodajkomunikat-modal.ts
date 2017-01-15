@@ -161,5 +161,7 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
     this.src = imageResult.resized
       && imageResult.resized.dataURL
       || imageResult.dataURL;
+
+    this.image =  imageResult.file;
   }
 }
