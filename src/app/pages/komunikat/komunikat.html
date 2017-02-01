@@ -61,11 +61,11 @@
   <ba-card class="col-xlg-6 col-xl-9 col-lg-12 col-sm-12 col-xs-12">
 <div class="search-results"
          infinite-scroll
-         [infiniteScrollDistance]="scrollDistance"
-         [infiniteScrollThrottle]="throttle"
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="300"
          (scrolled)="onScrollDown()">
 <div class="feed-messages-container">
-  <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: true, delay: 200, minDuration: 600}"></div>
+  <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
     <div class="feed-message" *ngFor="let komunikat of komunikatyList.komunikaty" (click)='handleClick($event, komunikat)' >
     <div class="message-icon" >
       <img class="photo-icon" src="assets/img/app/profile/kamil.png">

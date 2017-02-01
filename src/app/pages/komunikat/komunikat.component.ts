@@ -9,6 +9,7 @@ import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
 import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
 import {ObjectList} from "./komunikat.ts"
+import {Parametry} from "./parametry.model.ts"
 
 
 
@@ -35,6 +36,7 @@ export class KomunikatComponent implements OnInit {
   public isCollapsedGastro:boolean = true;
   canScrool = true;
   busy: Subscription;
+  parametryList: Array<Parametry>;
 
 
   @ViewChild("google_places_ac")
@@ -66,6 +68,7 @@ export class KomunikatComponent implements OnInit {
 
   ngOnInit() {
     this.komunikatyList = new KomunikatyList();
+    this.parametryList = new Array<Parametry>();
     var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
     if(currentUser != null) {
       var token = currentUser.token
@@ -159,8 +162,12 @@ export class KomunikatComponent implements OnInit {
 
   toggle(id) {
     var index = this.selected.indexOf(id);
-    if (index === -1) this.selected.push(id);
-    else this.selected.splice(index, 1);
+    if (index === -1) {
+      this.selected.push(id);
+    }
+    else {
+      this.selected.splice(index, 1);
+    }
 
   }
 
