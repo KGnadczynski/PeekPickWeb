@@ -44,9 +44,6 @@ import { ImageUploadModule } from 'ng2-imageupload';
     MdCheckbox,
     Ng2SliderComponent
   ],
-  providers: [
-     CommunicationService
-  ],
   entryComponents: [ DodajKomunikatModal,ClickedKomunikatModal ]
 })
 export default class  KomunikatModule {}

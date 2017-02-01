@@ -92,6 +92,13 @@ export class KomunikatComponent implements OnInit {
         }
       });
 
+
+    this.communicationservice.szukanieKomunkatuSubject$.subscribe(
+      term=> {
+          this.getDataFromServerWithSearch(1,term);
+
+      });
+
   }
 
   getDataFromServer (page :any,params = []){
@@ -122,6 +129,21 @@ export class KomunikatComponent implements OnInit {
           }
         ));
   }
+  }
+
+  getDataFromServerWithSearch (page :any,param:string){
+      this.busy = this._komunikatyService.getKomunikatySearch(page,param)
+        .subscribe(
+          (result => {
+              if (page === 1) {
+                this.komunikatyList = result;
+              } else {
+                this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
+                this.komunikatyList.isLastPage = result.isLastPage;
+                this.canScrool = true;
+              }
+            }
+          ));
   }
 
 

@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MyDatePickerModule } from 'mydatepicker';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import {CommunicationService} from './pages/komunikat/communicationservice.component';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -52,7 +53,8 @@ type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    CommunicationService
   ]
 })
 
