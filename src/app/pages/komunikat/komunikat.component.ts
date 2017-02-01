@@ -62,19 +62,6 @@ export class KomunikatComponent implements OnInit {
 
 
   constructor(private _komunikatyService: KomunikatService, public modal: Modal,private communicationservice: CommunicationService){
-    communicationservice.dodanieKomunkatuSubject$.subscribe(
-      messageId=> {
-        this.pageNumber = 1;
-        if( messageId.file == null) {
-          this.getDataFromServer(1);
-        } else {
-          this._komunikatyService.postKomunikatImage(messageId).subscribe(
-            (result => {
-                this.getDataFromServer(1);
-              }
-            ))
-        }
-      });
   }
 
   ngOnInit() {
@@ -90,6 +77,20 @@ export class KomunikatComponent implements OnInit {
       var place = autocomplete.getPlace();
       console.log(place)
     });
+
+    this.communicationservice.dodanieKomunkatuSubject$.subscribe(
+      messageId=> {
+        this.pageNumber = 1;
+        if( messageId.file == null) {
+          this.getDataFromServer(1);
+        } else {
+          this._komunikatyService.postKomunikatImage(messageId).subscribe(
+            (result => {
+                this.getDataFromServer(1);
+              }
+            ))
+        }
+      });
 
   }
 
