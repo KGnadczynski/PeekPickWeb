@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject }    from 'rxjs/Subject';
 import {ImageModel} from "./imagemodel";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/distinctUntilChanged";
 
 @Injectable()
 
@@ -12,7 +14,8 @@ export class CommunicationService {
 
   private szukanieKomunkatuSubject = new Subject<string>();
   // Observable string streams
-  szukanieKomunkatuSubject$ = this.szukanieKomunkatuSubject.asObservable();
+  szukanieKomunkatuSubject$ = this.szukanieKomunkatuSubject.asObservable().debounceTime(400)
+    .distinctUntilChanged();
   imageModel: ImageModel;
   // Service message commands
   dodanoKomunikat(messageId: number,file: File) {
