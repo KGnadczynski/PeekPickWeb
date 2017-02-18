@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
-import {KomunikatService} from "./komunikatservice.component";
-import {KomunikatDodanie} from "./komunikatdodanie";
-import {CommunicationService} from "./communicationservice.component";
+import {KomunikatService} from "./../komunikatservice.component";
+import {KomunikatDodanie} from "./../komunikatdodanie";
+import {CommunicationService} from "./../communicationservice.component";
 
 export class CustomModalContext extends BSModalContext {
   public num1: number;
@@ -43,8 +43,8 @@ export class CustomModalContext extends BSModalContext {
             <div class="row" [ngClass]="{'myclass' : shouldUseMyClass}">
                 <div class="col-xs-12">
                  <input class="form-control" type="text" [(ngModel)]="komunikatModel.content" placeholder="Dodaj treść komunikatu">
-    
-    <input  type='file' name='userFile'   (change)="fileChange($event)"accept="image/*" ><br>
+
+     <input  type='file' name='userFile'   (change)="fileChange($event)"accept="image/*" ><br>
 <my-date-picker  [options]="myDatePickerOptions"
                 (dateChanged)="onDateChanged($event)"
                 [selDate]="selectedDate"></my-date-picker>
@@ -61,12 +61,12 @@ export class CustomModalContext extends BSModalContext {
     <button type="button" class="btn btn-primary" (click)="clickedAnuluj()"
           >Anuluj
   </button>
-        
+
                 </div>
             </div>
         </div>`
 })
-export class CustomModal implements CloseGuard, ModalComponent<CustomModalContext>, OnInit {
+export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomModalContext>, OnInit {
 
 
   context: CustomModalContext;
@@ -103,12 +103,13 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
   }
 
   clicked(){
+    console.log(this.tekst);
     this.komunikatDodanie = new KomunikatDodanie();
     this.komunikatDodanie.content = this.komunikatModel.content;
     this.komunikatDodanie.type = "WORK";
     this.komunikatDodanie.startDate = "2017-04-23T18:25:43Z";//this.komunikatModel.startDate;
     this.komunikatDodanie.endDate = "2017-04-23T18:25:43Z";//this.komunikatModel.endDate;
-   // this.komunikatDodanie.createDate ="2017-04-23T18:25:43Z" ;//this.komunikatModel.startDate;
+    // this.komunikatDodanie.createDate ="2017-04-23T18:25:43Z" ;//this.komunikatModel.startDate;
     this.komunikatDodanie.status = "NEW";
     this.komunikatDodanie.companyBranch.id = 2;
     this.komunikatDodanie.companyBranch.city = "Chwaszczyno";
@@ -137,8 +138,8 @@ export class CustomModal implements CloseGuard, ModalComponent<CustomModalContex
 
 
   onDateChanged(event:any) {
-  console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
-}
+    console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+  }
 
   fileChange(event) {
     let fileList: FileList = event.target.files;

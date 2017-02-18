@@ -5,8 +5,10 @@ import {KomunikatyList} from "./komunikatlist.model";
 import {Subscription} from 'rxjs';
 import { Modal,BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {overlayConfigFactory } from 'angular2-modal';
-import { CustomModal } from './custom-modal-sample';
+import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
+import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
+import {ObjectList} from "./komunikat.ts"
 
 
 
@@ -31,6 +33,7 @@ export class KomunikatComponent implements OnInit {
   logged = false;
   public isCollapsed:boolean = true;
   public isCollapsedGastro:boolean = true;
+  canScrool = true;
   busy: Subscription;
 
 
@@ -48,26 +51,17 @@ export class KomunikatComponent implements OnInit {
 
   onScrollDown () {
     if(!this.komunikatyList.isLastPage) {
-      this.pageNumber+=1
-      console.log('scrolled!!'+this.pageNumber);
-      this.getDataFromServer(this.pageNumber);
+      if(this.canScrool){
+        this.pageNumber+=1
+        this.canScrool = false;
+        console.log('scrolled!!'+this.pageNumber);
+        this.getDataFromServer(this.pageNumber);
+      }
     }
   }
 
 
   constructor(private _komunikatyService: KomunikatService, public modal: Modal,private communicationservice: CommunicationService){
-    communicationservice.dodanieKomunkatuSubject$.subscribe(
-      messageId=> {
-          if( messageId.file == null) {
-            this.getDataFromServer(1);    
-          } else {
-            this._komunikatyService.postKomunikatImage(messageId).subscribe(
-                  (result => {
-                      this.getDataFromServer(1);
-                      }
-          ))
-        }
-      });
   }
 
   ngOnInit() {
@@ -84,23 +78,61 @@ export class KomunikatComponent implements OnInit {
       console.log(place)
     });
 
+    this.communicationservice.dodanieKomunkatuSubject$.subscribe(
+      messageId=> {
+        this.pageNumber = 1;
+        if( messageId.file == null) {
+          this.getDataFromServer(1);
+        } else {
+          this._komunikatyService.postKomunikatImage(messageId).subscribe(
+            (result => {
+                this.getDataFromServer(1);
+              }
+            ))
+        }
+      });
+
+
+    this.communicationservice.szukanieKomunkatuSubject$.subscribe(
+      term=> {
+        this.getDataFromServerWithSearch(1,term);
+
+      });
+
   }
 
   getDataFromServer (page :any,params = []){
     if(params.length !=0) {
-     this.busy = this._komunikatyService.getKomunikaty(page,params)
-            .subscribe(
-              (result => {
-                  if (page === 1) {
-                    this.komunikatyList = result;
-                  } else {
-                    this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
-                    this.komunikatyList.isLastPage = result.isLastPage;
-                  }
-                }
-              ));
+      this.busy = this._komunikatyService.getKomunikaty(page,params)
+        .subscribe(
+          (result => {
+              if (page === 1) {
+                this.komunikatyList = result;
+              } else {
+                this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
+                this.komunikatyList.isLastPage = result.isLastPage;
+                this.canScrool = true;
+              }
+            }
+          ));
     } else {
-   this.busy = this._komunikatyService.getKomunikaty(page)
+      this.busy = this._komunikatyService.getKomunikaty(page)
+        .subscribe(
+          (result => {
+              if (page === 1) {
+                this.komunikatyList = result;
+              } else {
+                this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
+                this.komunikatyList.isLastPage = result.isLastPage;
+                this.canScrool = true;
+              }
+            }
+          ));
+    }
+  }
+
+  getDataFromServerWithSearch (page :any,param:string){
+    this.busy = this._komunikatyService.getKomunikatySearch(page,param)
       .subscribe(
         (result => {
             if (page === 1) {
@@ -108,10 +140,10 @@ export class KomunikatComponent implements OnInit {
             } else {
               this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
               this.komunikatyList.isLastPage = result.isLastPage;
+              this.canScrool = true;
             }
           }
         ));
-  }
   }
 
 
@@ -121,35 +153,43 @@ export class KomunikatComponent implements OnInit {
   }
 
   clicked(event) {
-     console.log('clicked');
-     this.getDataFromServer(this.pageNumber,this.selected);
+    console.log('clicked');
+    this.getDataFromServer(this.pageNumber,this.selected);
   }
 
   toggle(id) {
     var index = this.selected.indexOf(id);
-    if (index === -1) this.selected.push(id);
-    else this.selected.splice(index, 1);
+    if (index === -1) {
+      this.selected.push(id);
+    }
+    else {
+      this.selected.splice(index, 1);
+    }
 
   }
 
-   onClick() {
+  onClick() {
     this.modal.prompt()
-        .size('lg')
-        .showClose(true)
-        .title('Dodaj komunikat')
-        .body(`
-            
+      .size('lg')
+      .showClose(true)
+      .title('Dodaj komunikat')
+      .body(`
+
       <input type="file" name="pic" accept="image/*">
       <input type="submit">
       <p><strong>Note:</strong> The accept attribute of the input tag is not supported in Internet Explorer 9 (and earlier versions), and Safari 5 (and earlier).</p>
       <p><strong>Note:</strong> Because of security issues, this example will not allow you to upload files.</p>
 
             `)
-        .open();
+      .open();
   }
 
   openCustom() {
-    return this.modal.open(CustomModal,  overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
+    return this.modal.open(DodajKomunikatModal, overlayConfigFactory({ num1: 2, num2: 3 },BSModalContext));
+  }
+
+  handleClick(e:MouseEvent, komunikat: ObjectList) {
+    return this.modal.open(ClickedKomunikatModal,  overlayConfigFactory({ komunikat: komunikat }, BSModalContext));
   }
 
 }

@@ -86,6 +86,20 @@ export class KomunikatService {
 
   }
 
+  getKomunikatySearch(page :any,param:string) : Observable<KomunikatyList> {
+    if(param.length != 0){
+      let params2 = new URLSearchParams();
+      params2.append('searchTerm',param);
+      return  this._http.get(this._Url+'messages/page/'+page,{ search: params2 })
+        .map(this.mapKomunikaty)
+        .catch(this.handleError);
+    } else {
+      return  this._http.get(this._Url+'messages/page/'+page)
+        .map(this.mapKomunikaty)
+        .catch(this.handleError);
+    }
+  }
+
 
 
 

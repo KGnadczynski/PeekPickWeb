@@ -15,8 +15,10 @@ import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 import {BusyModule} from 'angular2-busy';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { ModalModule } from 'angular2-modal';
-import { CustomModal } from './custom-modal-sample';
+import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
+import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
+import { ImageUploadModule } from 'ng2-imageupload';
 
 @NgModule({
   imports: [
@@ -29,6 +31,7 @@ import {CommunicationService} from "./communicationservice.component";
     BusyModule,
     ModalModule.forRoot(),
     BootstrapModalModule,
+    ImageUploadModule,
     routing
   ],
   declarations: [
@@ -36,13 +39,11 @@ import {CommunicationService} from "./communicationservice.component";
     SampleDatePickerNormal,
     SlideAbleDirective,
     Ng2StyledDirective,
-    CustomModal,
+    DodajKomunikatModal,
+    ClickedKomunikatModal,
     MdCheckbox,
     Ng2SliderComponent
   ],
-  providers: [
-     CommunicationService
-  ],
-  entryComponents: [ CustomModal ]
+  entryComponents: [ DodajKomunikatModal,ClickedKomunikatModal ]
 })
 export default class  KomunikatModule {}
