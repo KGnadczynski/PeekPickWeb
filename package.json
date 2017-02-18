@@ -163,7 +163,7 @@
     "electron:start": "electron build"
   },
   "engines": {
-    "node": "6.9.4",
+    "node": "6.9.2",
     "npm": "4.1.1"
   }
 }
