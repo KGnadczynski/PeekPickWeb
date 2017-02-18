@@ -62,23 +62,23 @@
 <div class="search-results"
          infinite-scroll
          [infiniteScrollDistance]="2"
-         [infiniteScrollThrottle]="300"
+         [infiniteScrollThrottle]="100"
          (scrolled)="onScrollDown()">
 <div class="feed-messages-container">
   <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
     <div class="feed-message" *ngFor="let komunikat of komunikatyList.komunikaty" (click)='handleClick($event, komunikat)' >
     <div class="message-icon" >
-      <img class="photo-icon" src="assets/img/app/profile/kamil.png">
+      <img class="photo-icon" src="{{ komunikat.mainImageUrl}}">
     </div>
 
     <div class="text-block text-message">
       <div class="message-header">
-        <span class="author">{{ komunikat.companyBranch.name }} {{ komunikat.companyBranch.city}} {{ komunikat.companyBranch.street}} {{ komunikat.companyBranch.streetNo}}
+        <span class="author">{{ komunikat.nearestCompanyBranch.name }} {{ komunikat.nearestCompanyBranch.city}} {{ komunikat.nearestCompanyBranch.street}} {{ komunikat.nearestCompanyBranch.streetNo}}
 
         </span>
       </div>
       <div class="message-content">
-        <span class="content">{{ komunikat.content}} </span>
+        <span class="content">{{ komunikat.user.company.mainImageUrl}} </span>
       </div>
 
       <div class="message-time">
