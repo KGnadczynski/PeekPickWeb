@@ -8,7 +8,7 @@ import {overlayConfigFactory } from 'angular2-modal';
 import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
 import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
-import {ObjectList} from "./komunikat.ts"
+import {ObjectList} from "./komunikat"
 
 
 
