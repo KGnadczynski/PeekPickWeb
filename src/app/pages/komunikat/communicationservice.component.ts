@@ -23,7 +23,6 @@ export class CommunicationService {
   }
 
   szukajKomunikat(term: string) {
-    console.log('data 2');
     this.szukanieKomunkatuSubject.next(term);
   }
 
