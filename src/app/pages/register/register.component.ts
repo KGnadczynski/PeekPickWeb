@@ -1,25 +1,52 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
-
-import 'style-loader!./register.scss';
+import {RegisterService} from "./registerservice.component";
+import {MainBranze, PodKategoria} from "./mainbranze";
+import {User} from "./user";
+import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'register',
-  templateUrl: './register.html',
+  encapsulation: ViewEncapsulation.None,
+  styles: [require('./register.scss')],
+  template: require('./register.html'),
+  providers: [RegisterService]
 })
-export class Register {
+export class Register implements OnInit {
 
-  public form:FormGroup;
-  public name:AbstractControl;
-  public email:AbstractControl;
-  public password:AbstractControl;
-  public repeatPassword:AbstractControl;
-  public passwords:FormGroup;
+  public form: FormGroup;
+  public name: AbstractControl;
+  public email: AbstractControl;
+  public password: AbstractControl;
+  public repeatPassword: AbstractControl;
+  public passwords: FormGroup;
+  busy: Subscription;
 
-  public submitted:boolean = false;
 
-  constructor(fb:FormBuilder) {
+  public submitted: boolean = false;
+
+  user:any = {};
+  company:any = {};
+  result: any;
+  userJson: User;
+  kategorieGlowne = Array<MainBranze>();
+  selectedParentKategoria: MainBranze;
+  selectedKategoria: PodKategoria;
+  podKategorie = Array<MainBranze>();
+
+  ngOnInit() {
+    this.registerService.getBranze().subscribe(
+      data => {
+        this.kategorieGlowne = data;
+      },
+      error => {
+      });
+  }
+
+
+  constructor(fb: FormBuilder, private registerService: RegisterService,private router: Router) {
 
     this.form = fb.group({
       'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -37,11 +64,41 @@ export class Register {
     this.repeatPassword = this.passwords.controls['repeatPassword'];
   }
 
-  public onSubmit(values:Object):void {
-    this.submitted = true;
+  public onSubmit(values: Object): void {
+    this.userJson = new User();
+    this.userJson.name = this.user.name;
+    this.userJson.email = this.user.email;
+    this.userJson.password = this.user.password;
+    this.userJson.company.name = this.user.name;
+    this.userJson.company.city = this.company.city;
+    this.userJson.company.street = this.company.street;
+    this.userJson.company.streetNo = this.company.streetNo;
+    this.userJson.company.latitude = "51.412341";
+    this.userJson.company.longitude = "51.412341";
+    this.userJson.company.category.name = this.selectedKategoria.name;
+    this.userJson.company.category.id = this.selectedKategoria.id;
+    this.userJson.company.category.parentCategory.name = this.selectedParentKategoria.name;
+    this.userJson.company.category.parentCategory.id = this.selectedParentKategoria.id;
     if (this.form.valid) {
-      // your code goes here
-      // console.log(values);
+      this.busy = this.registerService.register(this.userJson)
+        .subscribe(
+          data => {
+            this.router.navigate(['/pages/emailconfirm']);
+          },
+          error => {
+          });
     }
   }
+
+  changePodkategorie() {
+    if (this.selectedParentKategoria) {
+      this.registerService.getPodBranze(this.selectedParentKategoria.id).subscribe(
+        data => {
+          this.podKategorie = data;
+        },
+        error => {
+        });
+    }
+  }
+
 }

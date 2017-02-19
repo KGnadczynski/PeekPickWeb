@@ -1,19 +1,21 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 
 import {GlobalState} from '../../../global.state';
+import {CommunicationService} from '../../../pages/komunikat/communicationservice.component';
 
-import 'style-loader!./baPageTop.scss';
 
 @Component({
   selector: 'ba-page-top',
-  templateUrl: './baPageTop.html',
+  styles: [require('./baPageTop.scss')],
+  template: require('./baPageTop.html'),
+  encapsulation: ViewEncapsulation.None
 })
 export class BaPageTop {
 
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
 
-  constructor(private _state:GlobalState) {
+  constructor(private _state:GlobalState,private communicationservice: CommunicationService) {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
@@ -27,5 +29,9 @@ export class BaPageTop {
 
   public scrolledChanged(isScrolled) {
     this.isScrolled = isScrolled;
+  }
+
+  public search(term:string) {
+    this.communicationservice.szukajKomunikat(term);
   }
 }

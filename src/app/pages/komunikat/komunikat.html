@@ -1,0 +1,178 @@
+
+<!--<div *ngIf="logged">
+<div class="input-group">
+  <span class="input-group-addon input-group-addon-primary addon-left" id="basic-addon1">@</span>
+  <input type="text" class="form-control with-primary-addon" placeholder="Username" aria-describedby="basic-addon1">
+</div>
+
+<div class="input-group">
+  <input type="text" class="form-control with-warning-addon" placeholder="Recipient's username" aria-describedby="basic-addon2">
+  <span class="input-group-addon input-group-addon-warning addon-right" id="basic-addon2">@example.com</span>
+</div>
+
+<div class="input-group">
+  <span class="input-group-addon addon-left input-group-addon-success">$</span>
+  <input type="text" class="form-control with-success-addon" aria-label="Amount (to the nearest dollar)">
+  <span class="input-group-addon addon-right input-group-addon-success">.00</span>
+</div>
+
+<div class="input-group">
+  <input type="text" class="form-control with-danger-addon" placeholder="Search for...">
+  <span class="input-group-btn">
+      <button class="btn btn-danger" type="button">Go!</button>
+  </span>
+</div>
+
+  <div class="input-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+  </div>
+  <div class="input-group">
+      <div class="datepicker">
+        <div class="sub-left">
+        <label>Data rozpoczecia</label>
+          <sample-date-picker-normal>loading...</sample-date-picker-normal>
+        </div>
+        <div class="sub-right">
+        <label>Data zakonczenia</label>
+          <sample-date-picker-normal>loading...</sample-date-picker-normal>
+        </div>
+      </div>
+  </div>
+
+  <div class="input-group">
+    <label for="rodzajSelect">Rodzaj</label>
+    <select class="form-control" id="rodzajSelect">
+      <option value="Promocja">Promocja</option>
+      <option value="Praca">Praca</option>
+      <option value="Wydarzenie">Wydarzenie</option>
+      <option value="Oferta krotkoterminowa">Oferta krótkoterminowa</option>
+      <option value="Warto zajrzec">Warto zajrzeć</option>
+    </select>
+  </div>
+</div>
+-->
+<div *ngIf="logged">
+  <span defaultOverlayTarget></span>
+  <button (click)="openCustom()" class="btn btn-primary">Dodaj komunikat</button>
+  <p>
+</div>
+<div class="row">
+  <ba-card class="col-xlg-6 col-xl-9 col-lg-12 col-sm-12 col-xs-12">
+    <div class="search-results"
+         infinite-scroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="100"
+         (scrolled)="onScrollDown()">
+      <div class="feed-messages-container">
+        <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
+        <div class="feed-message" *ngFor="let komunikat of komunikatyList.komunikaty" (click)='handleClick($event, komunikat)' >
+          <div class="message-icon" >
+            <img class="photo-icon" src="{{ komunikat.user.company.mainImageUrl}}">
+          </div>
+
+          <div class="text-block text-message">
+            <div class="message-header">
+        <span class="author">{{ komunikat.nearestCompanyBranch.name }} {{ komunikat.nearestCompanyBranch.city}} {{ komunikat.nearestCompanyBranch.street}} {{ komunikat.nearestCompanyBranch.streetNo}}
+
+        </span>
+            </div>
+            <div class="message-content">
+              <span class="content">{{ komunikat.content}} </span>
+            </div>
+
+            <div class="message-time">
+              <div class="top-time">
+                Data rozpoczęcia
+              </div>
+              <div class="post-time">
+                {{ komunikat.startDate }}
+              </div>
+              <div class="ago-time">
+                {{ komunikat.endDate }}
+              </div>
+            </div>
+
+            <div class="preview">
+              <img src="{{ komunikat.mainImageUrl}}">
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </ba-card>
+  <ba-card class="col-xlg-6 col-xl-3 col-lg-12 col-sm-12 col-xs-12"
+           title="Filtruj ">
+    <div class="filtruj-lokalizacja">
+      Lokalizacja
+    </div>
+    <div >
+      <input #google_places_ac  type="text" class="input-block-level"/>
+    </div>
+
+    <ng2-slider
+      min="1"
+      max="100"
+      value="2"
+      [rangeRibbonStyle] = "{
+                  'height': '2px',
+                  'border': 'none',
+                  'top': '8px',
+                  'background': '#A20E12'
+          }"
+      [normalHandlerStyle]="{ 'background-color': '#A20E12'}"
+      [slidingHandlerStyle]="{
+            'border-radius': '9px',
+            'background-color': '#A20E12'
+      }">
+    </ng2-slider>
+    <div class="filtruj-typ-wiadomosci">
+      Typ wiadomości
+    </div>
+    <div *ngFor="let typKomunikatow of typyKomunikatow">
+      <md-checkbox  (change)="toggle(typKomunikatow)">
+        {{typKomunikatow}}
+      </md-checkbox>
+    </div>
+    <div class="filtruj-typ-wiadomosci">
+      Branża
+    </div>
+    <div>
+      <button type="button"
+              (click)="isCollapsed = !isCollapsed">Kultura i rozrywka
+      </button>
+      <div (collapsed)="collapsed($event)"
+           (expanded)="expanded($event)"
+           [collapse]="isCollapsed"
+      >
+        <div *ngFor="let kulturairozrywk of kulturairozrywka">
+          <md-checkbox >
+            {{kulturairozrywk}}
+          </md-checkbox>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button type="button"
+              (click)="isCollapsedGastro = !isCollapsedGastro">Gastronomia i Nocne Życie
+      </button>
+      <div (collapsed)="collapsed($event)"
+           (expanded)="expanded($event)"
+           [collapse]="isCollapsedGastro"
+      >
+        <div *ngFor="let gastronomiainocnezyci of gastronomiainocnezycie">
+          <md-checkbox >
+            {{gastronomiainocnezyci}}
+          </md-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="clicked()"
+    >Wyszukaj
+    </button>
+
+  </ba-card>
+</div>

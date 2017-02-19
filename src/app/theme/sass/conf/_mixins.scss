@@ -55,7 +55,7 @@
 
 @mixin placeholderStyle($color, $opacity) {
   &::-webkit-input-placeholder {
-    color: $color;
+    color: #FFFFFF;
     opacity: $opacity;
   }
   &:-moz-placeholder {

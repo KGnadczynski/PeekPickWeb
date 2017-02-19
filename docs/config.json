@@ -1,9 +1,9 @@
 {
-  "baseUrl": "/ng2-admin/",
+  "baseUrl": "/tackpad/",
   "locals": {
     "url": "http://localhost:8080",
-    "name": "ng2-admin blog",
-    "owner": "Akveo",
+    "name": "tackpad",
+    "owner": "tackpad",
     "description": ""
   },
   "plugins": [
