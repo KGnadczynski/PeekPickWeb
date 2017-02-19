@@ -112,22 +112,7 @@
       <input #google_places_ac  type="text" class="input-block-level"/>
     </div>
 
-    <ng2-slider
-      min="1"
-      max="100"
-      value="2"
-      [rangeRibbonStyle] = "{
-                  'height': '2px',
-                  'border': 'none',
-                  'top': '8px',
-                  'background': '#A20E12'
-          }"
-      [normalHandlerStyle]="{ 'background-color': '#A20E12'}"
-      [slidingHandlerStyle]="{
-            'border-radius': '9px',
-            'background-color': '#A20E12'
-      }">
-    </ng2-slider>
+    <md-slider min="1" max="1000"></md-slider>
     <div class="filtruj-typ-wiadomosci">
       Typ wiadomości
     </div>

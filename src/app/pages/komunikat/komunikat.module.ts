@@ -7,7 +7,7 @@ import { routing } from './komunikat.routing.ts';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SampleDatePickerNormal} from './sample-date-picker-normal';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-import { Ng2SliderComponent } from 'ng2-slider-component/ng2-slider.component';
+import { Ng2SliderComponent }
 import { SlideAbleDirective } from 'ng2-slideable-directive/slideable.directive';
 import { Ng2StyledDirective } from 'ng2-styled-directive/ng2-styled.directive';
 import {MdCheckbox} from '@angular2-material/checkbox';
@@ -19,6 +19,7 @@ import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
 import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
 import { ImageUploadModule } from 'ng2-imageupload';
+import {MdSliderModule} from "@angular2-material/slider";
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { ImageUploadModule } from 'ng2-imageupload';
     ModalModule.forRoot(),
     BootstrapModalModule,
     ImageUploadModule,
+    MdSliderModule,
     routing
   ],
   declarations: [
@@ -42,7 +44,6 @@ import { ImageUploadModule } from 'ng2-imageupload';
     DodajKomunikatModal,
     ClickedKomunikatModal,
     MdCheckbox,
-    Ng2SliderComponent
   ],
   providers: [
     CommunicationService
