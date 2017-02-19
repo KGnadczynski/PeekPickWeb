@@ -7,7 +7,6 @@ import { routing } from './komunikat.routing.ts';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SampleDatePickerNormal} from './sample-date-picker-normal';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-import { Ng2SliderComponent }
 import { SlideAbleDirective } from 'ng2-slideable-directive/slideable.directive';
 import { Ng2StyledDirective } from 'ng2-styled-directive/ng2-styled.directive';
 import {MdCheckbox} from '@angular2-material/checkbox';
