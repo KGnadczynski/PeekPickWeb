@@ -1,16 +1,16 @@
-export class ParentCategory {
+export interface ParentCategory {
   id: number;
   name: string;
   parentCategory: any;
 }
 
-export class Category {
+export interface Category {
   id: number;
   name: string;
   parentCategory: ParentCategory;
 }
 
-export class Company {
+export interface Company {
   id: number;
   name: string;
   category: Category;
@@ -18,7 +18,7 @@ export class Company {
   mainImageUrl: any;
 }
 
-export class User {
+export interface User {
   id: number;
   name: string;
   status: any;
@@ -26,7 +26,7 @@ export class User {
   email: string;
 }
 
-export class Company2 {
+export interface Company2 {
   id: number;
   name: string;
   category: any;
@@ -34,7 +34,7 @@ export class Company2 {
   mainImageUrl: any;
 }
 
-export class NearestCompanyBranch {
+export interface NearestCompanyBranch {
   id: number;
   name: string;
   city: string;
@@ -53,7 +53,7 @@ export class NearestCompanyBranch {
   main: boolean;
 }
 
-export class ObjectList {
+export interface ObjectList {
   id: number;
   content: string;
   type: string;
@@ -67,7 +67,7 @@ export class ObjectList {
   distance: number;
   mainImageUrl: string;
   companyBranchCount: number;
-  nearestCompanyBranch: NearestCompanyBranch;
+  nearestCompanyBranch?: NearestCompanyBranch;
 }
 
 

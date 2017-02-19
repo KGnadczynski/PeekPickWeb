@@ -32,6 +32,7 @@ export class BaPageTop {
   }
 
   public search(term:string) {
+    console.log('data ');
     this.communicationservice.szukajKomunikat(term);
   }
 }
