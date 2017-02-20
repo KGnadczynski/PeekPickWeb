@@ -1,14 +1,17 @@
 @import 'conf/conf';
 
 $text-color: #ffffff;
+$loginButtonBcg: #A20E12;
 
+input {
+  color: #ffffff !important;
+}
 
 .auth-main {
   display: flex;
   align-items: center;
   height: 100%;
   width: 100%;
-  position: absolute;
 }
 
 .auth-block {
@@ -20,8 +23,12 @@ $text-color: #ffffff;
   padding: 32px;
   h1 {
     font-weight: $font-light;
-    margin-bottom: 28px;
+    //margin-bottom: 28px;
     text-align: center;
+
+  }
+  form {
+
   }
   p {
     font-size: 16px;
@@ -30,10 +37,9 @@ $text-color: #ffffff;
     text-decoration: none;
     outline: none;
     transition: all 0.2s ease;
-    color: $primary;
-    &:hover {
-      color: $primary-dark;
-    }
+    //color: $primary;
+    color: white;
+    background: $loginButtonBcg;
   }
 
   .control-label {
@@ -42,7 +48,14 @@ $text-color: #ffffff;
   }
 
   .form-group {
-    margin-bottom: 12px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    button {
+      display: table;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      border: 1px solid white;
+    }
   }
 }
 
@@ -56,23 +69,35 @@ $text-color: #ffffff;
     font-size: 16px;
     padding: 4px 10px;
     outline: none;
+
   }
 }
 
 a.forgot-pass {
-  display: block;
-  text-align: right;
-  margin-bottom: -20px;
-  float: right;
   z-index: 2;
   position: relative;
+  padding: 10px;
+  border-radius: 2px;
+  display: table;
+  margin: 0 auto;
+  margin-top: 2%;
+  &:hover {
+    color: white;
+  }
 }
 
 .auth-link {
-  display: block;
+  display: table;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 2px;
   font-size: 16px;
   text-align: center;
-  margin-bottom: 33px;
+
+  //margin-bottom: 33px;
+  &:hover {
+    color: white;
+  }
 }
 
 .auth-sep {
@@ -124,4 +149,21 @@ a.forgot-pass {
 
 .btn-auth {
   color: #ffffff!important;
+}
+
+input.form-control{
+  color: white;
+}
+
+select {
+//  background-repeat:no-repeat;
+//  background-position:300px;
+//  width:353px;
+//  padding:12px;
+//  line-height:1;
+//  border-radius:5px;
+//  background-color: #ffffff;
+//  color:#ff0;
+//  font-size:20px;
+//  outline:none
 }

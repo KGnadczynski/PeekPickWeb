@@ -1,5 +1,35 @@
 @import '../../theme/sass/conf/conf';
 
+.card-header{
+  background: #edebea;
+}
+
+.card-body{
+  background: #edebea;
+  input {
+    background: #edebea;
+    border: 1px solid white;
+    padding: 10px;
+    color: #000000;
+  }
+}
+
+md-slider{
+  width: 100%;
+}
+
+ba-card{
+  button{
+    width: 100%;
+    border: 0;
+    padding: 10px 0;
+    background: white;
+    text-transform: uppercase;
+    margin-bottom: 3%;
+  }
+
+}
+
 .feed-panel .card-body{
   padding: 10px 0;
 }
