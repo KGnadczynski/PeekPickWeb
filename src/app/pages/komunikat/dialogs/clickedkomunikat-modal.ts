@@ -20,15 +20,15 @@ export class CustomModalContext extends BSModalContext {
   //TODO: [ngClass] here on purpose, no real use, just to show how to workaround ng2 issue #4330.
   // Remove when solved.
   /* tslint:disable */ template: `
-   <div class="container-fluid custom-modal-container">
+     <div class="container-fluid custom-modal-container">
   <div class="feed-messages-container">
         <div class="message-icon" >
-      <img class="photo-icon" src="assets/img/app/profile/kamil.png" height="50" width="50">
+      <img class="photo-icon" src="{{ context.komunikat.user.company.mainImageUrl}}" height="50" width="50">
     </div>
 
       <div class="text-block text-message">
         <div class="message-header">
-          <span class="author">{{ context.komunikat.companyBranch.name }} {{ context.komunikat.status}} {{ context.komunikat.companyBranch.street}} {{ context.komunikat.companyBranch.streetNo}}
+          <span class="author">{{ context.komunikat.nearestCompanyBranch.name }} {{ context.komunikat.nearestCompanyBranch.city}} {{ context.komunikat.nearestCompanyBranch.street}} {{ context.komunikat.nearestCompanyBranch.streetNo}}
 
           </span>
         </div>
