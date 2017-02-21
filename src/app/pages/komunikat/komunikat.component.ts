@@ -188,8 +188,4 @@ export class KomunikatComponent implements OnInit {
     return this.modal.open(ClickedKomunikatModal,  overlayConfigFactory({ komunikat: komunikat }, BSModalContext));
   }
 
-  handleClickCompany(e:MouseEvent, komunikatName: string) {
-    console.log(komunikatName);
-  }
-
 }
