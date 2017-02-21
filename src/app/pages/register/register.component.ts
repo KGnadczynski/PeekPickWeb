@@ -3,7 +3,7 @@ import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/form
 import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
 import {RegisterService} from "./registerservice.component";
 import {MainBranze, PodKategoria} from "./mainbranze";
-import {User} from "./user";
+import {RegisterObject} from "./user";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 
@@ -30,7 +30,7 @@ export class Register implements OnInit {
   user:any = {};
   company:any = {};
   result: any;
-  userJson: User;
+  registerJson: RegisterObject;
   kategorieGlowne = Array<MainBranze>();
   selectedParentKategoria: MainBranze;
   selectedKategoria: PodKategoria;
@@ -65,22 +65,24 @@ export class Register implements OnInit {
   }
 
   public onSubmit(values: Object): void {
-    this.userJson = new User();
-    this.userJson.name = this.user.name;
-    this.userJson.email = this.user.email;
-    this.userJson.password = this.user.password;
-    this.userJson.company.name = this.user.name;
-    this.userJson.company.city = this.company.city;
-    this.userJson.company.street = this.company.street;
-    this.userJson.company.streetNo = this.company.streetNo;
-    this.userJson.company.latitude = "51.412341";
-    this.userJson.company.longitude = "51.412341";
-    this.userJson.company.category.name = this.selectedKategoria.name;
-    this.userJson.company.category.id = this.selectedKategoria.id;
-    this.userJson.company.category.parentCategory.name = this.selectedParentKategoria.name;
-    this.userJson.company.category.parentCategory.id = this.selectedParentKategoria.id;
+    this.registerJson = new RegisterObject();
+    this.registerJson.user.name = this.user.name;
+    this.registerJson.user.email = this.user.email;
+    this.registerJson.user.password = this.user.password;
+    this.registerJson.companyBranch.city = this.company.city;
+    this.registerJson.companyBranch.main = false;
+    this.registerJson.companyBranch.latitude = 51.412341;
+    this.registerJson.companyBranch.longitude = 51.412341;
+    this.registerJson.companyBranch.name = this.user.name;
+    this.registerJson.companyBranch.street = this.company.street;
+    this.registerJson.companyBranch.streetNo = this.company.streetNo;
+    this.registerJson.companyBranch.company.name = this.user.name;
+    this.registerJson.companyBranch.company.category.name = this.selectedKategoria.name;
+    this.registerJson.companyBranch.company.category.id = this.selectedKategoria.id;
+    this.registerJson.companyBranch.company.category.parentCategory.name = this.selectedParentKategoria.name;
+    this.registerJson.companyBranch.company.category.parentCategory.id = this.selectedParentKategoria.id;
     if (this.form.valid) {
-      this.busy = this.registerService.register(this.userJson)
+      this.busy = this.registerService.register(this.registerJson)
         .subscribe(
           data => {
             this.router.navigate(['/pages/emailconfirm']);

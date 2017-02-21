@@ -3,7 +3,7 @@ import {Http, Response, URLSearchParams, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
-import {User} from "./user";
+import {RegisterObject} from "./user";
 
 @Injectable()
 export class RegisterService {
@@ -20,10 +20,10 @@ export class RegisterService {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
-  register(user: User) {
+  register(registerObject: RegisterObject) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.Url+'users/business', JSON.stringify(user),{ headers: headers })
+    return this.http.post(this.Url+'users/business', JSON.stringify(registerObject),{ headers: headers })
       .map(this.mapKomunikaty)
       .catch(this.handleError);
   }
