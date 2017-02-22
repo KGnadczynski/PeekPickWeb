@@ -14,8 +14,8 @@ export const routes: Routes = [
       { path: 'komunikat', loadChildren: 'app/pages/komunikat/komunikat.module#KomunikatModule' },
       { path: 'kulturairozrywka', loadChildren: 'app/pages/kulturairozrywka/kulturairozrywka.module#KulturairozrywkaModule' },
       { path: 'register', loadChildren: 'app/pages/register/register.module#RegisterModule'},
-      { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule'}
-
+      { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule'},
+      { path: 'company/:name', loadChildren: 'app/pages/company/company.module#CompanyModule'},
     ]
   }
 ];

@@ -4,7 +4,6 @@
 }
 
 export class Category {
-
   constructor() {
     this.parentCategory = new ParentCategory();
   }
@@ -14,27 +13,40 @@ export class Category {
 }
 
 export class Company {
-
   constructor() {
     this.category = new Category();
   }
-    category: Category;
-    city: string;
-    name: string;
-    street: string;
-    streetNo: string;
-    latitude: string;
-    longitude: string;
+  category: Category;
+  name: string;
 }
 
-export class User {
-
+export class CompanyBranch {
   constructor() {
     this.company = new Company();
   }
-    company: Company;
+  city: string;
+  company: Company;
+  main: boolean;
+  latitude: number;
+  longitude: number;
+  name: string;
+  street: string;
+  streetNo: string;
+}
+
+
+export class User {
     email: string;
     name: string;
     password: string;
 }
 
+export class RegisterObject {
+
+  constructor() {
+    this.companyBranch = new CompanyBranch();
+    this.user = new User();
+  }
+  companyBranch: CompanyBranch;
+  user: User;
+}
