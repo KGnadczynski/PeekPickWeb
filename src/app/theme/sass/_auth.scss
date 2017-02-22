@@ -1,5 +1,65 @@
 @import 'conf/conf';
 
+$pageBackground: #A20E12;
+
+.auth-main{
+  background-color: $pageBackground;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.auth-block{
+  h1{
+    color: #FFCF01;
+    text-align: center;
+    margin-bottom: 8%;
+  }
+  a{
+    color: white;
+    padding: 5px;
+    &:hover {
+      color: white;
+    }
+  }
+
+  form{
+    label {
+      font-size: 16px;
+      color: white;
+    }
+    input[type=text], input[type=password], input[type=email]{
+      display: block;
+      clear: both;
+      padding: 15px;
+      border: 0;
+      width: 100%;
+      border-radius: 2px;
+    }
+  }
+
+  button, a.forgot-pass, a.auth-link{
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+    padding: 10px 0;
+    text-transform: uppercase;
+    color: white !important;
+    border-radius: 3px;
+    text-align: center;
+    border: 1px solid white;
+    margin-bottom: 10%;
+  }
+}
+
+/*
 $text-color: #ffffff;
 $loginButtonBcg: #A20E12;
 
@@ -153,17 +213,5 @@ a.forgot-pass {
 
 input.form-control{
   color: white;
-}
+}*/
 
-select {
-//  background-repeat:no-repeat;
-//  background-position:300px;
-//  width:353px;
-//  padding:12px;
-//  line-height:1;
-//  border-radius:5px;
-//  background-color: #ffffff;
-//  color:#ff0;
-//  font-size:20px;
-//  outline:none
-}
