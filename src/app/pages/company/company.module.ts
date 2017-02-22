@@ -14,4 +14,4 @@ import { routing } from './company.routing';
     CompanyComponent
   ]
 })
-export default class CompanyComponentModule {}
+export  class CompanyModule {}
