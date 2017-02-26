@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewEncapsulation} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {  ActivatedRoute } from '@angular/router';
 
 @Component({
-  template: `
-        <h2>{{name}}</h2>
-    `,
+  selector: 'company',
+  encapsulation: ViewEncapsulation.None,
+  styles: [require('./company.scss')],
+  template: require('./company.html'),
 })
 // Component class implementing OnInit
 export class CompanyComponent implements OnInit {
