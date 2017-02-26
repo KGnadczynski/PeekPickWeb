@@ -23,7 +23,7 @@ export class CustomModalContext extends BSModalContext {
      <div class="container-fluid custom-modal-container">
   <div class="feed-messages-container">
         <div class="message-icon" >
-      <img class="photo-icon" src="{{ context.komunikat.user.company.mainImageUrl}}" height="50" width="50">
+      <img class="photo-icon" src="{{ context.komunikat.user.company.mainImageUrl}}">
     </div>
 
       <div class="text-block text-message">

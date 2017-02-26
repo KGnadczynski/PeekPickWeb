@@ -14,10 +14,59 @@
   }
 }
 
+div.message-header{
+  span.author {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+}
+
+div.message-icon{
+  img{
+    width: 25%;
+  }
+}
+
+div.message-content{
+  margin-bottom: 2%;
+  span{
+    font-size: 16px;
+  }
+}
+
+div.top-time{
+  font-weight: bold;
+  margin-bottom: 2%;
+}
+
+div.preview{
+  img{
+    margin: 2% 0;
+  }
+}
+
 md-slider{
   width: 100%;
 
 }
+
+#rightPart{
+  margin-left: 11%;
+  padding-top: 4%;
+  a.author{
+    color: #A20E12;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 24px;
+  }
+}
+
+#leftPart{
+  padding-top: 4%;
+}
+
+
 
 .md-slider-thumb::after{
   background-color: #A20E12 !important;
@@ -206,10 +255,12 @@ div.typKomunikatuClass{
   }
 
   .message-header {
-    font-size: 7px;
     margin-bottom: 2%;
     .author {
-      font-size: 18px;
+      color: red;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: capitalize;
     }
     .author:hover {
       color: #A20E12;
@@ -252,6 +303,9 @@ div.typKomunikatuClass{
   .message-time {
     width: 100%;
     font-size: 11px;
+    div{
+      margin-bottom: 1%;
+    }
     .top-time {
       font-size: 14px;
       margin-bottom: 0.5%;
@@ -262,7 +316,10 @@ div.typKomunikatuClass{
       background-color: white;
     }
     .ago-time {
-      float: right;
+      float: left;
+      clear: both;
+      padding: 3px 8px;
+      background-color: white;
     }
   }
 }

@@ -4,11 +4,23 @@ $pageBackground: #A20E12;
 
 .auth-main{
   background-color: $pageBackground;
-  height: 100%;
-  width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#registerFormMain{
+  min-height: 100%;
+}
+
+#loginFormMain{
+  height: 100%;
+  width: 100%;
+}
+
+#registerFormBlock{
+  padding-top: 7%;
 }
 
 .row{
@@ -17,10 +29,12 @@ $pageBackground: #A20E12;
 }
 
 .auth-block{
+ // width: 100%;
+  //height: 100%;
   h1{
     color: #FFCF01;
     text-align: center;
-    margin-bottom: 8%;
+    margin: 3% 0;
   }
   a{
     color: white;
@@ -31,6 +45,7 @@ $pageBackground: #A20E12;
   }
 
   form{
+    //padding: 0 30%;
     label {
       font-size: 16px;
       color: white;
@@ -42,6 +57,9 @@ $pageBackground: #A20E12;
       border: 0;
       width: 100%;
       border-radius: 2px;
+    }
+    div.formRegDiv{
+      margin-bottom: 5%;
     }
   }
 
