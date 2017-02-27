@@ -52,7 +52,19 @@ md-slider{
 }
 
 #rightPart{
-  margin-left: 11%;
+  padding-top: 4%;
+  button{
+    width: 100%;
+    border: 0;
+    padding: 10px 0;
+    background: white;
+    text-transform: uppercase;
+    margin-bottom: 1%;
+  }
+}
+
+#leftPart{
+
   padding-top: 4%;
   a.author{
     color: #A20E12;
@@ -60,12 +72,37 @@ md-slider{
     font-weight: bold;
     font-size: 24px;
   }
+
 }
 
-#leftPart{
-  padding-top: 4%;
+div#dodajNowyKomunikat{
+  overflow: hidden;
+  button{
+    float: right;
+    background-color: #A20E12;
+    color: white;
+    padding: 15px;
+    border: 0;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
 }
 
+div#allKomunikaty{
+
+}
+div#dodajKomunikatDiv{
+  h1{
+    margin: 4% 0;
+  }
+}
+
+div#allDodajKomunikat{
+  padding: 2%;
+  input{
+    margin: 1% 0;
+  }
+}
 
 
 .md-slider-thumb::after{
@@ -93,7 +130,7 @@ md-checkbox{
     }
   }
 }
-
+/*`
 ba-card{
   button{
     width: 100%;
@@ -104,7 +141,7 @@ ba-card{
     margin-bottom: 1%;
   }
 
-}
+}*/
 
 md-checkbox{
 
@@ -655,8 +692,8 @@ li {
   -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
-  margin-top: -15px;
-  margin-bottom: 40px;
+  //margin-top: -15px;
+  margin-bottom: 0 !important;
 }
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
   background-color: #A20E12 !important;
