@@ -11,32 +11,29 @@ import { CompanyService } from './company.service';
   styles: [require('./company.scss')],
   template: require('./company.html')
 })
-// Component class implementing OnInit
+
 export class CompanyComponent implements OnInit {
   
   private sub:any;
-  private name:number;
-
+  private id: number;
   private otherOneCompany: Company;
 
   constructor(private route: ActivatedRoute, private _companyService: CompanyService) {}
 
   ngOnInit() {
-    console.log('ngoninit started!!');
-
-      /*this.sub = this.route.params.subscribe(params => {
-         this.name = params['name'];
+    
+    this.sub = this.route.params.subscribe(params =>  {
+        this.id = +params['name'];
     });
-*/
-    let company = this._companyService.getCompany({id: 1});
+    
+    let company = this._companyService.getCompany({id: this.id});
     company.$observable.subscribe((receivedCompany: Company) => {
       this.otherOneCompany = receivedCompany;
     });
-    console.dir(this.otherOneCompany);
   }
 
   ngOnDestroy() {
-      // Clean sub to avoid memory leak
-    //this.sub.unsubscribe();
+    this.sub.unsubscribe();
   }
+
 }

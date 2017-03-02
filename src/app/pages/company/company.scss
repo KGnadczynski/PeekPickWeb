@@ -4,3 +4,28 @@ div#menuCompany{
     padding-left: 12%;
     padding-top: 5%;
 }
+
+div.md-tab-header {
+    justify-content: center;
+}
+
+div#daneFirmy{
+    width: 60%;
+    margin: auto;
+    padding-top: 3%;
+    h1{
+        color: #A20E12;
+        text-transform: uppercase;
+    }
+    p{
+        font-style: italic;
+        font-size: 15px;
+    }
+    h4 {
+        font-size: 16px;
+        font-weight: normal;
+        span {
+            font-weight: bold;
+        }
+    }
+}

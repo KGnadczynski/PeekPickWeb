@@ -1,27 +1,33 @@
-<h2>{{name}}</h2>
 <div id="menuCompany">
   <md-tab-group>
     <md-tab>
       <template md-tab-label>Dane firmy</template>
       <template md-tab-content>
-        <h1>Some tab content</h1>
-        <!--<h3>ID: {{ otherOneCompany.id }}</h3>-->
-        <h3>NAME: {{ otherOneCompany?.name }}</h3>
-        <p>...</p>
+        <div id="daneFirmy">
+          <h1>{{  otherOneCompany?.name }}</h1>
+          <p>{{  otherOneCompany?.category.name }}</p>
+          <h4>
+            <span>Data:</span>
+            {{ otherOneCompany?.createDate }}
+          </h4>
+        </div>
+        
       </template>
     </md-tab>
     <md-tab>
       <template md-tab-label>Posty</template>
       <template md-tab-content>
-        <h1>Some more tab content</h1>
-        <p>...</p>
+        <div id="postyFirmy">
+          <p>POSTY FIRMY</p>
+        </div>
       </template>
     </md-tab>
     <md-tab>
       <template md-tab-label>Mapa</template>
       <template md-tab-content>
-        <h1>Some more tab content</h1>
-        <p>...</p>
+        <div id="mapaFirmy">
+          <h1>Some more tab content</h1>
+        </div>
       </template>
     </md-tab>
   </md-tab-group>
