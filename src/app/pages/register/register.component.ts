@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit, NgZone} from '@angular/core';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
 import {RegisterService} from "./registerservice.component";
@@ -48,7 +48,12 @@ export class Register implements OnInit {
   }
 
 
-  constructor(fb: FormBuilder, private registerService: RegisterService,private router: Router) {
+  constructor(fb: FormBuilder, private registerService: RegisterService,private router: Router,private zone:NgZone) {
+
+    window.angularComponentRef = {
+      zone: this.zone,
+      component: this
+    };
 
     this.form = fb.group({
       'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -68,10 +73,38 @@ export class Register implements OnInit {
 
   public onSubmit(values: Object): void {
     window.onLoginButtonClick();
+    this.registerJson = new RegisterObject();
+    this.registerJson.user.name = this.user.name;
+    this.registerJson.user.email = this.user.email;
+    this.registerJson.user.password = this.user.password;
+    this.registerJson.user.phoneNumber = '605499887';//this.user.phoneNumber;
+    this.registerJson.companyBranch.city = this.company.city;
+    this.registerJson.companyBranch.main = false;
+    this.registerJson.companyBranch.latitude = 51.412341;
+    this.registerJson.companyBranch.longitude = 51.412341;
+    this.registerJson.companyBranch.name = this.user.name;
+    this.registerJson.companyBranch.street = this.company.street;
+    this.registerJson.companyBranch.streetNo = this.company.streetNo;
+    this.registerJson.companyBranch.company.name = this.user.name;
+    this.registerJson.companyBranch.company.category.name = this.selectedKategoria.name;
+    this.registerJson.companyBranch.company.category.id = this.selectedKategoria.id;
+    this.registerJson.companyBranch.company.category.parentCategory.name = this.selectedParentKategoria.name;
+    this.registerJson.companyBranch.company.category.parentCategory.id = this.selectedParentKategoria.id;
+
   }
 
 public onSubmitDigitsCallback(): void {
-    window.onLoginButtonClick();
+    console.log('calledFromOutside on submit');
+
+    if (this.form.valid) {
+      this.busy = this.registerService.register(this.registerJson)
+        .subscribe(
+          data => {
+            this.router.navigate(['/pages/komunikat']);
+          },
+          error => {
+          });
+    }
   }
 
   changePodkategorie() {
@@ -88,5 +121,8 @@ public onSubmitDigitsCallback(): void {
   onLoginButtonClick() {
     window.onLoginButtonClick();
   }
+
+
+
 
 }

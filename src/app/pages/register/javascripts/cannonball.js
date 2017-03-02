@@ -13,7 +13,18 @@ function onLoginButtonClick() {
 
 function onLogin(loginResponse) {
     console.log('Digits login succeeded.');
-    onSubmitDigitsCallback();
+    var oAuthHeaders = parseOAuthHeaders(loginResponse.oauth_echo_headers);
+    window.angularComponentRef.component.onSubmitDigitsCallback();
+  }
+
+function parseOAuthHeaders(oAuthEchoHeaders) {
+    var credentials = oAuthEchoHeaders['X-Verify-Credentials-Authorization'];
+    var apiUrl = oAuthEchoHeaders['X-Auth-Service-Provider'];
+
+    return {
+      apiUrl: apiUrl,
+      credentials: credentials
+    };
   }
 
 /**
@@ -28,6 +39,8 @@ function onDigitsSuccess(response) {
     console.log('Digits phone number retrieved.')
     setDigitsNumber(response.phoneNumber);
   }
+
+
 
 (function () {
   /**
