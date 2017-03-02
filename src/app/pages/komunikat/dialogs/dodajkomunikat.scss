@@ -1,0 +1,75 @@
+.custom-modal-container {
+  padding: 15px;
+}
+
+.custom-modal-header {
+  background-color: #A20E12;
+  color: #fff;
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+  margin-top: -15px;
+  margin-bottom: 40px;
+}
+
+div#allDodajKomunikat{
+
+  input[type=file]{
+    float: right;
+    margin: 3% 0;
+    outline:0;
+  }
+
+  input[type=file]::-webkit-file-upload-button{
+    visibility: hidden;
+  }
+
+  input[type=file]::before {
+    content: 'Wybierz plik';
+    display: inline-block;
+    background: white;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  input[type=file]:hover::before {
+    border-color: black;
+  }
+  input[type=file]:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+  }
+
+  input[type=text]{
+    outline: 0;
+    background: white;
+    color: black;
+  }
+
+  div.mydp{
+    margin-bottom: 3% !important;
+  }
+
+  select{
+    outline: 0;
+    margin: 2% 0;
+  }
+
+  button{
+    background: #A20E12;
+    padding: 10px;
+    text-transform: uppercase;
+    color: white;
+    border-radius: 4px;
+  }
+}
+
+div#dodajDiv{
+  background-color: #edebea;
+}

@@ -1,0 +1,36 @@
+<div class="container-fluid custom-modal-container" id="dodajDiv">
+  <div class="row custom-modal-header">
+    <div class="col-sm-12" id="dodajKomunikatDiv">
+      <h1>Dodaj komunikat</h1>
+    </div>
+  </div>
+  <div class="row" [ngClass]="{'myclass' : shouldUseMyClass}">
+    <div class="col-xs-12" id="allDodajKomunikat">
+      <label for="">Dodaj treść komunikatu</label>
+      <input class="form-control" type="text" [(ngModel)]="komunikatModel.content" placeholder="Dodaj treść komunikatu">
+
+
+      <input type="file" image-upload
+             (imageSelected)="selected($event)"
+             [resizeOptions]="resizeOptions" accept="image/*"  >
+      <img [src]="src" [hidden]="!src"><br>
+      <my-date-picker  [options]="myDatePickerOptions"
+                       (dateChanged)="onDateChanged($event)"
+                       [selDate]="selectedDate"></my-date-picker>
+      <my-date-picker  [options]="myDatePickerOptions"
+                       (dateChanged)="onDateChanged($event)"
+                       [selDate]="selectedDate"></my-date-picker>
+
+      <select   name="sel2" class="form-control"  [(ngModel)]="selectedTyp">
+        <option *ngFor="let typ of typyKomunikatow" [ngValue]="kategoria">{{typ}}</option>
+      </select>
+      <button type="button" (click)="clicked()"
+        >Dodaj
+      </button>
+      <button type="button" (click)="clickedAnuluj()"
+        >Anuluj
+      </button>
+
+    </div>
+  </div>
+</div>

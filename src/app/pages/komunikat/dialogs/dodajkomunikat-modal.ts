@@ -17,64 +17,13 @@ export class CustomModalContext extends BSModalContext {
  */
 @Component({
   selector: 'modal-content',
-  styles: [`
-        .custom-modal-container {
-            padding: 15px;
-        }
-
-        .custom-modal-header {
-            background-color: #A20E12;
-            color: #fff;
-            -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
-            -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
-            box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
-            margin-top: -15px;
-            margin-bottom: 40px;
-        }
-.modal-content{
-  background: #d9d9d9 !important;
-}
-
-    `],
+  styles: [require('./dodajkomunikat.scss')],
   //TODO: [ngClass] here on purpose, no real use, just to show how to workaround ng2 issue #4330.
   // Remove when solved.
-  /* tslint:disable */ template: `
-        <div class="container-fluid custom-modal-container">
-            <div class="row custom-modal-header">
-                <div class="col-sm-12" id="dodajKomunikatDiv">
-                    <h1>Dodaj komunikat</h1>
-                </div>
-            </div>
-            <div class="row" [ngClass]="{'myclass' : shouldUseMyClass}">
-                <div class="col-xs-12" id="allDodajKomunikat">
-                 <input class="form-control" type="text" [(ngModel)]="komunikatModel.content" placeholder="Dodaj treść komunikatu">
-
-
-      <input type="file" image-upload
-        (imageSelected)="selected($event)"
-        [resizeOptions]="resizeOptions" accept="image/*"  >
-        <img [src]="src" [hidden]="!src"><br>
-<my-date-picker  [options]="myDatePickerOptions"
-                (dateChanged)="onDateChanged($event)"
-                [selDate]="selectedDate"></my-date-picker>
-<my-date-picker  [options]="myDatePickerOptions"
-                (dateChanged)="onDateChanged($event)"
-                [selDate]="selectedDate"></my-date-picker>
-
-        <select   name="sel2" class="form-control"  [(ngModel)]="selectedTyp">
-            <option *ngFor="let typ of typyKomunikatow" [ngValue]="kategoria">{{typ}}</option>
-          </select>
-  <button type="button" class="btn btn-primary" (click)="clicked()"
-          >Dodaj
-  </button>
-    <button type="button" class="btn btn-primary" (click)="clickedAnuluj()"
-          >Anuluj
-  </button>
-
-                </div>
-            </div>
-        </div>`
+  /* tslint:disable */
+  template: require('./dodajkomunikat.html')
 })
+
 export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomModalContext>, OnInit {
 
 

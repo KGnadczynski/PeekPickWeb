@@ -10,8 +10,6 @@ import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
 import {ObjectList} from "./komunikat"
 
-
-
 @Component({
   selector: 'komunikatcomponent',
   templateUrl: './komunikat.html',

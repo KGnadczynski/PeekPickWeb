@@ -5,11 +5,12 @@
 <!--</div>-->
 <div class="row" id="allKomunikaty">
   <ba-card class="col-xlg-7 col-xl-9 col-lg-12 col-sm-12 col-xs-12" id="leftPart">
-    <!--<div *ngIf="logged">-->
+    <div *ngIf="logged">
     <div id="dodajNowyKomunikat">
       <span defaultOverlayTarget></span>
       <!--<button (click)="openCustom()" class="btn btn-primary">Dodaj komunikat</button>-->
       <button (click)="openCustom()">Dodaj komunikat</button>
+    </div>
     </div>
     <div class="search-results"
          infinite-scroll
@@ -26,7 +27,15 @@
 
           <div class="text-block text-message">
             <div class="message-header">
-        <a   [routerLink]="['/pages/company',  komunikat.nearestCompanyBranch.name]" (click)='$event.stopPropagation()' class="author">{{ komunikat.nearestCompanyBranch.name }} {{ komunikat.nearestCompanyBranch.city}} {{ komunikat.nearestCompanyBranch.street}} {{ komunikat.nearestCompanyBranch.streetNo}}
+        <a 
+          [routerLink]="['/pages/company', komunikat.nearestCompanyBranch.id]" 
+          (click)='$event.stopPropagation()' 
+          class="author"
+        >
+          {{ komunikat.nearestCompanyBranch.name }}
+          {{ komunikat.nearestCompanyBranch.city }}
+          {{ komunikat.nearestCompanyBranch.street}} 
+          {{ komunikat.nearestCompanyBranch.streetNo}}
         </a>
             </div>
             <div class="message-content">
@@ -48,8 +57,6 @@
             <div class="preview">
               <img src="{{ komunikat.mainImageUrl}}">
             </div>
-
-
           </div>
         </div>
       </div>

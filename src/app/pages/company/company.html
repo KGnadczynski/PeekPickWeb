@@ -1,10 +1,12 @@
 <h2>{{name}}</h2>
-<div>
+<div id="menuCompany">
   <md-tab-group>
     <md-tab>
       <template md-tab-label>Dane firmy</template>
       <template md-tab-content>
         <h1>Some tab content</h1>
+        <!--<h3>ID: {{ otherOneCompany.id }}</h3>-->
+        <h3>NAME: {{ otherOneCompany?.name }}</h3>
         <p>...</p>
       </template>
     </md-tab>
