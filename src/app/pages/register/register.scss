@@ -1,1 +1,18 @@
 @import '../../theme/sass/auth';
+
+.digits-button {
+  width: 320px;
+  margin: 30px auto 0;
+  font-family: "Gotham-Medium", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  background: transparent;
+  color: #00a69b;
+  padding: 15px 20px 15px 60px;
+  border: 3px solid #00a69b;
+  border-radius: 5px;
+  cursor: pointer;
+  background: url(/images/digits-icon.png) 20px center no-repeat;
+  background-size: 30px 35px;
+  transition: box-shadow 0.3s;
+}

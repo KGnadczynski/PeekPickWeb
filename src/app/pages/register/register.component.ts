@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit, NgZone} from '@angular/core';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
 import {RegisterService} from "./registerservice.component";
@@ -6,6 +6,8 @@ import {MainBranze, PodKategoria} from "./mainbranze";
 import {RegisterObject} from "./user";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
+
+declare var window: any
 
 @Component({
   selector: 'register',
@@ -46,7 +48,12 @@ export class Register implements OnInit {
   }
 
 
-  constructor(fb: FormBuilder, private registerService: RegisterService,private router: Router) {
+  constructor(fb: FormBuilder, private registerService: RegisterService,private router: Router,private zone:NgZone) {
+
+    window.angularComponentRef = {
+      zone: this.zone,
+      component: this
+    };
 
     this.form = fb.group({
       'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -65,10 +72,12 @@ export class Register implements OnInit {
   }
 
   public onSubmit(values: Object): void {
+    window.onLoginButtonClick();
     this.registerJson = new RegisterObject();
     this.registerJson.user.name = this.user.name;
     this.registerJson.user.email = this.user.email;
     this.registerJson.user.password = this.user.password;
+    this.registerJson.user.phoneNumber = '605499887';//this.user.phoneNumber;
     this.registerJson.companyBranch.city = this.company.city;
     this.registerJson.companyBranch.main = false;
     this.registerJson.companyBranch.latitude = 51.412341;
@@ -81,11 +90,17 @@ export class Register implements OnInit {
     this.registerJson.companyBranch.company.category.id = this.selectedKategoria.id;
     this.registerJson.companyBranch.company.category.parentCategory.name = this.selectedParentKategoria.name;
     this.registerJson.companyBranch.company.category.parentCategory.id = this.selectedParentKategoria.id;
+
+  }
+
+public onSubmitDigitsCallback(): void {
+    console.log('calledFromOutside on submit');
+
     if (this.form.valid) {
       this.busy = this.registerService.register(this.registerJson)
         .subscribe(
           data => {
-            this.router.navigate(['/pages/emailconfirm']);
+            this.router.navigate(['/pages/komunikat']);
           },
           error => {
           });
@@ -102,5 +117,12 @@ export class Register implements OnInit {
         });
     }
   }
+
+  onLoginButtonClick() {
+    window.onLoginButtonClick();
+  }
+
+
+
 
 }
