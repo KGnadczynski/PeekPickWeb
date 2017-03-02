@@ -7,6 +7,8 @@ import {RegisterObject} from "./user";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 
+declare var window: any
+
 @Component({
   selector: 'register',
   encapsulation: ViewEncapsulation.None,
@@ -65,31 +67,11 @@ export class Register implements OnInit {
   }
 
   public onSubmit(values: Object): void {
-    this.registerJson = new RegisterObject();
-    this.registerJson.user.name = this.user.name;
-    this.registerJson.user.email = this.user.email;
-    this.registerJson.user.password = this.user.password;
-    this.registerJson.companyBranch.city = this.company.city;
-    this.registerJson.companyBranch.main = false;
-    this.registerJson.companyBranch.latitude = 51.412341;
-    this.registerJson.companyBranch.longitude = 51.412341;
-    this.registerJson.companyBranch.name = this.user.name;
-    this.registerJson.companyBranch.street = this.company.street;
-    this.registerJson.companyBranch.streetNo = this.company.streetNo;
-    this.registerJson.companyBranch.company.name = this.user.name;
-    this.registerJson.companyBranch.company.category.name = this.selectedKategoria.name;
-    this.registerJson.companyBranch.company.category.id = this.selectedKategoria.id;
-    this.registerJson.companyBranch.company.category.parentCategory.name = this.selectedParentKategoria.name;
-    this.registerJson.companyBranch.company.category.parentCategory.id = this.selectedParentKategoria.id;
-    if (this.form.valid) {
-      this.busy = this.registerService.register(this.registerJson)
-        .subscribe(
-          data => {
-            this.router.navigate(['/pages/emailconfirm']);
-          },
-          error => {
-          });
-    }
+    window.onLoginButtonClick();
+  }
+
+public onSubmitDigitsCallback(): void {
+    window.onLoginButtonClick();
   }
 
   changePodkategorie() {
@@ -101,6 +83,10 @@ export class Register implements OnInit {
         error => {
         });
     }
+  }
+
+  onLoginButtonClick() {
+    window.onLoginButtonClick();
   }
 
 }
