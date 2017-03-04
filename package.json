@@ -26,6 +26,7 @@
     "angular2-infinite-scroll": "^0.2.8",
     "angular2-modal": "^2.0.2",
     "animate.css": "3.5.2",
+    "auth-header": "^0.3.1",
     "bootstrap": "4.0.0-alpha.4",
     "chart.js": "1.1.1",
     "chartist": "0.10.1",

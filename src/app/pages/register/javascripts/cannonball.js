@@ -14,7 +14,7 @@ function onLoginButtonClick() {
 function onLogin(loginResponse) {
     console.log('Digits login succeeded.');
     var oAuthHeaders = parseOAuthHeaders(loginResponse.oauth_echo_headers);
-    window.angularComponentRef.component.onSubmitDigitsCallback();
+    window.angularComponentRef.component.onSubmitDigitsCallback(oAuthHeaders);
   }
 
 function parseOAuthHeaders(oAuthEchoHeaders) {
@@ -36,6 +36,13 @@ function onLoginFailure(loginResponse) {
 
 
 function onDigitsSuccess(response) {
+    console.log('Digits phone number retrieved.')
+    setDigitsNumber(response.phoneNumber);
+  }
+
+
+
+function onLoadDigits() {
     console.log('Digits phone number retrieved.')
     setDigitsNumber(response.phoneNumber);
   }

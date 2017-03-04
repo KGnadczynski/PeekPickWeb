@@ -26,6 +26,7 @@ export class LoginService {
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append('Authorization', 'Basic Y2xpZW50YXBwOjEyMzQ1Ng==');
 
+
     return this.http.post(this.Url+'oauth/token', user,{ headers: headers })
       .map(this.mapKomunikaty)
       .catch(this.handleError);
