@@ -4,9 +4,46 @@
       <template md-tab-label>Dane firmy</template>
       <template md-tab-content>
         <div id="daneFirmy">
-          <h1>{{  otherOneCompany?.name }}</h1>
-          <p>{{  otherOneCompany?.category.name }}</p>
-          <h4>
+          <h1 *ngIf="otherOneCompany?.name">{{  otherOneCompany?.name }}</h1>
+          <p id="adres">Adres:
+            <span>{{  otherOneCompany?.city }}</span>
+            <span>{{  otherOneCompany?.street }}</span>
+            <span>{{  otherOneCompany?.streetNo }}</span>
+          </p>
+
+          <div id="opisInfo" *ngIf="otherOneCompany?.description">
+            <h5>Opis:</h5>
+            <span>{{ otherOneCompany?.description }}</span>
+          </div>
+
+          <div id="godzinyInfo" *ngIf="otherOneCompany?.openingHours">
+            <h5>Godziny otwarcia: </h5>
+            <span>{{ otherOneCompany?.openingHours }}</span>
+          </div>
+          
+          <div id="kontaktInfo">
+            <h5>Kontakt:</h5>
+            <div *ngIf="otherOneCompany?.website">
+              <p id="website">
+                Strona internetowa:
+                <span>{{ otherOneCompany?.website }}</span>
+              </p>
+            </div>
+            <div *ngIf="otherOneCompany?.telephone">
+              <p id="telephone">
+                Nr telefonu:
+                <span>{{ otherOneCompany?.phoneNumber }}</span>
+              </p>
+            </div>
+            <div *ngIf="otherOneCompany?.email">
+              <p id="email">
+                Email:
+                <span>{{ otherOneCompany?.email }}</span>
+              </p>
+            </div>
+          </div>
+
+          <h4 id="companyDate" *ngIf="otherOneCompany?.companyName">
             <span>Data:</span>
             {{ otherOneCompany?.createDate }}
           </h4>
@@ -18,7 +55,23 @@
       <template md-tab-label>Posty</template>
       <template md-tab-content>
         <div id="postyFirmy">
-          <p>POSTY FIRMY</p>
+          <ul>
+            <li *ngFor="let ob of otherObjectList.objectList">
+              <h3>{{ ob.content }}</h3>
+              <p class="obDate" *ngIf="ob.createDate">
+                <span>Data rozpoczęcia:</span>
+                {{ob.createDate | date: 'dd.MM.yyyy hh:mm'}}
+              </p>
+              <p class="obDate" *ngIf="ob.endDate">
+                <span>Data zakończenia:</span>
+                {{ob.endDate | date: 'dd.MM.yyyy hh:mm'}}
+              </p>
+              <div class="obImg" *ngIf="ob.mainImageUrl">
+                <img src="{{ ob.mainImageUrl }}" alt="">
+              </div>
+              
+            </li>
+          </ul>
         </div>
       </template>
     </md-tab>

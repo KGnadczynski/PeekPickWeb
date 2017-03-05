@@ -5,6 +5,8 @@ import {  ActivatedRoute } from '@angular/router';
 import { Company } from './company';
 import { CompanyService } from './company.service';
 
+import { ObjectList } from './company';
+
 @Component({
   selector: 'company',
   encapsulation: ViewEncapsulation.None,
@@ -17,6 +19,8 @@ export class CompanyComponent implements OnInit {
   private sub:any;
   private id: number;
   private otherOneCompany: Company;
+  private otherObjectList: ObjectList;
+  
 
   constructor(private route: ActivatedRoute, private _companyService: CompanyService) {}
 
@@ -30,6 +34,12 @@ export class CompanyComponent implements OnInit {
     company.$observable.subscribe((receivedCompany: Company) => {
       this.otherOneCompany = receivedCompany;
     });
+
+    let companyMsg = this._companyService.getCompanyMessages({id: this.id});
+    companyMsg.$observable.subscribe((receivedMsg:ObjectList) => {
+      this.otherObjectList = receivedMsg;
+      console.dir(this.otherObjectList);
+    })
   }
 
   ngOnDestroy() {
