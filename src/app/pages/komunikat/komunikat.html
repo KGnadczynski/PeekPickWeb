@@ -5,13 +5,13 @@
 <!--</div>-->
 <div class="row" id="allKomunikaty">
   <ba-card class="col-xlg-7 col-xl-9 col-lg-12 col-sm-12 col-xs-12" id="leftPart">
-    <div *ngIf="logged">
+    <!--<div *ngIf="logged">-->
     <div id="dodajNowyKomunikat">
       <span defaultOverlayTarget></span>
       <!--<button (click)="openCustom()" class="btn btn-primary">Dodaj komunikat</button>-->
       <button (click)="openCustom()">Dodaj komunikat</button>
     </div>
-    </div>
+    <!--</div>-->
     <div class="search-results"
          infinite-scroll
          [infiniteScrollDistance]="2"
@@ -37,6 +37,7 @@
           {{ komunikat.nearestCompanyBranch.street}} 
           {{ komunikat.nearestCompanyBranch.streetNo}}
         </a>
+        
             </div>
             <div class="message-content">
               <span class="content">{{ komunikat.content}} </span>

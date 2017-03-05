@@ -18,14 +18,53 @@ div#daneFirmy{
         text-transform: uppercase;
     }
     p{
-        font-style: italic;
         font-size: 15px;
+        font-weight: bold;
+        span {
+            font-weight: normal;
+        }
     }
     h4 {
         font-size: 16px;
         font-weight: normal;
         span {
             font-weight: bold;
+        }
+    }
+    h5 {
+        margin: 3% 0;
+        padding-top: 1%;
+        font-size: 17px;
+        border-top: 1px solid #A20E12;
+    }
+}
+
+div#postyFirmy{
+    width: 60%;
+    margin: auto;
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li{
+            margin: 3% 0px;
+            border-bottom: 1px solid gray;
+            padding-bottom: 2%;
+            div.obImg{
+                img{
+                    width: 50%;
+                    margin: auto;
+                    display: block;
+                }
+            }
+            p{
+                span{
+                    color: lightgray;
+                    display: block;
+                    margin-bottom: 1%;
+                    font-weight: bold;
+                }
+            }
         }
     }
 }
