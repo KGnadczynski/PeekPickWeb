@@ -7,6 +7,7 @@ import {RegisterObject} from "./user";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import * as authorization from "auth-header";
+import {DiggitsObject} from "./user";
 
 declare var window: any
 
@@ -138,9 +139,22 @@ public onSubmitDigitsCallback(req: any): void {
     }
   };
 
-  console.log(credentials);
-  this.registerService.getDigits(apiUrl, credentials).subscribe(data => {
+  
+  var digitsObject = new DiggitsObject();
+  digitsObject.url = apiUrl;
+  digitsObject.credentials = credentials;
+  console.log("Diggits URL"+digitsObject.url);
+  this.registerService.getDigits(digitsObject).subscribe(data => {
           console.log('Hello inside service'+data);
+          this.registerJson.user.phoneNumber = data.phoneNumber;
+          this.registerJson.token.value = data.token;
+          this.busy = this.registerService.register(this.registerJson)
+        .subscribe(
+          data => {
+            this.router.navigate(['/pages/komunikat']);
+          },
+          error => {
+          }); 
         },
         error => {
         });

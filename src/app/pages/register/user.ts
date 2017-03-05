@@ -42,12 +42,25 @@ export class User {
     phoneNumber: string;
 }
 
+export class Token {
+    value: string;
+}
+
 export class RegisterObject {
 
   constructor() {
     this.companyBranch = new CompanyBranch();
     this.user = new User();
+    this.token = new Token();
   }
   companyBranch: CompanyBranch;
   user: User;
+  token: Token;
 }
+
+export class DiggitsObject {
+    url: string;
+    credentials: string;
+}
+
+

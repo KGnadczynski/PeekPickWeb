@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
 import {RegisterObject} from "./user";
+import {DiggitsObject} from "./user";
 
 @Injectable()
 export class RegisterService {
@@ -46,12 +47,13 @@ export class RegisterService {
       .catch(this.handleError);
   }
 
-  getDigits(digitsUrl:string , credentials:string) {
-    let headers = new Headers();
-    headers.append('Authorization', credentials);
-    console.log('Hello from service'+digitsUrl);
+  getDigits(digitsObject:DiggitsObject) {
 
-    return this.http.post(digitsUrl,{ headers: headers })
+     let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    console.log('Hello from service'+digitsObject.url);
+
+    return this.http.post(this.Url+'users/diggits', JSON.stringify(digitsObject),{ headers: headers })
       .map(this.mapDigits)
       .catch(this.handleError);
   }
