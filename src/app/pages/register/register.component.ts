@@ -6,6 +6,7 @@ import {MainBranze, PodKategoria} from "./mainbranze";
 import {RegisterObject} from "./user";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
+import * as authorization from "auth-header";
 
 declare var window: any
 
@@ -90,22 +91,61 @@ export class Register implements OnInit {
     this.registerJson.companyBranch.company.category.id = this.selectedKategoria.id;
     this.registerJson.companyBranch.company.category.parentCategory.name = this.selectedParentKategoria.name;
     this.registerJson.companyBranch.company.category.parentCategory.id = this.selectedParentKategoria.id;
-
   }
 
-public onSubmitDigitsCallback(): void {
+public onSubmitDigitsCallback(req: any): void {
     console.log('calledFromOutside on submit');
+    var apiUrl = req.apiUrl;
+    var credentials = req.credentials;
+    var verified = true;
+    var messages = [];
 
-    if (this.form.valid) {
-      this.busy = this.registerService.register(this.registerJson)
-        .subscribe(
-          data => {
-            this.router.navigate(['/pages/komunikat']);
-          },
-          error => {
-          });
-    }
+
+    //console.log(credentials);
+    // Get authorization header.
+     var auth = authorization.parse(credentials);
+     console.log(auth);
+    // OAuth authentication not provided.
+
+    if (auth.scheme != 'OAuth') {
+      verified = false;
+      messages.push('Invalid auth type.');
+     }
+
+  // Verify the OAuth consumer key.
+  if (auth.params.oauth_consumer_key != 'ZzsVNIxtpghaF2Lroz0cZC9q9') {
+    verified = false;
+    messages.push('The Digits API key does not match.');
   }
+
+  // Verify the hostname.
+  var hostname = apiUrl;
+  if (hostname != 'api.digits.com' && hostname != 'api.twitter.com') {
+    verified = false;
+    messages.push('Invalid API hostname.');
+  }
+
+  // Do not perform the request if the API key or hostname are not verified.
+  if (!verified) {
+
+  }
+
+  // Prepare the request to the Digits API.
+  var options = {
+    url: apiUrl,
+    headers: {
+      'Authorization': credentials
+    }
+  };
+
+  console.log(credentials);
+  this.registerService.getDigits(apiUrl, credentials).subscribe(data => {
+          console.log('Hello inside service'+data);
+        },
+        error => {
+        });
+  }
+
 
   changePodkategorie() {
     if (this.selectedParentKategoria) {

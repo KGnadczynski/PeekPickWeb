@@ -16,6 +16,12 @@ export class RegisterService {
     return body;
   }
 
+  mapDigits(res:Response) {
+    let body = res.json();
+    console.error(body);
+    return body;
+  }
+
   handleError(error: any) {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
@@ -37,6 +43,16 @@ export class RegisterService {
   getPodBranze(id:number) {
     return this.http.get(this.Url+'comapnycategories/parentCategoryId/'+id)
       .map(this.mapKomunikaty)
+      .catch(this.handleError);
+  }
+
+  getDigits(digitsUrl:string , credentials:string) {
+    let headers = new Headers();
+    headers.append('Authorization', credentials);
+    console.log('Hello from service'+digitsUrl);
+
+    return this.http.post(digitsUrl,{ headers: headers })
+      .map(this.mapDigits)
       .catch(this.handleError);
   }
 }
