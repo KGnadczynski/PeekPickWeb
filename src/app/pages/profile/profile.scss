@@ -1,7 +1,5 @@
 @import '../../theme/sass/conf/conf';
-
-
-@import '../../theme/sass/conf/conf';
+@import '../../theme/sass/auth';
 
 div#profile{
     padding-left: 5%;
@@ -10,4 +8,95 @@ div#profile{
 
 div.md-tab-header {
     justify-content: center;
+}
+
+
+div#dodatkoweInformacje{
+    width: 60%;
+    margin: auto;
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li{
+            margin: 3% 0px;
+            border-bottom: 1px solid gray;
+            padding-bottom: 2%;
+            div.obImg{
+                img{
+                    width: 50%;
+                    margin: auto;
+                    display: block;
+                }
+            }
+            p{
+                span{
+                    color: lightgray;
+                    display: block;
+                    margin-bottom: 1%;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+div#daneFirmy{
+    width: 60%;
+    margin: auto;
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li{
+            margin: 3% 0px;
+            border-bottom: 1px solid gray;
+            padding-bottom: 2%;
+            div.obImg{
+                img{
+                    width: 50%;
+                    margin: auto;
+                    display: block;
+                }
+            }
+            p{
+                span{
+                    color: lightgray;
+                    display: block;
+                    margin-bottom: 1%;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+div#profil{
+    width: 60%;
+    margin: auto;
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li{
+            margin: 3% 0px;
+            border-bottom: 1px solid gray;
+            padding-bottom: 2%;
+            div.obImg{
+                img{
+                    width: 50%;
+                    margin: auto;
+                    display: block;
+                }
+            }
+            p{
+                span{
+                    color: lightgray;
+                    display: block;
+                    margin-bottom: 1%;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
 }

@@ -23,6 +23,7 @@
     "ammap3": "github:amcharts/ammap3",
     "angular2-busy": "^1.0.2",
     "angular2-google-maps": "^0.16.0",
+    "angular2-image-upload": "^0.3.2",
     "angular2-infinite-scroll": "^0.2.8",
     "angular2-modal": "^2.0.2",
     "animate.css": "3.5.2",
