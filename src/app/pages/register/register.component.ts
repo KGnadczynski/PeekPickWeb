@@ -145,7 +145,6 @@ public onSubmitDigitsCallback(req: any): void {
   digitsObject.credentials = credentials;
   console.log("Diggits URL"+digitsObject.url);
   this.registerService.getDigits(digitsObject).subscribe(data => {
-          console.log('Hello inside service'+data);
           this.registerJson.user.phoneNumber = data.phoneNumber;
           this.registerJson.token.value = data.token;
           this.busy = this.registerService.register(this.registerJson)

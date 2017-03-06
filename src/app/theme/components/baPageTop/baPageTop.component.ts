@@ -34,4 +34,16 @@ export class BaPageTop {
   public search(term:string) {
     this.communicationservice.szukajKomunikat(term);
   }
+
+  public profileClick() {
+       console.log("Profile clicked");
+  }
+
+   public settingsClick() {
+       console.log("Settings clicked");
+  }
+
+   public signoutClick() {
+       console.log("Settings clicked");
+  }
 }
