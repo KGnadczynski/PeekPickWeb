@@ -20,7 +20,8 @@ export class CompanyComponent implements OnInit {
   private id: number;
   private otherOneCompany: Company;
   private otherObjectList: ObjectList;
-  
+  lat: number;
+  lng: number;
 
   constructor(private route: ActivatedRoute, private _companyService: CompanyService) {}
 
@@ -33,13 +34,24 @@ export class CompanyComponent implements OnInit {
     let company = this._companyService.getCompany({id: this.id});
     company.$observable.subscribe((receivedCompany: Company) => {
       this.otherOneCompany = receivedCompany;
+      this.lat = this.otherOneCompany.latitude;
+      this.lng = this.otherOneCompany.longitude;
+      console.log('lat: ' + this.lat);
+      console.log('lng: ' + this.lng);
     });
 
     let companyMsg = this._companyService.getCompanyMessages({id: this.id});
     companyMsg.$observable.subscribe((receivedMsg:ObjectList) => {
       this.otherObjectList = receivedMsg;
+
       console.dir(this.otherObjectList);
-    })
+      
+      
+    });
+
+    //this.lat = this.otherOneCompany.latitude;
+    //this.lng = this.otherOneCompany.longitude;
+    
   }
 
   ngOnDestroy() {

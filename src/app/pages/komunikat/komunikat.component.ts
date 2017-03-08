@@ -10,6 +10,9 @@ import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
 import {ObjectList} from "./komunikat"
 
+//dodanie enum do typow wiadomosci
+import { MessageType } from './messagesType';
+
 @Component({
   selector: 'komunikatcomponent',
   templateUrl: './komunikat.html',
@@ -20,7 +23,9 @@ import {ObjectList} from "./komunikat"
 })
 export class KomunikatComponent implements OnInit {
 
-  typyKomunikatow = [ "WORK", "PROMOTION", "EVENT", "SHORT_TERM_OFFER", "WORTH_SEEING"];
+  //typyKomunikatow = [ "WORK", "PROMOTION", "EVENT", "SHORT_TERM_OFFER", "WORTH_SEEING"];
+  typyKomunikatow: string[] = Object.keys(MessageType);
+
   kulturairozrywka = ["artyści, zespoły", "escape roomy, parki rozrywki", "kino, teatr" ,"muzeum, wystawy" ,"inne"];
   gastronomiainocnezycie = ["food truck","kawiarnie","kluby","puby","restauracje" , "inne"];
   selected = [];
@@ -60,9 +65,13 @@ export class KomunikatComponent implements OnInit {
 
 
   constructor(private _komunikatyService: KomunikatService, public modal: Modal,private communicationservice: CommunicationService){
+      
   }
 
   ngOnInit() {
+    //usuniecie z tablicy enum liczb porzadkowych
+    this.typyKomunikatow = this.typyKomunikatow.slice(this.typyKomunikatow.length/2);
+
     this.komunikatyList = new KomunikatyList();
     var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
     if(currentUser != null) {

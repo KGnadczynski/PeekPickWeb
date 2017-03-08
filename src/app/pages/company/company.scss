@@ -63,8 +63,22 @@ div#postyFirmy{
                     display: block;
                     margin-bottom: 1%;
                     font-weight: bold;
+                    a{
+                        text-decoration: none;
+                        
+                    }
                 }
             }
         }
     }
+}
+
+div#mapaFirmy{
+    width: 60%;
+    margin: auto;
+    padding-top: 3%;
+}
+
+.sebm-google-map-container {
+  height: 600px;
 }

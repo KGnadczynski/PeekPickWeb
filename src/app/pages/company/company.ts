@@ -16,6 +16,8 @@ export interface Company {
   category: Category;
   createDate: Date;
   mainImageUrl: any;
+  latitude: number;
+  longitude: number;
 }
 
 export interface User {

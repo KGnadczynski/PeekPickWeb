@@ -5,13 +5,13 @@
 <!--</div>-->
 <div class="row" id="allKomunikaty">
   <ba-card class="col-xlg-7 col-xl-9 col-lg-12 col-sm-12 col-xs-12" id="leftPart">
-    <!--<div *ngIf="logged">-->
+    <div *ngIf="logged">
     <div id="dodajNowyKomunikat">
       <span defaultOverlayTarget></span>
       <!--<button (click)="openCustom()" class="btn btn-primary">Dodaj komunikat</button>-->
       <button (click)="openCustom()">Dodaj komunikat</button>
     </div>
-    <!--</div>-->
+    </div>
     <div class="search-results"
          infinite-scroll
          [infiniteScrollDistance]="2"
@@ -48,10 +48,13 @@
                 Data rozpoczęcia
               </div>
               <div class="post-time">
-                {{ komunikat.startDate }}
+                {{ komunikat.startDate | date: 'dd.MM.yyyy hh:mm' }}
+              </div>
+              <div class="top-time">
+                Data zakończenia
               </div>
               <div class="ago-time">
-                {{ komunikat.endDate }}
+                {{ komunikat.endDate | date: 'dd.MM.yyyy hh:mm' }}
               </div>
             </div>
 

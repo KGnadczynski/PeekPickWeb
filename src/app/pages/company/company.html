@@ -26,7 +26,7 @@
             <div *ngIf="otherOneCompany?.website">
               <p id="website">
                 Strona internetowa:
-                <span>{{ otherOneCompany?.website }}</span>
+                <span><a href="{{ otherOneCompany?.website }}" _target="blank">{{ otherOneCompany?.website }}</a></span>
               </p>
             </div>
             <div *ngIf="otherOneCompany?.telephone">
@@ -79,7 +79,9 @@
       <template md-tab-label>Mapa</template>
       <template md-tab-content>
         <div id="mapaFirmy">
-          <h1>Some more tab content</h1>
+            <sebm-google-map [latitude]="lat" [longitude]="lng">
+              <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+            </sebm-google-map>
         </div>
       </template>
     </md-tab>
