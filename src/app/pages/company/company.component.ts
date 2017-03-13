@@ -36,22 +36,16 @@ export class CompanyComponent implements OnInit {
       this.otherOneCompany = receivedCompany;
       this.lat = this.otherOneCompany.latitude;
       this.lng = this.otherOneCompany.longitude;
-      console.log('lat: ' + this.lat);
-      console.log('lng: ' + this.lng);
     });
 
     let companyMsg = this._companyService.getCompanyMessages({id: this.id});
     companyMsg.$observable.subscribe((receivedMsg:ObjectList) => {
       this.otherObjectList = receivedMsg;
-
-      console.dir(this.otherObjectList);
-      
-      
     });
 
-    //this.lat = this.otherOneCompany.latitude;
-    //this.lng = this.otherOneCompany.longitude;
-    
+    let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+    console.log('token:');
+    console.dir(currentUser);
   }
 
   ngOnDestroy() {

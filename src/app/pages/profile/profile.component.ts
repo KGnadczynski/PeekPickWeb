@@ -7,7 +7,8 @@ import { User } from './user';
   selector: 'profile',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./profile.scss')],
-  template: require('./profile.html')
+  template: require('./profile.html'),
+  providers: [ProfileService]
 })
 export class ProfileComponent implements OnInit {
 
@@ -17,7 +18,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     
-    let user = this.profileService.getUser();
+    //let user = this.profileService.getUser();
     // user.$observable.subscribe((receivedUser: User) => {
     //   this.otherUser = receivedUser;
     // });
