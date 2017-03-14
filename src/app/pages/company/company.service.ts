@@ -9,7 +9,6 @@ import { ObjectList } from './company';
 
 @Injectable()
 @ResourceParams({
-    // url: '/companies'
     url: '/'
 })
 

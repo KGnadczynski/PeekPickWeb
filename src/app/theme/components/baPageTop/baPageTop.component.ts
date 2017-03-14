@@ -43,6 +43,7 @@ export class BaPageTop {
   }
 
    public signoutClick() {
-       console.log("Settings clicked");
+       console.log("Signout clicked");
+       localStorage.removeItem('currentUserToken');
   }
 }

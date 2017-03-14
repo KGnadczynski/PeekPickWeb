@@ -2,7 +2,14 @@
   <md-tab-group>
     <md-tab>
       <template md-tab-label>Moje posty</template>
-      <template md-tab-content>   
+      <template md-tab-content>
+          <div id="userMessages">
+            <ul>
+                <li *ngFor="let ob of otherObject?.objectList">
+                    <span>{{ ob.content }}</span>
+                </li>
+            </ul>
+          </div>
       </template>
     </md-tab>
     <md-tab>
