@@ -8,11 +8,23 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="singleKomunikatDialog">
         <p>
-          Firma: {{ anotherObjectList?.user.name }}
+          Firma: 
+          <span>
+            {{ anotherObjectList?.user.company.name }}
+          </span>
         </p>
-        <img src="{{ anotherObjectList?.mainImageUrl }}" alt="" style="width: 100%;">
+        <img src="{{ anotherObjectList?.mainImageUrl }}" alt="">
+        
+        <p>
+          Data utworzenia:
+          <span> {{ anotherObjectList?.createDate | date: 'dd.MM.yyyy hh:mm' }}</span>
+        </p>
+        <p>
+          Data zakończenia:
+          <span> {{ anotherObjectList?.endDate | date: 'dd.MM.yyyy hh:mm' }}</span>
+        </p>
       </div>
     </div>
   </div>

@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'komunikat-single',
   encapsulation: ViewEncapsulation.None,
-  //styles: [require('./komunikat-single.scss')],
+  styles: [require('./komunikat-single.scss')],
   template: require('./komunikat-single.component.html'),
   providers: [KomunikatServiceComponent]
 })

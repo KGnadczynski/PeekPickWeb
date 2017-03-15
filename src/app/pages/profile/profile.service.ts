@@ -23,8 +23,8 @@ export class ProfileService{
             this.token = currentUser.token;
             let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token });
             let options = new RequestOptions({ headers: headers });
-            console.log('public token: ' + this.token.access_token);
-            console.dir(this.token);
+            //console.log('public token: ' + this.token.access_token);
+            //console.dir(this.token);
 
             return this.http.get('https://damp-temple-52216.herokuapp.com/users/business/me', options)
             .map((response: Response) => response.json());

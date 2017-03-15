@@ -34,6 +34,8 @@ export class CompanyComponent implements OnInit {
     let company = this._companyService.getCompany({id: this.id});
     company.$observable.subscribe((receivedCompany: Company) => {
       this.otherOneCompany = receivedCompany;
+      console.log('this other company:');
+      console.dir(this.otherOneCompany);
       this.lat = this.otherOneCompany.latitude;
       this.lng = this.otherOneCompany.longitude;
     });
@@ -43,9 +45,6 @@ export class CompanyComponent implements OnInit {
       this.otherObjectList = receivedMsg;
     });
 
-    let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
-    console.log('token:');
-    console.dir(currentUser);
   }
 
   ngOnDestroy() {
