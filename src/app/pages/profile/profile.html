@@ -6,7 +6,24 @@
           <div id="userMessages">
             <ul>
                 <li *ngFor="let ob of otherObject?.objectList">
-                    <span>{{ ob.content }}</span>
+                    <div class="dates">
+                        <p>
+                            Data rozpoczęcia:
+                            <span class="createDate">
+                                {{ ob.createDate | date: 'dd.MM.yyyy hh:mm'}}
+                            </span>
+                        </p>
+                        <p>
+                            Data zakończenia:
+                            <span class="endDate">
+                                {{ ob.endDate | date: 'dd.MM.yyyy hh:mm'}}
+                            </span>
+                        </p>
+                    </div>
+                    <a [routerLink]="['/pages/komunikat_single', ob.id]"
+                    >{{ ob.content }}</a>
+                    <img src="{{ ob.mainImageUrl }}" alt="">
+                    
                 </li>
             </ul>
           </div>

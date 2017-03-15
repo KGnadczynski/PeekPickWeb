@@ -1,8 +1,6 @@
 import {Component,OnInit ,ViewEncapsulation} from '@angular/core';
-
 import { ProfileService } from './profile.service';
 import { ObjectList } from './user';
-
 import { Http, Headers, RequestOptions } from '@angular/http';
 
 @Component({

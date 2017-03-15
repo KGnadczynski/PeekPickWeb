@@ -17,6 +17,7 @@ export const routes: Routes = [
       { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule'},
       { path: 'company/:name', loadChildren: 'app/pages/company/company.module#CompanyModule'},
       { path: 'profile', loadChildren: 'app/pages/profile/profile.module#ProfileModule'},
+      { path: 'komunikat_single/:id_komunikat', loadChildren: 'app/pages/komunikat-single/komunikat-single.module#KomunikatSingleModule'}
     ]
   }
 ];

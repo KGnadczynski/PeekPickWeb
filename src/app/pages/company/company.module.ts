@@ -1,4 +1,4 @@
-import { NgModule, ApplicationRef  }      from '@angular/core';
+import { NgModule, ApplicationRef  } from '@angular/core';
 import { CommonModule }  from '@angular/common';
 import { CompanyComponent} from './company.component';
 import { NgaModule } from '../../theme/nga.module';
@@ -29,4 +29,4 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
   ]
 })
 
-export  class CompanyModule {}
+export class CompanyModule {}

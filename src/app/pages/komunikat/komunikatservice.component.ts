@@ -7,6 +7,8 @@ import {KomunikatyList} from "./komunikatlist.model";
 import {KomunikatDodanie} from "./komunikatdodanie";
 import {ImageModel} from "./imagemodel";
 
+import { ObjectList } from './komunikat';
+
 @Injectable()
 export class KomunikatService {
   private _Url:string = "https://damp-temple-52216.herokuapp.com/";
@@ -107,4 +109,17 @@ export class KomunikatService {
     let body = res.json();
     return body;
   }
+
+
+  //funkcja zwracajaca komunikat o podanym id
+  getKomunikat(id: number): Observable<ObjectList>{
+    let url = `https://damp-temple-52216.herokuapp.com/messages/${id}`;
+    return this._http.get(url).map(this.extractData);
+  }
+
+  private extractData(res: Response) {
+      let body = res.json();
+      return body|| { };
+  }
+
 }
