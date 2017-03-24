@@ -4,10 +4,12 @@ import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
 import {RegisterService} from "./registerservice.component";
 import {MainBranze, PodKategoria} from "./mainbranze";
 import {RegisterObject} from "./user";
+import {LoginService} from "../login/loginservice.component";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import * as authorization from "auth-header";
 import {DiggitsObject} from "./user";
+import {URLSearchParams} from "@angular/http";
 
 declare var window: any
 
@@ -16,7 +18,7 @@ declare var window: any
   encapsulation: ViewEncapsulation.None,
   styles: [require('./register.scss')],
   template: require('./register.html'),
-  providers: [RegisterService]
+  providers: [RegisterService,LoginService]
 })
 export class Register implements OnInit {
 
@@ -50,7 +52,7 @@ export class Register implements OnInit {
   }
 
 
-  constructor(fb: FormBuilder, private registerService: RegisterService,private router: Router,private zone:NgZone) {
+  constructor(fb: FormBuilder, private registerService: RegisterService,private loginService: LoginService,private router: Router,private zone:NgZone) {
 
     window.angularComponentRef = {
       zone: this.zone,
@@ -150,8 +152,19 @@ public onSubmitDigitsCallback(req: any): void {
           this.busy = this.registerService.register(this.registerJson)
         .subscribe(
           data => {
-            this.router.navigate(['/pages/komunikat']);
-          },
+            let body = new URLSearchParams();
+            body.set('password', this.registerJson.user.password);
+            body.set('username', this.registerJson.user.email);
+            body.set('grant_type', "password");
+            body.set('client_secret', "client_secret");
+            this.loginService.login(body).subscribe(
+                  data => {
+                    localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
+                    this.router.navigate(['/komunikat']);
+                  },
+                  error => {
+                  });
+            },
           error => {
           }); 
         },
