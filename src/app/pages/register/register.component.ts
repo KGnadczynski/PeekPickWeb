@@ -152,6 +152,8 @@ public onSubmitDigitsCallback(req: any): void {
           this.busy = this.registerService.register(this.registerJson)
         .subscribe(
           data => {
+            console.log(data);
+            localStorage.setItem('user', JSON.stringify({ user: data}));
             let body = new URLSearchParams();
             body.set('password', this.registerJson.user.password);
             body.set('username', this.registerJson.user.email);

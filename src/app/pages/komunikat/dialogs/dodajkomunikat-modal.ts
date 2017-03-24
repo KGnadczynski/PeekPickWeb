@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {KomunikatService} from "./../komunikatservice.component";
-import {KomunikatDodanie} from "./../komunikatdodanie";
+import {KomunikatDodanie,CompanyBranchList} from "./../komunikatdodanie";
 import {CommunicationService} from "./../communicationservice.component";
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 
@@ -32,6 +32,7 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
   public tekst: any;
   result:any;
   komunikatDodanie:KomunikatDodanie;
+  companyBranch:CompanyBranchList;
   komunikatModel:any = {};
   selectedTyp:string;
   image:File;
@@ -67,13 +68,9 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
     this.komunikatDodanie.endDate = "2017-04-23T18:25:43Z";//this.komunikatModel.endDate;
    // this.komunikatDodanie.createDate ="2017-04-23T18:25:43Z" ;//this.komunikatModel.startDate;
     this.komunikatDodanie.status = "NEW";
-    this.komunikatDodanie.companyBranch.id = 2;
-    this.komunikatDodanie.companyBranch.city = "Chwaszczyno";
-    this.komunikatDodanie.companyBranch.name  = "aaaaaaa";
-    this.komunikatDodanie.companyBranch.street  = "Gdyńska";
-    this.komunikatDodanie.companyBranch.streetNo  = "34";
-    this.komunikatDodanie.companyBranch.latitude = "53.32131";
-    this.komunikatDodanie.companyBranch.longitude = "53.32131";
+    this.komunikatDodanie.user= JSON.parse(localStorage.getItem('user'));
+   // this.komunikatDodanie.companyBranchCount=  1;
+    this.komunikatDodanie.companyBranchList = JSON.parse(localStorage.getItem('companyBranchList'));
     this.komunikatyService.postKomunikat(this.komunikatDodanie).subscribe(
       data => {
         this.result = data;

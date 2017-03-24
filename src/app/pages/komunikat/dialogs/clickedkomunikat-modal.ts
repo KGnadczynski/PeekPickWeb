@@ -94,31 +94,6 @@ export class ClickedKomunikatModal implements CloseGuard, ModalComponent<CustomM
     return this.wrongAnswer;
   }
 
-  clicked(){
-    console.log(this.tekst);
-    this.komunikatDodanie = new KomunikatDodanie();
-    this.komunikatDodanie.content = this.komunikatModel.content;
-    this.komunikatDodanie.type = "WORK";
-    this.komunikatDodanie.startDate = "2017-04-23T18:25:43Z";//this.komunikatModel.startDate;
-    this.komunikatDodanie.endDate = "2017-04-23T18:25:43Z";//this.komunikatModel.endDate;
-   // this.komunikatDodanie.createDate ="2017-04-23T18:25:43Z" ;//this.komunikatModel.startDate;
-    this.komunikatDodanie.status = "NEW";
-    this.komunikatDodanie.companyBranch.id = 2;
-    this.komunikatDodanie.companyBranch.city = "Chwaszczyno";
-    this.komunikatDodanie.companyBranch.name  = "aaaaaaa";
-    this.komunikatDodanie.companyBranch.street  = "Gdyńska";
-    this.komunikatDodanie.companyBranch.streetNo  = "34";
-    this.komunikatDodanie.companyBranch.latitude = "53.32131";
-    this.komunikatDodanie.companyBranch.longitude = "53.32131";
-    this.komunikatyService.postKomunikat(this.komunikatDodanie).subscribe(
-      data => {
-        this.result = data;
-        this.communicationservice.dodanoKomunikat(this.result.id,this.image);
-      },
-      error => {
-      });
-    this.dialog.close();
-  }
 
   clickedZamknij(){
     this.dialog.close();

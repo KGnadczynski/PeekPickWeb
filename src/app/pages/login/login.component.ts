@@ -4,6 +4,7 @@ import {LoginService} from "./loginservice.component";
 import {UserLogin} from "./userlogin";
 import {Router} from "@angular/router";
 import {URLSearchParams} from "@angular/http";
+import {User} from "../komunikat/komunikatdodanie"
 
 @Component({
   selector: 'login',
@@ -18,6 +19,7 @@ export class Login {
   public email:AbstractControl;
   public password:AbstractControl;
   public submitted:boolean = false;
+  userFromServer:User
   userJson: UserLogin;
   user :any = {};
 
@@ -43,9 +45,23 @@ export class Login {
 
       this.loginService.login(body).subscribe(
           data => {
-            localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
-            this.router.navigate(['/komunikat']);
-          },
+              localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
+              this.loginService.getInfo().subscribe(
+                data => {
+                      this.userFromServer = data
+                      console.log(this.userFromServer.company.id);
+                      localStorage.setItem('user', JSON.stringify({ user: data}));    
+                      this.loginService.getInfoForCompanyFromUser(this.userFromServer.company.id).subscribe(
+                           data => {
+                             localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data}));    
+                             this.router.navigate(['/komunikat']);
+                            },
+                             error => {
+                           });                    
+                    },
+                    error => {
+                    });
+              },
           error => {
           });
       }

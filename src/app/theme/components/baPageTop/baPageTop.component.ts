@@ -45,5 +45,7 @@ export class BaPageTop {
    public signoutClick() {
        console.log("Signout clicked");
        localStorage.removeItem('currentUserToken');
+       localStorage.removeItem('user');
+       localStorage.removeItem('companyBranchList');
   }
 }

@@ -32,4 +32,26 @@ export class LoginService {
       .catch(this.handleError);
   }
 
+  getInfo() {
+    let headers = new Headers();
+     var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+    if(currentUser != null) {
+      var token = currentUser.token
+    }
+    var autorizationHeader = 'Bearer '+token.access_token;
+    headers.append('Authorization', autorizationHeader);
+    headers.append('Content-Type', 'application/json');
+
+
+    return this.http.get(this.Url+'users/business/me',{ headers: headers })
+      .map(this.mapKomunikaty)
+      .catch(this.handleError);
+  }
+
+  getInfoForCompanyFromUser(id:number) {
+    return this.http.get(this.Url+'companybranches/companyId/'+id)
+      .map(this.mapKomunikaty)
+      .catch(this.handleError);
+  }
+
 }
