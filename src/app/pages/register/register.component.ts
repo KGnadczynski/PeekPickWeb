@@ -98,7 +98,9 @@ export class Register implements OnInit {
         console.log('maps okej'+ results[0].geometry.location.lat);
          this.registerJson.companyBranch.latitude = results[0].geometry.location.lat;
          this.registerJson.companyBranch.longitude = results[0].geometry.location.lng;
-          } 
+         localStorage.setItem('latitude', JSON.stringify({ latitude: this.registerJson.companyBranch.latitude})); 
+         localStorage.setItem('longitude', JSON.stringify({ longitude: this.registerJson.companyBranch.longitude})); 
+        } 
       }); 
     }
     this.registerJson.companyBranch.name = this.user.name;
