@@ -68,9 +68,18 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
     this.komunikatDodanie.endDate = "2017-04-23T18:25:43Z";//this.komunikatModel.endDate;
    // this.komunikatDodanie.createDate ="2017-04-23T18:25:43Z" ;//this.komunikatModel.startDate;
     this.komunikatDodanie.status = "NEW";
-    this.komunikatDodanie.user= JSON.parse(localStorage.getItem('user'));
-   // this.komunikatDodanie.companyBranchCount=  1;
-    this.komunikatDodanie.companyBranchList = JSON.parse(localStorage.getItem('companyBranchList'));
+    var user = JSON.parse(localStorage.getItem('user'));
+    this.komunikatDodanie.user= user.user;
+    var companyBranchList = JSON.parse(localStorage.getItem('companyBranchList'));
+    this.komunikatDodanie.companyBranchList = companyBranchList.companyBranchList;
+    this.komunikatDodanie.companyBranchCount = this.komunikatDodanie.companyBranchList.length;
+    this.komunikatDodanie.location.name = this.komunikatDodanie.companyBranchList[0].name;
+    this.komunikatDodanie.location.city = this.komunikatDodanie.companyBranchList[0].city;
+    this.komunikatDodanie.location.latitude = this.komunikatDodanie.companyBranchList[0].latitude;
+    this.komunikatDodanie.location.longitude = this.komunikatDodanie.companyBranchList[0].longitude;
+    this.komunikatDodanie.location.street = this.komunikatDodanie.companyBranchList[0].street;
+    this.komunikatDodanie.location.streetNo = this.komunikatDodanie.companyBranchList[0].streetNo;
+    this.komunikatDodanie.location.address = this.komunikatDodanie.companyBranchList[0].city;
     this.komunikatyService.postKomunikat(this.komunikatDodanie).subscribe(
       data => {
         this.result = data;
