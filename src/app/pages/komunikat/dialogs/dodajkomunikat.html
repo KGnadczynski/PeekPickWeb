@@ -12,7 +12,7 @@
 
       <input type="file" image-upload
              (imageSelected)="selected($event)"
-              [resizeOptions]="resizeOptions" accept="image/*"  >
+              accept="image/*"  >
       <img [src]="src" [hidden]="!src"><br>
       <my-date-picker  [options]="myDatePickerOptions"
                        (dateChanged)="onDateChanged($event)"
