@@ -81,11 +81,18 @@ export class Register implements OnInit {
     this.registerJson.user.name = this.user.name;
     this.registerJson.user.email = this.user.email;
     this.registerJson.user.password = this.user.password;
-    this.registerJson.user.phoneNumber = '605499887';//this.user.phoneNumber;
     this.registerJson.companyBranch.city = this.company.city;
     this.registerJson.companyBranch.main = false;
-    this.registerJson.companyBranch.latitude = 51.412341;
-    this.registerJson.companyBranch.longitude = 51.412341;
+    var latitude = JSON.parse(localStorage.getItem('latitude'));
+    var longitude = JSON.parse(localStorage.getItem('longitude'));
+    if(latitude !=null && longitude != null) {
+      console.log('inside geo');
+      this.registerJson.companyBranch.latitude = latitude.latitude;
+      this.registerJson.companyBranch.longitude = longitude.longitude;
+    } else {
+      this.registerJson.companyBranch.latitude = 51.412341;
+      this.registerJson.companyBranch.longitude = 51.412341;
+    }
     this.registerJson.companyBranch.name = this.user.name;
     this.registerJson.companyBranch.street = this.company.street;
     this.registerJson.companyBranch.streetNo = this.company.streetNo;
