@@ -46,6 +46,7 @@ export class BaPageTop {
        console.log("Signout clicked");
        localStorage.removeItem('currentUserToken');
        localStorage.removeItem('user');
-       localStorage.removeItem('companyBranchList');
+       localStorage.removeItem('latitude');
+       localStorage.removeItem('longitude');
   }
 }

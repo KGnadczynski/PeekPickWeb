@@ -24,6 +24,10 @@ export class Pages {
   }
 
   ngOnInit() {
+      if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(this.setPosition);
+      }
+   
      var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
     if(currentUser != null) {
        this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED);
@@ -31,5 +35,11 @@ export class Pages {
       this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU);
     }
    
+  }
+
+  setPosition(position){
+    console.log(position.coords);
+    localStorage.setItem('latitude', JSON.stringify({ latitude: position.coords.latitude})); 
+    localStorage.setItem('longitude', JSON.stringify({ longitude: position.coords.longitude})); 
   }
 }

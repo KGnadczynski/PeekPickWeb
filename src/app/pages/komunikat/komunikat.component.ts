@@ -70,9 +70,6 @@ export class KomunikatComponent implements OnInit {
 
   ngOnInit() {
     //usuniecie z tablicy enum liczb porzadkowych
-     if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(this.setPosition);
-      }
    
 
     this.typyKomunikatow = this.typyKomunikatow.slice(this.typyKomunikatow.length/2);
@@ -163,11 +160,7 @@ export class KomunikatComponent implements OnInit {
   onDateChanged(event:any) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }
-  setPosition(position){
-    console.log(position.coords);
-    localStorage.setItem('latitude', JSON.stringify({ latitude: position.coords.latitude})); 
-    localStorage.setItem('longitude', JSON.stringify({ longitude: position.coords.longitude})); 
-  }
+  
 
   clicked(event) {
     console.log('clicked');
