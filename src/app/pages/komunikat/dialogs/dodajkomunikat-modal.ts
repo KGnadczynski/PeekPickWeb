@@ -42,8 +42,11 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
     // see original project for full list of options
     // can also be setup using the config service to apply to multiple pickers
     public options: any = {
-        locale: { format: 'YYYY-MM-DD' },
-        alwaysShowCalendars: false,
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'MM/DD/YYYY h:mm A'
+        }
     };
 
     public selectedDate(value: any) {
