@@ -37,6 +37,19 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
   selectedTyp:string;
   image:File;
   src: string = "";
+  public daterange: any = {};
+
+    // see original project for full list of options
+    // can also be setup using the config service to apply to multiple pickers
+    public options: any = {
+        locale: { format: 'YYYY-MM-DD' },
+        alwaysShowCalendars: false,
+    };
+
+    public selectedDate(value: any) {
+        this.daterange.start = value.start;
+        this.daterange.end = value.end;
+    }
   resizeOptions: ResizeOptions = {
     resizeMaxHeight: 300,
     resizeMaxWidth: 300
