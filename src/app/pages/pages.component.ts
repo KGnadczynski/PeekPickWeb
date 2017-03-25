@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 
 import { BaMenuService } from '../theme';
 import { PAGES_MENU } from './pages.menu';
+import { PAGES_MENU_LOGGED } from './pageslogged.menu';
 
 @Component({
   selector: 'pages',
@@ -23,6 +24,12 @@ export class Pages {
   }
 
   ngOnInit() {
-    this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU);
+     var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+    if(currentUser != null) {
+       this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED);
+    } else {
+      this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU);
+    }
+   
   }
 }
