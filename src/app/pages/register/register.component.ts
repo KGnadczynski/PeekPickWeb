@@ -86,12 +86,20 @@ export class Register implements OnInit {
     var latitude = JSON.parse(localStorage.getItem('latitude'));
     var longitude = JSON.parse(localStorage.getItem('longitude'));
     if(latitude !=null && longitude != null) {
-      console.log('inside geo');
       this.registerJson.companyBranch.latitude = latitude.latitude;
       this.registerJson.companyBranch.longitude = longitude.longitude;
     } else {
-      this.registerJson.companyBranch.latitude = 51.412341;
-      this.registerJson.companyBranch.longitude = 51.412341;
+      var geocoder = new google.maps.Geocoder();
+      var address = this.company.city+" "+this.company.street+" "+this.company.streetNo;
+      console.log('address'+ address);
+      geocoder.geocode( { 'address': address}, function(results, status) {
+
+      if (status == google.maps.GeocoderStatus.OK) {
+        console.log('maps okej'+ results[0].geometry.location.lat);
+         this.registerJson.companyBranch.latitude = results[0].geometry.location.lat;
+         this.registerJson.companyBranch.longitude = results[0].geometry.location.lng;
+          } 
+      }); 
     }
     this.registerJson.companyBranch.name = this.user.name;
     this.registerJson.companyBranch.street = this.company.street;
