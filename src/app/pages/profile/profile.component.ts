@@ -3,6 +3,8 @@ import { ProfileService } from './profile.service';
 import { ObjectList } from './user';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
+import { User } from './user';
+
 @Component({
   selector: 'profile',
   encapsulation: ViewEncapsulation.None,
@@ -12,7 +14,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 })
 export class ProfileComponent implements OnInit {
 
-  otherUser: any;
+  otherUser: User;
   private otherObject: ObjectList;
 
   constructor(private profileService: ProfileService, private _http: Http) {}
@@ -25,14 +27,13 @@ export class ProfileComponent implements OnInit {
           this.otherUser = user;
           console.log('this user ');
           console.dir(this.otherUser);
-          this.profileService.getUserMessages(this.otherUser.id).subscribe(objectList => {
+          this.profileService.getUserMessages(this.otherUser.company.id).subscribe(objectList => {
             this.otherObject = objectList;
-            //console.log('this other user messages:');
-            //console.dir(this.otherObject);
+              console.log('this users messages ');
+              console.dir(this.otherObject);
           });
+          
         });
-    } else {
-      console.log('niezalogowany nie ma tokena');
     }
 
   }

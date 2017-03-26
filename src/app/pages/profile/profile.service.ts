@@ -32,8 +32,10 @@ export class ProfileService{
     }
 
     getUserMessages(id: number) : Observable<ObjectList>{
-        return this.http.get(`https://damp-temple-52216.herokuapp.com/messages/page/1?userId=${id}`)
+        return this.http.get(`https://damp-temple-52216.herokuapp.com/messages/page/1?companyId=${id}`)
             .map((res:Response) => res.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server error');
     }
+
+    
 
 }

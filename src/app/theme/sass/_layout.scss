@@ -1,3 +1,8 @@
+.al-main {
+  padding-top: $paddingTop;
+}
+
+
 @import 'conf/conf';
 
 $left-space: $sidebar-width;
@@ -59,14 +64,6 @@ a {
   color: #444444;
 }
 
-.al-main {
-  height: 100%;
-  //margin-left: $left-space;
-  //padding-top: 66px;
-  //padding: 66px 0 34px 0;
-  //min-height: 500px;
-  //position: relative;
-}
 
 .al-footer {
   height: 34px;
@@ -139,14 +136,14 @@ a {
 }
 
 .al-content {
-  height: 100%;
+  //height: 100%;
   //padding: 8px 32px 8px 40px;
 }
 
 @media screen and (max-width: $resXS) {
-  .al-content {
+  /*.al-content {
     padding: 8px 20px;
-  }
+  }*/
 }
 
 .vis-hidden {
@@ -198,9 +195,9 @@ a {
     height: 76px;
     text-align: center;
   }
-  .al-main {
+  /*.al-main {
     padding-bottom: 76px;
-  }
+  }*/
   .al-footer-main {
     float: none;
     display: inline-block;

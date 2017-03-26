@@ -20,11 +20,11 @@ export class BaPageTop {
     });
   }
 
-  public toggleMenu() {
+  /*public toggleMenu() {
     this.isMenuCollapsed = !this.isMenuCollapsed;
     this._state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
     return false;
-  }
+  }*/
 
   public scrolledChanged(isScrolled) {
     this.isScrolled = isScrolled;

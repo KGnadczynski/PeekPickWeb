@@ -7,11 +7,12 @@ import { CompanyService } from './company.service';
 
 import { ObjectList } from './company';
 
+
 @Component({
   selector: 'company',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./company.scss')],
-  template: require('./company.html')
+  template: require('./company.html'),
 })
 
 export class CompanyComponent implements OnInit {
@@ -20,6 +21,7 @@ export class CompanyComponent implements OnInit {
   private id: number;
   private otherOneCompany: Company;
   private otherObjectList: ObjectList;
+  private companyImages: any;
   lat: number;
   lng: number;
 
@@ -38,11 +40,19 @@ export class CompanyComponent implements OnInit {
       console.dir(this.otherOneCompany);
       this.lat = this.otherOneCompany.latitude;
       this.lng = this.otherOneCompany.longitude;
+      let imgs = this._companyService.getCompanyImages({id:this.id});
+      imgs.$observable.subscribe((receivedImgs: any) => {
+        this.companyImages = receivedImgs;
+        console.log('this other imgs:');
+        console.dir(this.companyImages);
+      });
     });
 
     let companyMsg = this._companyService.getCompanyMessages({id: this.id});
     companyMsg.$observable.subscribe((receivedMsg:ObjectList) => {
       this.otherObjectList = receivedMsg;
+      console.log('messages: ');
+      console.dir(this.otherObjectList);
     });
 
   }

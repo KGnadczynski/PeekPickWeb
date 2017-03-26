@@ -15,7 +15,7 @@ export interface Company {
   name: string;
   category: Category;
   createDate: Date;
-  mainImageUrl: any;
+  mainImageUrl: string;
   latitude: number;
   longitude: number;
 }
@@ -24,7 +24,7 @@ export interface User {
   id: number;
   name: string;
   status: any;
-  company: Company;
+  company: Company2;
   email: string;
 }
 

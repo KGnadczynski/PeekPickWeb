@@ -1,3 +1,263 @@
+div.feed-message{
+  margin-bottom: 3%;
+  overflow: hidden;
+  border: 1px solid lightgray;
+  padding: 3%;
+  border-radius: 3px;
+  p{
+    margin: 3% 0;
+    padding-left: 4%;
+    text-align: left;
+  }
+  div.message-icon{
+    float: left;
+    width: 25%;
+    img {
+      width: 100%;
+      height: 100px;
+      padding: 1px;
+      border: 1px solid gray;
+    }
+  }
+  div.text-block{
+    float: left;
+    width: 50%;
+      div.message-header{
+        a.author{
+          font-size: 20px;
+          padding-left: 4%;
+          color: gray;
+          font-weight: bold;
+        }
+      }
+  }
+  div.message-distance{
+    width: 25%;
+    float: left;
+  }
+  div.message-content{
+    clear: both;
+    float: left;
+    width: 100%;
+    margin: 4% 0;
+    span{
+      font-size: 25px;
+      font-weight: bold;
+      line-height: 1.2em;
+    }
+  }
+  div.message-time{
+    float: left;
+    width: 100%;
+    overflow: hidden;
+    font-weight: bold;
+    margin-bottom: 4%;
+    span{
+      display: block;
+      margin-bottom: 3%;
+      font-weight: normal;
+    }
+    div.start-date{
+      width: 50%;
+      float: left;
+    }
+    div.end-date{
+      width: 50%;
+      float: right;
+      text-align: right;
+    }
+    div.no-date{
+      float: right;
+      padding-right: 2%;
+    }
+  }
+  div.message-photo{
+    float: left;
+    width: 100%;
+    img{
+      width: 96%;
+      margin: auto;
+      display: block;
+      margin-top: 2%;
+      margin-bottom: 2%;
+    }
+    
+  }
+  div.message-icons{
+    float: left;
+    width: 100%;
+    display: flex;
+    margin: 3% 0;
+    div{
+      width:25%;
+      img {
+        width: 30%;
+        margin: auto;
+        display: block;
+      }
+    }
+    div.favourite{
+      
+    }
+  }
+  
+}
+
+div#filterMessages{
+    padding: 3%;
+    h4{
+      cursor: pointer;
+      width: 90%;
+      float: left;
+      padding: 2% 0;
+      
+    }
+    i{
+        float: right;
+        width: 10%;
+        cursor: pointer;
+        
+      }
+    h4, h5{
+      color: #95989A;
+      text-align: center;
+    }
+    form#sortForm {
+      display: flex;
+      justify-content: space-around;
+      color: #95989A;
+    }
+
+    h3{
+      width: 60%;
+      margin: auto;
+      text-align: center;
+      color: #95989A;
+      padding-bottom: 3%;
+    }
+    button#filterButton{
+      display: block;
+      margin: auto;
+      margin-bottom: 2%;
+      margin-top: 2%;
+      padding: 3%;
+      border: 1px solid gray;
+      background: white;
+      color: gray;
+    }
+}
+
+div#googleForm{
+  input{
+    display: block;
+    margin: auto;
+    text-align: center;
+    padding: 3px 0;
+  }
+  
+}
+p{
+    margin: 3% 0;
+    text-align: center;
+    color: #95989A;
+}
+
+md-slider{
+  width: 100%;
+  display: block !important;
+  margin: auto;
+}
+
+form#messageTypeForm{
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+  div{
+    margin-right: 4%;
+    color: #95989A;
+    font-size: 16px;
+    margin-bottom: 3%;
+  }
+}
+
+.md-slider-thumb::after{
+      background-color: white !important;
+      border: 1px solid gray !important;
+}
+
+.md-slider-track-fill{
+      background-color: gray !important;
+}
+
+div#mdSlider{
+  width: 60%;
+  margin: auto;
+}
+
+div.blackLine{
+  width: 60%;
+  margin: auto;
+  height: 2px;
+  background: black;
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
+
+@media(max-width: 575px){
+    div.message-icon{
+        img{
+          height: 80px !important;
+        }
+    }
+    div.message-header{
+      a{
+        font-size: 16px !important;
+      }
+    }
+    div.message-category, div.message-address{
+      p{
+        font-size: 12px !important;
+      }
+    }
+    div.message-content{
+      span{
+        font-size: 15px !important;
+      }
+    }
+}
+
+@media (min-width: 576px) {
+    div.message-icon{
+        img{
+          height: 135px !important;
+        }
+    }
+}
+@media (min-width: 768px) {
+    div.message-icon{
+        img{
+          height: 175px !important;
+        }
+    }
+}
+@media (min-width: 992px) {
+    div.message-icon{
+      img{
+          height: 210px !important;
+        }
+    }
+}
+@media (min-width: 1200px) {
+    
+}
+
+/*
 @import '../../theme/sass/conf/conf';
 
 .card-header{
@@ -131,7 +391,7 @@ md-checkbox{
     }
   }
 }
-/*`
+
 ba-card{
   button{
     width: 100%;
@@ -142,7 +402,7 @@ ba-card{
     margin-bottom: 1%;
   }
 
-}*/
+}
 
 md-checkbox{
 
@@ -703,3 +963,4 @@ li {
   border: 0 none;
 }
 
+*/

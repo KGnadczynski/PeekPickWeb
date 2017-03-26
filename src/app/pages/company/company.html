@@ -1,21 +1,36 @@
 <div id="menuCompany">
+  <div class="company-image" *ngIf="companyImages?.imageUrl">
+    <img src="{{companyImages?.imageUrl}}" alt="">
+  </div>
+  <div class="company-name" *ngIf="otherOneCompany?.name">
+    <h4>
+      {{ otherOneCompany?.company.name }}
+    </h4>
+  </div>
   <md-tab-group>
     <md-tab>
-      <template md-tab-label>Dane firmy</template>
+      <template md-tab-label>
+        <p class="hidden-sm-down">
+          Dane firmy
+        </p>
+        <!--<div class="hidden-sm-up square"></div>-->
+      </template>
       <template md-tab-content>
         <div id="daneFirmy">
-          <h1 *ngIf="otherOneCompany?.name">{{  otherOneCompany?.name }}</h1>
-          
-          <p id="adres">Adres:
-            <span>{{  otherOneCompany?.city }}</span>
-            <span>{{  otherOneCompany?.street }}</span>
-            <span>{{  otherOneCompany?.streetNo }}</span>
-          </p>
 
+          
           <div id="opisInfo" *ngIf="otherOneCompany?.description">
             <h5>Opis:</h5>
             <span>{{ otherOneCompany?.description }}</span>
           </div>
+
+          <div id="adresInfo">
+            <h5>Adres:</h5>
+            <span *ngIf="otherOneCompany?.city">
+              {{  otherOneCompany?.city }},
+              {{  otherOneCompany?.street }}
+              {{  otherOneCompany?.streetNo }}</span>
+          </div>         
 
           <div id="godzinyInfo" *ngIf="otherOneCompany?.openingHours">
             <h5>Godziny otwarcia: </h5>
@@ -25,22 +40,16 @@
           <div id="kontaktInfo">
             <h5>Kontakt:</h5>
             <div *ngIf="otherOneCompany?.website">
-              <p id="website">
-                Strona internetowa:
-                <span><a href="{{ otherOneCompany?.website }}" _target="blank">{{ otherOneCompany?.website }}</a></span>
-              </p>
+              <p id="website">Strona internetowa:</p>
+               <a href="{{ otherOneCompany?.website }}" _target="blank">{{ otherOneCompany?.website }}</a>
             </div>
-            <div *ngIf="otherOneCompany?.telephone">
-              <p id="telephone">
-                Nr telefonu:
-                <span>{{ otherOneCompany?.phoneNumber }}</span>
-              </p>
+            <div *ngIf="otherOneCompany?.phoneNumber">
+              <p id="telephone">Nr telefonu:</p>
+              <label>{{ otherOneCompany?.phoneNumber }}</label>
             </div>
             <div *ngIf="otherOneCompany?.email">
-              <p id="email">
-                Email:
-                <span>{{ otherOneCompany?.email }}</span>
-              </p>
+              <p id="email">Email:</p>
+              <label>{{ otherOneCompany?.email }}</label>
             </div>
           </div>
 
@@ -53,20 +62,44 @@
       </template>
     </md-tab>
     <md-tab>
-      <template md-tab-label>Posty</template>
+      <template md-tab-label >
+          <p class="hidden-sm-down">
+            Posty
+          </p>
+          <!--<div class="hidden-sm-up square"></div>-->
+      </template>
       <template md-tab-content>
         <div id="postyFirmy">
           <ul>
             <li *ngFor="let ob of otherObjectList.objectList">
+              <div class="companyInfo">
+                <div class="companyImg">
+                  <img src="{{companyImages?.imageUrl}}" alt="">
+                </div>
+                <div class="company-text-block">
+                  <div class="companyName">
+                    <h2>{{ otherOneCompany?.company.name }}</h2>
+                  </div>
+                  <div class="companyCategory">
+                    <p>{{ otherOneCompany?.company.category.name }}</p>
+                  </div>
+                </div>
+                <div class="company-distance">
+                    dystans
+                </div>
+              </div>
+
               <h3>{{ ob.content }}</h3>
-              <p class="obDate" *ngIf="ob.createDate">
-                <span>Data rozpoczęcia:</span>
-                {{ob.createDate | date: 'dd.MM.yyyy hh:mm'}}
-              </p>
-              <p class="obDate" *ngIf="ob.endDate">
-                <span>Data zakończenia:</span>
-                {{ob.endDate | date: 'dd.MM.yyyy hh:mm'}}
-              </p>
+              <div class="obTime">
+                <p class="obDate" *ngIf="ob.createDate">
+                  <span>Data rozpoczęcia:</span>
+                  {{ob.createDate | date: 'dd.MM.yyyy hh:mm'}}
+                </p>
+                <p class="obDate" *ngIf="ob.endDate">
+                  <span>Data zakończenia:</span>
+                  {{ob.endDate | date: 'dd.MM.yyyy hh:mm'}}
+                </p>
+              </div>
               <div class="obImg" *ngIf="ob.mainImageUrl">
                 <img src="{{ ob.mainImageUrl }}" alt="">
               </div>
@@ -77,7 +110,12 @@
       </template>
     </md-tab>
     <md-tab>
-      <template md-tab-label>Mapa</template>
+      <template md-tab-label>
+        <p class="hidden-sm-down">
+          Mapa
+        </p>
+        <!--<div class="hidden-sm-up square"></div>-->
+        </template>
       <template md-tab-content>
         <div id="mapaFirmy">
             <sebm-google-map [latitude]="lat" [longitude]="lng">

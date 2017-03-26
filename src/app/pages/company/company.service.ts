@@ -22,4 +22,10 @@ export class CompanyService extends RestClient{
         path: '/messages/page/1?companyId={!id}'
     })
     getCompanyMessages: ResourceMethod<{id: any}, ObjectList>;
+
+    @ResourceAction({
+        path: '/companyimages/companyId/{!id}'
+    })
+    getCompanyImages: ResourceMethod<{id: any}, any>;
+
 }

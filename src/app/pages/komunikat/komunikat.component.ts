@@ -36,6 +36,7 @@ export class KomunikatComponent implements OnInit {
   logged = false;
   public isCollapsed:boolean = true;
   public isCollapsedGastro:boolean = true;
+  public isFiltryCollapse: boolean = true;
   canScrool = true;
   busy: Subscription;
 
@@ -59,6 +60,7 @@ export class KomunikatComponent implements OnInit {
         this.canScrool = false;
         console.log('scrolled!!'+this.pageNumber);
         this.getDataFromServer(this.pageNumber);
+        
       }
     }
   }
@@ -69,6 +71,7 @@ export class KomunikatComponent implements OnInit {
   }
 
   ngOnInit() {
+
     //usuniecie z tablicy enum liczb porzadkowych
     this.typyKomunikatow = this.typyKomunikatow.slice(this.typyKomunikatow.length/2);
 
@@ -79,6 +82,7 @@ export class KomunikatComponent implements OnInit {
       this.logged = true;
     }
     this.getDataFromServer(this.pageNumber);
+    
     var autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
       var place = autocomplete.getPlace();
@@ -119,6 +123,7 @@ export class KomunikatComponent implements OnInit {
                 this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
                 this.komunikatyList.isLastPage = result.isLastPage;
                 this.canScrool = true;
+                
               }
             }
           ));

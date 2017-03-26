@@ -1,18 +1,20 @@
 <div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)"
      [ngClass]="{scrolled: isScrolled}">
   <a routerLink="/pages/komunikat" class="al-logo clearfix"><span>tack</span>pad</a>
-  <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
 
   <div class="search">
     <i class="ion-ios-search-strong" ng-click="startSearch()"></i>
     <input id="searchInput" #term type="text" placeholder="Szukaj..." (keyup)="search(term.value)">
   </div>
 
+  
+
   <div class="user-profile clearfix">
     <div class="dropdown al-user-profile">
       <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
         <img src="assets/img/app/profile/kamil.png">
       </a>
+      
       <ul class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
         <li class="dropdown-item"><i class="dropdown-arr"></i></li>
         <li class="dropdown-item" (click)="profileClick()"><a href="#/pages/profile"><i class="fa fa-user"></i>Profile</a></li>
@@ -20,5 +22,16 @@
         <li class="dropdown-item" (click)="signoutClick()"><a href class="signout"><i class="fa fa-power-off"></i>Sign out</a></li>
       </ul>
     </div>
+  </div>
+
+
+  <div id="menu">
+      
+      <ul id="newMenu">
+        <li><a [routerLink]="['/pages/login']">Login</a></li>
+        <li><a [routerLink]="['/pages/register']">Zarejestruj się</a></li>
+        <li><a [routerLink]="['/pages/komunikat']">Komunikaty</a></li>
+        <li><a [routerLink]="['/pages/kulturairozrywka']">Kultura i rozrywka</a></li>
+      </ul>
   </div>
 </div>

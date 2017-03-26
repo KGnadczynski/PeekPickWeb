@@ -6,21 +6,11 @@ import { PAGES_MENU } from './pages.menu';
 
 @Component({
   selector: 'pages',
-  template: `
-  <ba-sidebar></ba-sidebar>
-  <ba-page-top></ba-page-top>
-  <div class="al-main">
-  <div class="al-content">
-    <router-outlet></router-outlet>
-    </div>
-    </div>
-    <ba-back-top position="200"></ba-back-top>
-    `
+  templateUrl: './pages.component.html' 
 })
 export class Pages {
 
-  constructor(private _menuService: BaMenuService) {
-  }
+  constructor(private _menuService: BaMenuService) {}
 
   ngOnInit() {
     this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU);

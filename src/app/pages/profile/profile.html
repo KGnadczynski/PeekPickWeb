@@ -4,6 +4,7 @@
       <template md-tab-label>Moje posty</template>
       <template md-tab-content>
           <div id="userMessages">
+              <img src="{{ otherUser?.company.mainImageUrl}}" alt="">
             <ul>
                 <li *ngFor="let ob of otherObject?.objectList">
                     <div class="dates">
