@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {KomunikatService} from "./../komunikatservice.component";
-import {KomunikatDodanie} from "./../komunikatdodanie";
+import {KomunikatDodanie,CompanyBranchList} from "./../komunikatdodanie";
 import {CommunicationService} from "./../communicationservice.component";
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 
@@ -32,10 +32,27 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
   public tekst: any;
   result:any;
   komunikatDodanie:KomunikatDodanie;
+  companyBranch:CompanyBranchList;
   komunikatModel:any = {};
   selectedTyp:string;
   image:File;
   src: string = "";
+  public daterange: any = {};
+
+    // see original project for full list of options
+    // can also be setup using the config service to apply to multiple pickers
+    public options: any = {
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'MM/DD/YYYY h:mm A'
+        }
+    };
+
+    public selectedDate(value: any) {
+        this.daterange.start = value.start;
+        this.daterange.end = value.end;
+    }
   resizeOptions: ResizeOptions = {
     resizeMaxHeight: 300,
     resizeMaxWidth: 300
@@ -67,13 +84,18 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
     this.komunikatDodanie.endDate = "2017-04-23T18:25:43Z";//this.komunikatModel.endDate;
    // this.komunikatDodanie.createDate ="2017-04-23T18:25:43Z" ;//this.komunikatModel.startDate;
     this.komunikatDodanie.status = "NEW";
-    this.komunikatDodanie.companyBranch.id = 2;
-    this.komunikatDodanie.companyBranch.city = "Chwaszczyno";
-    this.komunikatDodanie.companyBranch.name  = "aaaaaaa";
-    this.komunikatDodanie.companyBranch.street  = "Gdyńska";
-    this.komunikatDodanie.companyBranch.streetNo  = "34";
-    this.komunikatDodanie.companyBranch.latitude = "53.32131";
-    this.komunikatDodanie.companyBranch.longitude = "53.32131";
+    var user = JSON.parse(localStorage.getItem('user'));
+    this.komunikatDodanie.user= user.user;
+    var companyBranchList = JSON.parse(localStorage.getItem('companyBranchList'));
+    this.komunikatDodanie.companyBranchList = companyBranchList.companyBranchList;
+    this.komunikatDodanie.companyBranchCount = this.komunikatDodanie.companyBranchList.length;
+    this.komunikatDodanie.location.name = this.komunikatDodanie.companyBranchList[0].name;
+    this.komunikatDodanie.location.city = this.komunikatDodanie.companyBranchList[0].city;
+    this.komunikatDodanie.location.latitude = this.komunikatDodanie.companyBranchList[0].latitude;
+    this.komunikatDodanie.location.longitude = this.komunikatDodanie.companyBranchList[0].longitude;
+    this.komunikatDodanie.location.street = this.komunikatDodanie.companyBranchList[0].street;
+    this.komunikatDodanie.location.streetNo = this.komunikatDodanie.companyBranchList[0].streetNo;
+    this.komunikatDodanie.location.address = this.komunikatDodanie.companyBranchList[0].city;
     this.komunikatyService.postKomunikat(this.komunikatDodanie).subscribe(
       data => {
         this.result = data;

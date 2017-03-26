@@ -4,6 +4,10 @@ import {LoginService} from "./loginservice.component";
 import {UserLogin} from "./userlogin";
 import {Router} from "@angular/router";
 import {URLSearchParams} from "@angular/http";
+import {User} from "../komunikat/komunikatdodanie";
+import { BaMenuService } from '../../theme';
+import { Routes } from '@angular/router';
+import { PAGES_MENU_LOGGED } from '../pageslogged.menu';
 
 @Component({
   selector: 'login',
@@ -18,10 +22,11 @@ export class Login {
   public email:AbstractControl;
   public password:AbstractControl;
   public submitted:boolean = false;
+  userFromServer:User
   userJson: UserLogin;
   user :any = {};
 
-  constructor(fb:FormBuilder, private loginService: LoginService, private router: Router) {
+  constructor(fb:FormBuilder, private loginService: LoginService,private _menuService: BaMenuService, private router: Router) {
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -43,9 +48,24 @@ export class Login {
 
       this.loginService.login(body).subscribe(
           data => {
-            localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
-            this.router.navigate(['/komunikat']);
-          },
+              localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
+              this.loginService.getInfo().subscribe(
+                data => {
+                      this.userFromServer = data
+                      console.log(this.userFromServer.company.id);
+                      localStorage.setItem('user', JSON.stringify({ user: data}));    
+                      this.loginService.getInfoForCompanyFromUser(this.userFromServer.company.id).subscribe(
+                           data => {
+                             localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
+                             this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );   
+                             this.router.navigate(['/komunikat']);
+                            },
+                             error => {
+                           });                    
+                    },
+                    error => {
+                    });
+              },
           error => {
           });
       }

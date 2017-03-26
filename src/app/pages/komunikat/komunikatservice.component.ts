@@ -56,8 +56,6 @@ export class KomunikatService {
     return Observable.throw(error.json().error || 'Server error');
   }
   postKomunikat(komunikat:KomunikatDodanie){
-
-
     var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
     if(currentUser != null) {
       var token = currentUser.token

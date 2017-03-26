@@ -4,10 +4,12 @@ import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
 import {RegisterService} from "./registerservice.component";
 import {MainBranze, PodKategoria} from "./mainbranze";
 import {RegisterObject} from "./user";
+import {LoginService} from "../login/loginservice.component";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import * as authorization from "auth-header";
 import {DiggitsObject} from "./user";
+import {URLSearchParams} from "@angular/http";
 
 declare var window: any
 
@@ -16,7 +18,7 @@ declare var window: any
   encapsulation: ViewEncapsulation.None,
   styles: [require('./register.scss')],
   template: require('./register.html'),
-  providers: [RegisterService]
+  providers: [RegisterService,LoginService]
 })
 export class Register implements OnInit {
 
@@ -50,7 +52,7 @@ export class Register implements OnInit {
   }
 
 
-  constructor(fb: FormBuilder, private registerService: RegisterService,private router: Router,private zone:NgZone) {
+  constructor(fb: FormBuilder, private registerService: RegisterService,private loginService: LoginService,private router: Router,private zone:NgZone) {
 
     window.angularComponentRef = {
       zone: this.zone,
@@ -79,11 +81,28 @@ export class Register implements OnInit {
     this.registerJson.user.name = this.user.name;
     this.registerJson.user.email = this.user.email;
     this.registerJson.user.password = this.user.password;
-    this.registerJson.user.phoneNumber = '605499887';//this.user.phoneNumber;
     this.registerJson.companyBranch.city = this.company.city;
     this.registerJson.companyBranch.main = false;
-    this.registerJson.companyBranch.latitude = 51.412341;
-    this.registerJson.companyBranch.longitude = 51.412341;
+    var latitude = JSON.parse(localStorage.getItem('latitude'));
+    var longitude = JSON.parse(localStorage.getItem('longitude'));
+    if(latitude !=null && longitude != null) {
+      this.registerJson.companyBranch.latitude = latitude.latitude;
+      this.registerJson.companyBranch.longitude = longitude.longitude;
+    } else {
+      var geocoder = new google.maps.Geocoder();
+      var address = this.company.city+" "+this.company.street+" "+this.company.streetNo;
+      console.log('address'+ address);
+      geocoder.geocode( { 'address': address}, function(results, status) {
+
+      if (status == google.maps.GeocoderStatus.OK) {
+        console.log('maps okej'+ results[0].geometry.location.lat);
+         this.registerJson.companyBranch.latitude = results[0].geometry.location.lat;
+         this.registerJson.companyBranch.longitude = results[0].geometry.location.lng;
+         localStorage.setItem('latitude', JSON.stringify({ latitude: this.registerJson.companyBranch.latitude})); 
+         localStorage.setItem('longitude', JSON.stringify({ longitude: this.registerJson.companyBranch.longitude})); 
+        } 
+      }); 
+    }
     this.registerJson.companyBranch.name = this.user.name;
     this.registerJson.companyBranch.street = this.company.street;
     this.registerJson.companyBranch.streetNo = this.company.streetNo;
@@ -150,8 +169,21 @@ public onSubmitDigitsCallback(req: any): void {
           this.busy = this.registerService.register(this.registerJson)
         .subscribe(
           data => {
-            this.router.navigate(['/pages/komunikat']);
-          },
+            console.log(data);
+            localStorage.setItem('user', JSON.stringify({ user: data}));
+            let body = new URLSearchParams();
+            body.set('password', this.registerJson.user.password);
+            body.set('username', this.registerJson.user.email);
+            body.set('grant_type', "password");
+            body.set('client_secret', "client_secret");
+            this.loginService.login(body).subscribe(
+                  data => {
+                    localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
+                    this.router.navigate(['/komunikat']);
+                  },
+                  error => {
+                  });
+            },
           error => {
           }); 
         },

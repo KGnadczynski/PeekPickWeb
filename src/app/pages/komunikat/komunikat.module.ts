@@ -4,8 +4,6 @@ import { CommonModule }  from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 import { KomunikatComponent } from './komunikat.component.ts';
 import { routing } from './komunikat.routing.ts';
-import { MyDatePickerModule } from 'mydatepicker';
-import {SampleDatePickerNormal} from './sample-date-picker-normal';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import {MdCheckbox} from '@angular2-material/checkbox';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
@@ -16,16 +14,17 @@ import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
 import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import { ImageUploadModule } from 'ng2-imageupload';
 import {MdSliderModule} from "@angular2-material/slider";
+import { Daterangepicker } from 'ng2-daterangepicker';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     NgaModule,
-    MyDatePickerModule,
     InfiniteScrollModule,
     CollapseModule,
     BusyModule,
+    Daterangepicker,
     ModalModule.forRoot(),
     BootstrapModalModule,
     ImageUploadModule,
@@ -34,7 +33,6 @@ import {MdSliderModule} from "@angular2-material/slider";
   ],
   declarations: [
     KomunikatComponent,
-    SampleDatePickerNormal,
     DodajKomunikatModal,
     ClickedKomunikatModal,
     MdCheckbox

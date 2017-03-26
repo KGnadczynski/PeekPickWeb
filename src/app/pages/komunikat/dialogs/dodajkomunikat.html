@@ -12,14 +12,9 @@
 
       <input type="file" image-upload
              (imageSelected)="selected($event)"
-             [resizeOptions]="resizeOptions" accept="image/*"  >
+              accept="image/*"  >
       <img [src]="src" [hidden]="!src"><br>
-      <my-date-picker  [options]="myDatePickerOptions"
-                       (dateChanged)="onDateChanged($event)"
-                       [selDate]="selectedDate"></my-date-picker>
-      <my-date-picker  [options]="myDatePickerOptions"
-                       (dateChanged)="onDateChanged($event)"
-                       [selDate]="selectedDate"></my-date-picker>
+      <input type="text" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event)">
 
       <select   name="sel2" class="form-control"  [(ngModel)]="selectedTyp">
         <option *ngFor="let typ of typyKomunikatow" [ngValue]="kategoria">{{typ}}</option>

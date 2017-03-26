@@ -73,6 +73,8 @@ export class KomunikatComponent implements OnInit {
   ngOnInit() {
 
     //usuniecie z tablicy enum liczb porzadkowych
+   
+
     this.typyKomunikatow = this.typyKomunikatow.slice(this.typyKomunikatow.length/2);
 
     this.komunikatyList = new KomunikatyList();
@@ -163,6 +165,7 @@ export class KomunikatComponent implements OnInit {
   onDateChanged(event:any) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }
+  
 
   clicked(event) {
     console.log('clicked');
