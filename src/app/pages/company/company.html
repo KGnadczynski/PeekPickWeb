@@ -1,16 +1,15 @@
-<div id="menuCompany">
-  <div class="company-image" *ngIf="companyImages?.imageUrl">
+<div class="company-image" *ngIf="companyImages?.imageUrl">
     <img src="{{companyImages?.imageUrl}}" alt="">
-  </div>
-  <div class="company-name" *ngIf="otherOneCompany?.name">
+</div>
+<div class="company-name" *ngIf="otherOneCompany?.name">
     <h4>
       {{ otherOneCompany?.company.name }}
     </h4>
-  </div>
+</div>
   <md-tab-group>
     <md-tab>
       <template md-tab-label>
-        <p class="hidden-sm-down">
+        <p class="hidden-xs-down">
           Dane firmy
         </p>
         <!--<div class="hidden-sm-up square"></div>-->
@@ -25,6 +24,7 @@
           </div>
 
           <div id="adresInfo">
+            <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
             <h5>Adres:</h5>
             <span *ngIf="otherOneCompany?.city">
               {{  otherOneCompany?.city }},
@@ -33,23 +33,28 @@
           </div>         
 
           <div id="godzinyInfo" *ngIf="otherOneCompany?.openingHours">
+            <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
             <h5>Godziny otwarcia: </h5>
             <span>{{ otherOneCompany?.openingHours }}</span>
           </div>
           
           <div id="kontaktInfo">
+            <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
             <h5>Kontakt:</h5>
             <div *ngIf="otherOneCompany?.website">
-              <p id="website">Strona internetowa:</p>
+              <i class="fa fa-desktop fa-2x" aria-hidden="true"></i>
+              <h5>Strona internetowa:</h5>
                <a href="{{ otherOneCompany?.website }}" _target="blank">{{ otherOneCompany?.website }}</a>
             </div>
             <div *ngIf="otherOneCompany?.phoneNumber">
-              <p id="telephone">Nr telefonu:</p>
-              <label>{{ otherOneCompany?.phoneNumber }}</label>
+              <i class="fa fa-mobile fa-2x" aria-hidden="true"></i>
+              <h5>Nr telefonu:</h5>
+              <p>{{ otherOneCompany?.phoneNumber }}</p>
             </div>
             <div *ngIf="otherOneCompany?.email">
-              <p id="email">Email:</p>
-              <label>{{ otherOneCompany?.email }}</label>
+              <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+              <h5>Email:</h5>
+              <p>{{ otherOneCompany?.email }}</p>
             </div>
           </div>
 
@@ -63,7 +68,7 @@
     </md-tab>
     <md-tab>
       <template md-tab-label >
-          <p class="hidden-sm-down">
+          <p class="hidden-xs-down">
             Posty
           </p>
           <!--<div class="hidden-sm-up square"></div>-->
@@ -82,6 +87,13 @@
                   </div>
                   <div class="companyCategory">
                     <p>{{ otherOneCompany?.company.category.name }}</p>
+                  </div>
+                  <div class="companyAddress">
+                    <p *ngIf="otherOneCompany?.city">
+                      {{  otherOneCompany?.city }},
+                      {{  otherOneCompany?.street }}
+                      {{  otherOneCompany?.streetNo }}
+                    </p>
                   </div>
                 </div>
                 <div class="company-distance">
@@ -111,7 +123,7 @@
     </md-tab>
     <md-tab>
       <template md-tab-label>
-        <p class="hidden-sm-down">
+        <p class="hidden-xs-down">
           Mapa
         </p>
         <!--<div class="hidden-sm-up square"></div>-->
@@ -125,4 +137,3 @@
       </template>
     </md-tab>
   </md-tab-group>
-</div>

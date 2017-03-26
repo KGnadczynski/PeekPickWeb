@@ -1,5 +1,5 @@
 div.company-image{
-    margin: 2% 0;
+    margin: 1% 0;
     img{
         width: 15%;
         display: block;
@@ -8,56 +8,22 @@ div.company-image{
     }
 }
 div.company-name{
-    margin-bottom: 3%;
     h4{
         text-align: center;
         text-transform: uppercase;
         color: gray;
         font-size: 25px;
-        padding: 4% 0;
+        padding: 2% 0;
         border-bottom: 2px solid black;
-        width: 50%;
+        width: 85%;
         margin: auto;
-    }
-}
-
-div.md-tab-header {
-    justify-content: center;
-}
-
-.sebm-google-map-container {
-  height: 600px;
-}
-
-div#daneFirmy{
-    width: 60%;
-    margin: auto;
-    h5{
-        font-size: 20px;
-        text-align: center;
-        margin: 3% 0;
-        text-transform: capitalize;
-    }
-    span {
-        display: block;
-        text-align: center;
-        font-size: 16px;
-        line-height: 22px;
-        letter-spacing: 0.1px;
-    }
-    p{
-        font-size: 16px;
-        font-weight: bold;
-        margin: 2% 0;
-    }
-    a, label{
-        margin-bottom: 2%;
     }
 }
 md-tab-group{
     padding: 3% 0;
     div.md-tab-header{
         border: none !important;
+        justify-content: center;
     }
     div.md-tab-label{
         background: white;
@@ -70,27 +36,199 @@ md-tab-group{
             background: black;
             opacity: 1 !important;
             color: white !important;
+            p{
+                color: white;
+            }
         }
     }
     md-ink-bar{
         color: white !important;
         background-color:black !important;
     }
-    
+    div#daneFirmy{
+        //width: 40%;
+        margin: auto;
+        div#opisInfo{
+            h5{
+                font-size: 20px;
+                text-align: center;
+                margin: 2% 0;
+                text-transform: capitalize;
+            }
+            span {
+                display: block;
+                text-align: center;
+                font-size: 16px;
+                line-height: 22px;
+                letter-spacing: 0.1px;
+            }
+        }
+        
+        div#godzinyInfo, div#kontaktInfo, div#adresInfo{
+            overflow: hidden;
+            i{
+                float: left;
+            }
+            h5{
+                float: left;
+                width: auto;
+                padding-top: 0.6%;
+                margin-left: 1%;
+                margin-bottom: 0;
+                
+            }
+            span{
+                float: left;
+                clear: left;
+                margin: 1% 0;
+            }
+            div{
+                clear: both;
+                float: left;
+                p {
+                    display: block;
+                    float: left;
+                    margin: 2% 0;
+                }
+                h5{
+                    padding: 2% 0;
+                }
+            }
+        }
+        div#kontaktInfo{
+            div{
+                margin: 1% 0;
+                h5{
+                    margin-left: 3%;
+                }
+                a, p{
+                    display: block;
+                    float: left;
+                    width: 100%;
+                    margin-top: 3%;
+                }
+            }
+        }
+        
+        p{
+            margin: 2% 0;
+        }
+        a, label{
+            margin-bottom: 2%;
+        }
+    }
+    div#postyFirmy{
+        width: 60%;
+        margin: auto;
+        padding: 2% 0;
+        overflow: hidden;
+        h3{
+            font-size: 19px;
+            clear: both;
+            margin-top: 3%;
+            float: left;
+        }
+        ul{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            
+            li{
+                div.companyInfo{
+                    overflow: hidden;
+                    float: left;
+                    div.companyImg{
+                        img{
+                            clear: both;
+                            width: 25%;
+                            float: left;
+                        }
+                    }
+                    div.company-text-block{
+                        width: 50%;
+                        float: left;
+                        div.companyName{
+                            h2{
+                                padding-left: 4%;
+                                font-size: 20px;
+                            }
+                        }
+                        div.companyCategory, div.companyAddress{
+                            p{
+                                padding-left: 4%;
+                                font-weight: normal;
+                                font-size: 13px;
+                                margin: 0;
+                            }
+                        }
+                    }
+                    div.company-distance{
+                        width: 25%;
+                        float: left;
+                    }
+                }
+                div.obImg{
+                    float: left;
+                    clear: both;
+                    img{
+                        width: 60%;
+                        display: block;
+                        margin: auto;
+                    }
+                }
+                div.obTime{
+                    width: 100%;
+                    float: left;
+                    clear: both;
+                    display: flex;
+                    justify-content: space-between;
+                    p.obDate{
+                        font-weight: normal;
+                        span{
+                            font-weight: bold;
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+    div#mapaFirmy{
+        .sebm-google-map-container {
+            height: 600px;
+        }
+    }
 }
 
-@media (max-width: 576px) {
+@media(max-width: 575px){
+    div#daneFirmy{
+        width: 90%;
+        div#opisInfo{
+            span{
+                text-align: justify !important;
+            }
+        }
+        div#opisInfo, div#adresInfo, div#godzinyInfo{
+            margin: 3% 0 !important;
+            span{
+                margin: 2% 0 !important;
+            }
+        }
+    }
+    
+    div#postyFirmy{
+        width: 90%;
+    }
     div.company-image{
         img{
             width: 50%;
         }
     }
     md-tab-group{
-        padding: 3% 0;
         div.md-tab-header{
             justify-content: space-around;
             border: none !important;
-            margin-bottom: 3%;
+            margin-bottom: 10%;
         }
         div.md-tab-label{
             background: white;
@@ -114,123 +252,97 @@ md-tab-group{
         }
         
     }
-}
-
-div#postyFirmy{
-    width: 60%;
-    margin: auto;
-    padding: 2% 0;
-    ul{
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        
-        li{
-            div.obImg{
-                img{
-                    width: 60%;
-                    display: block;
-                    margin: auto;
-                }
-            }
-        }
-    }
-}
-
-div.companyInfo{
-    div.companyImg{
+    div.company-image{
         img{
-            width: 100%;
-            clear: both;
+            border: 1px solid black;
+            width: 30%;
         }
     }
 }
-
-div#postyFirmy{
-    h3{
-        clear: both;
-        margin-top: 3%;
-        float: left;
-    }
-    div.obTime{
-        float: left;
-    }
-}
-
-div.companyInfo{
-    overflow: hidden;
-    float: left;
-    div.companyImg{
-        width: 25%;
-        float: left;
-        
-    }
-    div.company-text-block{
-        width: 50%;
-        float: left;
-        div.companyName{
-            h2{
-                padding-left: 4%;
-                font-size: 20px;
-            }
-        }
-        div.companyCategory{
-            p{
-                padding-left: 4%;
-                font-weight: normal;
-                font-size: 13px;
-            }
-        }
-    }
-    div.company-distance{
-        width: 25%;
-        float: left;
-    }
-}
-
-@media(max-width: 575px){
-    div#daneFirmy{
-        width: 94%;
-    }
-    
-    div#postyFirmy{
-        
-        width: 90%;
-        h3{
-            font-size: 19px;
-        }
-        div.obTime{
-            display: flex;
-            p{
-                font-weight: normal;
-                span{
-                    font-weight: bold;
-                }
-            }
-        }
-        div.obImg{
-            img{
-                width: 100%;
-            }
-        }
-    }
-}
-
 @media (min-width: 576px) {
-    
+    div.company-image{
+        img{
+            border: 1px solid red;
+            width: 30%;
+        }
+    }
+    md-tab-group{
+        div#postyFirmy{
+            width: 75%;
+        }
+        div#daneFirmy{
+            width: 70%;
+        }
+        div#adresInfo, div#godzinyInfo, div#kontaktInfo{
+            margin: 3% 0 !important;
+        }
+        div#opisInfo{
+            span{
+                text-align: justify !important;
+            }
+        }
+    }
 }
 @media (min-width: 768px) {
-    
+    div.company-image{
+        img{
+            border: 1px solid green;
+            width: 25%;
+        }
+    }
+    md-tab-group{
+        div#adresInfo, div#godzinyInfo, div#kontaktInfo{
+            margin: 3% 0 !important;
+        }
+        div#kontaktInfo{
+            div{
+
+            }
+        }
+    }
 }
 @media (min-width: 992px) {
-    
+    div.company-image{
+        img{
+            border: 1px solid blue;
+            width: 20%;
+        }
+    }
 }
 @media (min-width: 1200px) {
-    
+    div.company-image{
+        img{
+            border: 1px solid yellow;
+        }
+    }
+    div.company-name{
+        h4{
+            width: 50%;
+        }
+    }
+    md-tab-group {
+        padding: 2% 0;
+    }
+    div#daneFirmy{
+        width: 40% !important;
+        div#opisInfo{
+            h5{
+                margin: 2% 0;
+            }
+            
+        }
+        div#adresInfo, div#godzinyInfo, div#kontaktInfo{
+            margin: 1% 0 !important;
+            h5{
+                padding: 0.5% 0;
+            }
+            span{
+                margin: 1% 0;
+            }
+        }
+        
+    }
 }
-
-
-
 
 /*@import '../../theme/sass/conf/conf';
 

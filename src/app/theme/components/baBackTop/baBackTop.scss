@@ -14,8 +14,9 @@ $height: 52px;
   font-size: 45px;
   text-align: center;
   opacity: 0.4;
-  color: $primary;
-  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+//  background-color: rgba(0, 0, 0, 0.75);
+  background-color: black;
   border-radius: 50%;
   line-height: 46px;
   &:hover {
