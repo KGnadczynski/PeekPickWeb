@@ -3,6 +3,7 @@ div#addIcon{
   overflow: hidden;
     i{
       float: right;
+      cursor: pointer;
     }
 }
 div.feed-message{
@@ -76,6 +77,8 @@ div.feed-message{
     div.no-date{
       float: right;
       padding-right: 2%;
+      width: 50%;
+      text-align: right;
     }
   }
   div.message-photo{
@@ -114,12 +117,14 @@ div#filterMessages{
 
     padding: 3%;
     
-    div#addIcon{
-      overflow: hidden;
-      i{
-        float: right;
-      }
-    }
+    // div#addIcon{
+    //   overflow: hidden;
+    //   cursor: pointer;
+    //   i{
+    //     float: right;
+        
+    //   }
+    // }
     h4{
       cursor: pointer;
       width: 90%;
