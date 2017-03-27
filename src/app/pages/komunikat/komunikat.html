@@ -77,7 +77,10 @@
     <div class="col-xlg-6 col-xl-9 col-lg-12 col-sm-12 col-xs-12">
         <div *ngIf="logged">
             <span defaultOverlayTarget></span>
-            <button (click)="openCustom()">Dodaj komunikat</button>
+            <button (click)="openCustom()" class="hidden-xs-down">Dodaj komunikat</button>
+            <div class="hidden-sm-up" id="addIcon">
+                <i class="fa fa-plus-circle fa-2x"></i>
+            </div>
         </div>
         
 
@@ -91,14 +94,10 @@
                     </div>
                     <div class="text-block">
                         <div class="message-header">
-                            <a 
-                            [routerLink]="['/pages/company', komunikat.nearestCompanyBranch.company.id]" 
-                            (click)='$event.stopPropagation()' 
-                            class="author"
+                            <a [routerLink]="['/pages/company', komunikat.nearestCompanyBranch.company.id]" 
+                            (click)='$event.stopPropagation()' class="author"
                             >
-                            
                             {{ komunikat.nearestCompanyBranch.name }}
-                            
                             </a>
                         </div>
                         <div class="message-category">

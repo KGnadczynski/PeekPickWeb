@@ -1,12 +1,25 @@
 <div id="profile">
   <md-tab-group>
     <md-tab>
-      <template md-tab-label>Moje posty</template>
+      <template md-tab-label>
+            <p class="hidden-xs-down">
+                Moje posty
+            </p>
+    </template>
       <template md-tab-content>
           <div id="userMessages">
-              <img src="{{ otherUser?.company.mainImageUrl}}" alt="">
+              <img id="companyLogo" src="{{ otherImgs?.imageUrl}}" alt="">
+              <h1 id="companyName">{{ otherUser?.company.name }}</h1>
             <ul>
                 <li *ngFor="let ob of otherObject?.objectList">
+                    <div class="companyImg">
+                        <img src="{{ otherImgs?.imageUrl}}" alt="">
+                    </div>
+                    <div class="companyTextBlock">
+                        <a [routerLink]="['/pages/komunikat_single', ob.id]">{{ ob.content }}</a>
+                    </div>
+                    
+
                     <div class="dates">
                         <p>
                             Data rozpoczęcia:
@@ -21,17 +34,31 @@
                             </span>
                         </p>
                     </div>
-                    <a [routerLink]="['/pages/komunikat_single', ob.id]"
-                    >{{ ob.content }}</a>
-                    <img src="{{ ob.mainImageUrl }}" alt="">
-                    
+                    <div class="companyPhoto">
+                        <img src="{{ ob.mainImageUrl }}" alt="">
+                    </div>
+                    <div class="operations">
+                        <div class="edit">
+                            <a href="#">edytuj</a>
+                        </div>
+                        <div class="longer">
+                            <a href="#">przedłuż</a>
+                        </div>
+                        <div class="remove">
+                            <a href="#">usuń</a>
+                        </div>
+                    </div>
                 </li>
             </ul>
           </div>
       </template>
     </md-tab>
     <md-tab>
-      <template md-tab-label>Edytuj profil</template>
+      <template md-tab-label>
+            <p class="hidden-xs-down">
+                Edytuj profil
+            </p>
+        </template>
       <template md-tab-content>
           <div id="profil">
                     <form>
@@ -54,10 +81,14 @@
       </template>
     </md-tab>
     <md-tab>
-      <template md-tab-label>Edytuj Dane Firmy</template>
+        <template md-tab-label>
+            <p class="hidden-xs-down">
+                Edytuj Dane Firmy
+            </p>
+        </template>
       <template md-tab-content>
            <div id="daneFirmy">
-                    <form>
+                <form>
                     <div class="form-group">
                         <label for="nazwa">Nazwa firmy</label>
                         <input type="text" class="form-control" id="nazwa">
@@ -75,12 +106,16 @@
                         <input type="text" class="form-control" id="numer">
                     </div>
                     <button type="submit" class="btn btn-success">Zapisz</button>
-                    </form>
-                </div>
+                </form>
+            </div>
       </template>
     </md-tab>
     <md-tab>
-      <template md-tab-label>Dodatkowe Informacje</template>
+        <template md-tab-label>
+            <p class="hidden-xs-down">
+                Dodatkowe Informacje
+            </p>
+        </template>
       <template md-tab-content>
           <div id="dodatkoweInformacje">
                     <form>

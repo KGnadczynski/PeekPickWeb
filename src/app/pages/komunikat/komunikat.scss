@@ -1,3 +1,10 @@
+div#addIcon{
+  margin-bottom: 3%;
+  overflow: hidden;
+    i{
+      float: right;
+    }
+}
 div.feed-message{
   margin-bottom: 3%;
   overflow: hidden;
@@ -104,7 +111,15 @@ div.feed-message{
 }
 
 div#filterMessages{
+
     padding: 3%;
+    
+    div#addIcon{
+      overflow: hidden;
+      i{
+        float: right;
+      }
+    }
     h4{
       cursor: pointer;
       width: 90%;

@@ -23,8 +23,6 @@ export class ProfileService{
             this.token = currentUser.token;
             let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token });
             let options = new RequestOptions({ headers: headers });
-            //console.log('public token: ' + this.token.access_token);
-            //console.dir(this.token);
 
             return this.http.get('https://damp-temple-52216.herokuapp.com/users/business/me', options)
             .map((response: Response) => response.json());
@@ -36,6 +34,9 @@ export class ProfileService{
             .map((res:Response) => res.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server error');
     }
 
-    
+    getUserImages(id: number) : Observable<ObjectList>{
+        return this.http.get(`https://damp-temple-52216.herokuapp.com/companyimages/companyId/${id}`)
+        .map((res:Response) => res.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+    }
 
 }
