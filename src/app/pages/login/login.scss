@@ -1,1 +1,121 @@
 @import '../../theme/sass/auth';
+
+div#loginFormMain{
+    margin: auto;
+    
+    div#loginFormBlock{
+        h1{
+            text-align: center;
+            margin: 3% 0;
+        }
+        form{
+            overflow: hidden;
+            margin: auto;
+            div.inputForm{
+                display: flex;
+                margin-bottom: 2%;
+                label{
+                    font-size: 18px;
+                    margin-right: 2%;
+                }
+                input{
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+            div.actionButtons{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                
+                button#login{
+                    width: 25%;
+                    padding: 2%;
+                    margin-bottom: 2%;
+                }
+                a#forgotPassword, a#register{
+                    margin-bottom: 3%;
+                    color: gray;
+                    font-size: 17px;
+                }
+                p{
+                    font-size: 17px;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 575px){
+    div#loginFormMain{
+        border: 1px solid black;
+        width: 90%;
+        margin-top: 15%;
+        div#loginFormBlock{
+            h1{
+                font-size: 25px;
+            }
+            form{
+                width: 80%;
+            }
+        }
+    }
+}
+@media (min-width: 576px) {
+    div#loginFormMain{
+        width: 70%;
+        border: 1px solid orange;
+        margin-top: 10%;
+        div#loginFormBlock{
+            h1{
+                font-size: 26px;
+            }
+            form{
+                width: 80%;
+            }
+        }
+    }
+}
+@media (min-width: 768px) {
+   div#loginFormMain{
+        width: 60%;
+        border: 1px solid blue;
+        div#loginFormBlock{
+            h1{
+                
+            }
+            form{
+                width: 70%;
+            }
+        }
+    }
+}
+@media (min-width: 992px) {
+    div#loginFormMain{
+        width: 60%;
+        border: 1px solid green;
+        div#loginFormBlock{
+            h1{
+                
+            }
+             form{
+                width: 70%;
+            }
+        }
+    }
+}
+@media (min-width: 1200px) {
+    div#loginFormMain{
+        width: 50%;
+        border: 1px solid red;
+        margin-top: 6%;
+        div#loginFormBlock{
+            h1{
+                
+            }
+            form{
+                width: 60%;
+            }
+        }
+    }
+}
