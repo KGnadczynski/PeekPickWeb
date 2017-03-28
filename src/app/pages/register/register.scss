@@ -16,3 +16,112 @@
   background-size: 30px 35px;
   transition: box-shadow 0.3s;
 }
+
+div#registerFormMain{
+  margin: auto;
+  div#registerFormBlock{
+    h1 {
+        text-align: center;
+        color: gray;
+    }
+    a{
+        display: block;
+        text-align: center;
+    }
+    form{
+        margin: auto;
+        div#streetNo{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            div#street{
+              width: 70%;
+            }
+            div#number{
+              width: 28%;
+              input{
+                padding: 5% 0;
+              }
+            }
+        }
+        input, select{
+            width: 100%;
+            padding: 2% 0;
+            text-align: center;
+          }
+        div.formRegDiv {
+          margin: 2% 0;
+          input, select{
+            width: 100%;
+            
+          }
+        }
+        button{
+          display: block;
+          margin: auto;
+          margin-top: 3%;
+          margin-bottom: 3%;
+          padding: 4%;
+          background: white;
+          border: 1px solid gray;
+          color: gray;
+        }
+        div.blackline{
+              height: 2px;
+              background: black;
+              width: 94%;
+              margin: auto;
+              margin-top: 4%;
+              margin-bottom: 4%;
+        }
+        
+    }
+  }
+}
+
+@media(max-width: 575px){
+    div#registerFormMain{
+        width: 84%;
+        margin-top: 3%;
+        h1{
+          font-size: 20px;
+        }
+        a{
+          margin: 2% 0;
+          font-size: 14px;
+        }
+        form {
+          div.formRegDiv {
+            margin: 3% 0;
+          }
+        }
+    }
+}
+@media (min-width: 576px) {
+    div#registerFormMain{
+      width: 60%;
+      margin-top: 6%;
+      h1{
+        font-size:28px;
+      }
+    }
+}
+@media (min-width: 768px) {
+   div#registerFormMain{
+      width: 65%;
+      margin-top: 3%;
+   }
+}
+@media (min-width: 992px) {
+    div#registerFormMain{
+    }
+}
+@media (min-width: 1200px) {
+    div#registerFormMain{
+      margin-top: 3%;
+      width: 60%;
+      form{
+        width: 50%;
+      }
+    }
+}

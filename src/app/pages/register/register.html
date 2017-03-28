@@ -7,92 +7,56 @@
     <a routerLink="/pages/login" class="auth-link">Masz już konto? Zaloguj się!</a>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
-      <div [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}" class="formRegDiv">
-        <label for="inputName3">Nazwa</label>
-
-        <div>
-          <input [formControl]="name" type="text" class="form-control" id="inputName3" [(ngModel)]="user.name" placeholder="Nazwa firmy">
-        </div>
-      </div>
       <div class="formRegDiv" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
-        <label for="inputEmail3">Email</label>
-
-        <div>
-          <input [formControl]="email" type="email" class="form-control" [(ngModel)]="user.email" id="inputEmail3" placeholder="Email">
-        </div>
+          <input [formControl]="email" type="email" [(ngModel)]="user.email" placeholder="Email">
       </div>
       <div class="formRegDiv" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
-        <label for="inputPassword3" >Hasło</label>
-
-        <div>
-          <input [formControl]="password" type="password" class="form-control"  [(ngModel)]="user.password" id="inputPassword3" placeholder="Hasło">
-        </div>
+          <input [formControl]="password" type="password" [(ngModel)]="user.password" placeholder="Hasło">
       </div>
       <div class="formRegDiv" [ngClass]="{'has-error': (!repeatPassword.valid && repeatPassword.touched), 'has-success': (repeatPassword.valid && repeatPassword.touched)}">
-        <label for="inputPassword4" >Powtórz</label>
-
-        <div>
-          <input [formControl]="repeatPassword" type="password" class="form-control" id="inputPassword4" placeholder="Powtórz">
+          <input [formControl]="repeatPassword" type="password" placeholder="Powtórz">
           <span *ngIf="!passwords.valid && (password.touched || repeatPassword.touched)" class="help-block sub-little-text">Hasła są niezgodne</span>
-        </div>
       </div>
+      <div [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}" class="formRegDiv">
+          <input [formControl]="name" type="text" [(ngModel)]="user.name" placeholder="Nazwa firmy">
+      </div>
+      
+      <div class="blackline"></div>
 
       <div class="formRegDiv" >
-        <label for="inputCity4" >Miasto</label>
-
-        <div >
-          <input [formControl]="name" type="text" class="form-control" id="inputCity4" placeholder="Miasto" [(ngModel)]="company.city">
-        </div>
+          <input [formControl]="name" type="text" placeholder="Miasto" [(ngModel)]="company.city">
       </div>
 
-      <div class="formRegDiv" >
-        <label for="inputStreet4" >Ulica</label>
+      <div id="streetNo">
+        <div class="formRegDiv" id="street">
+          <input [formControl]="name" type="text" placeholder="Ulica" [(ngModel)]="company.street" >
+        </div>
 
-        <div >
-          <input [formControl]="name" type="text" class="form-control" id="inputStreet4" placeholder="Ulica" [(ngModel)]="company.street" >
+        <div class="formRegDiv" id="number">
+            <input [formControl]="name" type="number" min="0" placeholder="Numer" [(ngModel)]="company.streetNo">
         </div>
       </div>
+      
+      <div class="blackline"></div>
+
+      <!--<div class="formRegDiv">
+        <input type="radio" name="" value="lokalizacja"> lokalizacja
+      </div>-->
 
       <div class="formRegDiv" >
-        <label for="inputNumber4">Numer</label>
-
-        <div>
-          <input [formControl]="name" type="number" min="0" class="form-control" id="inputNumber4" placeholder="Numer" [(ngModel)]="company.streetNo">
-        </div>
-      </div>
-
-      <div class="formRegDiv" >
-        <label for="inputNumber4">Kategoria</label>
-        <div>
-          <select  [formControl]="name" class="form-control"  [(ngModel)]="selectedParentKategoria" (ngModelChange)="changePodkategorie()" >
+          <select  [formControl]="name" [(ngModel)]="selectedParentKategoria" (ngModelChange)="changePodkategorie()" >
             <option *ngFor="let kategoria of kategorieGlowne" [ngValue]="kategoria">{{kategoria.name}}</option>
           </select>
-        </div>
-
       </div>
-
-      <div class="formRegDiv" >
-        <label for="inputNumber4">Podkategoria</label>
-        <div >
-          <select  [formControl]="name"  class="form-control" [(ngModel)]="selectedKategoria" >
+      <div class="formRegDiv">
+          <select  [formControl]="name" [(ngModel)]="selectedKategoria" >
             <option *ngFor="let kategoria of podKategorie" [ngValue]="kategoria">{{kategoria.name}}</option>
           </select>
-        </div>
-
       </div>
-
-
-
-      <div class="formRegDiv">
-        <div>
-          <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
-          <button [disabled]="!form.valid" type="submit" class="btn btn-default btn-auth">Zarejestruj się</button>
-        </div>
-      </div>
+      
+      <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
+      <button [disabled]="!form.valid" type="submit">Zarejestruj się</button>
     </form>
-
-
-
   </div>
 </div>
 
