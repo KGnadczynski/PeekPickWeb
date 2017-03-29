@@ -1,30 +1,62 @@
-<button type="button" class="btn btn-primary" (click)="showChildModal()">Open child modal</button>
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">{{ anotherObjectList?.content}}</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="messageSingle">
+        <div class="singleImg">
+          <img src="{{ imgs?.imageUrl }}" alt="">
+        </div>
+        <div class="textSingle">
+          <div class="singleName">
+            <h3> {{ anotherObjectList?.user.company.name }}</h3>
+          </div>
+          <div class="singleCategory">
+            <span> {{ anotherObjectList?.user.company.category.name }}</span>
+          </div>
+          <div class="singleAddress">
+            <span>{{ anotherObjectList?.location.address }}</span>
+          </div>
+          <div class="distance">
+            <span>86</span>
+          </div>
+        </div>
+        <div class="buttonSingle">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
+
       <div class="modal-body" id="singleKomunikatDialog">
-        <p>
-          Firma: 
-          <span>
-            {{ anotherObjectList?.user.company.name }}
-          </span>
-        </p>
-        <img src="{{ anotherObjectList?.mainImageUrl }}" alt="">
-        
-        <p>
-          Data utworzenia:
-          <span> {{ anotherObjectList?.createDate | date: 'dd.MM.yyyy hh:mm' }}</span>
-        </p>
-        <p>
-          Data zakończenia:
-          <span> {{ anotherObjectList?.endDate | date: 'dd.MM.yyyy hh:mm' }}</span>
-        </p>
+        <div class="singleContent">
+          <p>{{ anotherObjectList?.content}}</p>
+        </div>
+        <div class="dates">
+          <p>
+            Data utworzenia:
+            <span> {{ anotherObjectList?.createDate | date: 'dd.MM.yyyy hh:mm' }}</span>
+          </p>
+          <p>
+            Data zakończenia:
+            <span> {{ anotherObjectList?.endDate | date: 'dd.MM.yyyy hh:mm' }}</span>
+          </p>
+        </div>
+        <div class="imgSingle">
+          <img src="{{ anotherObjectList?.mainImageUrl }}" alt="">
+        </div>
+        <div class="message-icons">
+            <div class="favourite">
+                <img src="../../../meta/star.png" alt="">
+            </div>
+            <div class="google">
+                <img src="../../../meta/star.png" alt="">
+            </div>
+            <div class="dots">
+                <img src="../../../meta/star.png" alt="">
+            </div>
+            <div class="time">
+                {{ anotherObjectList?.startDate | amTimeAgo }}
+            </div>
+        </div>
       </div>
     </div>
   </div>

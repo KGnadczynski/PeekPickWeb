@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { KomunikatSingleComponent } from './komunikat-single.component';
 
 import { ModalModule } from 'ng2-bootstrap';
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ModalModule } from 'ng2-bootstrap';
     MdTabsModule,
     NgaModule,
     routing,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    MomentModule
   ],
   providers: [],
   declarations: [KomunikatSingleComponent]

@@ -19,13 +19,17 @@ export class KomunikatSingleComponent implements OnInit {
     private sub: any;
     private id: number;
     private anotherObjectList: ObjectList;
+    private imgs: any;
     @ViewChild('childModal') public childModal: ModalDirective;
 
     constructor(
       private route: ActivatedRoute, 
       private komunikatSingleService: KomunikatServiceComponent,
       private _location: Location
-    ){}
+    ){
+      let moment = require('../../../../node_modules/moment/moment.js');
+      moment.locale('pl');
+    }
 
     ngOnInit(): void {
 
@@ -35,6 +39,11 @@ export class KomunikatSingleComponent implements OnInit {
 
       this.komunikatSingleService.getKomunikat(this.id).subscribe(komunikat => {
         this.anotherObjectList = komunikat;
+        this.komunikatSingleService.getUserImages(this.anotherObjectList.companyBranchList[0].company.id).subscribe(images => {
+          this.imgs = images;
+          console.log('images: ');
+          console.dir(this.imgs);
+        });
         console.log('another komunikat: ');
         console.dir(this.anotherObjectList);
       });

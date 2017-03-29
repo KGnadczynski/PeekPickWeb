@@ -28,6 +28,11 @@ export class KomunikatServiceComponent{
         }
     }
 
+    getUserImages(id: number) : Observable<ObjectList>{
+        return this.http.get(`https://damp-temple-52216.herokuapp.com/companyimages/companyId/${id}`)
+        .map(this.extractData);
+    }
+
     /*
      if(localStorage.getItem('currentUserToken')){
             var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));

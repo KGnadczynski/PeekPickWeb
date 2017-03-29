@@ -58,7 +58,10 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
     resizeMaxWidth: 300
   };
 
-  constructor(public dialog: DialogRef<CustomModalContext>,private komunikatyService: KomunikatService,private communicationservice: CommunicationService) {
+  constructor(
+    public dialog: DialogRef<CustomModalContext>,
+    private komunikatyService: KomunikatService,
+    private communicationservice: CommunicationService) {
     this.context = dialog.context;
   }
 
@@ -112,7 +115,6 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
   changeTyp(event:any){
     console.log(event);
   }
-
 
   onDateChanged(event:any) {
   console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
