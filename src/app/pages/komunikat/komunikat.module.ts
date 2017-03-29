@@ -16,6 +16,8 @@ import { ImageUploadModule } from 'ng2-imageupload';
 import {MdSliderModule} from "@angular2-material/slider";
 import { Daterangepicker } from 'ng2-daterangepicker';
 
+import { MomentModule } from 'angular2-moment';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +31,8 @@ import { Daterangepicker } from 'ng2-daterangepicker';
     BootstrapModalModule,
     ImageUploadModule,
     MdSliderModule,
-    routing
+    routing,
+    MomentModule
   ],
   declarations: [
     KomunikatComponent,

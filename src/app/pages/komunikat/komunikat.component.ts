@@ -13,6 +13,7 @@ import {ObjectList} from "./komunikat"
 //dodanie enum do typow wiadomosci
 import { MessageType } from './messagesType';
 
+
 @Component({
   selector: 'komunikatcomponent',
   templateUrl: './komunikat.html',
@@ -40,7 +41,6 @@ export class KomunikatComponent implements OnInit {
   canScrool = true;
   busy: Subscription;
 
-
   @ViewChild("google_places_ac")
   public searchElementRef: ElementRef;
 
@@ -67,8 +67,9 @@ export class KomunikatComponent implements OnInit {
 
 
   constructor(private _komunikatyService: KomunikatService, public modal: Modal,private communicationservice: CommunicationService){
-      
-  }
+    let moment = require('../../../../node_modules/moment/moment.js');
+    moment.locale('pl');
+}
 
   ngOnInit() {
 
