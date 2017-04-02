@@ -1,36 +1,39 @@
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-        <h1>Dodaj komunikat</h1>
-        <h2>{{ messageType }}</h2>
-        
         
         <div id="addForm">
-            <label>Dodaj treść komunikatu</label>
-            <input type="text" placeholder="Dodaj treść komunikatu">
+            
+            <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h3>Dodaj komunikat</h3>
+            <p>Typ: <span>{{ messageTypeValue }}</span></p>
+
+            <!--data picker-->
+            <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
+            <p>od: </p>
+            <input daterangepicker (selected)="selectStartDate($event)" [options]="pickerOptions" type="submit"/>
+            <div class="blackline"></div>
+            <p>do: </p>
+            <input daterangepicker (selected)="selectEndDate($event)" [options]="pickerOptions" type="submit" />
+            <div class="blackline"></div>
+
+            <p>Dodaj treść komunikatu</p>
+            <textarea type="text" placeholder="Dodaj treść komunikatu" [(ngModel)]="msgAddModel.content"></textarea>
             
             <!-- add image-->
 
-            <!--data picker-->
-
             <!-- select type -->
-
-            <button>Dodaj</button>
-            <button>Anuluj</button>
+            <div id="buttons">
+              <button (click)="addMessage()">Dodaj</button>
+              <button>Anuluj</button>
+            </div>
+            
 
         </div>
-        
-          <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-   
-
 
       <div class="modal-body">
-       
-       
-    
-        
       </div>
     </div>
   </div>

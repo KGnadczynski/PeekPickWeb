@@ -1,3 +1,70 @@
-body{
+div.modal-content{
+    color: gray;
+    div#addForm{
+        padding: 4%;
+        h3{
+            text-align: center;
+        }
+        p{
+            text-align: center;
+            font-weight: bold;
+            span{
+                font-weight: normal;
+                text-transform: lowercase;
+            }
+        }
+        i{
+            display: block;
+            text-align: center;
+            margin-bottom: 5%;
+        }
+        input{
+            display: block;
+            margin: auto;
+            padding: 3%;
+            background: white;
+            border: 1px solid gray;
+            border-radius: 2px;
+            margin-bottom: 5%;
+        }
+        div.blackline{
+            width: 60%;
+            height: 2px;
+            background: black;
+            margin: auto;
+            margin-bottom: 4%;
+        }
+        textarea{
+            margin: auto;
+            display: block;
+            width: 80%;
+            text-align: center;
+            padding-top: 2%;
+            border-radius: 3px;
+            margin-bottom: 4%;
+        }
+        div#buttons{
+            width: 80%;
+            margin: auto;
+            button {
+                padding: 3%;
+                background: white;
+                border: 1px solid gray;
+                color: gray;
+                margin-right: 2%;
+            }
+        }
+    }
     
+}
+
+div.daterangepicker {
+    left: 2% !important;
+    right: 2% !important;
+    width: 94% !important;
+    button.btn-success, button.btn-default {
+        background-color: white;
+        border: 1px solid gray;
+        color: gray;
+    }
 }
