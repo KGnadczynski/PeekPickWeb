@@ -2,7 +2,6 @@ import { NgModule, ApplicationRef  } from '@angular/core';
 import { CommonModule }  from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 import { routing } from './komunikat-single.routing';
-import { MdTabsModule } from '@angular2-material/tabs';
 
 import { FormsModule } from '@angular/forms';
 import { KomunikatSingleComponent } from './komunikat-single.component';
@@ -14,7 +13,6 @@ import { MomentModule } from 'angular2-moment';
   imports: [
     FormsModule,
     CommonModule,
-    MdTabsModule,
     NgaModule,
     routing,
     ModalModule.forRoot(),

@@ -11,8 +11,7 @@ import {CommunicationService} from "./communicationservice.component";
 import {ObjectList} from "./komunikat"
 
 //dodanie enum do typow wiadomosci
-import { MessageType } from './messagesType';
-
+import { MessageType } from '../../enums/message-type.enum';
 
 @Component({
   selector: 'komunikatcomponent',
@@ -40,10 +39,10 @@ export class KomunikatComponent implements OnInit {
   public isFiltryCollapse: boolean = true;
   canScrool = true;
   busy: Subscription;
+  public distane: number;
 
   @ViewChild("google_places_ac")
   public searchElementRef: ElementRef;
-
 
   public collapsed(event:any):void {
     console.log(event);
@@ -65,85 +64,76 @@ export class KomunikatComponent implements OnInit {
     }
   }
 
-
   constructor(private _komunikatyService: KomunikatService, public modal: Modal,private communicationservice: CommunicationService){
     let moment = require('../../../../node_modules/moment/moment.js');
     moment.locale('pl');
 }
 
   ngOnInit() {
-
-    //usuniecie z tablicy enum liczb porzadkowych
-   
-
-    this.typyKomunikatow = this.typyKomunikatow.slice(this.typyKomunikatow.length/2);
-
-    this.komunikatyList = new KomunikatyList();
-    var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
-    if(currentUser != null) {
-      var token = currentUser.token
-      this.logged = true;
-    }
-    this.getDataFromServer(this.pageNumber);
     
-    var autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
-    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      var place = autocomplete.getPlace();
-      console.log(place)
-    });
+        //usuniecie z tablicy enum liczb porzadkowych
+        //this.typyKomunikatow = this.typyKomunikatow.slice(this.typyKomunikatow.length/2);
 
-    this.communicationservice.dodanieKomunkatuSubject$.subscribe(
-      messageId=> {
-        this.pageNumber = 1;
-        if( messageId.file == null) {
-          this.getDataFromServer(1);
-        } else {
-          this._komunikatyService.postKomunikatImage(messageId).subscribe(
-            (result => {
-                this.getDataFromServer(1);
-              }
-            ))
+        this.komunikatyList = new KomunikatyList();
+        var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+    
+        if(currentUser != null) {
+          var token = currentUser.token
+          this.logged = true;
         }
-      });
+   
+        this.getDataFromServer(this.pageNumber);
+    
+        var autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
+        
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+          var place = autocomplete.getPlace();
+          console.log(place)
+        });
 
+        this.communicationservice.dodanieKomunkatuSubject$.subscribe(messageId=> {
+            this.pageNumber = 1;
+            if( messageId.file == null) {
+              this.getDataFromServer(1);
+            } else {
+              this._komunikatyService.postKomunikatImage(messageId).subscribe((result => {
+                this.getDataFromServer(1);
+              }));
+            }
+        });
 
-    this.communicationservice.szukanieKomunkatuSubject$.subscribe(
-      term=> {
-        this.getDataFromServerWithSearch(1,term);
-
-      });
-
+        this.communicationservice.szukanieKomunkatuSubject$.subscribe(term=> {
+            this.getDataFromServerWithSearch(1,term);
+        });
   }
 
   getDataFromServer (page :any,params = []){
-    if(params.length !=0) {
-      this.busy = this._komunikatyService.getKomunikaty(page,params)
-        .subscribe(
-          (result => {
-              if (page === 1) {
-                this.komunikatyList = result;
-              } else {
-                this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
-                this.komunikatyList.isLastPage = result.isLastPage;
-                this.canScrool = true;
-                
-              }
+      
+      if(params.length != 0) {
+        this.busy = this._komunikatyService.getKomunikaty(page,params).subscribe((result => {
+            if (page === 1) {
+              this.komunikatyList = result;
+            } else {
+              this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
+              this.komunikatyList.isLastPage = result.isLastPage;
+              this.canScrool = true;          
             }
-          ));
-    } else {
-      this.busy = this._komunikatyService.getKomunikaty(page)
-        .subscribe(
-          (result => {
-              if (page === 1) {
-                this.komunikatyList = result;
-              } else {
-                this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
-                this.komunikatyList.isLastPage = result.isLastPage;
-                this.canScrool = true;
-              }
+        }));
+      } else {
+       
+        this.busy = this._komunikatyService.getKomunikaty(page).subscribe((result => {
+          
+            if (page === 1) {
+              this.komunikatyList = result;
+              console.log('komunikaty');
+              console.dir(this.komunikatyList); 
+            } else {
+              this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
+              this.komunikatyList.isLastPage = result.isLastPage;
+              this.canScrool = true;
             }
-          ));
-    }
+        }));
+      }
   }
 
   getDataFromServerWithSearch (page :any,param:string){

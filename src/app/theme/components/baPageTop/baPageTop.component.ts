@@ -1,7 +1,9 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 
 import {GlobalState} from '../../../global.state';
 import {CommunicationService} from '../../../pages/komunikat/communicationservice.component';
+
+import { MessageType } from '../../../enums/message-type.enum';
 
 @Component({
   selector: 'ba-page-top',
@@ -9,7 +11,10 @@ import {CommunicationService} from '../../../pages/komunikat/communicationservic
   template: require('./baPageTop.html'),
   encapsulation: ViewEncapsulation.None
 })
-export class BaPageTop {
+export class BaPageTop implements OnInit{
+
+  messageTypes: string[] = Object.keys(MessageType);
+  messageTypesOb: {name: string, value: string}[] = [];
 
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
@@ -18,6 +23,15 @@ export class BaPageTop {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
+  }
+
+  ngOnInit(): void {
+    for(let i = this.messageTypes.length-1; i >= 0; i--){
+      if(i%2 !== 0)
+        this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
+    }
+    //console.dir(this.messageTypesOb);
+    
   }
 
   public toggleMenu() {

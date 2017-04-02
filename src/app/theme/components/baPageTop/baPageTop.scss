@@ -1,24 +1,24 @@
 @import '../../sass/conf/conf';
 @import '../../components/baMsgCenter/baMsgCenter';
 
-div#menu{
-  float: right;
-  width: 25%;
-  padding-top: 1%;
-  ul {
-    display: flex;
-    list-style-type: none;
-    margin-right: 3%;
-    justify-content: space-around;
-    margin-bottom: 0;
-    padding: 2% 0;
-    li{
-      a{
-        font-size: 16px;
-        color: white;
-      }
+div.dropdown{
+    float: right;
+    padding-top: 5%;
+    cursor: pointer;
+    i{
+      color: white;
     }
-  }
+    div.dropdown-menu{
+      left: -130px;
+      padding: 10px;
+      a{
+        display: block;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        color: gray;
+      }
+      
+    }
 }
 
 .page-top {

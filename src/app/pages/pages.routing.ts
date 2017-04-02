@@ -17,7 +17,8 @@ export const routes: Routes = [
       { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule'},
       { path: 'company/:name', loadChildren: 'app/pages/company/company.module#CompanyModule'},
       { path: 'profile', loadChildren: 'app/pages/profile/profile.module#ProfileModule'},
-      { path: 'komunikat_single/:id_komunikat', loadChildren: 'app/pages/komunikat-single/komunikat-single.module#KomunikatSingleModule'}
+      { path: 'komunikat_single/:id_komunikat', loadChildren: 'app/pages/komunikat-single/komunikat-single.module#KomunikatSingleModule'},
+      { path: 'add_message/:message_type', loadChildren: 'app/pages/add-message/add-message.module#AddMessageModule'}
     ]
   }
 ];

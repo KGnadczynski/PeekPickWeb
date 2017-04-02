@@ -9,14 +9,13 @@
       <label for="">Dodaj treść komunikatu</label>
       <input class="form-control" type="text" [(ngModel)]="komunikatModel.content" placeholder="Dodaj treść komunikatu">
 
-
       <input type="file" image-upload
              (imageSelected)="selected($event)"
               accept="image/*"  >
       <img [src]="src" [hidden]="!src"><br>
       <input type="text" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event)">
 
-      <select   name="sel2" class="form-control"  [(ngModel)]="selectedTyp">
+      <select name="sel2" class="form-control"  [(ngModel)]="selectedTyp">
         <option *ngFor="let typ of typyKomunikatow" [ngValue]="kategoria">{{typ}}</option>
       </select>
       <button type="button" (click)="clicked()"

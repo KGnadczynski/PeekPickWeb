@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {KomunikatService} from "./../komunikatservice.component";
@@ -25,7 +24,6 @@ export class CustomModalContext extends BSModalContext {
 })
 
 export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomModalContext>, OnInit {
-
 
   context: CustomModalContext;
   typyKomunikatow = [ "WORK", "PROMOTION", "EVENT", "SHORT_TERM_OFFER", "WORTH_SEEING"];

@@ -100,9 +100,6 @@ export class KomunikatService {
 
   }
 
-
-
-
   mapKomunikatyImage(res:Response) {
     let body = res.json();
     return body;
@@ -114,6 +111,11 @@ export class KomunikatService {
     let url = `https://damp-temple-52216.herokuapp.com/messages/${id}`;
     return this._http.get(url).map(this.extractData);
   }
+
+  // getKomunikatDistance(page: number, latitude: number, longtitude: number, id: number){
+  //   let url = `https://damp-temple-52216.herokuapp.com/messages/page/${page}?latitude=${latitude}&longitude=${longtitude}`;
+  //   return this._http.get(url).map(this.extractData);
+  // }
 
   private extractData(res: Response) {
       let body = res.json();
