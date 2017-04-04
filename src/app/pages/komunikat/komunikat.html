@@ -40,8 +40,10 @@
             </p>
 
             <form id="messageTypeForm">
-                <div *ngFor="let typKomunikatow of typyKomunikatow">
-                    <input type="radio" name="sortByDate" value=" {{typKomunikatow}}">  {{typKomunikatow}}
+                <div *ngFor="let messageType of messageTypesOb">
+                    <md-checkbox >
+                        {{messageType.value}}
+                    </md-checkbox>
                 </div>
             </form>
 
@@ -49,6 +51,18 @@
 
             <p>Branża</p>
 
+            <div id="companyCategories">
+                <div *ngFor="let category of categories">
+                    <h4>{{ category.name }}</h4>
+                    <div class="subcategories">
+                        <md-checkbox *ngFor="let subcategory of category.subcategories">
+                            {{ subcategory.name }}
+                        </md-checkbox>
+                    </div>
+                </div>
+                
+            </div>
+<!--
             <div>
                 <button type="button" (click)="isCollapsed = !isCollapsed">Kultura i rozrywka</button>
                 <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
@@ -66,7 +80,7 @@
                         <md-checkbox >{{gastronomiainocnezyci}}</md-checkbox>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <button id="filterButton" type="button" (click)="clicked()">Wyszukaj</button>
         </div>

@@ -1,5 +1,11 @@
 @import '../../theme/sass/auth';
 
+div.alert-danger{
+    border: 1px solid #A20E12;
+    color: #A20E12;
+    background: white;
+}
+
 div#loginFormMain{
     margin: auto;
     
@@ -14,6 +20,7 @@ div#loginFormMain{
             margin: auto;
             div.inputForm{
                 display: flex;
+                flex-direction: column;
                 margin-bottom: 2%;
                 label{
                     font-size: 18px;
@@ -24,7 +31,9 @@ div#loginFormMain{
                     text-align: center;
                     padding: 2% 0;
                     font-size: 16px;
+                    
                 }
+                
             }
             div.actionButtons{
                 display: flex;
@@ -48,6 +57,22 @@ div#loginFormMain{
             }
         }
     }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid gray;
+  -webkit-text-fill-color: gray;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 @media(max-width: 575px){

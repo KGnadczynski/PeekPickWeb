@@ -1,4 +1,116 @@
 <div id="profile">
+
+    <!--edytuj profil i edytuj dane firmy i dodatkowe informacje-->
+    <div id="editProfile" >
+        <h3>edytuj profil</h3>
+
+        <form id="changeCI">
+            <image-upload></image-upload>
+            <div id="name">
+                <label for="nazwa">nazwa firmy</label>
+                <input type="text" id="nazwa">
+            </div>
+            <div id="address">
+                <div id="town">
+                    <label for="miasto">miasto</label>
+                    <input type="text" id="miasto">
+                </div>
+                <div id="street">
+                    <label for="ulica">ulica</label>
+                    <input type="text" id="ulica">
+                </div>
+                <div id="streetNo">
+                    <label for="numer">nr ulicy</label>
+                    <input type="text" id="numer">
+                </div>
+            </div>
+            <div class="blackline"></div>
+            <div id="contact">
+                <div id="www">
+                    <label for="www">www</label>
+                    <input type="text" id="www">
+                </div>
+                <div id="openingHours">
+                    <label for="openingHours">godziny otwarcia</label>
+                    <textarea name="openingHours" id="openingHours" cols="30" rows="10"></textarea>
+                </div>
+                <div id="telephone">
+                    <label for="telephone">tel</label>
+                    <input type="text" id="telephone">
+                </div>
+                <div id="email">
+                    <label for="email">e-mail</label>
+                    <input type="email" id="email">
+                </div>
+                <div id="description">
+                    <label for="description">opis</label>
+                    <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+            
+            <button type="submit">Zapisz</button>
+        </form>
+        <div class="blackline"></div>
+        
+        <h3>zmień hasło/email</h3>
+        <form id="changeEP">
+            <input type="email" id="email" placeholder="nowy e-mail">
+            <input type="password" id="password" placeholder="nowe hasło">
+            <input type="password" id="passwordrepeat" placeholder="powtórz nowe hasło">
+            <button type="submit">Zapisz</button>
+        </form>
+
+        
+    </div>
+
+    <div id="messages">
+        <h3>moje ogłoszenia</h3>
+        <img id="companyLogo" src="{{ otherImgs?.imageUrl}}" alt="">
+              <h1 id="companyName">{{ otherUser?.company.name }}</h1>
+            <ul>
+                <li *ngFor="let ob of otherObject?.objectList">
+                    <div class="companyImg">
+                        <img src="{{ otherImgs?.imageUrl}}" alt="">
+                    </div>
+                    <div class="companyTextBlock">
+                        <a [routerLink]="['/pages/komunikat_single', ob.id]">{{ ob.content }}</a>
+                    </div>
+                    
+                    <div class="dates">
+                        <p>
+                            Data rozpoczęcia:
+                            <span class="createDate">
+                                {{ ob.createDate | date: 'dd.MM.yyyy hh:mm'}}
+                            </span>
+                        </p>
+                        <p>
+                            Data zakończenia:
+                            <span class="endDate">
+                                {{ ob.endDate | date: 'dd.MM.yyyy hh:mm'}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="companyPhoto">
+                        <img src="{{ ob.mainImageUrl }}" alt="">
+                    </div>
+                    <div class="operations">
+                        <div class="edit">
+                            <a href="#">edytuj</a>
+                        </div>
+                        <div class="longer">
+                            <a href="#">przedłuż</a>
+                        </div>
+                        <div class="remove">
+                            <a href="#">usuń</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+    </div>
+</div>
+
+<!--
+<div id="profile">
   <md-tab-group>
     <md-tab>
       <template md-tab-label>
@@ -19,7 +131,6 @@
                         <a [routerLink]="['/pages/komunikat_single', ob.id]">{{ ob.content }}</a>
                     </div>
                     
-
                     <div class="dates">
                         <p>
                             Data rozpoczęcia:
@@ -146,3 +257,4 @@
     </md-tab>
   </md-tab-group>
 </div>
+-->

@@ -24,6 +24,7 @@ export class AddMessageComponent implements OnInit {
     messageTypes: string[] = Object.keys(MessageType);
     messageTypesOb: {name: string, value: string}[] = [];
     msgAddModel: any = {};
+    messageAddModel: MessageAddModel;
 
     pickerOptions: Object = {
         'showDropdowns': true,
@@ -64,7 +65,7 @@ export class AddMessageComponent implements OnInit {
     };
 
     selectStartDate(message) {
-        this.msgAddModel.createDate = moment().utc(new Date(message.end._d)).format('YYYY-MM-DDTHH:mm:ssZ');
+        this.msgAddModel.startDate = moment().utc(new Date(message.end._d)).format('YYYY-MM-DDTHH:mm:ssZ');
     }
 
     selectEndDate(message) {
@@ -108,6 +109,43 @@ export class AddMessageComponent implements OnInit {
     }
 
     addMessage(): void{
+        this.messageAddModel = new MessageAddModel();
+        //content
+        this.messageAddModel.content = this.msgAddModel.content;
+        
+        //startDate
+        this.messageAddModel.startDate = this.msgAddModel.startDate;
+
+        //endDate
+        this.messageAddModel.endDate = this.msgAddModel.endDate;
+
+        //type
+        this.messageAddModel.type = this.messageTypeName;
+
+        //status
+        this.messageAddModel.status = "NEW";
+
+        //user
+        let user = JSON.parse(localStorage.getItem('user'));
+        this.messageAddModel.user = user.user;
+
+        //companyBranchList
+        let companyBranchList = JSON.parse(localStorage.getItem('companyBranchList'));
+        this.messageAddModel.companyBranchList = companyBranchList.companyBranchList;
+
+        //companyBranchCount
+        this.messageAddModel.companyBranchCount = this.messageAddModel.companyBranchList.length;
+
+        //location
+        this.messageAddModel.location.name = this.messageAddModel.companyBranchList[0].name;
+        this.messageAddModel.location.city = this.messageAddModel.companyBranchList[0].city;
+        this.messageAddModel.location.latitude = this.messageAddModel.companyBranchList[0].latitude;
+        this.messageAddModel.location.longitude = this.messageAddModel.companyBranchList[0].longitude;
+        this.messageAddModel.location.street = this.messageAddModel.companyBranchList[0].street;
+        this.messageAddModel.location.streetNo = this.messageAddModel.companyBranchList[0].streetNo;
+        this.messageAddModel.location.address = this.messageAddModel.companyBranchList[0].city;
+
         console.dir(this.msgAddModel);
     }
+
 }

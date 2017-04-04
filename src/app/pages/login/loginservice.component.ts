@@ -18,7 +18,7 @@ export class LoginService {
 
   handleError(error: any) {
     console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
+    return Observable.throw(error.json() || 'Server error');
   }
   login(user: any) {
     let headers = new Headers();

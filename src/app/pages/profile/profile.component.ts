@@ -36,13 +36,7 @@ export class ProfileComponent implements OnInit {
             console.log('images:');
             console.dir(this.otherImgs);
           });
-          
         });
-
-        
     }
-
   }
-
-
 }

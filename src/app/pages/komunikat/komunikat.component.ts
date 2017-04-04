@@ -23,8 +23,9 @@ import { MessageType } from '../../enums/message-type.enum';
 })
 export class KomunikatComponent implements OnInit {
 
-  //typyKomunikatow = [ "WORK", "PROMOTION", "EVENT", "SHORT_TERM_OFFER", "WORTH_SEEING"];
-  typyKomunikatow: string[] = Object.keys(MessageType);
+  messageTypes: string[] = Object.keys(MessageType);
+  messageTypesOb: {name: string, value: string}[] = [];
+  categories: {name: string, subcategories: any[]}[] = [];
 
   kulturairozrywka = ["artyści, zespoły", "escape roomy, parki rozrywki", "kino, teatr" ,"muzeum, wystawy" ,"inne"];
   gastronomiainocnezycie = ["food truck","kawiarnie","kluby","puby","restauracje" , "inne"];
@@ -70,9 +71,18 @@ export class KomunikatComponent implements OnInit {
 }
 
   ngOnInit() {
-    
-        //usuniecie z tablicy enum liczb porzadkowych
-        //this.typyKomunikatow = this.typyKomunikatow.slice(this.typyKomunikatow.length/2);
+
+        this._komunikatyService.getCompanyCategories().subscribe(resultCategories => {
+          for(let categ in resultCategories){
+            this._komunikatyService.getCategorySubcategories(resultCategories[categ].id).subscribe(resultSub => {
+                this.categories.push({name: resultCategories[categ].name, subcategories: resultSub});
+            });
+          }
+        });
+
+        for(let i = this.messageTypes.length-1; i >= 0; i--)
+            if(i%2 !== 0)
+                this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
 
         this.komunikatyList = new KomunikatyList();
         var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
@@ -151,12 +161,9 @@ export class KomunikatComponent implements OnInit {
         ));
   }
 
-
-
   onDateChanged(event:any) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }
-  
 
   clicked(event) {
     console.log('clicked');
@@ -193,5 +200,7 @@ export class KomunikatComponent implements OnInit {
   handleClick(e:MouseEvent, komunikat: ObjectList) {
     return this.modal.open(ClickedKomunikatModal,  overlayConfigFactory({ komunikat: komunikat }, BSModalContext));
   }
+
+  
 
 }

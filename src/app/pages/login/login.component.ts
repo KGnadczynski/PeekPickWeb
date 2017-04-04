@@ -25,11 +25,12 @@ export class Login {
   userFromServer:User
   userJson: UserLogin;
   user :any = {};
+  error: any;
 
   constructor(fb:FormBuilder, private loginService: LoginService,private _menuService: BaMenuService, private router: Router) {
     this.form = fb.group({
-      'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
+      'email': ['', Validators.compose([Validators.required])],
+      'password': ['', Validators.compose([Validators.required])]
     });
 
     this.email = this.form.controls['email'];
@@ -37,6 +38,7 @@ export class Login {
   }
 
   public onSubmit(values:Object):void {
+    console.log('onsubmit');
     this.submitted = true;
     if (this.form.valid) {
       let body = new URLSearchParams();
@@ -61,13 +63,20 @@ export class Login {
                              this.router.navigate(['/komunikat']);
                             },
                              error => {
+                               console.log('error in inside');
                            });                    
                     },
                     error => {
+                      console.log('error inside');
                     });
-              },
+          },
           error => {
+            console.log('error outside');
+            console.dir(error);
+            this.error = error;
+            if(this.error.error_description === "Bad credentials")
+              this.error.error_description = "Zły login lub hasło";
           });
-      }
+    }
   }
 }

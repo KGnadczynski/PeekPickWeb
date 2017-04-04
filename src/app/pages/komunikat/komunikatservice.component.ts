@@ -117,6 +117,15 @@ export class KomunikatService {
   //   return this._http.get(url).map(this.extractData);
   // }
 
+  //kategorie
+  getCompanyCategories(): Observable<any>{
+    return this._http.get(`https://damp-temple-52216.herokuapp.com/comapnycategories/main`).map(this.extractData);
+  }
+
+  getCategorySubcategories(id: number): Observable<any>{
+    return this._http.get(`https://damp-temple-52216.herokuapp.com/comapnycategories/parentCategoryId/${id}`).map(this.extractData);
+  }
+
   private extractData(res: Response) {
       let body = res.json();
       return body|| { };

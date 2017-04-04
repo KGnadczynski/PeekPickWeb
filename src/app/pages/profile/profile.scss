@@ -1,6 +1,236 @@
-@import '../../theme/sass/conf/conf';
-@import '../../theme/sass/auth';
+//@import '../../theme/sass/conf/conf';
+//@import '../../theme/sass/auth';
 
+div#profile{
+    margin: auto;
+    color: gray;
+    div.blackline{
+        height: 2px;
+        background: black;
+        margin: 2% 0;
+        float: left;
+        width: 100%;
+    }
+    div#editProfile{
+        button{
+            clear: both;
+            display: block;
+            margin: auto;
+            background: white;
+            border: 1px solid gray;
+            padding: 2%;
+            color: gray;
+        }
+        input{
+            width: 100%;
+        }
+        form#changeCI{
+            overflow: hidden;
+            div.image-upload{
+                border: 1px solid gray;
+                border-radius: 1px;
+                float: left;
+                div.file-upload{
+                    background: white;
+                    label{
+                        background: white;
+                        color: gray;
+                        border: 1px solid gray;
+                    }
+                }
+            }
+            div#name{
+                margin: 1% 0;
+                
+                float: right;
+            }
+            div#address{
+                clear: both;
+                float: left;
+                margin: 4% 0;
+                overflow: hidden;
+                input{
+                    width: 100%;
+                }
+                div#town, div#street{
+                    width: 40%;
+                    float: left;
+                    padding-right: 1%;
+                }
+                div#streetNo{
+                    width: 20%;
+                    float: left;
+                }
+            }
+            div#contact{
+                clear: both;
+                float: left;
+                margin: 1% 0 2% 0;
+                
+                div#www, div#telephone, div#email{
+                    width: 50%;
+                    float: left;
+                    padding-right: 2%;
+                    margin-top: 2%;
+                }
+                div#openingHours{
+                    width: 50%;
+                    float: right;
+                    label{
+                        display: block;
+                        text-align: right;
+                    }
+                    textarea{
+                        float: right;
+                        width: 100%;
+                    }
+                }
+                div#description{
+                    float: left;
+                    clear: both;
+                    width: 100%;
+                    margin: 1% 0;
+                    label{
+                        display: block;
+                    }
+                    textarea{
+                        width: 100%;
+                    }
+                }
+            }
+            
+            
+        }
+        form#changeEP{
+            input{
+                display: block;
+                margin: auto;
+                padding: 2%;
+                text-align: center;
+                margin-bottom: 2%;
+            }
+        }
+    }
+    div#messages{
+        
+    }
+    h3{
+        font-size: 16px;
+        text-align: center;
+    }
+}
+
+@media(max-width: 575px){
+    div#profile{
+        display: block;
+        padding: 3%;
+        div#editProfile{
+            margin-bottom: 5%;
+             div.image-upload{
+                 width: 50%;
+             }
+             div#name{
+                 width: 50%;
+                 padding-left: 2%;
+                 margin: 0;
+                 
+             }
+        }
+        div#messages{
+
+        }
+    }
+}
+@media (min-width: 576px) {
+    div#profile{
+        width: 80%;
+        padding-top: 3%;
+        div#editProfile{
+            width: 100%;
+            
+            div#name{
+                width: 100%;
+                margin: 3% 0;
+                input{
+                    width: 100%;
+                }
+            }
+        }
+        div#messages{
+            width: 100%;
+        }
+    }
+}
+@media (min-width: 768px) {
+    div#profile{
+        display: flex;
+        width: 80%;
+        padding-top: 3%;
+        div#editProfile{
+            width: 40%;
+            div#name{
+                width: 100%;
+            }
+        }
+        div#messages{
+            width: 60%;
+        }
+    }
+}
+@media (min-width: 992px) {
+    div#profile{
+        width: 80%;
+        padding-top: 2%;
+        div#editProfile{
+            width: 40%;
+        }
+        div#messages{
+            width: 60%;
+        }
+    }
+}
+@media (min-width: 1200px) {
+    div#profile{
+        div#editProfile{
+            width: 30%;
+            form#changeCI{
+                margin-bottom: 3%;
+                div.image-upload{
+                    width: 50%;
+                    float: left;
+                }
+                div#name{
+                    width: 40%;
+                }
+                div#address{
+                    div#town, div#street{
+                        width: 40%;
+                    }
+                    div#streetNo{
+                        width: 20%;
+                    }
+                }
+                div#contact{
+                    
+                    div#www, div#telephone, div#email{
+                        width: 50%;
+                    }
+                    div#openingHours{
+                        width: 50%;
+                    }
+                    div#description{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        div#messages{
+            width: 70%;
+        }
+    }       
+}
+
+/*
 div#profile{
     margin-top: 2%;
 }
@@ -271,4 +501,4 @@ md-tab-group{
     }
     
     
-}
+}*/

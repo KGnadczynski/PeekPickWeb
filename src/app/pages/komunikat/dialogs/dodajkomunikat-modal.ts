@@ -83,7 +83,6 @@ export class DodajKomunikatModal implements CloseGuard, ModalComponent<CustomMod
     this.komunikatDodanie.type = "WORK";
     this.komunikatDodanie.startDate = "2017-04-23T18:25:43Z";//this.komunikatModel.startDate;
     this.komunikatDodanie.endDate = "2017-04-23T18:25:43Z";//this.komunikatModel.endDate;
-   // this.komunikatDodanie.createDate ="2017-04-23T18:25:43Z" ;//this.komunikatModel.startDate;
     this.komunikatDodanie.status = "NEW";
     var user = JSON.parse(localStorage.getItem('user'));
     this.komunikatDodanie.user= user.user;
