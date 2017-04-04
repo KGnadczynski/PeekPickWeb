@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { AddMessageService } from './add-message.service';
+import { CommunicationService } from '../komunikat/communicationservice.component';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { ModalDirective } from 'ng2-bootstrap';
@@ -25,6 +26,8 @@ export class AddMessageComponent implements OnInit {
     messageTypesOb: {name: string, value: string}[] = [];
     msgAddModel: any = {};
     messageAddModel: MessageAddModel;
+    addedMessage: any;
+    image:File;
 
     pickerOptions: Object = {
         'showDropdowns': true,
@@ -65,11 +68,11 @@ export class AddMessageComponent implements OnInit {
     };
 
     selectStartDate(message) {
-        this.msgAddModel.startDate = moment().utc(new Date(message.end._d)).format('YYYY-MM-DDTHH:mm:ssZ');
+        this.msgAddModel.startDate = moment().utc(new Date(message.end._d)).format("YYYY-MM-DD'T'HH:mm:ss\\Z");
     }
 
     selectEndDate(message) {
-        this.msgAddModel.endDate = moment().utc(new Date(message.end._d)).format('YYYY-MM-DDTHH:mm:ssZ');
+        this.msgAddModel.endDate = moment().utc(new Date(message.end._d)).format("YYYY-MM-DD'T'HH:mm:ss\\Z");
     }
 
     @ViewChild('childModal') public childModal: ModalDirective;
@@ -78,6 +81,7 @@ export class AddMessageComponent implements OnInit {
         private route: ActivatedRoute,
         private addMessageService: AddMessageService,
         private _location: Location,
+        private communicationservice: CommunicationService
     ){}
 
     ngOnInit(): void{
@@ -146,6 +150,14 @@ export class AddMessageComponent implements OnInit {
         this.messageAddModel.location.address = this.messageAddModel.companyBranchList[0].city;
 
         console.dir(this.msgAddModel);
+
+        this.addMessageService.addMessage(this.messageAddModel).subscribe(
+      data => {
+        this.addedMessage = data;
+        this.communicationservice.dodanoKomunikat(this.addedMessage.id,this.image);
+      },
+      error => {
+      });
     }
 
 }

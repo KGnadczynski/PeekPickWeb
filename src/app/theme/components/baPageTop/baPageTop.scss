@@ -196,6 +196,26 @@ a.collapse-menu-link {
   cursor: pointer;
 }
 
+
+@media(max-width: 575px){
+    
+}
+@media (min-width: 576px) {
+    
+}
+@media (min-width: 768px) {
+   
+}
+@media (min-width: 992px) {
+    
+}
+@media (min-width: 1200px) {
+    div.dropdown{
+      padding-top: 1%;
+      padding-left: 1%;
+    }
+}
+
 nav{
   padding-top: 4%;
 }

@@ -71,7 +71,7 @@ export class KomunikatComponent implements OnInit {
 }
 
   ngOnInit() {
-
+      console.dir(localStorage);
         this._komunikatyService.getCompanyCategories().subscribe(resultCategories => {
           for(let categ in resultCategories){
             this._komunikatyService.getCategorySubcategories(resultCategories[categ].id).subscribe(resultSub => {

@@ -69,6 +69,7 @@ export class Login {
                     error => {
                       console.log('error inside');
                     });
+                    this.error = null;
           },
           error => {
             console.log('error outside');
