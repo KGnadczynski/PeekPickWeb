@@ -137,7 +137,7 @@ div#profile{
              }
         }
         div#messages{
-
+            width: 100%;
         }
     }
 }
@@ -228,6 +228,88 @@ div#profile{
             width: 70%;
         }
     }       
+}
+
+div#messages{
+        img#companyLogo{
+            display: block;
+            width: 25%;
+            margin: auto;
+            margin-bottom: 2%;
+            border-radius: 2500px
+        }
+        h1#companyName{
+            text-transform: uppercase;
+            text-align: center;
+            color: gray;
+        }
+    width: 60%;
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        li {
+            margin-bottom: 2%;
+            padding: 2%;
+            overflow: hidden;
+            div.companyPhoto {
+                img{
+                    width: 50%;
+                    margin: auto;
+                    display: block;
+                    padding: 2px;
+                }
+                border-radius: 3px;
+                margin-top: 3%;
+                margin-bottom: 3%;
+                float: left;
+            }
+            p{
+                font-weight: bold;
+                span {
+                    font-weight: normal;
+                }
+            }
+            div.companyImg{
+                width: 15%;
+                float: left;
+                img{
+                    width: 100%;
+                }
+            }
+            div.companyTextBlock{
+                width: 75%;
+                float: left;
+                margin-left: 2%;
+                a{
+                    color: gray;
+                    font-size: 17px;
+                    line-height: 20px;
+                }
+            }
+            div.dates {
+                clear: both;
+                float: left;
+                margin-top: 2%;
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+            div.operations{
+                float: left;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                div{
+                    a{
+                        color: gray;
+                    }
+                    text-align: center;
+                }
+            }
+            
+        }
+    }
 }
 
 /*
