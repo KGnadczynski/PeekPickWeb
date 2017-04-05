@@ -35,7 +35,11 @@ export class Login {
 
     this.email = this.form.controls['email'];
     this.password = this.form.controls['password'];
+    
   }
+  onScroll () {
+	    console.log('scrolled!!')
+	}
 
   public onSubmit(values:Object):void {
     console.log('onsubmit');

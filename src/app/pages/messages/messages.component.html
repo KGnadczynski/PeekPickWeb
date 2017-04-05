@@ -1,0 +1,88 @@
+<div class="search-results" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="100" (scrolled)="onScrollDown()">
+	<div class="messages">
+		<div class="message" *ngFor="let message of messageList.messages" >
+			<div class="message-icon" >
+				<img class="photo-icon" src="{{ message.user.company.mainImageUrl }}">
+			</div>
+
+			<div class="message-text-block">
+				<div class="message-header">
+					<!--zmien tu przekierowania do single-->
+					<a [routerLink]="['/pages/company', message.nearestCompanyBranch.company.id]" (click)='$event.stopPropagation()'>
+						{{ message.nearestCompanyBranch.name }}
+					</a>
+				</div>
+				<div class="message-category">
+					<p>
+						{{ message.user.company.category.name }}
+					</p>
+				</div>
+				<div class="message-address">
+					<p>
+						{{ message.nearestCompanyBranch.city }}
+						{{ message.nearestCompanyBranch.street}}
+						{{ message.nearestCompanyBranch.streetNo}}
+					</p>
+				</div>
+				<div class="message-distance">
+					<p>dystans</p>
+				</div>
+			</div>
+			
+			<div class="message-icon">
+				<span></span>
+			</div>
+
+			<div class="message-content">
+				<span class="content">{{ message.content}} </span>
+			</div>
+
+			<div class="message-time">
+				<div class="start-date" *ngIf="message.startDate">
+					<span *ngIf="message.startDate">
+						Data rozpoczęcia
+					</span>
+					<p>
+						{{ message.startDate | date: 'dd.MM.yyyy hh:mm' }}
+					</p>
+				</div>
+				<div class="no-date" *ngIf="!message.startDate">
+					<span>Brak daty rozpoczęcia</span>
+				</div>
+
+				<div class="end-date" *ngIf="message.endDate">
+					<span *ngIf="message.endDate">
+						Data zakończenia
+					</span>
+					<p>
+						{{ message.endDate | date: 'dd.MM.yyyy hh:mm' }}
+					</p>
+				</div>
+
+				<div class="no-date" *ngIf="!message.endDate">
+					<span>Brak daty zakończenia</span>
+				</div>
+			</div>
+
+			<div class="message-photo" *ngIf="message.mainImageUrl">
+				<img src="{{ message.mainImageUrl}}">
+			</div>
+
+			<div class="message-icons">
+				<div class="favourite">
+					<img src="../../../meta/star.png" alt="">
+				</div>
+				<div class="google">
+					<img src="../../../meta/star.png" alt="">
+				</div>
+				<div class="dots">
+					<img src="../../../meta/star.png" alt="">
+				</div>
+				<div class="time">
+					{{ message.startDate | amTimeAgo }}
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,7 +1,7 @@
 /**
  * Created by Wojtek on 2016-12-14.
  */
-import { ObjectList} from './komunikat';//Don't forget import the Wallpaper model
+import { ObjectList} from './komunikat';
 
 export class KomunikatyList {
   komunikaty: Array<ObjectList>;

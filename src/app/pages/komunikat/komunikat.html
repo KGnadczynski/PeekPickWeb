@@ -62,7 +62,7 @@
                 </div>
                 
             </div>
-<!--
+            <!--
             <div>
                 <button type="button" (click)="isCollapsed = !isCollapsed">Kultura i rozrywka</button>
                 <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
@@ -80,12 +80,11 @@
                         <md-checkbox >{{gastronomiainocnezyci}}</md-checkbox>
                     </div>
                 </div>
-            </div> -->
+            </div> 
+            -->
 
             <button id="filterButton" type="button" (click)="clicked()">Wyszukaj</button>
         </div>
-        
-
     </div>
 
     <div class="col-xlg-6 col-xl-9 col-lg-12 col-sm-12 col-xs-12">
@@ -97,14 +96,13 @@
             </div>
         </div>-->
         
-
+        <!--
         <div class="search-results" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="100" (scrolled)="onScrollDown()">
             <div class="feed-messages-container">
                 <span defaultOverlayTarget></span>
-                <!--<div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>-->
                 <div class="feed-message" *ngFor="let komunikat of komunikatyList.komunikaty" (click)='handleClick($event, komunikat)' >
                     <div class="message-icon" >
-                        <img class="photo-icon" src="{{ komunikat.user.company.mainImageUrl}}">
+                        <img class="photo-icon" src="{{ komunikat.user.company.mainImageUrl }}">
                     </div>
                     <div class="text-block">
                         <div class="message-header">
@@ -174,7 +172,10 @@
                 </div>
             </div>
         </div>
+        -->
+        <messages [amount]=0 [dest] = "'company'" [id]=1></messages>
     </div>
+        
 
     <div class="col-xlg-3 col-xl-3 col-lg-3 col-sm-3 col-xs-3">
       

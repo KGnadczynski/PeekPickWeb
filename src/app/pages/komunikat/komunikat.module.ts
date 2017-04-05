@@ -18,6 +18,8 @@ import { Daterangepicker } from 'ng2-daterangepicker';
 
 import { MomentModule } from 'angular2-moment';
 
+import { MessagesComponent } from '../messages/messages.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { MomentModule } from 'angular2-moment';
     KomunikatComponent,
     DodajKomunikatModal,
     ClickedKomunikatModal,
-    MdCheckbox
+    MdCheckbox,
+    MessagesComponent
   ],
   entryComponents: [ DodajKomunikatModal,ClickedKomunikatModal ]
 })

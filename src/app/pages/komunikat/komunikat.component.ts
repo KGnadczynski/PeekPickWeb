@@ -1,7 +1,6 @@
 ///<reference path="../../../../node_modules/@types/googlemaps/index.d.ts"/>
-import {Component, OnInit, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {KomunikatService} from './komunikatservice.component';
-import {KomunikatyList} from "./komunikatlist.model";
 import {Subscription} from 'rxjs';
 import { Modal,BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {overlayConfigFactory } from 'angular2-modal';
@@ -10,7 +9,6 @@ import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
 import {ObjectList} from "./komunikat"
 
-//dodanie enum do typow wiadomosci
 import { MessageType } from '../../enums/message-type.enum';
 
 @Component({
@@ -27,19 +25,13 @@ export class KomunikatComponent implements OnInit {
   messageTypesOb: {name: string, value: string}[] = [];
   categories: {name: string, subcategories: any[]}[] = [];
 
-  kulturairozrywka = ["artyści, zespoły", "escape roomy, parki rozrywki", "kino, teatr" ,"muzeum, wystawy" ,"inne"];
-  gastronomiainocnezycie = ["food truck","kawiarnie","kluby","puby","restauracje" , "inne"];
-  selected = [];
-
   google:any;
-  pageNumber = 1;
-  private komunikatyList: KomunikatyList;
+
   logged = false;
   public isCollapsed:boolean = true;
   public isCollapsedGastro:boolean = true;
   public isFiltryCollapse: boolean = true;
-  canScrool = true;
-  busy: Subscription;
+
   public distane: number;
 
   @ViewChild("google_places_ac")
@@ -53,25 +45,12 @@ export class KomunikatComponent implements OnInit {
     console.log(event);
   }
 
-  onScrollDown () {
-    if(!this.komunikatyList.isLastPage) {
-      if(this.canScrool){
-        this.pageNumber+=1
-        this.canScrool = false;
-        console.log('scrolled!!'+this.pageNumber);
-        this.getDataFromServer(this.pageNumber);
-        
-      }
-    }
-  }
-
   constructor(private _komunikatyService: KomunikatService, public modal: Modal,private communicationservice: CommunicationService){
     let moment = require('../../../../node_modules/moment/moment.js');
     moment.locale('pl');
 }
 
   ngOnInit() {
-      console.dir(localStorage);
         this._komunikatyService.getCompanyCategories().subscribe(resultCategories => {
           for(let categ in resultCategories){
             this._komunikatyService.getCategorySubcategories(resultCategories[categ].id).subscribe(resultSub => {
@@ -79,29 +58,26 @@ export class KomunikatComponent implements OnInit {
             });
           }
         });
-
+        
         for(let i = this.messageTypes.length-1; i >= 0; i--)
             if(i%2 !== 0)
                 this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
 
-        this.komunikatyList = new KomunikatyList();
         var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
     
         if(currentUser != null) {
           var token = currentUser.token
           this.logged = true;
         }
-   
-        this.getDataFromServer(this.pageNumber);
     
         var autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
         
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+       google.maps.event.addListener(autocomplete, 'place_changed', function() {
           var place = autocomplete.getPlace();
           console.log(place)
         });
 
-        this.communicationservice.dodanieKomunkatuSubject$.subscribe(messageId=> {
+        /*this.communicationservice.dodanieKomunkatuSubject$.subscribe(messageId=> {
             this.pageNumber = 1;
             if( messageId.file == null) {
               this.getDataFromServer(1);
@@ -110,43 +86,15 @@ export class KomunikatComponent implements OnInit {
                 this.getDataFromServer(1);
               }));
             }
-        });
-
-        this.communicationservice.szukanieKomunkatuSubject$.subscribe(term=> {
+        });*/
+        
+        /*this.communicationservice.szukanieKomunkatuSubject$.subscribe(term=> {
             this.getDataFromServerWithSearch(1,term);
-        });
+        });*/
   }
 
-  getDataFromServer (page :any,params = []){
-      
-      if(params.length != 0) {
-        this.busy = this._komunikatyService.getKomunikaty(page,params).subscribe((result => {
-            if (page === 1) {
-              this.komunikatyList = result;
-            } else {
-              this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
-              this.komunikatyList.isLastPage = result.isLastPage;
-              this.canScrool = true;          
-            }
-        }));
-      } else {
-       
-        this.busy = this._komunikatyService.getKomunikaty(page).subscribe((result => {
-          
-            if (page === 1) {
-              this.komunikatyList = result;
-              console.log('komunikaty');
-              console.dir(this.komunikatyList); 
-            } else {
-              this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
-              this.komunikatyList.isLastPage = result.isLastPage;
-              this.canScrool = true;
-            }
-        }));
-      }
-  }
 
-  getDataFromServerWithSearch (page :any,param:string){
+  /*getDataFromServerWithSearch (page :any,param:string){
     this.busy = this._komunikatyService.getKomunikatySearch(page,param)
       .subscribe(
         (result => {
@@ -159,23 +107,11 @@ export class KomunikatComponent implements OnInit {
             }
           }
         ));
-  }
+  }*/
 
-  onDateChanged(event:any) {
+  /*onDateChanged(event:any) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
-  }
-
-  clicked(event) {
-    console.log('clicked');
-    this.getDataFromServer(this.pageNumber,this.selected);
-  }
-
-  toggle(id) {
-    var index = this.selected.indexOf(id);
-    if (index === -1) this.selected.push(id);
-    else this.selected.splice(index, 1);
-
-  }
+  }*/
 
   onClick() {
     this.modal.prompt()
@@ -192,15 +128,13 @@ export class KomunikatComponent implements OnInit {
             `)
       .open();
   }
-
+/*
   openCustom() {
     return this.modal.open(DodajKomunikatModal, overlayConfigFactory({ num1: 2, num2: 3 },BSModalContext));
   }
 
   handleClick(e:MouseEvent, komunikat: ObjectList) {
     return this.modal.open(ClickedKomunikatModal,  overlayConfigFactory({ komunikat: komunikat }, BSModalContext));
-  }
-
-  
+  }*/
 
 }

@@ -6,125 +6,10 @@ div#addIcon{
       cursor: pointer;
     }
 }
-div.feed-message{
-  margin-bottom: 3%;
-  overflow: hidden;
-  border: 1px solid lightgray;
-  padding: 3%;
-  border-radius: 3px;
-  p{
-    margin: 3% 0;
-    padding-left: 4%;
-    text-align: left;
-  }
-  div.message-icon{
-    float: left;
-    width: 25%;
-    img {
-      width: 100%;
-      height: 100px;
-      padding: 1px;
-      border: 1px solid gray;
-    }
-  }
-  div.text-block{
-    float: left;
-    width: 50%;
-      div.message-header{
-        a.author{
-          font-size: 20px;
-          padding-left: 4%;
-          color: gray;
-          font-weight: bold;
-        }
-      }
-  }
-  div.message-distance{
-    width: 25%;
-    float: left;
-  }
-  div.message-content{
-    clear: both;
-    float: left;
-    width: 100%;
-    margin: 4% 0;
-    span{
-      font-size: 25px;
-      font-weight: bold;
-      line-height: 1.2em;
-    }
-  }
-  div.message-time{
-    float: left;
-    width: 100%;
-    overflow: hidden;
-    font-weight: bold;
-    margin-bottom: 4%;
-    span{
-      display: block;
-      margin-bottom: 3%;
-      font-weight: normal;
-    }
-    div.start-date{
-      width: 50%;
-      float: left;
-    }
-    div.end-date{
-      width: 50%;
-      float: right;
-      text-align: right;
-    }
-    div.no-date{
-      float: right;
-      padding-right: 2%;
-      width: 50%;
-      text-align: right;
-    }
-  }
-  div.message-photo{
-    float: left;
-    width: 100%;
-    img{
-      width: 96%;
-      margin: auto;
-      display: block;
-      margin-top: 2%;
-      margin-bottom: 2%;
-    }
-    
-  }
-  div.message-icons{
-    float: left;
-    width: 100%;
-    display: flex;
-    margin: 3% 0;
-    div{
-      width:25%;
-      img {
-        width: 30%;
-        margin: auto;
-        display: block;
-      }
-    }
-    div.favourite{
-      
-    }
-  }
-  
-}
 
 div#filterMessages{
 
     padding: 3%;
-    
-    // div#addIcon{
-    //   overflow: hidden;
-    //   cursor: pointer;
-    //   i{
-    //     float: right;
-        
-    //   }
-    // }
     h4{
       cursor: pointer;
       width: 90%;
@@ -253,48 +138,13 @@ div.blackLine{
 }
 
 @media(max-width: 575px){
-    div.message-icon{
-        img{
-          height: 80px !important;
-        }
-    }
-    div.message-header{
-      a{
-        font-size: 16px !important;
-      }
-    }
-    div.message-category, div.message-address{
-      p{
-        font-size: 12px !important;
-      }
-    }
-    div.message-content{
-      span{
-        font-size: 15px !important;
-      }
-    }
 }
 
 @media (min-width: 576px) {
-    div.message-icon{
-        img{
-          height: 135px !important;
-        }
-    }
 }
 @media (min-width: 768px) {
-    div.message-icon{
-        img{
-          height: 175px !important;
-        }
-    }
 }
 @media (min-width: 992px) {
-    div.message-icon{
-      img{
-          height: 210px !important;
-        }
-    }
 }
 @media (min-width: 1200px) {
     
