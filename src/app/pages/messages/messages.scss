@@ -27,6 +27,7 @@ div.messages{
                 p{
                     margin: 0;
                     font-size: 13px;
+                    text-align: left;
                 }
             }
             
@@ -96,6 +97,7 @@ div.messages{
             padding: 4% 0px;
             div.favourite{
                 width: 20%;
+                cursor: pointer;
             }
             div.google{
                 width: 20%;

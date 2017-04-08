@@ -6,7 +6,6 @@ import { NgaModule } from '../../theme/nga.module';
 import { Login } from './login.component';
 import { routing }       from './login.routing';
 
-import { MessagesComponent } from '../messages/messages.component';
 
 @NgModule({
   imports: [
@@ -18,7 +17,6 @@ import { MessagesComponent } from '../messages/messages.component';
   ],
   declarations: [
     Login,
-    MessagesComponent
   ]
 })
 export class LoginModule {}

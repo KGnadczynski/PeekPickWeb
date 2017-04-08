@@ -1,7 +1,7 @@
-<div id="profile">
+<!--<div id="profile">-->
 
     <!--edytuj profil i edytuj dane firmy i dodatkowe informacje-->
-    <div id="editProfile" >
+    <!--<div id="editProfile" >
         <h3>edytuj profil</h3>
 
         <form id="changeCI">
@@ -62,7 +62,7 @@
 
         
     </div>
-
+    <!--
     <div id="messages">
         <h3>moje ogłoszenia</h3>
         <img id="companyLogo" src="{{ otherImgs?.imageUrl}}" alt="">
@@ -107,9 +107,13 @@
                 </li>
             </ul>
     </div>
-</div>
+    -->
+    <!--<h1>idCompany: {{ idCompany }}</h1>-->
+    <!--<messages [amount] = 0 [dest] = "'companyId'" [id] = idCompany></messages>-->
+    
+<!--</div>-->
 
-<!--
+
 <div id="profile">
   <md-tab-group>
     <md-tab>
@@ -122,6 +126,8 @@
           <div id="userMessages">
               <img id="companyLogo" src="{{ otherImgs?.imageUrl}}" alt="">
               <h1 id="companyName">{{ otherUser?.company.name }}</h1>
+              <messages [amount] = 0 [dest] = "'companyId'" [id] = 1></messages>
+            <!--
             <ul>
                 <li *ngFor="let ob of otherObject?.objectList">
                     <div class="companyImg">
@@ -161,6 +167,7 @@
                     </div>
                 </li>
             </ul>
+            -->
           </div>
       </template>
     </md-tab>
@@ -172,23 +179,22 @@
         </template>
       <template md-tab-content>
           <div id="profil">
-                    <form>
-                    <image-upload></image-upload>
-                    <div class="form-group">
-                        <label for="email">Zmiana adresu email</label>
-                        <input type="email" class="form-control" id="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Nowe hasło</label>
-                        <input type="password" class="form-control" id="password">
-                    </div>
-                    <div class="form-group">
-                        <label for="passwordrepeat">Powtórz</label>
-                        <input type="password" class="form-control" id="passwordrepeat">
-                    </div>
-                    <button type="submit" class="btn btn-success">Zapisz</button>
-                    </form>
+            <form>
+                <div>
+                    <label for="email">Zmiana adresu email</label>
+                    <input type="email" id="email">
                 </div>
+                <div>
+                    <label for="password">Nowe hasło</label>
+                    <input type="password" id="password">
+                </div>
+                <div>
+                    <label for="passwordrepeat">Powtórz</label>
+                    <input type="password" id="passwordrepeat">
+                </div>
+                <button type="submit">Zapisz</button>
+            </form>
+            </div>
       </template>
     </md-tab>
     <md-tab>
@@ -199,6 +205,7 @@
         </template>
       <template md-tab-content>
            <div id="daneFirmy">
+               <image-upload></image-upload>
                 <form>
                     <div class="form-group">
                         <label for="nazwa">Nazwa firmy</label>
@@ -257,4 +264,3 @@
     </md-tab>
   </md-tab-group>
 </div>
--->

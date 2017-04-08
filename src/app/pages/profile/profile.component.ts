@@ -4,6 +4,7 @@ import { ObjectList } from './user';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
 import { User } from './user';
+import { MessagesComponent } from '../messages/messages.component';
 
 @Component({
   selector: 'profile',
@@ -17,6 +18,7 @@ export class ProfileComponent implements OnInit {
   otherUser: User;
   private otherObject: ObjectList;
   private otherImgs: ObjectList;
+  private idCompany: number;
 
   constructor(private profileService: ProfileService, private _http: Http) {}
 
@@ -24,19 +26,14 @@ export class ProfileComponent implements OnInit {
     if(localStorage.getItem('currentUserToken')){
         this.profileService.getUser().subscribe(user => {
           this.otherUser = user;
-          console.log('this user ');
-          console.dir(this.otherUser);
-          this.profileService.getUserMessages(this.otherUser.company.id).subscribe(objectList => {
-            this.otherObject = objectList;
-              console.log('this users messages ');
-              console.dir(this.otherObject);
-          });
           this.profileService.getUserImages(this.otherUser.company.id).subscribe(imgs => {
             this.otherImgs = imgs;
-            console.log('images:');
-            console.dir(this.otherImgs);
+            this.idCompany = this.otherUser.company.id;
+            console.log('this.user: ');
+            console.dir(this.otherUser);
           });
         });
+        
     }
   }
 }

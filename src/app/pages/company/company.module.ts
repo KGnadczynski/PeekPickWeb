@@ -9,6 +9,8 @@ import { ResourceModule } from 'ng2-resource-rest';
 import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 
+import { MessagesModule } from '../messages/messages.module';
+
 //AIzaSyAd-dXobrRyvVELcejXArzNvt694Y1r9Ho
 
 @NgModule({
@@ -21,7 +23,8 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
     ResourceModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAd-dXobrRyvVELcejXArzNvt694Y1r9Ho'
-    })
+    }),
+    MessagesModule
   ],
   providers: [],
   declarations: [

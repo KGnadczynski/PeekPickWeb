@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 import { ResourceAction, ResourceMethod, ResourceParams } from 'ng2-resource-rest';
-import { RestClient } from './rest-client';
 
 import { ObjectList } from './user';
 
@@ -27,11 +26,6 @@ export class ProfileService{
             return this.http.get('https://damp-temple-52216.herokuapp.com/users/business/me', options)
             .map((response: Response) => response.json());
         }
-    }
-
-    getUserMessages(id: number) : Observable<ObjectList>{
-        return this.http.get(`https://damp-temple-52216.herokuapp.com/messages/page/1?companyId=${id}`)
-            .map((res:Response) => res.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server error');
     }
 
     getUserImages(id: number) : Observable<ObjectList>{

@@ -1,7 +1,6 @@
 ///<reference path="../../../../node_modules/@types/googlemaps/index.d.ts"/>
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {KomunikatService} from './komunikatservice.component';
-import {Subscription} from 'rxjs';
 import { Modal,BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {overlayConfigFactory } from 'angular2-modal';
 import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';

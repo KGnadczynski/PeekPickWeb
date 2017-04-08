@@ -18,7 +18,9 @@ import { Daterangepicker } from 'ng2-daterangepicker';
 
 import { MomentModule } from 'angular2-moment';
 
-import { MessagesComponent } from '../messages/messages.component';
+import { RouterModule } from '@angular/router';
+
+import { MessagesModule } from '../messages/messages.module';
 
 @NgModule({
   imports: [
@@ -34,14 +36,14 @@ import { MessagesComponent } from '../messages/messages.component';
     ImageUploadModule,
     MdSliderModule,
     routing,
-    MomentModule
+    MomentModule,
+    MessagesModule
   ],
   declarations: [
     KomunikatComponent,
     DodajKomunikatModal,
     ClickedKomunikatModal,
-    MdCheckbox,
-    MessagesComponent
+    MdCheckbox
   ],
   entryComponents: [ DodajKomunikatModal,ClickedKomunikatModal ]
 })

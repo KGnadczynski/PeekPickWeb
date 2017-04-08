@@ -23,6 +23,10 @@ export class MessagesService{
         }
     }
 
+    getCompanyMessages(page: any, params = [], param: string, id: number) : Observable<MessageList>{
+        return this.http.get(this.url + 'messages/page/' + page + '?' + param + "=" + id).map(this.mapMessages).catch(this.handleError);
+    }
+
     mapMessages(res: Response) {
         let body = res.json();
         let listing = new MessageList();

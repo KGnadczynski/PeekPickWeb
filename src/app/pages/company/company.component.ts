@@ -20,7 +20,6 @@ export class CompanyComponent implements OnInit {
   private sub:any;
   private id: number;
   private otherOneCompany: Company;
-  private otherObjectList: ObjectList;
   private companyImages: any;
   lat: number;
   lng: number;
@@ -46,13 +45,6 @@ export class CompanyComponent implements OnInit {
         console.log('this other imgs:');
         console.dir(this.companyImages);
       });
-    });
-
-    let companyMsg = this._companyService.getCompanyMessages({id: this.id});
-    companyMsg.$observable.subscribe((receivedMsg:ObjectList) => {
-      this.otherObjectList = receivedMsg;
-      console.log('messages: ');
-      console.dir(this.otherObjectList);
     });
 
   }
