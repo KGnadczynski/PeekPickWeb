@@ -53,7 +53,7 @@ div.messages{
             margin: 3% 0;
             span{
                 font-size: 17px;
-                line-height: 22px;
+                line-height: 20px;
             }
         }
         div.message-time{
@@ -62,12 +62,15 @@ div.messages{
             width: 100%;
             display: flex;
             justify-content: space-between;
+            span{
+                font-weight: bold;
+                margin-bottom: 6%;
+                font-size: 14px;
+                line-height: 0;
+            }
             div.start-date{
                 font-weight: normal;
-                span{
-                    font-weight: bold;
-                    margin-bottom: 6%;
-                }
+                
             }
             div.end-date{
                 text-align: right;
@@ -82,18 +85,23 @@ div.messages{
             }
         }
         div.message-photo{
+            clear: both;
+            float: left;
             img{
                 width: 100%;
             }
         }
         div.message-icons{
+            clear: both;
+            float: left;
             img{
                 width: 40%;
                 display: block;
                 margin: auto;
-                
             }
             display: flex;
+            justify-content: space-between;
+            width: 100%;
             padding: 4% 0px;
             div.favourite{
                 width: 20%;
@@ -109,6 +117,7 @@ div.messages{
                 width: 40%;
                 text-align: right;
                 padding-right: 2%;
+                font-size: 15px;
             }
         }
     }

@@ -14,9 +14,9 @@ import { MessageList } from './messageList.model';
 
 export class MessagesComponent implements OnInit{
     
-    @Input() amount: number;
     @Input() dest: string;
     @Input() id: any;
+    @Input() fav: boolean;
 
     selected = [];
     pageNumber: number = 1;
@@ -55,8 +55,6 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getMessages(page, params).subscribe(result => {
                     if(page === 1){
                         this.messageList = result;
-                        console.log('this.messageList: ');
-                        console.dir(this.messageList);
                     }
                         
                     else {
@@ -69,8 +67,6 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getCompanyMessages(page, params, this.dest, this.id).subscribe(result => {
                     if(page === 1){
                         this.messageList = result;
-                        console.log('this.messageList: ');
-                        console.dir(this.messageList);
                     }
                         
                     else {
@@ -86,9 +82,54 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getMessages(page).subscribe(result => {
                     if(page === 1){
                         this.messageList = result;
+                        if(this.fav){
+                            console.log('jest fav');
+                            console.dir(localStorage);
+                            if(JSON.parse(localStorage.getItem("favs"))){
+                                
+                                let storage = JSON.parse(localStorage.getItem("favs"));
+
+                                console.log('przed usunieciu:');
+                                console.dir(this.messageList.messages);
+                                
+                                for(let i = 0; i < this.messageList.messages.length; i++){
+                                    if(storage.indexOf(this.messageList.messages[i].id) === -1){
+                                        this.messageList.messages.splice(i, 1);
+                                    }
+                                }
+
+                                console.log('po usunieciu:');
+                                console.dir(this.messageList.messages);
+                            } else {
+                                console.log('null')
+                            }
+                        }
                     }
                     else {
+                        
                         this.messageList.messages = this.messageList.messages.concat(result.messages);
+                        if(this.fav){
+                            console.log('jest fav');
+                            console.dir(localStorage);
+                            if(JSON.parse(localStorage.getItem("favs"))){
+                                
+                                let storage = JSON.parse(localStorage.getItem("favs"));
+
+                                //console.log('przed usunieciu:');
+                                //console.dir(this.messageList.messages);
+
+                                for(let i = 0; i < this.messageList.messages.length; i++){
+                                    if(storage.indexOf(this.messageList.messages[i].id) === -1){
+                                        this.messageList.messages.splice(i, 1);
+                                    }
+                                }                             
+
+                                //console.log('po usunieciu:');
+                                //console.dir(this.messageList.messages);
+                            } else {
+                                console.log('null')
+                            }
+                        }
                         this.messageList.isLastPage = result.isLastPage;
                         this.canScrool = true;
                     }
@@ -121,24 +162,26 @@ export class MessagesComponent implements OnInit{
 
     addToFavourites(id: number){
 
-        if(localStorage['favs']){
-            let x = localStorage.getItem('favs');
-            console.log('type of : ' + typeof x);
+        if(localStorage.getItem("favs") === null){
+            let storedArray = [];
+            storedArray.push(id);
+            localStorage.setItem("favs", JSON.stringify(storedArray));
         } else {
-            let favIndexes = [];
-            favIndexes.push(id);    
-            localStorage.setItem('favs', JSON.stringify(favIndexes));
-            console.log('nie ma favs');
+            
+            let storedParse = JSON.parse(localStorage.getItem("favs"));
+            if(storedParse.indexOf(id) === -1)
+                storedParse.push(id);
+            localStorage.setItem("favs", JSON.stringify(storedParse));
         }
 
-        
-        //
-            
-        //}
+        let x = JSON.parse(localStorage.getItem("favs"));
+        console.log('x: ');
+        console.dir(x);
 
-        
-
-        console.log('ls: ' + localStorage.getItem('favs'));
     }
     
+    clearLs(): void{
+        localStorage.removeItem('favs');
+    }
+
 }

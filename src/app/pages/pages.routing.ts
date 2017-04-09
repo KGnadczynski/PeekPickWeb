@@ -19,7 +19,8 @@ export const routes: Routes = [
       { path: 'profile', loadChildren: 'app/pages/profile/profile.module#ProfileModule'},
       { path: 'komunikat_single/:id_komunikat', loadChildren: 'app/pages/komunikat-single/komunikat-single.module#KomunikatSingleModule'},
       { path: 'add_message/:message_type', loadChildren: 'app/pages/add-message/add-message.module#AddMessageModule'},
-      { path: 'favourites', loadChildren: 'app/pages/favourites/favourites.module#FavouritesModule'}
+      { path: 'favourites', loadChildren: 'app/pages/favourites/favourites.module#FavouritesModule'},
+      { path: 'search', loadChildren: 'app/pages/search/search.module#SearchModule'}
     ]
   }
 ];

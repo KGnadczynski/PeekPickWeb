@@ -1,6 +1,13 @@
 @import '../../sass/conf/conf';
 @import '../../components/baMsgCenter/baMsgCenter';
 
+i#searchIcon{
+  color: white;
+  float: right;
+  padding-right: 2%;
+  cursor: pointer;
+}
+
 div.dropdown{
     float: right;
     cursor: pointer;
@@ -166,6 +173,10 @@ a.collapse-menu-link {
 @media screen and (max-width: $resS) {
   .search {
     display: none;
+  }
+  i#searchIcon{
+    padding-top: 5%;
+    
   }
 }
 

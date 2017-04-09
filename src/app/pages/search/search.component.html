@@ -1,0 +1,67 @@
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" id="searchArea">
+      <h4>{{ name }}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      <div class="modal-body">
+
+        <h5>sortuj po:</h5>
+
+        <form id="sortForm">
+            <div>
+                <input type="radio" name="sort" value="lokalizacja"> lokalizacja
+            </div>
+            <div>
+                <input type="radio" name="sort" value="data dodania"> data dodania
+            </div>
+        </form>
+
+        <p>odległość</p>
+        <div id="mdSlider">
+            <md-slider min="1" max="1000"></md-slider>
+        </div>
+
+        <div class="blackline"></div>
+
+        <p>
+        typ wiadomości
+        </p>
+
+        <ss-multiselect-dropdown [options]="myOptionsTypeMessages" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+
+        <p>kultura i rozrywka</p>
+        
+        <ss-multiselect-dropdown [options]="myOptions1" [(ngModel)]="optionsModel1" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+
+        <p>gastronomia i nocne życie</p>
+
+        <ss-multiselect-dropdown [options]="myOptions2" [(ngModel)]="optionsModel2" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+
+        <p>zakupy małe</p>
+
+        <ss-multiselect-dropdown [options]="myOptions3" [(ngModel)]="optionsModel3" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+
+        <p>zakupy duże</p>
+
+        <ss-multiselect-dropdown [options]="myOptions4" [(ngModel)]="optionsModel4" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+
+        <p>usługi dla ciebie</p>
+
+        <ss-multiselect-dropdown [options]="myOptions5" [(ngModel)]="optionsModel5" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+
+        <p>usługi inne</p>
+
+        <ss-multiselect-dropdown [options]="myOptions6" [(ngModel)]="optionsModel6" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+
+        <p>sport i turystyka</p>
+
+        <ss-multiselect-dropdown [options]="myOptions7" [(ngModel)]="optionsModel7" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+        
+        <button id="mainButton">Szukaj</button>
+      
+      </div>
+    </div>
+  </div>
+</div>
