@@ -17,27 +17,29 @@ div.modal-body{
         margin: 7% 0;
     }
 }
-
-div.dropdown{
-    float: none;
-    padding: 0;
-    button{
-        display: block;
-        padding: 3%;
-        border: 1px solid black;
+ss-multiselect-dropdown{
+    div.dropdown{
+        float: none;
+        padding: 0;
+        button{
+            display: block;
+            padding: 3%;
+            border: 1px solid black;
+        }
     }
-}
 
-ul.dropdown-menu{
-    position: static;
-    float: right;
-    li{
-        a{
-            color: gray;
-            font-size: 16px;
+    ul.dropdown-menu{
+        position: static;
+        float: right;
+        li{
+            a{
+                color: gray;
+                font-size: 16px;
+            }
         }
     }
 }
+
 
 div.blackline{
     display: block;
