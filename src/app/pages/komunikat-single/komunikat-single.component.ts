@@ -18,7 +18,7 @@ export class KomunikatSingleComponent implements OnInit {
 
     private sub: any;
     private id: number;
-    private anotherObjectList: ObjectList;
+    private message: ObjectList;
     private imgs: any;
     @ViewChild('childModal') public childModal: ModalDirective;
 
@@ -38,14 +38,10 @@ export class KomunikatSingleComponent implements OnInit {
       });
 
       this.komunikatSingleService.getKomunikat(this.id).subscribe(komunikat => {
-        this.anotherObjectList = komunikat;
-        this.komunikatSingleService.getUserImages(this.anotherObjectList.companyBranchList[0].company.id).subscribe(images => {
+        this.message = komunikat;
+        this.komunikatSingleService.getUserImages(this.message.companyBranchList[0].company.id).subscribe(images => {
           this.imgs = images;
-          console.log('images: ');
-          console.dir(this.imgs);
         });
-        console.log('another komunikat: ');
-        console.dir(this.anotherObjectList);
       });
 
     }

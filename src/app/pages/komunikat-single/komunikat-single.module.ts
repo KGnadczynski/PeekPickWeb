@@ -9,6 +9,8 @@ import { KomunikatSingleComponent } from './komunikat-single.component';
 import { ModalModule } from 'ng2-bootstrap';
 import { MomentModule } from 'angular2-moment';
 
+import { MessagesModule } from '../messages/messages.module';
+
 @NgModule({
   imports: [
     FormsModule,
@@ -16,7 +18,8 @@ import { MomentModule } from 'angular2-moment';
     NgaModule,
     routing,
     ModalModule.forRoot(),
-    MomentModule
+    MomentModule,
+    MessagesModule
   ],
   providers: [],
   declarations: [KomunikatSingleComponent]

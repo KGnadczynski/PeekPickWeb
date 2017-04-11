@@ -23,8 +23,12 @@ export class MessagesService{
         }
     }
 
-    getCompanyMessages(page: any, params = [], param: string, id: number) : Observable<MessageList>{
-        return this.http.get(this.url + 'messages/page/' + page + '?' + param + "=" + id).map(this.mapMessages).catch(this.handleError);
+    getCompanyMessages(page: any, params = [], id: number) : Observable<MessageList>{
+        return this.http.get(this.url + 'messages/page/' + page + '?companyId=' + id).map(this.mapMessages).catch(this.handleError);
+    }
+
+    getMessagesList(ids: string) : Observable<MessageList>{
+        return this.http.get(this.url + 'messages/page/1?messageIdList=' + ids).map(this.mapMessages).catch(this.handleError);
     }
 
     mapMessages(res: Response) {
@@ -40,6 +44,11 @@ export class MessagesService{
     handleError(error: any){
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
+    }
+
+    extractData(res: Response) {
+        let body = res.json();
+        return body|| { };
     }
 
 }

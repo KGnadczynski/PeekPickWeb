@@ -7,6 +7,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
     styles: [require('./favourites.scss')]
 })
 
-export class FavouritesComponent{
+export class FavouritesComponent implements OnInit{
     name: string = 'Favourites';
+
+    ngOnInit(): void {
+        console.log('fav ls: ');
+        console.dir(localStorage);
+    }
 }

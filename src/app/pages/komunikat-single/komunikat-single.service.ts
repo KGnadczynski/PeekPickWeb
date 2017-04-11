@@ -18,33 +18,13 @@ export class KomunikatServiceComponent{
     }
 
     getKomunikat(id: number): Observable<ObjectList> {
-        if(localStorage.getItem('currentUserToken')){
-            var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
-            this.token = currentUser.token;
-            let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token });
-            let options = new RequestOptions({ headers: headers });
-            let url = `https://damp-temple-52216.herokuapp.com/messages/${id}`;
-            return this.http.get(url, options).map(this.extractData);
-        }
+        let url = `https://damp-temple-52216.herokuapp.com/messages/${id}`;
+        return this.http.get(url).map(this.extractData);
     }
 
     getUserImages(id: number) : Observable<ObjectList>{
         return this.http.get(`https://damp-temple-52216.herokuapp.com/companyimages/companyId/${id}`)
         .map(this.extractData);
     }
-
-    /*
-     if(localStorage.getItem('currentUserToken')){
-            var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
-            this.token = currentUser.token;
-            let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token });
-            let options = new RequestOptions({ headers: headers });
-            //console.log('public token: ' + this.token.access_token);
-            //console.dir(this.token);
-
-            return this.http.get('https://damp-temple-52216.herokuapp.com/users/business/me', options)
-            .map((response: Response) => response.json());
-        } 
-    */
 
 }

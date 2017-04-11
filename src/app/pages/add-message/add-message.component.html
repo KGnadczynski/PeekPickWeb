@@ -1,4 +1,4 @@
-<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div bsModal #childModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" backdrop="false" keyboard="false">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         
@@ -18,6 +18,17 @@
             <p>do: </p>
             <input daterangepicker (selected)="selectEndDate($event)" [options]="pickerOptions" type="submit" />
             <div class="blackline"></div>
+
+            <div id="addPhoto">
+              <p>dodaj zdjęcie: </p>
+              <i class="fa fa-plus-square-o fa-3x" aria-hidden="true"></i>
+            </div>
+            
+            <div id="addLocalization">
+              <p>dodaj lokalizację: </p>
+              <i class="fa fa-plus-square-o fa-3x" aria-hidden="true"></i>
+            </div>
+
 
             <p>Dodaj treść komunikatu</p>
             <textarea type="text" placeholder="Dodaj treść komunikatu" [(ngModel)]="msgAddModel.content"></textarea>

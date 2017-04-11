@@ -106,6 +106,9 @@ div.messages{
             div.favourite{
                 width: 20%;
                 cursor: pointer;
+                img.active{
+                    color: yellow;
+                }
             }
             div.google{
                 width: 20%;

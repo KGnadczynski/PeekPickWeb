@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { MessagesService } from './messages.service';
 import { MessageList } from './messageList.model';
@@ -16,7 +17,6 @@ export class MessagesComponent implements OnInit{
     
     @Input() dest: string;
     @Input() id: any;
-    @Input() fav: boolean;
 
     selected = [];
     pageNumber: number = 1;
@@ -24,7 +24,7 @@ export class MessagesComponent implements OnInit{
     canScrool: boolean = true;
     busy: Subscription;
 
-    constructor(private messageService: MessagesService){
+    constructor(private messageService: MessagesService, private router: Router){
         let moment = require('../../../../node_modules/moment/moment.js');
         moment.locale('pl');
     }
@@ -34,10 +34,6 @@ export class MessagesComponent implements OnInit{
         this.messageList = new MessageList();
         this.getMessages(this.pageNumber);
     }
-
-    onScroll () {
-	    console.log('scrolled!!');
-	}
 
     onScrollDown(){
         if(!this.messageList.isLastPage){
@@ -50,103 +46,49 @@ export class MessagesComponent implements OnInit{
     }
 
     getMessages(page: any, params = []){
-        if(params.length != 0){
-            if(!this.dest){
-                this.busy = this.messageService.getMessages(page, params).subscribe(result => {
-                    if(page === 1){
-                        this.messageList = result;
-                    }
-                        
-                    else {
-                        this.messageList.messages = this.messageList.messages.concat(result.messages);
-                        this.messageList.isLastPage = result.isLastPage;
-                        this.canScrool = true;
-                    }
-                });
-            } else {
-                this.busy = this.messageService.getCompanyMessages(page, params, this.dest, this.id).subscribe(result => {
-                    if(page === 1){
-                        this.messageList = result;
-                    }
-                        
-                    else {
-                        this.messageList.messages = this.messageList.messages.concat(result.messages);
-                        this.messageList.isLastPage = result.isLastPage;
-                        this.canScrool = true;
-                    }
-                });
-            }
-            
+
+        if(params.length !== 0){
+
         } else {
-            if(!this.dest){
-                this.busy = this.messageService.getMessages(page).subscribe(result => {
-                    if(page === 1){
-                        this.messageList = result;
-                        if(this.fav){
-                            console.log('jest fav');
-                            console.dir(localStorage);
-                            if(JSON.parse(localStorage.getItem("favs"))){
-                                
-                                let storage = JSON.parse(localStorage.getItem("favs"));
-
-                                console.log('przed usunieciu:');
-                                console.dir(this.messageList.messages);
-                                
-                                for(let i = 0; i < this.messageList.messages.length; i++){
-                                    if(storage.indexOf(this.messageList.messages[i].id) === -1){
-                                        this.messageList.messages.splice(i, 1);
-                                    }
-                                }
-
-                                console.log('po usunieciu:');
-                                console.dir(this.messageList.messages);
-                            } else {
-                                console.log('null')
-                            }
+            switch (this.dest) {
+                case '':
+                    this.busy = this.messageService.getMessages(page).subscribe(result => {
+                        if(page === 1){
+                            this.messageList = result;
+                        } else {
+                            this.messageList.messages = this.messageList.messages.concat(result.messages);
+                            this.messageList.isLastPage = result.isLastPage;
+                            this.canScrool = true;
                         }
-                    }
-                    else {
-                        
-                        this.messageList.messages = this.messageList.messages.concat(result.messages);
-                        if(this.fav){
-                            console.log('jest fav');
-                            console.dir(localStorage);
-                            if(JSON.parse(localStorage.getItem("favs"))){
-                                
-                                let storage = JSON.parse(localStorage.getItem("favs"));
-
-                                //console.log('przed usunieciu:');
-                                //console.dir(this.messageList.messages);
-
-                                for(let i = 0; i < this.messageList.messages.length; i++){
-                                    if(storage.indexOf(this.messageList.messages[i].id) === -1){
-                                        this.messageList.messages.splice(i, 1);
-                                    }
-                                }                             
-
-                                //console.log('po usunieciu:');
-                                //console.dir(this.messageList.messages);
-                            } else {
-                                console.log('null')
-                            }
+                    });
+                    break;
+                
+                case 'company':
+                    this.busy = this.messageService.getCompanyMessages(page, params, this.id).subscribe(result => {
+                        if(page === 1){
+                            this.messageList = result;
+                        } else {
+                            this.messageList.messages = this.messageList.messages.concat(result.messages);
+                            this.messageList.isLastPage = result.isLastPage;
+                            this.canScrool = true;
                         }
-                        this.messageList.isLastPage = result.isLastPage;
-                        this.canScrool = true;
+                    });
+                    break;
+
+                case 'favourites':    
+                    let x = JSON.parse(localStorage.getItem("favs")).join(';');
+                    if(x){
+                        this.busy = this.messageService.getMessagesList(x).subscribe(result => {
+                            this.messageList = result;
+                        });
                     }
-                });
-            } else {
-                this.busy = this.messageService.getCompanyMessages(page, params, this.dest, this.id).subscribe(result => {
-                    if(page === 1){
-                        this.messageList = result;
-                    }
-                    else {
-                        this.messageList.messages = this.messageList.messages.concat(result.messages);
-                        this.messageList.isLastPage = result.isLastPage;
-                        this.canScrool = true;
-                    }
-                });
+                    
+                    break;
+
+                default:
+                    console.log('something else')
+                    break;
             }
-            
         }
     }
 
@@ -167,21 +109,31 @@ export class MessagesComponent implements OnInit{
             storedArray.push(id);
             localStorage.setItem("favs", JSON.stringify(storedArray));
         } else {
-            
             let storedParse = JSON.parse(localStorage.getItem("favs"));
-            if(storedParse.indexOf(id) === -1)
-                storedParse.push(id);
-            localStorage.setItem("favs", JSON.stringify(storedParse));
-        }
 
-        let x = JSON.parse(localStorage.getItem("favs"));
-        console.log('x: ');
-        console.dir(x);
+            if(storedParse.indexOf(id) === -1){
+                storedParse.push(id);
+            } else{
+                storedParse.splice(storedParse.indexOf(id), 1);
+            }
+            
+            localStorage.setItem("favs", JSON.stringify(storedParse));
+            console.dir(localStorage);
+        }
 
     }
     
     clearLs(): void{
         localStorage.removeItem('favs');
+    }
+
+    goToSingle(id: number){
+        this.router.navigate(['/pages/komunikat_single', id]);
+    }
+
+    checkIfFavourite(id: number){
+        if(JSON.parse(localStorage.getItem("favs")).indexOf(id) > -1) return true;
+        else return false;
     }
 
 }
