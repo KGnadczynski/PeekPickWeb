@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { Location } from '@angular/common';
 
-import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
+import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { SearchService } from './search.service';
 
 import { MessageType } from '../../enums/message-type.enum';
@@ -18,29 +18,32 @@ import { MessageType } from '../../enums/message-type.enum';
 
 export class SearchComponent implements OnInit{
 
+    name: string = "szukaj";
     messageTypes: string[] = Object.keys(MessageType);
     messageTypesOb: {name: string, value: string}[] = [];
+    isCollapsed:boolean = true;
 
-    name: string = "szukaj";
-    optionsModel: number[];
-    optionsModel1: number[];
-    optionsModel2: number[];
-    optionsModel3: number[];
-    optionsModel4: number[];
-    optionsModel5: number[];
-    optionsModel6: number[];
-    optionsModel7: number[];
-    allCatAndSubs: any[] = [];
+    mySettings: IMultiSelectSettings = {
+        enableSearch: true,
+        checkedStyle: 'checkboxes',
+        buttonClasses: '',
+        dynamicTitleMaxItems: 5,
+    };
+
+    myTexts: IMultiSelectTexts = {
+        checkAll: 'Zaznacz wszystkie',
+        uncheckAll: 'Odznacz wszystkie',
+        checked: 'wybrany',
+        checkedPlural: 'wybrane',
+        searchPlaceholder: 'Szukaj...',
+        defaultTitle: 'Wybierz',
+        allSelected: 'Wszystkie zaznaczone',
+    };
+
+    arrayOfOptions: {name: string, optionsModel: number[], myOptions: IMultiSelectOption[]}[] = [];
+    
     myOptionsTypeMessages: IMultiSelectOption[] = [];
-    myOptions1: IMultiSelectOption[] = [];
-    myOptions2: IMultiSelectOption[] = [];
-    myOptions3: IMultiSelectOption[] = [];
-    myOptions4: IMultiSelectOption[] = [];
-    myOptions5: IMultiSelectOption[] = [];
-    myOptions6: IMultiSelectOption[] = [];
-    myOptions7: IMultiSelectOption[] = [];
-
-    categories: {name: string, subcategories: any[]}[] = [];
+    optionsModel: number[];
 
     @ViewChild('childModal') public childModal: ModalDirective;
 
@@ -63,56 +66,24 @@ export class SearchComponent implements OnInit{
             id++;
         }
 
-        this.myOptions1 = [
-            {id: 1, name: 'Artyści i zespoły'},
-            {id: 2, name: 'Escape roomy, parki rozrywki'},
-            {id: 3, name: 'Kino, teatr'},
-            {id: 4, name: 'Muzeum, wystawy'},
-            {id: 5, name: 'Inne'},
-        ]
-
-        /*let _self = this;
-        this.searchService.getCompanyCategories().subscribe(resultCategories => {
-          for(let categ in resultCategories){
-            this.searchService.getCategorySubcategories(resultCategories[categ].id).subscribe(resultSub => {
-                this.categories.push({name: resultCategories[categ].name, subcategories: resultSub});
-                _self.categories.push({name: resultCategories[categ].name, subcategories: resultSub});
-            });
-            
-          }
-          
-        
-          for(let c in this.categories){
-              console.log(this.categories[c].name);
-          }*/
-
-          /*for(let c in this.categories){
-            let name: string = this.categories[c].name;
-            let myOptions: IMultiSelectOption[] = [];
-            console.log('c name: ' + name);
-            for(let s in this.categories[c].subcategories){
-                console.log('sub name: ' + this.categories[c].subcategories[s].name);
-                let ob = {
-                    id: this.categories[c].subcategories[s].id,
-                    name: this.categories[c].subcategories[s].name
-                }
-                myOptions.push(ob);
+        this.searchService.getCompanyCategories().subscribe(result => {
+            let categ: any[] = [];
+            let myOptions1: IMultiSelectOption[] = []
+            for(let ob in result){
+                this.searchService.getCategorySubcategories(result[ob].id).subscribe(resSub => {
+                    myOptions1 = [];
+                    for(let s in resSub){
+                        myOptions1.push({
+                            id: resSub[s].id,
+                            name: resSub[s].name
+                        });
+                    }
+                    this.arrayOfOptions.push({name: result[ob].name, optionsModel: [], myOptions: myOptions1});
+                });
+                
             }
-            let ob2 = {
-                name: name,
-                subc: myOptions
-            }
-            console.log('ob2: ');
-            console.dir(ob2);
-            this.allCatAndSubs.push(ob2);
-          }
-          console.log('all: ');
-          console.dir(this.allCatAndSubs);
-        });*/
-    }
+        });
 
-    onChange(): void{
-        console.log(this.optionsModel);
     }
 
     ngAfterViewInit(): void {
@@ -126,5 +97,18 @@ export class SearchComponent implements OnInit{
     public hideChildModal(): void {
       this.childModal.hide();
       this._location.back();
+    }
+
+    
+    collapsed(event:any):void {
+        console.log(event);
+    }
+
+    expanded(event:any):void {
+        console.log(event);
+    }
+
+    onChange(optionsModel: number[]) {
+        console.log(optionsModel);
     }
 }

@@ -92,22 +92,6 @@ export class KomunikatComponent implements OnInit {
         });*/
   }
 
-
-  /*getDataFromServerWithSearch (page :any,param:string){
-    this.busy = this._komunikatyService.getKomunikatySearch(page,param)
-      .subscribe(
-        (result => {
-            if (page === 1) {
-              this.komunikatyList = result;
-            } else {
-              this.komunikatyList.komunikaty = this.komunikatyList.komunikaty.concat(result.komunikaty);
-              this.komunikatyList.isLastPage = result.isLastPage;
-              this.canScrool = true;
-            }
-          }
-        ));
-  }*/
-
   /*onDateChanged(event:any) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }*/
