@@ -13,7 +13,7 @@ import { ModalModule } from 'angular2-modal';
 import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
 import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import { ImageUploadModule } from 'ng2-imageupload';
-import {MdSliderModule} from "@angular2-material/slider";
+// import {MdSliderModule} from "@angular2-material/slider";
 import { Daterangepicker } from 'ng2-daterangepicker';
 
 import { MomentModule } from 'angular2-moment';
@@ -21,6 +21,8 @@ import { MomentModule } from 'angular2-moment';
 import { RouterModule } from '@angular/router';
 
 import { MessagesModule } from '../messages/messages.module';
+
+import { NouisliderModule } from 'ng2-nouislider';
 
 @NgModule({
   imports: [
@@ -34,10 +36,11 @@ import { MessagesModule } from '../messages/messages.module';
     ModalModule.forRoot(),
     BootstrapModalModule,
     ImageUploadModule,
-    MdSliderModule,
+    // MdSliderModule,
     routing,
     MomentModule,
-    MessagesModule
+    MessagesModule,
+    NouisliderModule,
   ],
   declarations: [
     KomunikatComponent,

@@ -15,6 +15,7 @@ export class BaPageTop implements OnInit{
 
   messageTypes: string[] = Object.keys(MessageType);
   messageTypesOb: {name: string, value: string}[] = [];
+  isLogged: boolean;
 
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
@@ -26,6 +27,13 @@ export class BaPageTop implements OnInit{
   }
 
   ngOnInit(): void {
+    
+    let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+
+    if(currentUser != null) {
+      this.isLogged = true;
+    }
+
     for(let i = this.messageTypes.length-1; i >= 0; i--){
       if(i%2 !== 0)
         this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});

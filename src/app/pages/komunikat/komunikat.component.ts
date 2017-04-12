@@ -16,7 +16,6 @@ import { MessageType } from '../../enums/message-type.enum';
   encapsulation: ViewEncapsulation.None,
   styles: [require('./komunikat.scss')],
   providers: [KomunikatService,Modal]
-
 })
 export class KomunikatComponent implements OnInit {
 
@@ -30,6 +29,7 @@ export class KomunikatComponent implements OnInit {
   isCollapsed:boolean = true;
   isFiltryCollapse:boolean = true;
   public distane: number;
+  someValue: number = 0;
 
   @ViewChild("google_places_ac")
   public searchElementRef: ElementRef;
@@ -117,5 +117,13 @@ export class KomunikatComponent implements OnInit {
   handleClick(e:MouseEvent, komunikat: ObjectList) {
     return this.modal.open(ClickedKomunikatModal,  overlayConfigFactory({ komunikat: komunikat }, BSModalContext));
   }*/
+
+  showRange():void{
+    console.log('someRange: ' + this.someValue);
+  }
+
+  onChange(event: any){
+    console.log('event: ' + event);
+  }
 
 }

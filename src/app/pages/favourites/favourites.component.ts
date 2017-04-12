@@ -8,7 +8,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 
 export class FavouritesComponent implements OnInit{
-    name: string = 'Favourites';
+    name: string = 'Obserwowane';
 
     ngOnInit(): void {
         console.log('fav ls: ');
