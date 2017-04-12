@@ -62,7 +62,7 @@
 
         
     </div>
-    <!--
+    
     <div id="messages">
         <h3>moje ogłoszenia</h3>
         <img id="companyLogo" src="{{ otherImgs?.imageUrl}}" alt="">
@@ -107,11 +107,11 @@
                 </li>
             </ul>
     </div>
-    -->
-    <!--<h1>idCompany: {{ idCompany }}</h1>-->
-    <!--<messages [amount] = 0 [dest] = "'companyId'" [id] = idCompany></messages>-->
     
-<!--</div>-->
+    <h1>idCompany: {{ idCompany }}</h1>
+    <messages [amount] = 0 [dest] = "'companyId'" [id] = idCompany></messages>
+    
+</div>-->
 
 
 <div id="profile">
@@ -126,7 +126,7 @@
           <div id="userMessages">
               <img id="companyLogo" src="{{ otherImgs?.imageUrl}}" alt="">
               <h1 id="companyName">{{ otherUser?.company.name }}</h1>
-              <messages [dest] = "'companyId'" [id] = 1></messages>
+              <messages [dest] = "'profile'" [id] = 1></messages>
             <!--
             <ul>
                 <li *ngFor="let ob of otherObject?.objectList">
@@ -261,6 +261,16 @@
                     </form>
                 </div>
       </template>
+    </md-tab>
+    <md-tab>
+        <template md-tab-label>
+            <p class="hidden-xs-down">
+                Oddziały
+            </p>
+        </template>
+        <template md-tab-content>
+          
+        </template>
     </md-tab>
   </md-tab-group>
 </div>

@@ -30,7 +30,6 @@ export class MessagesComponent implements OnInit{
     }
 
     ngOnInit():void{
-        console.log('dest : ' + this.dest + ', id: ' + this.id);
         this.messageList = new MessageList();
         this.getMessages(this.pageNumber);
     }
@@ -55,6 +54,8 @@ export class MessagesComponent implements OnInit{
                     this.busy = this.messageService.getMessages(page).subscribe(result => {
                         if(page === 1){
                             this.messageList = result;
+                            console.log('komunikaty: ');
+                            console.dir(this.messageList);
                         } else {
                             this.messageList.messages = this.messageList.messages.concat(result.messages);
                             this.messageList.isLastPage = result.isLastPage;
@@ -64,6 +65,7 @@ export class MessagesComponent implements OnInit{
                     break;
                 
                 case 'company':
+                case 'profile':
                     this.busy = this.messageService.getCompanyMessages(page, params, this.id).subscribe(result => {
                         if(page === 1){
                             this.messageList = result;

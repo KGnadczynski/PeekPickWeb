@@ -22,15 +22,13 @@ export class KomunikatComponent implements OnInit {
 
   messageTypes: string[] = Object.keys(MessageType);
   messageTypesOb: {name: string, value: string}[] = [];
-  categories: {name: string, subcategories: any[]}[] = [];
+  categories: {name: string, subcategories: any[], bol: boolean}[] = [];
 
   google:any;
 
   logged = false;
-  public isCollapsed:boolean = true;
-  public isCollapsedGastro:boolean = true;
-  public isFiltryCollapse: boolean = true;
-
+  isCollapsed:boolean = true;
+  isFiltryCollapse:boolean = true;
   public distane: number;
 
   @ViewChild("google_places_ac")
@@ -53,7 +51,7 @@ export class KomunikatComponent implements OnInit {
         this._komunikatyService.getCompanyCategories().subscribe(resultCategories => {
           for(let categ in resultCategories){
             this._komunikatyService.getCategorySubcategories(resultCategories[categ].id).subscribe(resultSub => {
-                this.categories.push({name: resultCategories[categ].name, subcategories: resultSub});
+                this.categories.push({name: resultCategories[categ].name, subcategories: resultSub, bol: true});
             });
           }
         });

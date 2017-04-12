@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { AddMessageService } from './add-message.service';
 import { CommunicationService } from '../komunikat/communicationservice.component';
@@ -28,6 +28,9 @@ export class AddMessageComponent implements OnInit {
     messageAddModel: MessageAddModel;
     addedMessage: any;
     image:File;
+    isCollapsed:boolean = false;
+    id: number;
+    paramValue: any;
 
     pickerOptions: Object = {
         'showDropdowns': true,
@@ -91,12 +94,30 @@ export class AddMessageComponent implements OnInit {
                 this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
 
         this.route.params.subscribe((params: Params) => {
-            this.messageTypeValue = params['message_type'];
-            for(let a = 0; a < this.messageTypesOb.length; a++)
-                if(this.messageTypesOb[a].value === this.messageTypeValue)
-                    this.messageTypeName = this.messageTypesOb[a].name;
-            console.log('this name : ' + this.messageTypeName);
+            this.paramValue = Object.keys(params)[0];
+            switch (this.paramValue) {
+                case 'message_id':
+                    console.log('PARAMETER IS ' + Object.keys(params)[0]);
+                    this.id = params[this.paramValue];
+                    console.log('this id : ' + this.id);
+                    break;
+                
+                case 'message_type':
+                    this.messageTypeValue = params[this.paramValue];
+                    for(let a = 0; a < this.messageTypesOb.length; a++)
+                        if(this.messageTypesOb[a].value === this.messageTypeValue)
+                            this.messageTypeName = this.messageTypesOb[a].name;
+                    console.log('this name : ' + this.messageTypeName);
+                    break;
+
+                default:
+
+                    break;
+            }
+            
+            
         });
+        
     }
 
     ngAfterViewInit(): void {
@@ -110,6 +131,18 @@ export class AddMessageComponent implements OnInit {
     public hideChildModal(): void {
       this.childModal.hide();
       this._location.back();
+    }
+
+    addprop():void {
+        this.isCollapsed = !this.isCollapsed;
+    }
+
+    public collapsed(event:any):void {
+        console.log(event);
+    }
+
+    public expanded(event:any):void {
+        console.log(event);
     }
 
     addMessage(): void{

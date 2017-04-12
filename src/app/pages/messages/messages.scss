@@ -36,14 +36,12 @@ div.messages{
         div.message-icon{
             width: 25%;
             float: left;
-            position: relative;
-            span{
-                width: 20px;
-                height: 20px;
-                background: #A20E12;
-                position: absolute;
-                right: 10px;
-                top: 0;
+            overflow: hidden;
+            i{
+                color: #A20E12;
+                display: block;
+                font-size: 36px;
+                margin-left: 50%;
             }
         }
 
@@ -123,7 +121,33 @@ div.messages{
                 font-size: 15px;
             }
         }
+        div.actions{
+            clear: both;
+            float: left;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            div#edit, div#continue, div#delete {
+                width: 30%;
+                text-align: center;
+                a{
+                    color: gray;
+                    font-size: 13px;
+                }
+            }
+        }
     }
+}
+
+div.blackline{
+    clear: both;
+    display: block;
+    margin: auto;
+    width: 90%;
+    height: 2px;
+    background: black;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 @media(max-width: 575px){

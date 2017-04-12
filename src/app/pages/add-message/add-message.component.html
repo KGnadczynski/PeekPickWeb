@@ -7,16 +7,29 @@
             <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h3>Dodaj komunikat</h3>
-            <p>Typ: <span>{{ messageTypeValue }}</span></p>
+
+            <h3 [ngSwitch]="paramValue">
+              <span *ngSwitchCase="'message_id'">Edytuj komunikat</span>
+              <span *ngSwitchCase="'message_type'">Dodaj komunikat</span>
+              <!--Dodaj komunikat: {{ paramValue }}  -->
+            </h3>
+            
+            <p [ngSwitch]="paramValue">
+              <span *ngSwitchCase="'message_type'">Typ: {{ messageTypeValue }}</span>
+              <!--<span *ngSwitchCase="'message_id'">Typ: {{ messageTypeValue }}</span>-->
+            </p>
 
             <!--data picker-->
             <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
             <p>od: </p>
             <input daterangepicker (selected)="selectStartDate($event)" [options]="pickerOptions" type="submit"/>
             <div class="blackline"></div>
-            <p>do: </p>
-            <input daterangepicker (selected)="selectEndDate($event)" [options]="pickerOptions" type="submit" />
+            <p>do: (jeśli nie chcesz daty zakończenia to zaznacz checkbox) </p>
+            <input type="checkbox" (change)="addprop()">
+            <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
+              <input daterangepicker (selected)="selectEndDate($event)" [options]="pickerOptions" type="submit" />
+            </div>
+            
             <div class="blackline"></div>
 
             <div id="addPhoto">
