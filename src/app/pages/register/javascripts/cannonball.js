@@ -8,7 +8,10 @@
 
 function onLoginButtonClick() {
     console.log('Digits login started.');
-    Digits.logIn().done(onLogin).fail(onLoginFailure);
+    Digits.logIn({
+       phoneNumber: '+48'
+    })
+    .done(onLogin).fail(onLoginFailure);
   }
 
 function onLogin(loginResponse) {
