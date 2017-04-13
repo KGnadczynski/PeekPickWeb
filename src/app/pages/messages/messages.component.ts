@@ -134,8 +134,13 @@ export class MessagesComponent implements OnInit{
     }
 
     checkIfFavourite(id: number){
-        if(JSON.parse(localStorage.getItem("favs")).indexOf(id) > -1) return true;
-        else return false;
+
+        if(JSON.parse(localStorage.getItem("favs"))){
+            if(JSON.parse(localStorage.getItem("favs")).indexOf(id) > -1) return true;
+            else return false;
+        }
+
+        
     }
 
 }
