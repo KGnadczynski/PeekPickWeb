@@ -1,0 +1,78 @@
+<h4 (click)="isFiltryCollapse = !isFiltryCollapse"  *ngIf="isFiltryCollapse">
+    filtry
+</h4>
+<h4 *ngIf="!isFiltryCollapse">filtry</h4>
+<i class="fa fa-window-close fa-2x" *ngIf="!isFiltryCollapse" (click)="isFiltryCollapse = !isFiltryCollapse"></i>
+
+<div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isFiltryCollapse">
+
+    <form [formGroup]="filterForm" novalidate>
+         
+        <h5>sortuj po:</h5>
+        
+        <div>
+            <input type="radio" name="filterBy" value="lokalizacja" formControlName="filterBy"> lokalizacja
+        </div>
+
+        <div>
+            <input type="radio" name="filterBy" value="data dodania" formControlName="filterBy"> data dodania
+        </div>
+        
+        <h5>odległość</h5>
+        <nouislider [min]="0" [max]="14" [step]="0.05" [(ngModel)]="someValue" formControlName = "distance"></nouislider>
+
+        <h5>typ wiadomości</h5>
+        <div *ngFor="let messageType of messageTypesOb">
+            <md-checkbox formControlName = "type">
+                {{messageType.value}}
+            </md-checkbox>
+        
+        <!--<input type="checkbox" name="{{ messageType.value }}" value="{{messageType.value}}" id="{{messageType.value}}" formControlName = "type">-->
+        <!--<label>{{messageType.value}}</label>-->
+        
+        </div>
+
+        <p>Form value: {{ filterForm.value | json }}</p>
+
+        <div class="blackLine"></div>
+
+        <h3>Lokalizacja</h3>
+
+        <div id="googleForm">
+            <input #google_places_ac type="text" placeholder="miasto"/>
+        </div>
+
+        <div class="blackLine"></div>
+
+        <p>typ wiadomości</p>
+
+        <form id="messageTypeForm">
+            <div *ngFor="let messageType of messageTypesOb">
+            <md-checkbox>
+            {{messageType.value}}
+            </md-checkbox>
+            </div>
+        </form>
+
+        <div class="blackLine"></div>
+
+        <p>Branża</p>
+
+        <div id="companyCategories">
+            <div *ngFor="let category of categories">
+                <button type="button" (click)="category.bol = !category.bol">{{ category.name }}</button>
+                <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="category.bol">
+                    <div class="subcategories">
+                        <md-checkbox *ngFor="let subcategory of category.subcategories">
+                            {{ subcategory.name }}
+                        </md-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="filterButton" type="button" (click)="clicked()">Wyszukaj</button>
+        <button id="clearButton" type="button" (click)="clicked()">Zeruj</button>
+    </form>
+
+</div>

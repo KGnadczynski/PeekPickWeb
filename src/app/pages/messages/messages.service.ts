@@ -31,6 +31,10 @@ export class MessagesService{
         return this.http.get(this.url + 'messages/page/1?messageIdList=' + ids).map(this.mapMessages).catch(this.handleError);
     }
 
+    getMessagesByType(params: string): Observable<MessageList>{
+        return this.http.get(this.url + 'messages/page/1?messageTypeList=' + params).map(this.mapMessages).catch(this.handleError);
+    }
+
     mapMessages(res: Response) {
         let body = res.json();
         let listing = new MessageList();

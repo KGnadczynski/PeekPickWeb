@@ -1,7 +1,7 @@
 <div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled}">
   <a routerLink="/pages/komunikat" class="al-logo clearfix"><span>tack</span>pad</a>
   <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
-  <div class="search">
+  <div class="search hidden-md-up">
     <i class="ion-ios-search-strong" ng-click="startSearch()"></i>
     <input id="searchInput" #term type="text" placeholder="Szukaj..." (keyup)="search(term.value)">
   </div>
@@ -13,7 +13,7 @@
       <a *ngFor="let messageType of messageTypesOb" [routerLink]="['/pages/add_message/', messageType.value]">{{ messageType.value }} </a>
     </div>
   </div>
-  <i id="searchIcon" class="fa fa-search fa-2x hidden-sm-up" aria-hidden="true" [routerLink]="['/pages/search/']"></i>
+  <i id="searchIcon" class="fa fa-search fa-2x hidden-lg-up" aria-hidden="true" [routerLink]="['/pages/search/']"></i>
 
   <div class="user-profile clearfix hidden-xs-down">
     <div class="dropdown al-user-profile">

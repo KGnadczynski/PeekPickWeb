@@ -1,5 +1,3 @@
-
-
 export const PAGES_MENU_LOGGED = [
   {
     path: 'pages',

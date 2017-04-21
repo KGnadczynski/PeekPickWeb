@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
-import {KomunikatService} from "./../komunikatservice.component";
-import {KomunikatDodanie,CompanyBranchList} from "./../komunikatdodanie";
-import {CommunicationService} from "./../communicationservice.component";
+import { KomunikatService} from "./../komunikatservice.component";
+import { KomunikatDodanie,CompanyBranchList } from "./../komunikatdodanie";
+import { CommunicationService } from "./../communicationservice.component";
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 
 export class CustomModalContext extends BSModalContext {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -134,13 +134,16 @@ export class MessagesComponent implements OnInit{
     }
 
     checkIfFavourite(id: number){
-
         if(JSON.parse(localStorage.getItem("favs"))){
             if(JSON.parse(localStorage.getItem("favs")).indexOf(id) > -1) return true;
             else return false;
         }
+    }
 
-        
+    getMessagesByType():void {
+        this.messageService.getMessagesByType('PROMOTION;EVENT').subscribe(result => {
+            this.messageList = result;
+        });
     }
 
 }

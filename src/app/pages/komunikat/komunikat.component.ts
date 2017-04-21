@@ -1,14 +1,15 @@
 ///<reference path="../../../../node_modules/@types/googlemaps/index.d.ts"/>
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import {KomunikatService} from './komunikatservice.component';
 import { Modal,BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {overlayConfigFactory } from 'angular2-modal';
-import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
+//import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
 import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
 import {ObjectList} from "./komunikat"
 
-import { MessageType } from '../../enums/message-type.enum';
+import { MessagesComponent } from '../messages/messages.component';
+
 
 @Component({
   selector: 'komunikatcomponent',
@@ -19,60 +20,23 @@ import { MessageType } from '../../enums/message-type.enum';
 })
 export class KomunikatComponent implements OnInit {
 
-  messageTypes: string[] = Object.keys(MessageType);
-  messageTypesOb: {name: string, value: string}[] = [];
-  categories: {name: string, subcategories: any[], bol: boolean}[] = [];
-
-  google:any;
-
   logged = false;
-  isCollapsed:boolean = true;
-  isFiltryCollapse:boolean = true;
-  public distane: number;
-  someValue: number = 0;
 
-  @ViewChild("google_places_ac")
-  public searchElementRef: ElementRef;
+  @ViewChild('messagesChild') messageChild: MessagesComponent;
 
-  public collapsed(event:any):void {
-    console.log(event);
-  }
-
-  public expanded(event:any):void {
-    console.log(event);
-  }
-
-  constructor(private _komunikatyService: KomunikatService, public modal: Modal,private communicationservice: CommunicationService){
-    let moment = require('../../../../node_modules/moment/moment.js');
-    moment.locale('pl');
-}
+  constructor(
+    private _komunikatyService: KomunikatService, 
+    private modal: Modal,
+    private communicationservice: CommunicationService,
+  ){}
 
   ngOnInit() {
-        this._komunikatyService.getCompanyCategories().subscribe(resultCategories => {
-          for(let categ in resultCategories){
-            this._komunikatyService.getCategorySubcategories(resultCategories[categ].id).subscribe(resultSub => {
-                this.categories.push({name: resultCategories[categ].name, subcategories: resultSub, bol: true});
-            });
-          }
-        });
-        
-        for(let i = this.messageTypes.length-1; i >= 0; i--)
-            if(i%2 !== 0)
-                this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
-
         var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
     
         if(currentUser != null) {
           var token = currentUser.token
           this.logged = true;
         }
-    
-        var autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
-        
-       google.maps.event.addListener(autocomplete, 'place_changed', function() {
-          var place = autocomplete.getPlace();
-          console.log(place)
-        });
 
         /*this.communicationservice.dodanieKomunkatuSubject$.subscribe(messageId=> {
             this.pageNumber = 1;
@@ -88,13 +52,14 @@ export class KomunikatComponent implements OnInit {
         /*this.communicationservice.szukanieKomunkatuSubject$.subscribe(term=> {
             this.getDataFromServerWithSearch(1,term);
         });*/
+        
   }
 
   /*onDateChanged(event:any) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }*/
 
-  onClick() {
+  /*onClick() {
     this.modal.prompt()
       .size('lg')
       .showClose(true)
@@ -108,8 +73,8 @@ export class KomunikatComponent implements OnInit {
 
             `)
       .open();
-  }
-/*
+  }*/
+  /*
   openCustom() {
     return this.modal.open(DodajKomunikatModal, overlayConfigFactory({ num1: 2, num2: 3 },BSModalContext));
   }
@@ -118,12 +83,5 @@ export class KomunikatComponent implements OnInit {
     return this.modal.open(ClickedKomunikatModal,  overlayConfigFactory({ komunikat: komunikat }, BSModalContext));
   }*/
 
-  showRange():void{
-    console.log('someRange: ' + this.someValue);
-  }
-
-  onChange(event: any){
-    console.log('event: ' + event);
-  }
 
 }

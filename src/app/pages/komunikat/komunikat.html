@@ -1,83 +1,14 @@
 <div class="container-fluid">
-<div class="row" id="mainPage">
-    <div class="col-xlg-3 col-xl-3 col-lg-12 col-sm-12 col-xs-12" id="blankDiv">
-    </div>
+    <div class="row" id="mainPage">
+        <div class="col-xlg-3 col-xl-3 col-lg-12 col-sm-12 col-xs-12" id="blankDiv"></div>
 
-    <div class="col-xlg-6 col-xl-9 col-lg-12 col-sm-12 col-xs-12" id="messagesDiv">
-        <messages [dest] = "''" [id] = 0></messages>
-    </div>
-        
-
-    <div class="col-xlg-3 col-xl-3 col-lg-12 col-sm-12 col-xs-12" id="filterMessages">
-      <h4 (click)="isFiltryCollapse = !isFiltryCollapse"  *ngIf="isFiltryCollapse">
-            filtry
-        </h4>
-        <h4 *ngIf="!isFiltryCollapse">filtry</h4>
-        <i class="fa fa-window-close fa-2x" *ngIf="!isFiltryCollapse" (click)="isFiltryCollapse = !isFiltryCollapse"></i>
-        
-        <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isFiltryCollapse">
-            
-            <h5>sortuj po:</h5>
-
-            <form id="sortForm">
-                <div>
-                    <input type="radio" name="sort" value="lokalizacja"> lokalizacja
-                </div>
-                <div>
-                    <input type="radio" name="sort" value="data dodania"> data dodania
-                </div>
-            </form>
-
-            <div class="blackLine"></div>
-
-            <h3>Lokalizacja</h3>
-
-            <div id="googleForm">
-                <input #google_places_ac type="text" placeholder="miasto"/>
-            </div>
-            
-            <p>odległość</p>
-            <div id="mdSlider">
-                <!--<md-slider min="1" max="1000"></md-slider>-->
-                 <nouislider [min]="0" [max]="14" [step]="0.05" [(ngModel)]="someValue" (ngModelChange)="onChange($event)"></nouislider>
-            </div>
-            
-            <div class="blackLine"></div>
-            
-            <p>
-            typ wiadomości
-            </p>
-
-            <form id="messageTypeForm">
-                <div *ngFor="let messageType of messageTypesOb">
-                    <md-checkbox >
-                        {{messageType.value}}
-                    </md-checkbox>
-                </div>
-            </form>
-
-            <div class="blackLine"></div>
-
-            <p>Branża</p>
-
-            <div id="companyCategories">
-                <div *ngFor="let category of categories">
-                    <button type="button" (click)="category.bol = !category.bol">{{ category.name }}</button>
-                    <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="category.bol">
-                        <div class="subcategories">
-                            <md-checkbox *ngFor="let subcategory of category.subcategories">
-                                {{ subcategory.name }}
-                            </md-checkbox>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-
-            <button id="filterButton" type="button" (click)="clicked()">Wyszukaj</button>
-            <button id="clearButton" type="button" (click)="clicked()">Zeruj</button>
+        <div class="col-xlg-6 col-xl-9 col-lg-12 col-sm-12 col-xs-12" id="messagesDiv">
+            <messages #messagesChild [dest] = "''" [id] = 0></messages>
         </div>
-    </div>
 
-</div>
+        <div class="col-xlg-3 col-xl-3 col-lg-12 col-sm-12 col-xs-12" id="filterMessages">
+            <filters></filters>
+        </div>
+
+    </div>
 </div>

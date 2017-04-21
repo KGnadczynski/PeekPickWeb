@@ -188,7 +188,7 @@ a.al-sidebar-list-link {
 
 @mixin sidebar-collapsed() {
   .al-sidebar {
-    width: 52px;
+    width: 0px;
 
     .fa-angle-down, .fa-angle-up {
       opacity: 0;
@@ -283,11 +283,11 @@ a.al-sidebar-list-link {
 }
 
 @media (max-width: 1200px) and (min-width: $resXS) {
-  @include layout-collapsed();
+ @include layout-collapsed();
 }
 
 @media (max-width: 1200px) {
-  @include sidebar-overlap();
+ @include sidebar-overlap();
 }
 
 @media (max-width: $resXS) {

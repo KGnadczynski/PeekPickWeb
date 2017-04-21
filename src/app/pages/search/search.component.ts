@@ -24,7 +24,6 @@ export class SearchComponent implements OnInit{
     isCollapsed:boolean = true;
 
     mySettings: IMultiSelectSettings = {
-        enableSearch: true,
         checkedStyle: 'checkboxes',
         buttonClasses: '',
         dynamicTitleMaxItems: 5,

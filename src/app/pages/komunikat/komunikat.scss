@@ -10,48 +10,7 @@ div#addIcon{
 }
 
 div#filterMessages{
-
     padding: 3%;
-    h4{
-      cursor: pointer;
-      width: 90%;
-      float: left;
-      padding: 2% 0;
-      
-    }
-    i{
-        float: right;
-        width: 10%;
-        cursor: pointer;
-        
-      }
-    h4, h5{
-      color: #95989A;
-      text-align: center;
-    }
-    form#sortForm {
-      display: flex;
-      justify-content: space-around;
-      color: #95989A;
-    }
-
-    h3{
-      width: 60%;
-      margin: auto;
-      text-align: center;
-      color: #95989A;
-      padding-bottom: 3%;
-    }
-    button#filterButton, button#clearButton{
-      display: block;
-      margin: auto;
-      margin-bottom: 2%;
-      margin-top: 2%;
-      padding: 3%;
-      border: 1px solid gray;
-      background: white;
-      color: gray;
-    }
 }
 
 div#googleForm{
@@ -167,10 +126,31 @@ div#mainPage{
   }
 }
 @media (min-width: 576px) {
+  div#mainPage{
+    flex-direction: column;
+    div#blankDiv{
+      order: 3;
+    }
+    div#messagesDiv{
+      order: 2;
+    }
+    div#filterMessages{
+      order: 1;
+    }
+  }
 }
 @media (min-width: 768px) {
+  div#filterMessages{
+    h4{
+      padding: 0;
+      margin: 0;
+    }
+  }
 }
 @media (min-width: 992px) {
+  div#mainPage{
+    flex-direction: row;
+  }
 }
 @media (min-width: 1200px) {
 }
