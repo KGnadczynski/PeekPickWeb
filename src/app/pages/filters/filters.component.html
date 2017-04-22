@@ -22,17 +22,16 @@
         <nouislider [min]="0" [max]="14" [step]="0.05" [(ngModel)]="someValue" formControlName = "distance"></nouislider>
 
         <h5>typ wiadomości</h5>
-        <div *ngFor="let messageType of messageTypesOb">
-            <md-checkbox formControlName = "type">
-                {{messageType.value}}
-            </md-checkbox>
-        
-        <!--<input type="checkbox" name="{{ messageType.value }}" value="{{messageType.value}}" id="{{messageType.value}}" formControlName = "type">-->
-        <!--<label>{{messageType.value}}</label>-->
-        
-        </div>
 
-        <p>Form value: {{ filterForm.value | json }}</p>
+        <div id="checkboxes">
+            <md-checkbox *ngFor="let control of filterForm.controls['types'].controls" [formControl]="control"></md-checkbox>
+        </div>
+        <div id="checkboxesValues">
+            <label *ngFor="let messageType of messageTypesOb">{{messageType.value}}</label>
+        </div>
+        <!--<button (click)="function2()">Yell me</button>-->
+
+        <!--<p>Form value: {{ filterForm.value | json }}</p>
 
         <div class="blackLine"></div>
 
@@ -72,7 +71,7 @@
         </div>
 
         <button id="filterButton" type="button" (click)="clicked()">Wyszukaj</button>
-        <button id="clearButton" type="button" (click)="clicked()">Zeruj</button>
+        <button id="clearButton" type="button" (click)="clicked()">Zeruj</button>-->
     </form>
 
 </div>

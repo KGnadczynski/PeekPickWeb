@@ -17,6 +17,7 @@ export class MessagesComponent implements OnInit{
     
     @Input() dest: string;
     @Input() id: any;
+    @Output() myEvent = new EventEmitter();
 
     selected = [];
     pageNumber: number = 1;
@@ -54,6 +55,11 @@ export class MessagesComponent implements OnInit{
                     this.busy = this.messageService.getMessages(page).subscribe(result => {
                         if(page === 1){
                             this.messageList = result;
+                            for(let i = 0; i < this.messageList.messages.length; i++){
+                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude).subscribe(result => {
+                                    this.messageList.messages[i].distance = result.messages[0].distance;
+                                });
+                            }
                             console.log('komunikaty: ');
                             console.dir(this.messageList);
                         } else {
@@ -140,10 +146,15 @@ export class MessagesComponent implements OnInit{
         }
     }
 
-    getMessagesByType():void {
-        this.messageService.getMessagesByType('PROMOTION;EVENT').subscribe(result => {
+    getMessagesByType(params: string):void {
+        this.messageService.getMessagesByType(params).subscribe(result => {
             this.messageList = result;
         });
+    }
+
+    filter(event){
+        event = event.substring(0, event.length-1);
+        this.getMessagesByType(event);
     }
 
 }

@@ -24,7 +24,7 @@
 					</p>
 				</div>
 				<div class="message-distance">
-					<p>dystans</p>
+					<p>{{ message.distance | number: '1.2-2'}} km</p>
 				</div>
 			</div>
 			
@@ -48,7 +48,8 @@
 					<p>
 						{{ message.createDate | date: 'dd.MM.yyyy hh:mm' }}
 					</p>
-				</div>-->
+				</div>
+				<h5>{{ message.type }}</h5>-->
 				<div class="start-date" *ngIf="message.startDate">
 					<span *ngIf="message.startDate">
 						Data rozpoczęcia

@@ -1,5 +1,5 @@
 ///<reference path="../../../../node_modules/@types/googlemaps/index.d.ts"/>
-import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MessageType } from '../../enums/message-type.enum';
 import { FiltersService } from './filters.service';
@@ -21,6 +21,7 @@ export class FiltersComponent implements OnInit{
     categories: {name: string, subcategories: any[], bol: boolean}[] = [];
     someValue: number = 0;
     google:any;
+    @Output() myEvent: EventEmitter<string> = new EventEmitter<string>();
 
     @ViewChild("google_places_ac")
     searchElementRef: ElementRef;
@@ -29,13 +30,25 @@ export class FiltersComponent implements OnInit{
         this.filterForm = this.fb.group({
             filterBy: '',
             distance : [10],
-            type: ''
+            types: fb.array([false, false, false, false, false])
         });
 
         this.filterForm.valueChanges.subscribe(data => {
-            console.log('form changes: ');
-            console.dir(data);
+            //console.log('form changes: ');
+            //console.dir(data);
+            let params = "";
+            for(let i = 0; i < data.types.length; i++){
+                if(data.types[i]){
+                    params += this.messageTypesOb[i].name + ";";
+                }
+            }
+            //console.log("params: " + params);
+            this.myEvent.emit(params);
         });
+    }
+
+    function2(params: string): void {
+        this.myEvent.emit(params);
     }
 
     ngOnInit(): void {
@@ -51,11 +64,11 @@ export class FiltersComponent implements OnInit{
             if(i%2 !== 0)
                 this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
 
-        var autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
+        /*var autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
             var place = autocomplete.getPlace();
             console.log(place)
-        });
+        });*/
     }
 
     public collapsed(event:any):void {
@@ -69,4 +82,6 @@ export class FiltersComponent implements OnInit{
     showRange():void{
         console.log('someRange: ' + this.someValue);
     }
+
+    
 }
