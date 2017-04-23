@@ -65,14 +65,14 @@ div.messages{
                 color: #A20E12;
                 display: block;
                 font-size: 36px;
-                margin-left: 50%;
+                margin-right: 40%;
                 @media (min-width: 576px){
                     font-size: 60px;
                     margin-left: 40%;
                 }
             }
             @media(max-width: 575px){
-                width: 30%;
+                width: 25%;
             }
             @media (min-width: 576px){
                 width: 20%;
@@ -204,17 +204,27 @@ div.blackline{
 }
 
 @media(max-width: 575px){
-
+    // div.start-date{
+    //     color: red;
+    // }
 }
 @media (min-width: 576px) {
-    
+    // div.start-date{
+    //     color: orange;
+    // }
 }
 @media (min-width: 768px) {
-    
+    // div.start-date{
+    //     color: yellow;
+    // }
 }
 @media (min-width: 992px) {
-    
+    // div.start-date{
+    //     color: blue;
+    // }
 }
 @media (min-width: 1200px) {
-    
+    // div.start-date{
+    //     color: green;
+    // }
 }

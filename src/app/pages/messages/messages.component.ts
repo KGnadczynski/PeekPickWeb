@@ -16,7 +16,7 @@ import { MessageList } from './messageList.model';
 export class MessagesComponent implements OnInit{
     
     @Input() dest: string;
-    @Input() id: any;
+    @Input() id: number;
     @Output() myEvent = new EventEmitter();
 
     selected = [];
@@ -33,6 +33,7 @@ export class MessagesComponent implements OnInit{
     ngOnInit():void{
         this.messageList = new MessageList();
         this.getMessages(this.pageNumber);
+        console.log('id: ' + this.id);
     }
 
     onScrollDown(){
@@ -56,16 +57,25 @@ export class MessagesComponent implements OnInit{
                         if(page === 1){
                             this.messageList = result;
                             for(let i = 0; i < this.messageList.messages.length; i++){
-                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude).subscribe(result => {
+                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
                                     this.messageList.messages[i].distance = result.messages[0].distance;
                                 });
                             }
+
                             console.log('komunikaty: ');
                             console.dir(this.messageList);
                         } else {
+                            
                             this.messageList.messages = this.messageList.messages.concat(result.messages);
+                            for(let i = 0; i < this.messageList.messages.length; i++){
+                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
+                                    this.messageList.messages[i].distance = result.messages[0].distance;
+                                });
+                            }
                             this.messageList.isLastPage = result.isLastPage;
                             this.canScrool = true;
+                            console.log('komunikaty: ');
+                            console.dir(this.messageList);
                         }
                     });
                     break;
@@ -75,8 +85,18 @@ export class MessagesComponent implements OnInit{
                     this.busy = this.messageService.getCompanyMessages(page, params, this.id).subscribe(result => {
                         if(page === 1){
                             this.messageList = result;
+                            for(let i = 0; i < this.messageList.messages.length; i++){
+                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
+                                    this.messageList.messages[i].distance = result.messages[0].distance;
+                                });
+                            }
                         } else {
                             this.messageList.messages = this.messageList.messages.concat(result.messages);
+                            for(let i = 0; i < this.messageList.messages.length; i++){
+                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
+                                    this.messageList.messages[i].distance = result.messages[0].distance;
+                                });
+                            }
                             this.messageList.isLastPage = result.isLastPage;
                             this.canScrool = true;
                         }
@@ -88,6 +108,11 @@ export class MessagesComponent implements OnInit{
                     if(x){
                         this.busy = this.messageService.getMessagesList(x).subscribe(result => {
                             this.messageList = result;
+                            for(let i = 0; i < this.messageList.messages.length; i++){
+                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
+                                    this.messageList.messages[i].distance = result.messages[0].distance;
+                                });
+                            }
                         });
                     }
                     
@@ -129,10 +154,6 @@ export class MessagesComponent implements OnInit{
             console.dir(localStorage);
         }
 
-    }
-    
-    clearLs(): void{
-        localStorage.removeItem('favs');
     }
 
     goToSingle(id: number){

@@ -45,6 +45,9 @@
 div#checkboxes{
   width: 5%;
   float: left;
+  @media(max-width: 575px){
+      width: 10%;
+  }
   md-checkbox{
     display: block;
     label{
@@ -56,9 +59,37 @@ div#checkboxes{
 div#checkboxesValues{
   width: 95%;
   float: right;
+  
+  @media(max-width: 575px){
+      width: 90%;
+  }
   label{
     display: block;
-    margin-top: 3.3%;
-    margin-bottom: 3%;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    @media(max-width: 575px){
+      
+    }
+  }
+}
+
+form#mainForm{
+  nouislider{
+    width: 85%;
+    margin: auto;
+    margin-top: 6%;
+    margin-bottom: 6%;
+  }
+
+  div.filterBy{
+    width: 50%;
+    float: left;
+    display: flex;
+    justify-content: center;
+  }
+
+  h5{
+    clear: both;
+    margin-top: 6%;
   }
 }

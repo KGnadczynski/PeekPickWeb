@@ -126,7 +126,7 @@
           <div id="userMessages">
               <img id="companyLogo" src="{{ otherImgs?.imageUrl}}" alt="">
               <h1 id="companyName">{{ otherUser?.company.name }}</h1>
-              <messages [dest] = "'profile'" [id] = 1></messages>
+              <messages [dest] = "'profile'" *ngIf="idCompany" [id] = idCompany></messages>
             <!--
             <ul>
                 <li *ngFor="let ob of otherObject?.objectList">

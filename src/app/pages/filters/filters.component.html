@@ -6,15 +6,15 @@
 
 <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isFiltryCollapse">
 
-    <form [formGroup]="filterForm" novalidate>
+    <form [formGroup]="filterForm" novalidate id="mainForm">
          
         <h5>sortuj po:</h5>
         
-        <div>
+        <div class="filterBy">
             <input type="radio" name="filterBy" value="lokalizacja" formControlName="filterBy"> lokalizacja
         </div>
 
-        <div>
+        <div class="filterBy">
             <input type="radio" name="filterBy" value="data dodania" formControlName="filterBy"> data dodania
         </div>
         

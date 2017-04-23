@@ -34,16 +34,15 @@ export class FiltersComponent implements OnInit{
         });
 
         this.filterForm.valueChanges.subscribe(data => {
-            //console.log('form changes: ');
-            //console.dir(data);
             let params = "";
             for(let i = 0; i < data.types.length; i++){
                 if(data.types[i]){
                     params += this.messageTypesOb[i].name + ";";
                 }
             }
-            //console.log("params: " + params);
             this.myEvent.emit(params);
+
+            if(data.filterBy === 'lokalizacja') console.log('sortuje po lokalizacji');
         });
     }
 
