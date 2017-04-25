@@ -8,11 +8,11 @@ i#searchIcon{
   cursor: pointer;
   text-align: right;
   @media(max-width: 575px){
-    padding-top: 7%;
+    padding-top: 18px;
   }
   @media (min-width: 576px){
-    padding-top: 3%;
-    padding-right: 0;
+    padding-top: 18px;
+    padding-right: 10px;
   }
   @media (min-width: 768px){
     padding-top: 2.5%;
@@ -24,11 +24,11 @@ div.dropdown{
     cursor: pointer;
     padding-left: 2%;
     @media(max-width: 575px){
-      padding-top: 7%;
+      padding-top: 18px;
       
     }
     @media (min-width: 576px){
-      padding-top: 3%;
+      padding-top: 18px;
       padding-left: 0;
     }
     @media (min-width: 768px){
@@ -199,36 +199,36 @@ a.collapse-menu-link {
   }
 }
 
-@media screen and (max-width: $resS) {
+//@media screen and (max-width: 362px) {
   .search {
     display: none;
   }
   
-}
+//}
 
 @media(max-width: 575px){
     a.al-logo{
-      color: red;
+      // color: red;
     }
 }
 @media (min-width: 576px) {
     a.al-logo{
-      color: green;
+      // color: green;
     }
 }
 @media (min-width: 768px) {
    a.al-logo{
-     color: orange;
+    //  color: orange;
     }
 }
 @media (min-width: 992px) {
     a.al-logo{
-      color: yellow;
+      // color: yellow;
     }
 }
 @media (min-width: 1200px) {
     a.al-logo{
-      color: blue;
+      // color: blue;
     }
 }
 

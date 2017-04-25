@@ -1,8 +1,8 @@
-///<reference path="../../../../node_modules/@types/googlemaps/index.d.ts"/>
-import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild, Output, EventEmitter, NgZone } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MessageType } from '../../enums/message-type.enum';
 import { FiltersService } from './filters.service';
+import { MapsAPILoader } from 'angular2-google-maps/core';
 
 @Component({
     selector: 'filters',
@@ -21,28 +21,68 @@ export class FiltersComponent implements OnInit{
     categories: {name: string, subcategories: any[], bol: boolean}[] = [];
     someValue: number = 0;
     google:any;
-    @Output() myEvent: EventEmitter<string> = new EventEmitter<string>();
+    @Output() myEvent: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild("google_places_ac")
-    searchElementRef: ElementRef;
+    public latitude: number;
+    public longitude: number;
+    public zoom: number;
 
-    constructor(private fb: FormBuilder, private filtersService: FiltersService){
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
+
+    constructor(private fb: FormBuilder, private filtersService: FiltersService, private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone){
         this.filterForm = this.fb.group({
             filterBy: '',
             distance : [10],
-            types: fb.array([false, false, false, false, false])
+            types: fb.array([false, false, false, false, false]),
+            searchControl: ''
         });
 
         this.filterForm.valueChanges.subscribe(data => {
-            let params = "";
-            for(let i = 0; i < data.types.length; i++){
-                if(data.types[i]){
-                    params += this.messageTypesOb[i].name + ";";
-                }
-            }
-            this.myEvent.emit(params);
 
-            if(data.filterBy === 'lokalizacja') console.log('sortuje po lokalizacji');
+            //console.log('data from filtrs component: ');
+            //console.dir(data);
+
+            this.setCurrentPosition();
+
+            this.mapsAPILoader.load().then(() => {
+                let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
+
+                autocomplete.addListener("place_changed", () => {
+                    this.ngZone.run(() => {
+                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+                        if(place.geometry === undefined || place.geometry === null){
+                            return;
+                        }
+
+                        this.latitude = place.geometry.location.lat();
+                        this.longitude = place.geometry.location.lng();
+                        this.zoom = 12;
+                    })
+                })
+            })
+
+            let params:{messageTypes: string, filterBy: string, distance: number, latitude: number, longitude: number} = {
+                messageTypes: "",
+                filterBy: "",
+                distance: 0,
+                latitude: this.latitude,
+                longitude: this.longitude
+            };
+
+            let messageTypes = "";
+
+            for(let i = 0; i < data.types.length; i++)
+                if(data.types[i])
+                    messageTypes += this.messageTypesOb[i].name + ";";
+
+            params.messageTypes = messageTypes;
+            params.filterBy = data.filterBy;
+            params.distance = data.distance;
+
+            this.myEvent.emit(params);
         });
     }
 
@@ -51,6 +91,11 @@ export class FiltersComponent implements OnInit{
     }
 
     ngOnInit(): void {
+
+        this.zoom = 4;
+        this.latitude = 39.8282;
+        this.longitude = -98.5795;
+
         this.filtersService.getCompanyCategories().subscribe(resultCategories => {
           for(let categ in resultCategories){
             this.filtersService.getCategorySubcategories(resultCategories[categ].id).subscribe(resultSub => {
@@ -62,12 +107,17 @@ export class FiltersComponent implements OnInit{
         for(let i = this.messageTypes.length-1; i >= 0; i--)
             if(i%2 !== 0)
                 this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
+        
+    }
 
-        /*var autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            var place = autocomplete.getPlace();
-            console.log(place)
-        });*/
+    private setCurrentPosition(){
+        if("geolocation"  in navigator){
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                this.zoom = 12;
+            })
+        }
     }
 
     public collapsed(event:any):void {

@@ -150,6 +150,15 @@ div#mainPage{
 @media (min-width: 992px) {
   div#mainPage{
     flex-direction: row;
+    div#blankDiv{
+      order: 1;
+    }
+    div#messagesDiv{
+      order: 2;
+    }
+    div#filterMessages{
+      order: 3;
+    }
   }
 }
 @media (min-width: 1200px) {

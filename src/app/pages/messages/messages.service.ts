@@ -39,6 +39,18 @@ export class MessagesService{
         return this.http.get(`${this.url}messages/page/${page}?latitude=${latitude}&longitude=${longitude}`).map(this.mapMessages).catch(this.handleError);
     }
 
+    getRange(latitude: number, longitude: number, page: number, range: number): Observable<MessageList>{
+        return this.http.get(`${this.url}messages/page/${page}?latitude=${latitude}&longitude=${longitude}&range=${range}`).map(this.mapMessages).catch(this.handleError);
+    }
+
+    sortMessagesByDistance(page: number): Observable<MessageList>{
+        return this.http.get(this.url+'messages/page/' + page + '?sortType=distance').map(this.mapMessages).catch(this.handleError);
+    }
+
+    sortMessagesByCreateDate(page:number): Observable<MessageList>{
+        return this.http.get(this.url+'messages/page/' + page + '?sortType=create_date').map(this.mapMessages).catch(this.handleError);
+    }
+
     mapMessages(res: Response) {
         let body = res.json();
         let listing = new MessageList();

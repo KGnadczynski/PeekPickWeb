@@ -17,7 +17,6 @@ export class MessagesComponent implements OnInit{
     
     @Input() dest: string;
     @Input() id: number;
-    @Output() myEvent = new EventEmitter();
 
     selected = [];
     pageNumber: number = 1;
@@ -31,9 +30,9 @@ export class MessagesComponent implements OnInit{
     }
 
     ngOnInit():void{
+        //this.getRange(54.521204, 18.5435239, 2);
         this.messageList = new MessageList();
         this.getMessages(this.pageNumber);
-        console.log('id: ' + this.id);
     }
 
     onScrollDown(){
@@ -170,12 +169,55 @@ export class MessagesComponent implements OnInit{
     getMessagesByType(params: string):void {
         this.messageService.getMessagesByType(params).subscribe(result => {
             this.messageList = result;
+            for(let i = 0; i < this.messageList.messages.length; i++){
+                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
+                    this.messageList.messages[i].distance = result.messages[0].distance;
+                });
+            }
+        });
+    }
+
+    getMessagesByDistance(page: number){
+        this.messageService.sortMessagesByDistance(page).subscribe(result => {
+            this.messageList = result;
+            for(let i = 0; i < this.messageList.messages.length; i++){
+                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
+                    this.messageList.messages[i].distance = result.messages[0].distance;
+                });
+            }
+        });
+    }
+
+    getMessagesByCreateDate(page: number){
+        this.messageService.sortMessagesByCreateDate(page).subscribe(result => {
+            this.messageList = result;
+            for(let i = 0; i < this.messageList.messages.length; i++){
+                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
+                    this.messageList.messages[i].distance = result.messages[0].distance;
+                });
+            }
         });
     }
 
     filter(event){
-        event = event.substring(0, event.length-1);
-        this.getMessagesByType(event);
+        console.log('data event: ');
+        console.dir(event);
+        event.messageTypes = event.messageTypes.substring(0, event.messageTypes.length-1);
+        
+        this.getMessagesByType(event.messageTypes);
+        if(event.filterBy === 'lokalizacja'){
+            this.getMessagesByDistance(this.pageNumber);
+        } else if(event.filterBy === 'data dodania'){
+            this.getMessagesByCreateDate(this.pageNumber);
+        }
+
+    }
+
+    getRange(lat: number, longat: number, range: number): void{
+        this.messageService.getRange(lat, longat, this.pageNumber, range).subscribe(result => {
+            console.log('range: ');
+            console.dir(result);
+        });
     }
 
 }

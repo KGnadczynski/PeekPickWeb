@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { NouisliderModule } from 'ng2-nouislider';
 import { MdCheckbox } from '@angular2-material/checkbox';
+import { AgmCoreModule } from 'angular2-google-maps/core';
 
 @NgModule({
     imports: [
@@ -14,7 +15,11 @@ import { MdCheckbox } from '@angular2-material/checkbox';
         FormsModule,
         ReactiveFormsModule,
         CollapseModule,
-        NouisliderModule
+        NouisliderModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAd-dXobrRyvVELcejXArzNvt694Y1r9Ho',
+            libraries: ["places"]
+        })
     ],
     declarations: [
         FiltersComponent,

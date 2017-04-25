@@ -5,6 +5,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 
 import { User } from './user';
 import { MessagesComponent } from '../messages/messages.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'profile',
@@ -20,7 +21,7 @@ export class ProfileComponent implements OnInit {
   otherImgs: ObjectList;
   idCompany: number;
 
-  constructor(private profileService: ProfileService, private _http: Http) {}
+  constructor(private profileService: ProfileService, private _http: Http, private router: Router) {}
 
   ngOnInit() {
     if(localStorage.getItem('currentUserToken')){
@@ -29,9 +30,14 @@ export class ProfileComponent implements OnInit {
           this.idCompany = user.company.id;
           this.profileService.getUserImages(this.otherUser.company.id).subscribe(imgs => {
             this.otherImgs = imgs;
+            console.log('imgs:');
+            console.dir(this.otherImgs);
           });
         });
         
+    }
+    else{
+      this.router.navigateByUrl('/pages/komunikat');
     }
   }
 }

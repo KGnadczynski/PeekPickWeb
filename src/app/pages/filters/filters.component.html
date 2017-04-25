@@ -17,6 +17,15 @@
         <div class="filterBy">
             <input type="radio" name="filterBy" value="data dodania" formControlName="filterBy"> data dodania
         </div>
+
+
+        <h5>Lokalizacja</h5>
+
+        <input id="searchLocation" placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="searchControl">
+        
+        <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+            <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude"></sebm-google-map-marker>
+        </sebm-google-map>
         
         <h5>odległość</h5>
         <nouislider [min]="0" [max]="14" [step]="0.05" [(ngModel)]="someValue" formControlName = "distance"></nouislider>
@@ -29,31 +38,6 @@
         <div id="checkboxesValues">
             <label *ngFor="let messageType of messageTypesOb">{{messageType.value}}</label>
         </div>
-        <!--<button (click)="function2()">Yell me</button>-->
-
-        <!--<p>Form value: {{ filterForm.value | json }}</p>
-
-        <div class="blackLine"></div>
-
-        <h3>Lokalizacja</h3>
-
-        <div id="googleForm">
-            <input #google_places_ac type="text" placeholder="miasto"/>
-        </div>
-
-        <div class="blackLine"></div>
-
-        <p>typ wiadomości</p>
-
-        <form id="messageTypeForm">
-            <div *ngFor="let messageType of messageTypesOb">
-            <md-checkbox>
-            {{messageType.value}}
-            </md-checkbox>
-            </div>
-        </form>
-
-        <div class="blackLine"></div>
 
         <p>Branża</p>
 
@@ -70,8 +54,6 @@
             </div>
         </div>
 
-        <button id="filterButton" type="button" (click)="clicked()">Wyszukaj</button>
-        <button id="clearButton" type="button" (click)="clicked()">Zeruj</button>-->
     </form>
 
 </div>

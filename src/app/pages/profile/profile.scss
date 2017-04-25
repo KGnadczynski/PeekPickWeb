@@ -1,17 +1,41 @@
 //@import '../../theme/sass/conf/conf';
 //@import '../../theme/sass/auth';
-/*
+
 div#profile{
-    margin: auto;
-    color: gray;
-    div.blackline{
-        height: 2px;
-        background: black;
-        margin: 2% 0;
-        float: left;
-        width: 100%;
+
+    img#companyImg{
+        width: 200px;
+        height: 200px;
+        display: block;
+        margin: auto;
+        border-radius: 1000px;
+    }
+    h2{
+        margin: 6% 0;
+        text-align: center;
+    }
+
+    div#daneFirmy{
+        form#changeEP{
+            input{
+                display: block;
+                margin: auto;
+                padding: 2%;
+                text-align: center;
+                margin-bottom: 2%;
+            }
+            button{
+                display: block;
+                padding: 2%;
+                background: white;
+                border: 1px solid gray;
+                color: gray;
+                margin: auto;
+            }
+        }
     }
     div#editProfile{
+        
         button{
             clear: both;
             display: block;
@@ -101,16 +125,26 @@ div#profile{
             
             
         }
-        form#changeEP{
-            input{
-                display: block;
-                margin: auto;
-                padding: 2%;
-                text-align: center;
-                margin-bottom: 2%;
-            }
+        
+    }
+    div#messages{
+        i.material-icons{
+            margin-left: 40%;
         }
     }
+}
+
+div#profile{
+    margin: auto;
+    color: gray;
+    div.blackline{
+        height: 2px;
+        background: black;
+        margin: 2% 0;
+        float: left;
+        width: 100%;
+    }
+    
     div#messages{
         
     }
@@ -230,188 +264,7 @@ div#profile{
     }       
 }
 
-div#messages{
-        img#companyLogo{
-            display: block;
-            width: 25%;
-            margin: auto;
-            margin-bottom: 2%;
-            border-radius: 2500px
-        }
-        h1#companyName{
-            text-transform: uppercase;
-            text-align: center;
-            color: gray;
-        }
-    width: 60%;
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        li {
-            margin-bottom: 2%;
-            padding: 2%;
-            overflow: hidden;
-            div.companyPhoto {
-                img{
-                    width: 50%;
-                    margin: auto;
-                    display: block;
-                    padding: 2px;
-                }
-                border-radius: 3px;
-                margin-top: 3%;
-                margin-bottom: 3%;
-                float: left;
-            }
-            p{
-                font-weight: bold;
-                span {
-                    font-weight: normal;
-                }
-            }
-            div.companyImg{
-                width: 15%;
-                float: left;
-                img{
-                    width: 100%;
-                }
-            }
-            div.companyTextBlock{
-                width: 75%;
-                float: left;
-                margin-left: 2%;
-                a{
-                    color: gray;
-                    font-size: 17px;
-                    line-height: 20px;
-                }
-            }
-            div.dates {
-                clear: both;
-                float: left;
-                margin-top: 2%;
-                display: flex;
-                justify-content: space-between;
-                width: 100%;
-            }
-            div.operations{
-                float: left;
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                div{
-                    a{
-                        color: gray;
-                    }
-                    text-align: center;
-                }
-            }
-            
-        }
-    }
-}*/
 
-
-
-div#profile{
-    margin-top: 2%;
-
-    div#userMessages{
-        img#companyLogo{
-            display: block;
-            width: 25%;
-            margin: auto;
-            margin-bottom: 2%;
-            border-radius: 2500px
-        }
-        h1#companyName{
-            text-transform: uppercase;
-            text-align: center;
-            color: gray;
-        }
-    }
-    div#profil{
-        width: 60%;
-        margin: auto;
-        color: gray;
-        form{
-            
-            div{
-                margin: 2% 0;
-                input {
-                    width: 100%;
-                }
-                label{
-                    display: block;
-                    text-align: center;
-                }
-            }
-            button{
-                display: block;
-                margin: auto;
-                padding: 4%;
-                background: white;
-                border: 1px solid gray;
-                color: gray;
-            }
-        }
-    }
-    div#daneFirmy{
-        width: 85%;
-        margin: auto;
-        div.file-upload{
-            background: white;
-            padding: 0;
-            label{
-                background: white;
-                color: gray;
-                border: 1px solid gray;
-            }
-            div.drag-box-message{
-                display: none;
-            }
-            
-        }
-    }
-    div#dodatkoweInformacje{
-        width: 60%;
-        margin: auto;
-        
-    }
-}
-
-div.md-tab-header {
-    justify-content: center;
-}
-
-md-tab-group{
-    
-    div.md-tab-header{
-        border: none !important;
-        justify-content: center;
-    }
-    div.md-tab-label{
-        background: white;
-        opacity: 1 !important;
-        &:focus{
-            background-color: black !important;
-            border: none !important;
-        }
-        &.md-tab-active{
-            background: black;
-            opacity: 1 !important;
-            color: white !important;
-            p{
-                color: white;
-            }
-        }
-    }
-    md-ink-bar{
-        color: white !important;
-        background-color:black !important;
-    }
-}
 
 
 @media(max-width: 575px){
