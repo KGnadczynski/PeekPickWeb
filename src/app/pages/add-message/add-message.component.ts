@@ -44,10 +44,18 @@ export class AddMessageComponent implements OnInit {
 
     
     zoom: number = 8;   
-    lat = 42.323;//localStorage.getItem('latitude');
-    lng = 40.32//localStorage.getItem('longitude');
+    lat:number = JSON.parse(localStorage.getItem('latitude')).latitude;
+    lng:number = JSON.parse(localStorage.getItem('longitude')).longitude;
+
+    //   var latitudeObject = JSON.parse(localStorage.getItem('latitude')).latitude;
+      //  var longitudeObject = JSON.parse(localStorage.getItem('longitude')).longitude;
+        //this.lat = latitudeObject;
+       // this.lng = longitudeObject;
+       /// console.log('latitude : ' + this.lat);
+       // console.log('latitude : ' + this.lng);
 
     mapClicked($event: any) {
+       console.log('Map clicked');
       this.lat =  $event.coords.lat;
       this.lng = $event.coords.lng;
     }
@@ -108,7 +116,8 @@ export class AddMessageComponent implements OnInit {
     ){}
 
     ngOnInit(): void{
-
+      console.log('latitude : ' + this.lat);
+      console.log('latitude : ' + this.lng);
         for(let i = this.messageTypes.length-1; i >= 0; i--)
             if(i%2 !== 0)
                 this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
