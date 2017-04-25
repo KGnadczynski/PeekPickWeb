@@ -7,6 +7,8 @@ import { AddMessageComponent } from './add-message.component';
 import { ModalModule } from 'ng2-bootstrap';
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { NgaModule } from '../../theme/nga.module';
+import { AgmCoreModule } from 'angular2-google-maps/core';
 
 @NgModule({
     imports: [
@@ -15,6 +17,10 @@ import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
         ModalModule.forRoot(),
         FormsModule,
         Daterangepicker,
+        AgmCoreModule.forRoot({
+         apiKey: 'AIzaSyAd-dXobrRyvVELcejXArzNvt694Y1r9Ho'
+        }),
+        NgaModule,
         CollapseModule
     ],
     providers: [

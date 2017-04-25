@@ -7,6 +7,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
 import { MessageType } from '../../enums/message-type.enum';
 import { MessageAddModel } from './add-message-model';
+import { NgUploaderOptions } from 'ngx-uploader';
+import { AgmCoreModule } from 'angular2-google-maps/core';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -31,6 +33,24 @@ export class AddMessageComponent implements OnInit {
     isCollapsed:boolean = false;
     id: number;
     paramValue: any;
+    public defaultPicture = 'assets/img/theme/no-photo.png';
+    public profile:any = {
+        picture: 'assets/img/theme/no-photo.png'
+    };
+    public uploaderOptions:NgUploaderOptions = {
+        // url: 'http://website.com/upload'
+        url: '',
+    };
+
+    
+    zoom: number = 8;   
+    lat = 42.323;//localStorage.getItem('latitude');
+    lng = 40.32//localStorage.getItem('longitude');
+
+    mapClicked($event: any) {
+      this.lat =  $event.coords.lat;
+      this.lng = $event.coords.lng;
+    }
 
     pickerOptions: Object = {
         'showDropdowns': true,
@@ -192,5 +212,7 @@ export class AddMessageComponent implements OnInit {
       error => {
       });
     }
+
+    
 
 }

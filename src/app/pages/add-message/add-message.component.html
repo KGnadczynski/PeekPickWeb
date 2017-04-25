@@ -33,16 +33,24 @@
             <div class="blackline"></div>
 
             <div id="addPhoto">
-              <p>dodaj zdjęcie: </p>
-              <i class="fa fa-plus-square-o fa-3x" aria-hidden="true"></i>
+               <ba-card title="Dodaj zdjęcie" baCardClass="with-scroll" aria-hidden="true">
+                  <ba-picture-uploader [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
+              </ba-card>
             </div>
             
             <div id="addLocalization">
               <p>dodaj lokalizację: </p>
-              <i class="fa fa-plus-square-o fa-3x" aria-hidden="true"></i>
+              <div id="mapa">
+                    <sebm-google-map [latitude]="lat" [longitude]="lng"
+                    (mapClick)="mapClicked($event)" [zoom]="zoom"
+                    [disableDefaultUI]="false"
+                     [zoomControl]="false">
+                      <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+                    </sebm-google-map>
+              </div>
             </div>
 
-
+    
             <p>Dodaj treść komunikatu</p>
             <textarea type="text" placeholder="Dodaj treść komunikatu" [(ngModel)]="msgAddModel.content"></textarea>
             

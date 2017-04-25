@@ -15,5 +15,5 @@
   <input #fileUpload ngFileSelect [options]="uploaderOptions"
          (onUpload)="_onUpload($event)"
          (beforeUpload)="beforeUpload($event)"
-         type="file" hidden="true">
+         accept="image/*" type="file" hidden="true">
 </div>
