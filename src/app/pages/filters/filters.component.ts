@@ -43,7 +43,7 @@ export class FiltersComponent implements OnInit{
 
             //console.log('data from filtrs component: ');
             //console.dir(data);
-
+/*
             this.setCurrentPosition();
 
             this.mapsAPILoader.load().then(() => {
@@ -82,7 +82,7 @@ export class FiltersComponent implements OnInit{
             params.filterBy = data.filterBy;
             params.distance = data.distance;
 
-            this.myEvent.emit(params);
+            this.myEvent.emit(params);*/
         });
     }
 

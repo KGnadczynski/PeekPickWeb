@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-
 import { MessagesService } from './messages.service';
 import { MessageList } from './messageList.model';
 
@@ -23,6 +22,8 @@ export class MessagesComponent implements OnInit{
     messageList: MessageList;
     canScrool: boolean = true;
     busy: Subscription;
+    latitude: number;
+    longitude: number;
 
     constructor(private messageService: MessagesService, private router: Router){
         let moment = require('../../../../node_modules/moment/moment.js');
@@ -30,7 +31,6 @@ export class MessagesComponent implements OnInit{
     }
 
     ngOnInit():void{
-        //this.getRange(54.521204, 18.5435239, 2);
         this.messageList = new MessageList();
         this.getMessages(this.pageNumber);
     }
@@ -52,54 +52,48 @@ export class MessagesComponent implements OnInit{
         } else {
             switch (this.dest) {
                 case '':
-                    this.busy = this.messageService.getMessages(page).subscribe(result => {
-                        if(page === 1){
-                            this.messageList = result;
-                            for(let i = 0; i < this.messageList.messages.length; i++){
-                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
-                                    this.messageList.messages[i].distance = result.messages[0].distance;
-                                });
-                            }
+                    if("geolocation"  in navigator){
+                        navigator.geolocation.getCurrentPosition((position) => {
+                            this.latitude = position.coords.latitude;
+                            this.longitude = position.coords.longitude;
 
-                            console.log('komunikaty: ');
-                            console.dir(this.messageList);
-                        } else {
-                            
-                            this.messageList.messages = this.messageList.messages.concat(result.messages);
-                            for(let i = 0; i < this.messageList.messages.length; i++){
-                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
-                                    this.messageList.messages[i].distance = result.messages[0].distance;
-                                });
-                            }
-                            this.messageList.isLastPage = result.isLastPage;
-                            this.canScrool = true;
-                            console.log('komunikaty: ');
-                            console.dir(this.messageList);
-                        }
-                    });
+                            this.busy = this.messageService.getMessages(page, [], this.latitude, this.longitude).subscribe(result => {
+                                if(page === 1) {
+                                    this.messageList = result;
+                                    console.log('komunikaty: ');
+                                    console.dir(this.messageList);
+                                } else {
+                                    this.messageList.messages = this.messageList.messages.concat(result.messages);
+                                    this.messageList.isLastPage = result.isLastPage;
+                                    this.canScrool = true;
+                                    console.log('komunikaty: ');
+                                    console.dir(this.messageList);
+                                }
+                            });
+                        })
+                    }
                     break;
                 
                 case 'company':
                 case 'profile':
-                    this.busy = this.messageService.getCompanyMessages(page, params, this.id).subscribe(result => {
-                        if(page === 1){
-                            this.messageList = result;
-                            for(let i = 0; i < this.messageList.messages.length; i++){
-                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
-                                    this.messageList.messages[i].distance = result.messages[0].distance;
-                                });
-                            }
-                        } else {
-                            this.messageList.messages = this.messageList.messages.concat(result.messages);
-                            for(let i = 0; i < this.messageList.messages.length; i++){
-                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
-                                    this.messageList.messages[i].distance = result.messages[0].distance;
-                                });
-                            }
-                            this.messageList.isLastPage = result.isLastPage;
-                            this.canScrool = true;
-                        }
-                    });
+                    if("geolocation"  in navigator){
+                         navigator.geolocation.getCurrentPosition((position) => {
+                            this.latitude = position.coords.latitude;
+                            this.longitude = position.coords.longitude;
+                            
+                            this.busy = this.messageService.getCompanyMessages(page, params, this.id, this.latitude, this.longitude).subscribe(result => {
+                                if(page === 1)
+                                    this.messageList = result;
+                                else {
+                                    this.messageList.messages = this.messageList.messages.concat(result.messages);
+                                    this.messageList.isLastPage = result.isLastPage;
+                                    this.canScrool = true;
+                                }
+                            });
+
+                         });
+                    }
+
                     break;
 
                 case 'favourites':    
@@ -107,11 +101,11 @@ export class MessagesComponent implements OnInit{
                     if(x){
                         this.busy = this.messageService.getMessagesList(x).subscribe(result => {
                             this.messageList = result;
-                            for(let i = 0; i < this.messageList.messages.length; i++){
+                            /*for(let i = 0; i < this.messageList.messages.length; i++){
                                 this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
                                     this.messageList.messages[i].distance = result.messages[0].distance;
                                 });
-                            }
+                            }*/
                         });
                     }
                     
@@ -169,33 +163,33 @@ export class MessagesComponent implements OnInit{
     getMessagesByType(params: string):void {
         this.messageService.getMessagesByType(params).subscribe(result => {
             this.messageList = result;
-            for(let i = 0; i < this.messageList.messages.length; i++){
+            /*for(let i = 0; i < this.messageList.messages.length; i++){
                 this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
                     this.messageList.messages[i].distance = result.messages[0].distance;
                 });
-            }
+            }*/
         });
     }
 
     getMessagesByDistance(page: number){
         this.messageService.sortMessagesByDistance(page).subscribe(result => {
             this.messageList = result;
-            for(let i = 0; i < this.messageList.messages.length; i++){
+            /*for(let i = 0; i < this.messageList.messages.length; i++){
                 this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
                     this.messageList.messages[i].distance = result.messages[0].distance;
                 });
-            }
+            }*/
         });
     }
 
     getMessagesByCreateDate(page: number){
         this.messageService.sortMessagesByCreateDate(page).subscribe(result => {
             this.messageList = result;
-            for(let i = 0; i < this.messageList.messages.length; i++){
+            /*for(let i = 0; i < this.messageList.messages.length; i++){
                 this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
                     this.messageList.messages[i].distance = result.messages[0].distance;
                 });
-            }
+            }*/
         });
     }
 

@@ -13,42 +13,38 @@ export class MessagesService{
 
     constructor(private http: Http){}
 
-    getMessages(page: any, params = []) : Observable<MessageList>{
+    getMessages(page: any, params = [], latitude: number, longitude: number) : Observable<MessageList>{
         if(params.length != 0){
             let params2 = new URLSearchParams();
             params2.append('messageTypeList', params.join(';'));
             return this.http.get(this.url + 'messages/page/' + page, { search: params2}).map(this.mapMessages).catch(this.handleError);
         } else {
-            return this.http.get(this.url + 'messages/page/' + page).map(this.mapMessages).catch(this.handleError);
+            return this.http.get(`${this.url}messages/page/${page}?latitude=${latitude}&longitude=${longitude}`).map(this.mapMessages).catch(this.handleError);
         }
     }
 
-    getCompanyMessages(page: any, params = [], id: number) : Observable<MessageList>{
-        return this.http.get(this.url + 'messages/page/' + page + '?companyId=' + id).map(this.mapMessages).catch(this.handleError);
+    getCompanyMessages(page: any, params = [], id: number, latitude: number, longitude: number) : Observable<MessageList>{
+        return this.http.get(this.url + 'messages/page/' + page + '?companyId=' + id + '&latitude='+latitude+'&longitude='+longitude).map(this.mapMessages).catch(this.handleError);
     }
 
-    getMessagesList(ids: string) : Observable<MessageList>{
-        return this.http.get(this.url + 'messages/page/1?messageIdList=' + ids).map(this.mapMessages).catch(this.handleError);
+    getMessagesList(ids: string, latitude: number, longitude: number) : Observable<MessageList>{
+        return this.http.get(this.url + 'messages/page/1?messageIdList=' + ids + '&latitude='+latitude+'&longitude='+longitude).map(this.mapMessages).catch(this.handleError);
     }
 
     getMessagesByType(params: string): Observable<MessageList>{
         return this.http.get(this.url + 'messages/page/1?messageTypeList=' + params).map(this.mapMessages).catch(this.handleError);
     }
 
-    getDistance(latitude: number, longitude: number, page: number): Observable<MessageList>{
-        return this.http.get(`${this.url}messages/page/${page}?latitude=${latitude}&longitude=${longitude}`).map(this.mapMessages).catch(this.handleError);
-    }
-
     getRange(latitude: number, longitude: number, page: number, range: number): Observable<MessageList>{
         return this.http.get(`${this.url}messages/page/${page}?latitude=${latitude}&longitude=${longitude}&range=${range}`).map(this.mapMessages).catch(this.handleError);
     }
 
-    sortMessagesByDistance(page: number): Observable<MessageList>{
-        return this.http.get(this.url+'messages/page/' + page + '?sortType=distance').map(this.mapMessages).catch(this.handleError);
+    sortMessagesByDistance(page: number, latitude: number, longitude: number): Observable<MessageList>{
+        return this.http.get(this.url+'messages/page/' + page + '?latitude=' + latitude + '&longitude=' + longitude + '&sortType=distance').map(this.mapMessages).catch(this.handleError);
     }
 
-    sortMessagesByCreateDate(page:number): Observable<MessageList>{
-        return this.http.get(this.url+'messages/page/' + page + '?sortType=create_date').map(this.mapMessages).catch(this.handleError);
+    sortMessagesByCreateDate(page:number, latitude: number, longitude: number): Observable<MessageList>{
+        return this.http.get(this.url+'messages/page/' + page + '?latitude=' + latitude + '&longitude=' + longitude + '&sortType=create_date').map(this.mapMessages).catch(this.handleError);
     }
 
     mapMessages(res: Response) {

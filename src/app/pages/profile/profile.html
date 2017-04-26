@@ -22,12 +22,25 @@
             <template md-tab-content>
                 <div id="daneFirmy">
                     <h3>zmień hasło/email</h3>
-                    <form id="changeEP">
-                        <input type="email" id="email" placeholder="nowy e-mail">
-                        <input type="password" id="password" placeholder="nowe hasło">
-                        <input type="password" id="passwordrepeat" placeholder="powtórz nowe hasło">
-                        <button type="submit">Zapisz</button>
+                    <form id="changeEP" [formGroup]="passwordForm" (ngSubmit)="udpatePassword(passwordForm.value)">
+                        <div [ngClass]="{'has-error':!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched}">
+                            <input type="password" id="oldPassword" placeholder="stare hasło" [formControl]="passwordForm.controls['oldPassword']">
+                            <div 
+                                *ngIf="!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched"
+                            >
+                                Musisz wpisać stare hasło
+                            </div>
+                        </div>
+                        <div formGroupName="passwords">
+                            <input type="password" id="password" placeholder="nowe hasło" formControlName="password">
+                            <input type="password" id="passwordRepeat" placeholder="powtórz nowe hasło" formControlName="repeatPassword">
+                            <div>
+                                <span *ngIf="!passwordForm.controls['passwords'].valid && passwordForm.controls['passwords'].touched">Hasła nie są takie same</span>
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="!passwordForm.valid">Zapisz</button>
                     </form>
+                    <span *ngIf="messageAfter">Pomyślnie zmieniono hasło</span>
                 </div>
             </template>
         </md-tab>
