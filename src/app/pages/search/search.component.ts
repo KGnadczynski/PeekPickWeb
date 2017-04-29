@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { Location } from '@angular/common';
-
+import { FormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { SearchService } from './search.service';
 
@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit{
     messageTypes: string[] = Object.keys(MessageType);
     messageTypesOb: {name: string, value: string}[] = [];
     isCollapsed:boolean = true;
+    searchForm: FormGroup;
 
     mySettings: IMultiSelectSettings = {
         checkedStyle: 'checkboxes',
@@ -48,8 +49,14 @@ export class SearchComponent implements OnInit{
 
     constructor(
       private _location: Location,
-      private searchService: SearchService
-    ){}
+      private searchService: SearchService,
+      private fb: FormBuilder,
+      private router: Router
+    ){
+        this.searchForm = this.fb.group({
+            'searchTerm': [null, Validators.required]
+        });
+    }
 
     ngOnInit(): void {
 
@@ -85,6 +92,18 @@ export class SearchComponent implements OnInit{
 
     }
 
+    searchSubmit(values){
+        
+        let navigationExtras: NavigationExtras = {
+            queryParams: {
+                "searchTerm": values.searchTerm
+            }
+        };
+
+        this.router.navigate(['/pages/komunikat'], navigationExtras);
+
+    }
+
     ngAfterViewInit(): void {
       this.showChildModal();
     }
@@ -97,7 +116,6 @@ export class SearchComponent implements OnInit{
       this.childModal.hide();
       this._location.back();
     }
-
     
     collapsed(event:any):void {
         console.log(event);

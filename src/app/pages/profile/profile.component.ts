@@ -1,4 +1,4 @@
-import {Component,OnInit ,ViewEncapsulation} from '@angular/core';
+import { Component,OnInit ,ViewEncapsulation } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { ObjectList } from './user';
 import { Http, Headers, RequestOptions } from '@angular/http';
@@ -51,6 +51,8 @@ export class ProfileComponent implements OnInit {
 
           this.profileService.getUser().subscribe(user => {
             this.otherUser = user;
+            console.log("otherUser: ");
+            console.dir(this.otherUser);
             this.idCompany = user.company.id;
             this.profileService.getUserImages(this.otherUser.company.id).subscribe(imgs => {
               this.otherImgs = imgs;

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { MessagesService } from './messages.service';
 import { MessageList } from './messageList.model';
 
@@ -17,22 +17,37 @@ export class MessagesComponent implements OnInit{
     @Input() dest: string;
     @Input() id: number;
 
-    selected = [];
     pageNumber: number = 1;
     messageList: MessageList;
     canScrool: boolean = true;
     busy: Subscription;
-    latitude: number;
-    longitude: number;
+    latitude: number = JSON.parse(localStorage.getItem("latitude")).latitude;
+    longitude: number = JSON.parse(localStorage.getItem("longitude")).longitude;
+    searchTerm: string;
 
-    constructor(private messageService: MessagesService, private router: Router){
+    constructor(private messageService: MessagesService, private router: Router, private route: ActivatedRoute){
         let moment = require('../../../../node_modules/moment/moment.js');
         moment.locale('pl');
     }
 
     ngOnInit():void{
-        this.messageList = new MessageList();
-        this.getMessages(this.pageNumber);
+
+        this.route.queryParams.subscribe(params => {
+            this.searchTerm = params["searchTerm"];
+            
+            console.log('search Terms: ' + this.searchTerm);
+            this.messageList = new MessageList();
+            if(this.searchTerm !== undefined){
+                console.log('search messages');
+                this.getSearchMessages(this.searchTerm);
+            } else {
+                console.log('po prostu get messages');
+                this.getMessages(this.pageNumber);
+            }
+            
+        });
+
+        
     }
 
     onScrollDown(){
@@ -45,87 +60,50 @@ export class MessagesComponent implements OnInit{
         }
     }
 
-    getMessages(page: any, params = []){
-
-        if(params.length !== 0){
-
-        } else {
-            switch (this.dest) {
-                case '':
-                    if("geolocation"  in navigator){
-                        navigator.geolocation.getCurrentPosition((position) => {
-                            this.latitude = position.coords.latitude;
-                            this.longitude = position.coords.longitude;
-
-                            this.busy = this.messageService.getMessages(page, [], this.latitude, this.longitude).subscribe(result => {
-                                if(page === 1) {
-                                    this.messageList = result;
-                                    console.log('komunikaty: ');
-                                    console.dir(this.messageList);
-                                } else {
-                                    this.messageList.messages = this.messageList.messages.concat(result.messages);
-                                    this.messageList.isLastPage = result.isLastPage;
-                                    this.canScrool = true;
-                                    console.log('komunikaty: ');
-                                    console.dir(this.messageList);
-                                }
-                            });
-                        })
+    getMessages(page: any){
+        
+        switch (this.dest) {
+            case '':
+                this.busy = this.messageService.getMessages(page, this.latitude, this.longitude).subscribe(result => {
+                    if(page === 1) {
+                        this.messageList = result;
+                        console.log('komunikaty: ');
+                        console.dir(this.messageList);
+                    } else {
+                        this.messageList.messages = this.messageList.messages.concat(result.messages);
+                        this.messageList.isLastPage = result.isLastPage;
+                        this.canScrool = true;
+                        console.log('komunikaty: ');
+                        console.dir(this.messageList);
                     }
-                    break;
-                
-                case 'company':
-                case 'profile':
-                    if("geolocation"  in navigator){
-                         navigator.geolocation.getCurrentPosition((position) => {
-                            this.latitude = position.coords.latitude;
-                            this.longitude = position.coords.longitude;
-                            
-                            this.busy = this.messageService.getCompanyMessages(page, params, this.id, this.latitude, this.longitude).subscribe(result => {
-                                if(page === 1)
-                                    this.messageList = result;
-                                else {
-                                    this.messageList.messages = this.messageList.messages.concat(result.messages);
-                                    this.messageList.isLastPage = result.isLastPage;
-                                    this.canScrool = true;
-                                }
-                            });
-
-                         });
+                });
+                break;
+            
+            case 'company':
+            case 'profile':
+                this.busy = this.messageService.getCompanyMessages(page, this.id, this.latitude,this.longitude).subscribe(result => {
+                    if(page === 1)
+                        this.messageList = result;
+                    else {
+                        this.messageList.messages = this.messageList.messages.concat(result.messages);
+                        this.messageList.isLastPage = result.isLastPage;
+                        this.canScrool = true;
                     }
+                });
+                break;
 
-                    break;
+            case 'favourites':    
+                let x = JSON.parse(localStorage.getItem("favs")).join(';');
+                this.busy = this.messageService.getMessagesList(x, this.latitude,this.longitude).subscribe(result => {
+                    this.messageList = result;
+                });
+                break;
 
-                case 'favourites':    
-                    let x = JSON.parse(localStorage.getItem("favs")).join(';');
-                    if(x){
-                        this.busy = this.messageService.getMessagesList(x).subscribe(result => {
-                            this.messageList = result;
-                            /*for(let i = 0; i < this.messageList.messages.length; i++){
-                                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
-                                    this.messageList.messages[i].distance = result.messages[0].distance;
-                                });
-                            }*/
-                        });
-                    }
-                    
-                    break;
-
-                default:
-                    console.log('something else')
-                    break;
-            }
+            default:
+                console.log('something else')
+                break;
         }
-    }
-
-    clicked(event: any) {
-        this.getMessages(this.pageNumber, this.selected);
-    }
-
-    toggle(id: number){
-        let index = this.selected.indexOf(id);
-        if(index === -1) this.selected.push(id);
-        else this.selected.splice(index,1);
+    
     }
 
     addToFavourites(id: number){
@@ -161,57 +139,57 @@ export class MessagesComponent implements OnInit{
     }
 
     getMessagesByType(params: string):void {
-        this.messageService.getMessagesByType(params).subscribe(result => {
+        this.messageService.getMessagesByType(params, this.latitude,this.longitude).subscribe(result => {
             this.messageList = result;
-            /*for(let i = 0; i < this.messageList.messages.length; i++){
-                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
-                    this.messageList.messages[i].distance = result.messages[0].distance;
-                });
-            }*/
         });
     }
 
     getMessagesByDistance(page: number){
-        this.messageService.sortMessagesByDistance(page).subscribe(result => {
-            this.messageList = result;
-            /*for(let i = 0; i < this.messageList.messages.length; i++){
-                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
-                    this.messageList.messages[i].distance = result.messages[0].distance;
-                });
-            }*/
+
+        this.busy = this.messageService.getMessages(page, this.latitude,this.longitude).subscribe(result => {
+                this.messageService.sortMessagesByDistance(page, this.latitude, this.longitude).subscribe(result => {
+                this.messageList = result;
+            });
         });
     }
 
     getMessagesByCreateDate(page: number){
-        this.messageService.sortMessagesByCreateDate(page).subscribe(result => {
-            this.messageList = result;
-            /*for(let i = 0; i < this.messageList.messages.length; i++){
-                this.messageService.getDistance(this.messageList.messages[i].nearestCompanyBranch.latitude, this.messageList.messages[i].nearestCompanyBranch.longitude, this.pageNumber).subscribe(result => {
-                    this.messageList.messages[i].distance = result.messages[0].distance;
-                });
-            }*/
+
+        this.busy = this.messageService.getMessages(page, this.latitude, this.longitude).subscribe(result => {
+                this.messageService.sortMessagesByCreateDate(page, this.latitude, this.longitude).subscribe(result => {
+                this.messageList = result;
+            });
         });
+
     }
 
     filter(event){
         console.log('data event: ');
         console.dir(event);
-        event.messageTypes = event.messageTypes.substring(0, event.messageTypes.length-1);
+        //vent.messageTypes = event.messageTypes.substring(0, event.messageTypes.length-1);
         
-        this.getMessagesByType(event.messageTypes);
+        /*this.getMessagesByType(event.messageTypes);
         if(event.filterBy === 'lokalizacja'){
             this.getMessagesByDistance(this.pageNumber);
         } else if(event.filterBy === 'data dodania'){
             this.getMessagesByCreateDate(this.pageNumber);
-        }
+        }*/
 
     }
 
-    getRange(lat: number, longat: number, range: number): void{
-        this.messageService.getRange(lat, longat, this.pageNumber, range).subscribe(result => {
+    getRange(range: number): void{
+        this.messageService.getRange(this.latitude, this.longitude, this.pageNumber, range).subscribe(result => {
             console.log('range: ');
             console.dir(result);
         });
+    }
+
+    getSearchMessages(searchTerm: string) {
+        this.messageService.searchMessages(searchTerm, this.pageNumber, this.latitude, this.longitude).subscribe(result => {
+            this.messageList = result;
+            console.log('search ML: ');
+            console.dir(this.messageList);
+        })
     }
 
 }

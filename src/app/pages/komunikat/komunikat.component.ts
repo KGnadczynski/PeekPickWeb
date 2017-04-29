@@ -7,7 +7,7 @@ import {overlayConfigFactory } from 'angular2-modal';
 import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
 import {ObjectList} from "./komunikat"
-
+import { ActivatedRoute } from '@angular/router';
 import { MessagesComponent } from '../messages/messages.component';
 
 
@@ -21,13 +21,15 @@ import { MessagesComponent } from '../messages/messages.component';
 export class KomunikatComponent implements OnInit {
 
   logged = false;
+  searchTerm: string;
 
-  @ViewChild('messagesChild') messageChild: MessagesComponent;
+  @ViewChild('msgs') messageChild: MessagesComponent;
 
   constructor(
     private _komunikatyService: KomunikatService, 
     private modal: Modal,
     private communicationservice: CommunicationService,
+    private route: ActivatedRoute
   ){}
 
   ngOnInit() {
@@ -37,6 +39,16 @@ export class KomunikatComponent implements OnInit {
           var token = currentUser.token
           this.logged = true;
         }
+/*
+        this.route.queryParams.subscribe(params => {
+            this.searchTerm = params["searchTerm"];
+
+            if(this.searchTerm !== undefined){
+              console.log('tteraz powinno wyszukane dać');
+              this.messageChild.getSearchMessages(this.searchTerm);
+            }
+            
+        });*/
 
         /*this.communicationservice.dodanieKomunkatuSubject$.subscribe(messageId=> {
             this.pageNumber = 1;

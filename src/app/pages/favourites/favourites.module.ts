@@ -1,7 +1,7 @@
 import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { routing } from './favourites.routes';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FavouritesComponent } from './favourites.component';
 import { MessagesModule } from '../messages/messages.module';
 
@@ -9,7 +9,9 @@ import { MessagesModule } from '../messages/messages.module';
     imports: [
         CommonModule,
         routing,
-        MessagesModule
+        MessagesModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [ FavouritesComponent ]
 })
