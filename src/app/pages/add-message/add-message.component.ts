@@ -9,6 +9,7 @@ import { MessageType } from '../../enums/message-type.enum';
 import { MessageAddModel } from './add-message-model';
 import { NgUploaderOptions } from 'ngx-uploader';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
+import { MapsAPILoader } from 'angular2-google-maps/core'
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -48,12 +49,15 @@ export class AddMessageComponent implements OnInit {
     zoom: number = 6;   
     lat: number;
     lng: number;
+    localization: string ="Hello";
+    geocoder:any;
 
 
     mapClicked($event: any) {
       console.log('Map clicked');
       this.lat =  $event.coords.lat;
       this.lng = $event.coords.lng;
+      this.changeAddress();
     }
 
     pickerOptions: Object = {
@@ -109,8 +113,16 @@ export class AddMessageComponent implements OnInit {
         private route: ActivatedRoute,
         private addMessageService: AddMessageService,
         private _location: Location,
-        private communicationservice: CommunicationService
-    ){}
+        private communicationservice: CommunicationService,
+        private mapsApiLoader: MapsAPILoader
+    ){
+       this.mapsApiLoader.load().then(() => {
+      console.log('google script loaded');
+      this.geocoder = new google.maps.Geocoder();
+      console.log(this.geocoder);
+    });
+       
+    }
 
     ngOnInit(): void{  
         this.lat = JSON.parse(localStorage.getItem('latitude')).latitude;
@@ -156,10 +168,23 @@ export class AddMessageComponent implements OnInit {
         if(this.triggerResize){
             setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
                 console.log('triggerResize');  
-             }),300);
+                 this.changeAddress();
+            }),300);
             this.triggerResize = false;
         }             
         
+     }
+     public changeAddress():void {
+             var latlng = {lat: this.lat, lng:this.lng};
+                this.geocoder.geocode( { 'location': latlng}, function(results, status) {
+                // and this is function which processes response
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        console.log('geocoder inside: '+results[1]);  
+                        this.localization=results[1].formatted_address;
+                    } else {
+                        console.log("Geocode was not successful for the following reason: " + status);
+                    }
+                });
      }
 
     public showChildModal(): void {
@@ -236,6 +261,8 @@ export class AddMessageComponent implements OnInit {
       error => {
       });
     }
+
+
 
 
     
