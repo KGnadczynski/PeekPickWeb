@@ -112,9 +112,6 @@ export class AddMessageComponent implements OnInit {
     ){}
 
     ngOnInit(): void{  
-         this.sebmGoogleMap.triggerResize().then(res => { 
-            console.log('triggerResize : ' + this.lat);    
-         });
         this.lat = JSON.parse(localStorage.getItem('latitude')).latitude;
         this.lng = JSON.parse(localStorage.getItem('longitude')).longitude;
         console.log('latitude : ' + this.lat);
@@ -151,10 +148,14 @@ export class AddMessageComponent implements OnInit {
     }
 
     ngAfterViewInit(): void {
-        this.showChildModal();
-        
-        
+        this.showChildModal();    
     }
+
+    ngAfterContentChecked(){
+        this.sebmGoogleMap.triggerResize().then(res => { 
+            console.log('triggerResize : ');    
+         });
+     }
 
     public showChildModal(): void {
       this.childModal.show();
