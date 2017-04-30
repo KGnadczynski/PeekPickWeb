@@ -8,6 +8,7 @@ import { ModalDirective } from 'ng2-bootstrap';
 import { MessageType } from '../../enums/message-type.enum';
 import { MessageAddModel } from './add-message-model';
 import { NgUploaderOptions } from 'ngx-uploader';
+import { SebmGoogleMap } from 'angular2-google-maps/core';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -36,6 +37,7 @@ export class AddMessageComponent implements OnInit {
     public profile:any = {
         picture: 'assets/img/theme/no-photo.png'
     };
+     @ViewChild(SebmGoogleMap) sebmGoogleMap: SebmGoogleMap;
     public uploaderOptions:NgUploaderOptions = {
         // url: 'http://website.com/upload'
         url: '',
@@ -43,18 +45,12 @@ export class AddMessageComponent implements OnInit {
 
     
     zoom: number = 8;   
-    lat:number = JSON.parse(localStorage.getItem('latitude')).latitude;
-    lng:number = JSON.parse(localStorage.getItem('longitude')).longitude;
+    lat: number;
+    lng: number;
 
-    //   var latitudeObject = JSON.parse(localStorage.getItem('latitude')).latitude;
-      //  var longitudeObject = JSON.parse(localStorage.getItem('longitude')).longitude;
-        //this.lat = latitudeObject;
-       // this.lng = longitudeObject;
-       /// console.log('latitude : ' + this.lat);
-       // console.log('latitude : ' + this.lng);
 
     mapClicked($event: any) {
-       console.log('Map clicked');
+      console.log('Map clicked');
       this.lat =  $event.coords.lat;
       this.lng = $event.coords.lng;
     }
@@ -107,6 +103,7 @@ export class AddMessageComponent implements OnInit {
 
     @ViewChild('childModal') public childModal: ModalDirective;
 
+
     constructor(
         private route: ActivatedRoute,
         private addMessageService: AddMessageService,
@@ -114,9 +111,14 @@ export class AddMessageComponent implements OnInit {
         private communicationservice: CommunicationService
     ){}
 
-    ngOnInit(): void{
-      console.log('latitude : ' + this.lat);
-      console.log('latitude : ' + this.lng);
+    ngOnInit(): void{  
+         this.sebmGoogleMap.triggerResize().then(res => { 
+            console.log('triggerResize : ' + this.lat);    
+         });
+        this.lat = JSON.parse(localStorage.getItem('latitude')).latitude;
+        this.lng = JSON.parse(localStorage.getItem('longitude')).longitude;
+        console.log('latitude : ' + this.lat);
+        console.log('latitude : ' + this.lng);
         for(let i = this.messageTypes.length-1; i >= 0; i--)
             if(i%2 !== 0)
                 this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
@@ -150,6 +152,8 @@ export class AddMessageComponent implements OnInit {
 
     ngAfterViewInit(): void {
         this.showChildModal();
+        
+        
     }
 
     public showChildModal(): void {
@@ -174,6 +178,7 @@ export class AddMessageComponent implements OnInit {
     }
 
     addMessage(): void{
+
         this.messageAddModel = new MessageAddModel();
         //content
         this.messageAddModel.content = this.msgAddModel.content;
@@ -220,6 +225,7 @@ export class AddMessageComponent implements OnInit {
       error => {
       });
     }
+
 
     
 
