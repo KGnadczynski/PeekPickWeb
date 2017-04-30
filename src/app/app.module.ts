@@ -9,6 +9,7 @@ import {CommunicationService} from './pages/komunikat/communicationservice.compo
 /*
  * Platform and Environment providers/directives/pipes
  */
+import { AgmCoreModule } from 'angular2-google-maps/core';
 import { ENV_PROVIDERS } from './environment';
 import { routing } from './app.routing';
 
@@ -45,6 +46,10 @@ export type StoreType = {
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+         apiKey: 'AIzaSyAd-dXobrRyvVELcejXArzNvt694Y1r9Ho',
+        libraries: ["places"]
+    }),
     NgaModule.forRoot(),
     PagesModule,
     routing

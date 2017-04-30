@@ -16,10 +16,7 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
         ReactiveFormsModule,
         CollapseModule,
         NouisliderModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAd-dXobrRyvVELcejXArzNvt694Y1r9Ho',
-            libraries: ["places"]
-        })
+        AgmCoreModule
     ],
     declarations: [
         FiltersComponent,

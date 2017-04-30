@@ -8,7 +8,6 @@ import { ModalDirective } from 'ng2-bootstrap';
 import { MessageType } from '../../enums/message-type.enum';
 import { MessageAddModel } from './add-message-model';
 import { NgUploaderOptions } from 'ngx-uploader';
-import { AgmCoreModule } from 'angular2-google-maps/core';
 
 let moment = require('../../../../node_modules/moment/moment');
 
