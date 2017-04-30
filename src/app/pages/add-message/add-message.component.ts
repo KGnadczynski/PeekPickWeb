@@ -31,6 +31,7 @@ export class AddMessageComponent implements OnInit {
     addedMessage: any;
     image:File;
     isCollapsed:boolean = false;
+    triggerResize:boolean = true;
     id: number;
     paramValue: any;
     public defaultPicture = 'assets/img/theme/no-photo.png';
@@ -44,7 +45,7 @@ export class AddMessageComponent implements OnInit {
     };
 
     
-    zoom: number = 8;   
+    zoom: number = 6;   
     lat: number;
     lng: number;
 
@@ -151,10 +152,14 @@ export class AddMessageComponent implements OnInit {
         this.showChildModal();    
     }
 
-    ngAfterContentChecked(){
-        this.sebmGoogleMap.triggerResize().then(res => { 
-            console.log('triggerResize : ');    
-         });
+    ngAfterViewChecked(){
+        if(this.triggerResize){
+            setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
+                console.log('triggerResize');  
+             }),300);
+            this.triggerResize = false;
+        }             
+        
      }
 
     public showChildModal(): void {
@@ -162,6 +167,7 @@ export class AddMessageComponent implements OnInit {
     }
 
     public hideChildModal(): void {
+     
       this.childModal.hide();
       this._location.back();
     }
@@ -177,6 +183,10 @@ export class AddMessageComponent implements OnInit {
     public expanded(event:any):void {
         console.log(event);
     }
+
+     ngOnDestroy() { 
+         this.triggerResize = true;   
+        }
 
     addMessage(): void{
 
