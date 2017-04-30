@@ -39,12 +39,12 @@
             </div>
             
             <div id="addLocalization">
-              <p>dodaj lokalizację: </p>
+              <p>Zmień lokalizacje</p>
               <div id="mapa">
                     <sebm-google-map [latitude]="lat" [longitude]="lng"
                     (mapClick)="mapClicked($event)" [zoom]="zoom"
                     [disableDefaultUI]="false"
-                     [zoomControl]="false">
+                     [zoomControl]="true">
                       <sebm-google-map-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true"></sebm-google-map-marker>
                       <sebm-google-map-info-window>
                            <strong>InfoWindow content</strong>
