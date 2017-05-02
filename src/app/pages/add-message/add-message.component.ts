@@ -108,11 +108,11 @@ export class AddMessageComponent implements OnInit {
     };
 
     selectStartDate(message) {
-        this.msgAddModel.startDate = moment().utc(new Date(message.end._d)).format("YYYY-MM-DD'T'HH:mm:ss\\Z");
+        this.msgAddModel.startDate = moment().utc(new Date(message.end._d)).format("YYYY-MM-DDTHH:mm:ssZZ");
     }
 
     selectEndDate(message) {
-        this.msgAddModel.endDate = moment().utc(new Date(message.end._d)).format("YYYY-MM-DD'T'HH:mm:ss\\Z");
+        this.msgAddModel.endDate = moment().utc(new Date(message.end._d)).format("YYYY-MM-DDTHH:mm:ssZZ");
     }
 
     @ViewChild('childModal') public childModal: ModalDirective;
@@ -265,7 +265,7 @@ export class AddMessageComponent implements OnInit {
         this.messageAddModel.location.streetNo = this.messageAddModel.companyBranchList[0].streetNo;
         this.messageAddModel.location.address = this.messageAddModel.companyBranchList[0].city;
 
-        console.dir(this.msgAddModel);
+        console.log(this.msgAddModel);
 
         this.addMessageService.addMessage(this.messageAddModel).subscribe(
       data => {
