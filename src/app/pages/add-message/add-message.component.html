@@ -22,12 +22,12 @@
             <!--data picker-->
             <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
             <p>od: </p>
-            <input daterangepicker (selected)="selectStartDate($event)" [options]="pickerOptions" type="submit"/>
+            <input daterangepicker (selected)="selectStartDate($event)" [options]="pickerOptionsStart" type="submit"/>
             <div class="blackline"></div>
             <p>do: (jeśli nie chcesz daty zakończenia to zaznacz checkbox) </p>
             <input type="checkbox" (change)="addprop()">
             <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
-              <input daterangepicker (selected)="selectEndDate($event)" [options]="pickerOptions" type="submit" />
+              <input daterangepicker (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" />
             </div>
             
             <div class="blackline"></div>

@@ -71,7 +71,45 @@ export class AddMessageComponent implements OnInit {
       this.changeAddress(this.callback);
     }
 
-    pickerOptions: Object = {
+    pickerOptionsStart: Object = {
+        'showDropdowns': true,
+        'showWeekNumbers': true,
+        "timePicker": true,
+        'timePickerIncrement': 5,
+        "timePicker24Hour": true,
+        'autoApply': true,
+        "locale": {
+            format: 'MM/DD/YYYY H:mm',
+            "applyLabel": "Wybierz",
+            "cancelLabel": "Anuluj",
+             "daysOfWeek": [
+                    "Ndz",
+                    "Pon",
+                    "Wt",
+                    "Śr",
+                    "Czw",
+                    "Pi",
+                    "Sob"
+                ],
+                "monthNames": [
+                    "Styczeń",
+                    "Luty",
+                    "Marzec",
+                    "Kwiecień",
+                    "Maj",
+                    "Czerwiec",
+                    "Lipiec",
+                    "Sierpień",
+                    "Wrzesień",
+                    "Październik",
+                    "Listopad",
+                    "Grudzień"
+                ],
+        },
+        "singleDatePicker": true
+    };
+
+    pickerOptionsEnd: Object = {
         'showDropdowns': true,
         'showWeekNumbers': true,
         "timePicker": true,
@@ -112,6 +150,7 @@ export class AddMessageComponent implements OnInit {
     selectStartDate(message) {
         this.msgAddModel.startDate = moment(new Date(message.start._d)).format("YYYY-MM-DDTHH:mm:ssZZ");
         console.log('Start date '+message.start._d);
+        this.pickerOptionsEnd['minDate'] = '04/01/2017';
     }
 
     selectEndDate(message) {
@@ -146,6 +185,7 @@ export class AddMessageComponent implements OnInit {
         this.lng = JSON.parse(localStorage.getItem('longitude')).longitude;
         console.log('latitude : ' + this.lat);
         console.log('latitude : ' + this.lng);
+         this.pickerOptionsEnd['minDate'] = '05/01/2017';
         for(let i = this.messageTypes.length-1; i >= 0; i--)
             if(i%2 !== 0)
                 this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
