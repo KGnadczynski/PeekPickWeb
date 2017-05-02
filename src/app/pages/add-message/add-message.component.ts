@@ -51,8 +51,10 @@ export class AddMessageComponent implements OnInit {
     lng: number;
     localization:any;
     geocoder:any;
+    locationChanged:boolean =false;
     callback = (address: string) : void => {
          this.localization = address;
+         this.locationChanged = true;
     }
 
 
@@ -108,11 +110,17 @@ export class AddMessageComponent implements OnInit {
     };
 
     selectStartDate(message) {
-        this.msgAddModel.startDate = moment().utc(new Date(message.end._d)).format("YYYY-MM-DDTHH:mm:ssZZ");
+        this.msgAddModel.startDate = moment(new Date(message.start._d)).format("YYYY-MM-DDTHH:mm:ssZZ");
+        console.log('Start date '+message.start._d);
     }
 
     selectEndDate(message) {
-        this.msgAddModel.endDate = moment().utc(new Date(message.end._d)).format("YYYY-MM-DDTHH:mm:ssZZ");
+
+        this.msgAddModel.endDate = moment(new Date(message.end._d)).format("YYYY-MM-DDTHH:mm:ssZZ");
+    }
+
+    public calendarEventsHandler(e:any) {
+        console.log(e);
     }
 
     @ViewChild('childModal') public childModal: ModalDirective;
@@ -185,11 +193,12 @@ export class AddMessageComponent implements OnInit {
      }
      public changeAddress(callback: Function):void {
          var address="";
+
              var latlng = {lat: this.lat, lng:this.lng};
                 this.geocoder.geocode( { 'location': latlng}, function(results, status) {
                 // and this is function which processes response
                     if (status == google.maps.GeocoderStatus.OK) {
-                        console.log('geocoder inside: '+results[0].formatted_address);  
+                        console.log('geocoder inside: '+results[1].formatted_address);  
                         address=results[0].formatted_address;
                     } else {
                         console.log("Geocode was not successful for the following reason: " + status);
@@ -257,14 +266,20 @@ export class AddMessageComponent implements OnInit {
         this.messageAddModel.companyBranchCount = this.messageAddModel.companyBranchList.length;
 
         //location
-        this.messageAddModel.location.name = this.messageAddModel.companyBranchList[0].name;
-        this.messageAddModel.location.city = this.messageAddModel.companyBranchList[0].city;
-        this.messageAddModel.location.latitude = this.messageAddModel.companyBranchList[0].latitude;
-        this.messageAddModel.location.longitude = this.messageAddModel.companyBranchList[0].longitude;
-        this.messageAddModel.location.street = this.messageAddModel.companyBranchList[0].street;
-        this.messageAddModel.location.streetNo = this.messageAddModel.companyBranchList[0].streetNo;
-        this.messageAddModel.location.address = this.messageAddModel.companyBranchList[0].city;
-
+        if(this.locationChanged) {
+            this.messageAddModel.location.address=this.localization;
+            this.messageAddModel.location.latitude=this.lat;
+            this.messageAddModel.location.longitude=this.lng;
+            this.messageAddModel.location.name=this.localization;
+        } else {
+            this.messageAddModel.location.name = this.messageAddModel.companyBranchList[0].name;
+            this.messageAddModel.location.city = this.messageAddModel.companyBranchList[0].city;
+            this.messageAddModel.location.latitude = this.messageAddModel.companyBranchList[0].latitude;
+            this.messageAddModel.location.longitude = this.messageAddModel.companyBranchList[0].longitude;
+            this.messageAddModel.location.street = this.messageAddModel.companyBranchList[0].street;
+            this.messageAddModel.location.streetNo = this.messageAddModel.companyBranchList[0].streetNo;
+            this.messageAddModel.location.address = this.messageAddModel.companyBranchList[0].city;
+        }
         console.log(this.msgAddModel);
 
         this.addMessageService.addMessage(this.messageAddModel).subscribe(
