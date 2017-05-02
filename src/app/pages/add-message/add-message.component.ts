@@ -49,15 +49,24 @@ export class AddMessageComponent implements OnInit {
     zoom: number = 6;   
     lat: number;
     lng: number;
-    localization: string ="Hello";
+    localization:any;
     geocoder:any;
+    callback = (address: string) : void => {
+         this.localization = address;
+    }
 
 
     mapClicked($event: any) {
       console.log('Map clicked');
       this.lat =  $event.coords.lat;
       this.lng = $event.coords.lng;
-      this.changeAddress();
+      this.changeAddress(this.callback);
+    }
+    markerDragEnd($event: any) {
+      console.log('Map Dragged end');
+      this.lat =  $event.coords.lat;
+      this.lng = $event.coords.lng;
+      this.changeAddress(this.callback);
     }
 
     pickerOptions: Object = {
@@ -168,24 +177,29 @@ export class AddMessageComponent implements OnInit {
         if(this.triggerResize){
             setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
                 console.log('triggerResize');  
-                 this.changeAddress();
+                 this.changeAddress(this.callback);
             }),300);
             this.triggerResize = false;
         }             
         
      }
-     public changeAddress():void {
+     public changeAddress(callback: Function):void {
+         var address="";
              var latlng = {lat: this.lat, lng:this.lng};
                 this.geocoder.geocode( { 'location': latlng}, function(results, status) {
                 // and this is function which processes response
                     if (status == google.maps.GeocoderStatus.OK) {
-                        console.log('geocoder inside: '+results[1]);  
-                        this.localization=results[1].formatted_address;
+                        console.log('geocoder inside: '+results[0].formatted_address);  
+                        address=results[0].formatted_address;
                     } else {
                         console.log("Geocode was not successful for the following reason: " + status);
                     }
-                });
+                    callback(address);  
+                }); 
      }
+
+
+   
 
     public showChildModal(): void {
       this.childModal.show();

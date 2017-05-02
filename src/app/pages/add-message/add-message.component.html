@@ -45,7 +45,7 @@
                     (mapClick)="mapClicked($event)" [zoom]="zoom"
                     [disableDefaultUI]="false"
                      [zoomControl]="true">
-                      <sebm-google-map-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true"></sebm-google-map-marker>
+                      <sebm-google-map-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></sebm-google-map-marker>
                       <sebm-google-map-info-window>
                            <strong>InfoWindow content</strong>
                        </sebm-google-map-info-window>
