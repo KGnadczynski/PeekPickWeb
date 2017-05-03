@@ -219,7 +219,7 @@ export class AddMessageComponent implements OnInit {
                         this.lat =  this.messageEdit.location.latitude;
                         this.lng = this.messageEdit.location.longitude;
                         this.messageTypeName = this.messageEdit.type;
-                        
+                        this.profile.picture = this.messageEdit.mainImageUrl;
                         this.changeAddress(this.callbackEdit);
                      });
                     break;
