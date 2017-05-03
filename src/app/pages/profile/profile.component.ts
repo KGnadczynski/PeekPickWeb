@@ -25,6 +25,10 @@ export class ProfileComponent implements OnInit {
   companyForm: FormGroup;
   additionalForm: FormGroup;
   messageAfter: boolean = false;
+  public defaultPicture = 'assets/img/theme/add-icon.png';
+  public profile:any = {
+        picture: 'assets/img/theme/add-icon.png'
+ };
 
   constructor(
     private profileService: ProfileService, 
