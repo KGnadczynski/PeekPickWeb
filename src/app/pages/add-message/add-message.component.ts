@@ -10,6 +10,7 @@ import { MessageAddModel } from './add-message-model';
 import { NgUploaderOptions } from 'ngx-uploader';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
 import { MapsAPILoader } from 'angular2-google-maps/core'
+import {ImageModel} from "./imagemodel";
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -149,21 +150,15 @@ export class AddMessageComponent implements OnInit {
 
     selectStartDate(message) {
         this.msgAddModel.startDate = moment(new Date(message.start._d)).format("YYYY-MM-DDTHH:mm:ssZZ");
-        console.log('Start date '+message.start._d);
         this.pickerOptionsEnd['minDate'] = '04/01/2017';
     }
 
     selectEndDate(message) {
-
         this.msgAddModel.endDate = moment(new Date(message.end._d)).format("YYYY-MM-DDTHH:mm:ssZZ");
     }
 
-    public calendarEventsHandler(e:any) {
-        console.log(e);
-    }
-
     @ViewChild('childModal') public childModal: ModalDirective;
-
+    @ViewChild('fileUpload') public fileUpload:any;
 
     constructor(
         private route: ActivatedRoute,
@@ -325,7 +320,10 @@ export class AddMessageComponent implements OnInit {
         this.addMessageService.addMessage(this.messageAddModel).subscribe(
       data => {
         this.addedMessage = data;
-        this.communicationservice.dodanoKomunikat(this.addedMessage.id,this.image);
+        if(this.fileUpload.file != null) {
+            console.log('inside '+this.fileUpload.file); 
+            this.addMessageService.addMessageImage(new ImageModel(this.addedMessage.id,this.fileUpload.file))
+        }
       },
       error => {
       });

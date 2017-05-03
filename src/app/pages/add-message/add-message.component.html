@@ -34,7 +34,7 @@
 
             <div id="addPhoto">
                <ba-card title="Dodaj zdjęcie" baCardClass="with-scroll" aria-hidden="true">
-                  <ba-picture-uploader [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
+                  <ba-picture-uploader #fileUpload  (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
               </ba-card>
             </div>
             
