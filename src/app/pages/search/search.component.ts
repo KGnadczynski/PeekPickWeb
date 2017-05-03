@@ -6,7 +6,7 @@ import { FormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { SearchService } from './search.service';
 
-import { MessageType } from '../../enums/message-type.enum';
+import { MessageType } from '../../globals/enums/message-type.enum';
 
 @Component({
     selector: 'search',

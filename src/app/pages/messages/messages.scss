@@ -130,6 +130,10 @@ div.messages{
             width: 100%;
             img{
                 width: 100%;
+                @media(max-width: 575px){
+                    width: 300px;
+                    height: 300px;
+                }
             }
         }
         div.message-icons{
@@ -204,27 +208,27 @@ div.blackline{
 }
 
 @media(max-width: 575px){
-    // div.start-date{
-    //     color: red;
-    // }
+    div.start-date{
+        color: red;
+    }
 }
 @media (min-width: 576px) {
-    // div.start-date{
-    //     color: orange;
-    // }
+    div.start-date{
+        color: orange;
+    }
 }
 @media (min-width: 768px) {
-    // div.start-date{
-    //     color: yellow;
-    // }
+    div.start-date{
+        color: yellow;
+    }
 }
 @media (min-width: 992px) {
-    // div.start-date{
-    //     color: blue;
-    // }
+    div.start-date{
+        color: blue;
+    }
 }
 @media (min-width: 1200px) {
-    // div.start-date{
-    //     color: green;
-    // }
+    div.start-date{
+        color: green;
+    }
 }

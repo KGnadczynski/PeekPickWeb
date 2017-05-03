@@ -6,23 +6,22 @@ import { Observable } from 'rxjs/Rx';
 import {KomunikatyList} from "./komunikatlist.model";
 import {KomunikatDodanie} from "./komunikatdodanie";
 import {ImageModel} from "./imagemodel";
-
+import { url } from '../../globals/url';
 import { ObjectList } from './komunikat';
 
 @Injectable()
 export class KomunikatService {
-  private _Url:string = "https://damp-temple-52216.herokuapp.com/";
   constructor(private _http: Http){ }
 
   getKomunikaty(page :any,params = []) : Observable<KomunikatyList> {
     if(params.length != 0){
       let params2 = new URLSearchParams();
       params2.append('messageTypeList',params.join(";"));
-      return  this._http.get(this._Url+'messages/page/'+page,{ search: params2 })
+      return  this._http.get(url+'/messages/page/'+page,{ search: params2 })
         .map(this.mapKomunikaty)
         .catch(this.handleError);
     } else {
-      return  this._http.get(this._Url+'messages/page/'+page)
+      return  this._http.get(url+'/messages/page/'+page)
         .map(this.mapKomunikaty)
         .catch(this.handleError);
     }
@@ -32,11 +31,11 @@ export class KomunikatService {
     if(param.length != 0){
       let params2 = new URLSearchParams();
       params2.append('searchTerm',param);
-      return  this._http.get(this._Url+'messages/page/'+page,{ search: params2 })
+      return  this._http.get(url+'/messages/page/'+page,{ search: params2 })
         .map(this.mapKomunikaty)
         .catch(this.handleError);
     } else {
-      return  this._http.get(this._Url+'messages/page/'+page)
+      return  this._http.get(url+'messages/page/'+page)
         .map(this.mapKomunikaty)
         .catch(this.handleError);
     }
@@ -65,7 +64,7 @@ export class KomunikatService {
     headers.append('Authorization', autorizationHeader);
     headers.append('Content-Type', 'application/json');
 
-    return this._http.post(this._Url+"messages", JSON.stringify(komunikat),{ headers: headers })
+    return this._http.post(url+"/messages", JSON.stringify(komunikat),{ headers: headers })
       .map(res => res.json())
       .catch(this.handleError);
   }
@@ -93,7 +92,7 @@ export class KomunikatService {
         }
       };
 
-      xhr.open('POST', this._Url+"messageimages/messageId/"+imageModel.messageId, true);
+      xhr.open('POST', url+"/messageimages/messageId/"+imageModel.messageId, true);
       xhr.setRequestHeader('Authorization', autorizationHeader);
       xhr.send(formData);
     }));
@@ -108,12 +107,11 @@ export class KomunikatService {
 
   //funkcja zwracajaca komunikat o podanym id
   getKomunikat(id: number): Observable<ObjectList>{
-    let url = `https://damp-temple-52216.herokuapp.com/messages/${id}`;
-    return this._http.get(url).map(this.extractData);
+    return this._http.get(`${url}/messages/${id}`).map(this.extractData);
   }
 
   // getKomunikatDistance(page: number, latitude: number, longtitude: number, id: number){
-  //   let url = `https://damp-temple-52216.herokuapp.com/messages/page/${page}?latitude=${latitude}&longitude=${longtitude}`;
+  //   let url = `${url}/messages/page/${page}?latitude=${latitude}&longitude=${longtitude}`;
   //   return this._http.get(url).map(this.extractData);
   // }
 

@@ -3,13 +3,13 @@ import {Http, Response, URLSearchParams, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
-import {UserLogin} from "./userlogin";
+import { UserLogin } from "./userlogin";
+import { url } from '../../globals/url';
 
 @Injectable()
 export class LoginService {
-  private Url:string = "https://damp-temple-52216.herokuapp.com/";
+  
   constructor(private http: Http){ }
-
 
   mapKomunikaty(res:Response) {
     let body = res.json();
@@ -27,7 +27,7 @@ export class LoginService {
     headers.append('Authorization', 'Basic Y2xpZW50YXBwOjEyMzQ1Ng==');
 
 
-    return this.http.post(this.Url+'oauth/token', user,{ headers: headers })
+    return this.http.post(url+'/oauth/token', user,{ headers: headers })
       .map(this.mapKomunikaty)
       .catch(this.handleError);
   }
@@ -43,13 +43,13 @@ export class LoginService {
     headers.append('Content-Type', 'application/json');
 
 
-    return this.http.get(this.Url+'users/business/me',{ headers: headers })
+    return this.http.get(url+'/users/business/me',{ headers: headers })
       .map(this.mapKomunikaty)
       .catch(this.handleError);
   }
 
   getInfoForCompanyFromUser(id:number) {
-    return this.http.get(this.Url+'companybranches/companyId/'+id)
+    return this.http.get(url+'/companybranches/companyId/'+id)
       .map(this.mapKomunikaty)
       .catch(this.handleError);
   }

@@ -21,8 +21,7 @@ export class FavouritesComponent implements OnInit{
         });
 
         this.filterForm.valueChanges.subscribe(data => {
-            //console.log('changes: ');
-            //console.dir(data);
+
             let sortBy:string = "";
 
             switch (sortBy) {

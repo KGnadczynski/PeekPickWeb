@@ -3,7 +3,7 @@ import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {GlobalState} from '../../../global.state';
 import {CommunicationService} from '../../../pages/komunikat/communicationservice.component';
 
-import { MessageType } from '../../../enums/message-type.enum';
+import { MessageType } from '../../../globals/enums/message-type.enum';
 
 @Component({
   selector: 'ba-page-top',

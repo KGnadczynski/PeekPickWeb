@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild, Output, EventEmitter, NgZone } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { MessageType } from '../../enums/message-type.enum';
+import { MessageType } from '../../globals/enums/message-type.enum';
 import { FiltersService } from './filters.service';
 import { MapsAPILoader } from 'angular2-google-maps/core';
 

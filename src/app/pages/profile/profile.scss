@@ -2,7 +2,7 @@
 //@import '../../theme/sass/auth';
 
 div#profile{
-
+    margin: auto;
     img#companyImg{
         width: 200px;
         height: 200px;
@@ -11,11 +11,16 @@ div#profile{
         border-radius: 1000px;
     }
     h2{
-        margin: 6% 0;
+        
         text-align: center;
     }
 
     div#daneFirmy{
+        h3{
+            text-align: center;
+            margin: 3% 0;
+            font-size: 17px;
+        }
         form#changeEP{
             input{
                 display: block;
@@ -35,22 +40,14 @@ div#profile{
         }
     }
     div#editProfile{
-        
-        button{
-            clear: both;
-            display: block;
-            margin: auto;
-            background: white;
-            border: 1px solid gray;
-            padding: 2%;
-            color: gray;
-        }
-        input{
-            width: 100%;
+        margin: auto;
+        h3{
+            text-align: center;
+            margin: 3% 0;
         }
         form#changeCI{
-            overflow: hidden;
             div.image-upload{
+                width: 40%;
                 border: 1px solid gray;
                 border-radius: 1px;
                 float: left;
@@ -64,8 +61,7 @@ div#profile{
                 }
             }
             div#name{
-                margin: 1% 0;
-                
+                margin: 0;
                 float: right;
             }
             div#address{
@@ -73,6 +69,7 @@ div#profile{
                 float: left;
                 margin: 4% 0;
                 overflow: hidden;
+                width: 100%;
                 input{
                     width: 100%;
                 }
@@ -86,11 +83,35 @@ div#profile{
                     float: left;
                 }
             }
+            
+
+            button{
+                clear: both;
+                display: block;
+                margin: auto;
+                background: white;
+                border: 1px solid gray;
+                padding: 1%;
+                color: gray;
+            }
+        }
+        
+    }
+    div#messages{
+        i.material-icons{
+            margin-left: 40%;
+        }
+    }
+    div#additionalInfo{
+        width: 70%;
+        margin: auto;
+        padding: 2% 0;
+        form{
             div#contact{
                 clear: both;
                 float: left;
                 margin: 1% 0 2% 0;
-                
+                width: 100%;
                 div#www, div#telephone, div#email{
                     width: 50%;
                     float: left;
@@ -122,36 +143,55 @@ div#profile{
                     }
                 }
             }
-            
-            
+            button{
+                clear: both;
+                display: block;
+                margin: auto;
+                background: white;
+                border: 1px solid gray;
+                padding: 1%;
+                color: gray;
+            }
         }
-        
     }
-    div#messages{
-        i.material-icons{
-            margin-left: 40%;
+    md-tab-group{
+        div.md-tab-header{
+            justify-content: space-around;
+            border: none !important;
+        }
+        div.md-tab-label{
+            background: white;
+            border: 2px solid black;
+            opacity: 1 !important;
+            padding: 0 !important;
+            &:focus{
+                border: none !important;
+            }
+            &.md-tab-active{
+                opacity: 1 !important;
+            }
+        }
+        md-ink-bar{
+            color: white !important;
+            background-color:black !important;
         }
     }
 }
 
-div#profile{
-    margin: auto;
-    color: gray;
-    div.blackline{
-        height: 2px;
-        background: black;
-        margin: 2% 0;
-        float: left;
-        width: 100%;
-    }
-    
-    div#messages{
-        
-    }
-    h3{
-        font-size: 16px;
-        text-align: center;
-    }
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid gray;
+  -webkit-text-fill-color: gray;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 @media(max-width: 575px){
@@ -167,11 +207,26 @@ div#profile{
                  width: 50%;
                  padding-left: 2%;
                  margin: 0;
-                 
              }
         }
         div#messages{
             width: 100%;
+        }
+    }
+    md-tab-group{
+        div.md-tab-header{
+            margin-bottom: 10%;
+        }
+        div.md-tab-label{
+            border: 2px solid black;
+            min-width: 30px !important;
+            height: 30px !important;
+            &:focus{
+                background-color: black !important;
+            }
+            &.md-tab-active{
+                background: black;
+            }
         }
     }
 }
@@ -197,7 +252,7 @@ div#profile{
 }
 @media (min-width: 768px) {
     div#profile{
-        display: flex;
+        
         width: 80%;
         padding-top: 3%;
         div#editProfile{
@@ -225,8 +280,24 @@ div#profile{
 }
 @media (min-width: 1200px) {
     div#profile{
+        h2{
+            margin: 3% 0;
+        }
+        div#daneFirmy{
+            form#changeEP{
+                input[type=text], input[type=password]{
+                    padding: 1%;
+                    margin-bottom: 1%;
+                    width: 60%;
+                }
+                button{
+                    width: 20%;
+                    padding: 1%;
+                }
+            }
+        }
         div#editProfile{
-            width: 30%;
+            width: 70%;
             form#changeCI{
                 margin-bottom: 3%;
                 div.image-upload{
@@ -263,55 +334,3 @@ div#profile{
         }
     }       
 }
-
-
-
-
-@media(max-width: 575px){
-    md-tab-group{
-        div.md-tab-header{
-            justify-content: space-around;
-            border: none !important;
-            margin-bottom: 10%;
-        }
-        div.md-tab-label{
-            background: white;
-            border: 2px solid black;
-            min-width: 30px !important;
-            height: 30px !important;
-            opacity: 1 !important;
-            padding: 0 !important;
-            &:focus{
-                background-color: black !important;
-                border: none !important;
-            }
-            &.md-tab-active{
-                background: black;
-                opacity: 1 !important;
-            }
-        }
-        md-ink-bar{
-            color: white !important;
-            background-color:black !important;
-        }
-    }
-}
-@media (min-width: 576px) {
-    
-}
-@media (min-width: 768px) {
-    
-}
-@media (min-width: 992px) {
-    
-}
-@media (min-width: 1200px) {
-    
-}
-
-/*@media(max-width: 543px){
-    
-    
-    
-    
-}*/

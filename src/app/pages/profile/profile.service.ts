@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
-
+import { url } from '../../globals/url';
 import { ResourceAction, ResourceMethod, ResourceParams } from 'ng2-resource-rest';
-
 import { ObjectList } from './user';
 
 @Injectable()
@@ -13,7 +12,6 @@ export class ProfileService{
 
     public token: any;
     userID: number;
-
     constructor(private http: Http){}
 
     getUser(){
@@ -25,14 +23,17 @@ export class ProfileService{
             );
             let options = new RequestOptions({ headers: headers });
 
-            return this.http.get('https://damp-temple-52216.herokuapp.com/users/business/me', options)
+            return this.http.get(`${url}/users/business/me`, options)
             .map((response: Response) => response.json());
         }
     }
 
+    getCompany(id: number): Observable<any>{
+        return this.http.get(`${url}/companybranches/companyId/${id}/main`).map((response: Response) => response.json());
+    }
+
     getUserImages(id: number) : Observable<ObjectList>{
-        return this.http.get(`https://damp-temple-52216.herokuapp.com/companyimages/companyId/${id}`)
-        .map((res:Response) => res.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+        return this.http.get(`${url}/companyimages/companyId/${id}`).map((res:Response) => res.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
     }
 
     updateUserEmail(email: string, password: string): Observable<any>{
@@ -50,12 +51,10 @@ export class ProfileService{
 
         ];
         let options = new RequestOptions({ headers: headers, body:  body });
-        return this.http.put(`https://damp-temple-52216.herokuapp.com/users/email`, options).map((response: Response) => response.json());
+        return this.http.put(`${url}/users/email`, options).map((response: Response) => response.json());
     }
 
     updateUserPassword(password: string, newPassword: string): Observable<any>{
-        console.log('password: ' + password);
-        console.log('new password: ' + newPassword);
         var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
         this.token = currentUser.token;
         let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
@@ -67,7 +66,36 @@ export class ProfileService{
         let body = JSON.stringify(data);
 
         //let options = new RequestOptions({ headers: headers, body:  body });
-        return this.http.put(`https://damp-temple-52216.herokuapp.com/users/password`, body, {headers: headers}).map((response: Response) => response.json());
+        return this.http.put(`${url}/users/password`, body, {headers: headers}).map((response: Response) => response.json());
     }
 
+    updateCompany(data: any, id: number) : Observable<any>{
+        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        this.token = currentUser.token;
+        let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
+        let body = JSON.stringify(data);
+
+        return this.http.put(`${url}/companies/${id}`, body, {headers: headers}).map((response:Response) => response.json());
+
+    }
+
+    updateCompanyBranch(data: any, id: number): Observable<any>{
+        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        this.token = currentUser.token;
+        let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
+        let body = JSON.stringify(data);
+        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json());
+    }
+/*
+    updateCompany2(id: number, body :any): Observable<any>{
+        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        this.token = currentUser.token;
+        let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
+
+        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json());
+    }*/
+
+    getCompanyBranches(id: number):Observable<any>{
+        return this.http.get(`${url}/companybranches/companyId/${id}`).map((response: Response) => response.json());
+    }
 }

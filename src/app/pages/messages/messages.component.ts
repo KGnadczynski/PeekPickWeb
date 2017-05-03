@@ -93,10 +93,15 @@ export class MessagesComponent implements OnInit{
                 break;
 
             case 'favourites':    
-                let x = JSON.parse(localStorage.getItem("favs")).join(';');
-                this.busy = this.messageService.getMessagesList(x, this.latitude,this.longitude).subscribe(result => {
-                    this.messageList = result;
-                });
+                let x = JSON.parse(localStorage.getItem("favs"));
+
+                if(x.length !== 0)
+                    this.busy = this.messageService.getMessagesList(x.join(';'), this.latitude,this.longitude, this.pageNumber).subscribe(result => {
+                        this.messageList = result;
+                    });
+                else
+                    this.messageList = {messages: [], isLastPage: false};
+                
                 break;
 
             default:
@@ -123,6 +128,10 @@ export class MessagesComponent implements OnInit{
             
             localStorage.setItem("favs", JSON.stringify(storedParse));
             console.dir(localStorage);
+
+            if(this.dest === 'favourites'){
+                this.getMessages(this.pageNumber);
+            }
         }
 
     }

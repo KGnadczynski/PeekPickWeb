@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { url } from '../../globals/url';
 
 import { MessageAddModel } from './add-message-model';
 
@@ -22,7 +23,7 @@ export class AddMessageService {
         headers.append('Authorization', autorizationHeader);
         headers.append('Content-Type', 'application/json');
 
-        return this.http.post(`https://damp-temple-52216.herokuapp.com/messages`, JSON.stringify(messageModel),{ headers: headers })
+        return this.http.post(`${url}/messages`, JSON.stringify(messageModel),{ headers: headers })
         .map(res => res.json())
         .catch(this.handleError);
 

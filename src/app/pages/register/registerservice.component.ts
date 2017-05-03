@@ -5,12 +5,12 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
 import {RegisterObject} from "./user";
 import {DiggitsObject} from "./user";
+import { url } from '../../globals/url';
 
 @Injectable()
 export class RegisterService {
-  private Url:string = "https://damp-temple-52216.herokuapp.com/";
+  
   constructor(private http: Http){ }
-
 
   mapKomunikaty(res:Response) {
     let body = res.json();
@@ -30,19 +30,19 @@ export class RegisterService {
   register(registerObject: RegisterObject) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.Url+'users/business', JSON.stringify(registerObject),{ headers: headers })
+    return this.http.post(url+'/users/business', JSON.stringify(registerObject),{ headers: headers })
       .map(this.mapKomunikaty)
       .catch(this.handleError);
   }
 
   getBranze() {
-    return this.http.get(this.Url+'comapnycategories/main')
+    return this.http.get(url+'/comapnycategories/main')
       .map(this.mapKomunikaty)
       .catch(this.handleError);
   }
 
   getPodBranze(id:number) {
-    return this.http.get(this.Url+'comapnycategories/parentCategoryId/'+id)
+    return this.http.get(url+'/comapnycategories/parentCategoryId/'+id)
       .map(this.mapKomunikaty)
       .catch(this.handleError);
   }
@@ -53,7 +53,7 @@ export class RegisterService {
     headers.append('Content-Type', 'application/json');
     console.log('Hello from service'+digitsObject.url);
 
-    return this.http.post(this.Url+'users/diggits', JSON.stringify(digitsObject),{ headers: headers })
+    return this.http.post(url+'/users/diggits', JSON.stringify(digitsObject),{ headers: headers })
       .map(this.mapDigits)
       .catch(this.handleError);
   }
