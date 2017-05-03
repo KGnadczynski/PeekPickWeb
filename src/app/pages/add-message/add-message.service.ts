@@ -5,6 +5,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { url } from '../../globals/url';
 import {ImageModel} from "./imagemodel";
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> a930e9ad5a7a7eacde60f44238ec1f63f77148da
 import { MessageAddModel } from './add-message-model';
 
 @Injectable()
@@ -25,8 +30,8 @@ export class AddMessageService {
         headers.append('Authorization', autorizationHeader);
         headers.append('Content-Type', 'application/json');
 
-
         return this.http.post(`${url}/messages`, JSON.stringify(messageModel),{ headers: headers })
+
         .map(res => res.json())
         .catch(this.handleError);
 
@@ -60,7 +65,7 @@ export class AddMessageService {
         }
       };
 
-      xhr.open('POST', this.Url+"messageimages/messageId/"+imageModel.messageId, true);
+      xhr.open('POST', url+"/messageimages/messageId/"+imageModel.messageId, true);
       xhr.setRequestHeader('Authorization', autorizationHeader);
       xhr.send(formData);
     }));

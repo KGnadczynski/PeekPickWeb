@@ -219,7 +219,7 @@ export class AddMessageComponent implements OnInit {
                         this.lat =  this.messageEdit.location.latitude;
                         this.lng = this.messageEdit.location.longitude;
                         this.messageTypeName = this.messageEdit.type;
-                        
+                        this.profile.picture = this.messageEdit.mainImageUrl;
                         this.changeAddress(this.callbackEdit);
                      });
                     break;
@@ -368,7 +368,7 @@ export class AddMessageComponent implements OnInit {
             console.log('inside '+this.fileUpload.file); 
             this.addMessageService.addMessageImage(new ImageModel(this.addedMessage.id,this.fileUpload.file)).subscribe(
                 data => {
-                console.log('closing image '+this.fileUpload.file); 
+                  console.log('closing image '+this.fileUpload.file); 
                   this.hideChildModal();   
                 }
             );

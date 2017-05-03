@@ -25,7 +25,8 @@ export class MessagesService{
     }
 
     getMessagesSingle(id: number) : Observable<ObjectList>{
-        return this.http.get(url + 'messages/'+id).map(this.mapMessageSingle).catch(this.handleError);
+
+        return this.http.get(url + '/messages/'+id).map(this.mapMessageSingle).catch(this.handleError);
     }
 
     getMessagesByType(params: string, latitude: number, longitude: number): Observable<MessageList>{
