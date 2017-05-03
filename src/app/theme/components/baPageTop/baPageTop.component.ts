@@ -1,9 +1,8 @@
 import {Component, ViewEncapsulation, OnInit} from '@angular/core';
-
 import {GlobalState} from '../../../global.state';
 import {CommunicationService} from '../../../pages/komunikat/communicationservice.component';
-
 import { MessageType } from '../../../globals/enums/message-type.enum';
+import { BaPageTopService } from '../../services';
 
 @Component({
   selector: 'ba-page-top',
@@ -20,10 +19,14 @@ export class BaPageTop implements OnInit{
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
 
-  constructor(private _state:GlobalState,private communicationservice: CommunicationService) {
+  constructor(private _state:GlobalState,private communicationservice: CommunicationService,private pageTopService: BaPageTopService) {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
+    this.pageTopService.loggedChange.subscribe((value) => { 
+     this.isLogged = value; 
+    });
+
   }
 
   ngOnInit(): void {

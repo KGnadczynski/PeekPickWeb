@@ -18,6 +18,8 @@ export class CommunicationService {
   imageModel: ImageModel;
   // Service message commands
   dodanoKomunikat(messageId: number,file: File) {
+    console.log('Message id ' + messageId);
+    console.log('Message id ' + file);
     this.imageModel = new ImageModel(messageId,file);
     this.dodanieKomunkatuSubject.next(this.imageModel);
   }

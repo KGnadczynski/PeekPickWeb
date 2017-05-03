@@ -17,9 +17,7 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
         ModalModule.forRoot(),
         FormsModule,
         Daterangepicker,
-        AgmCoreModule.forRoot({
-         apiKey: 'AIzaSyAd-dXobrRyvVELcejXArzNvt694Y1r9Ho'
-        }),
+        AgmCoreModule,
         NgaModule,
         CollapseModule
     ],

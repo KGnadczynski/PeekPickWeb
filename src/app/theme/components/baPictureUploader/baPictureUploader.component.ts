@@ -18,6 +18,7 @@ export class BaPictureUploader {
   @Output() onUploadCompleted = new EventEmitter<any>();
 
   @ViewChild('fileUpload') public _fileUpload:ElementRef;
+  @Input()('file') file:File = null;
 
   public uploadInProgress:boolean;
 
@@ -26,9 +27,10 @@ export class BaPictureUploader {
 
   beforeUpload(uploadingFile): void {
     let files = this._fileUpload.nativeElement.files;
-
+    console.log('uploadingFile');
     if (files.length) {
       const file = files[0];
+      this.file = files[0];
       this._changePicture(file);
 
       if (!this._canUploadOnServer()) {

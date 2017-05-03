@@ -5,7 +5,7 @@ import {UserLogin} from "./userlogin";
 import {Router} from "@angular/router";
 import {URLSearchParams} from "@angular/http";
 import {User} from "../komunikat/komunikatdodanie";
-import { BaMenuService } from '../../theme';
+import { BaMenuService, BaPageTopService} from '../../theme';
 import { Routes } from '@angular/router';
 import { PAGES_MENU_LOGGED } from '../pageslogged.menu';
 
@@ -27,7 +27,7 @@ export class Login {
   user :any = {};
   error: any;
 
-  constructor(fb:FormBuilder, private loginService: LoginService,private _menuService: BaMenuService, private router: Router) {
+  constructor(fb:FormBuilder, private loginService: LoginService,private _menuService: BaMenuService, private router: Router,private pageTopService: BaPageTopService) {
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required])],
       'password': ['', Validators.compose([Validators.required])]
@@ -63,7 +63,8 @@ export class Login {
                       this.loginService.getInfoForCompanyFromUser(this.userFromServer.company.id).subscribe(
                            data => {
                              localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
-                             this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );   
+                             this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
+                             this.pageTopService.changedLoggedFlag();    
                              this.router.navigate(['/komunikat']);
                             },
                              error => {

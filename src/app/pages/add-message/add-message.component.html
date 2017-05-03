@@ -21,47 +21,50 @@
 
             <!--data picker-->
             <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
-            <p>od: </p>
-            <input daterangepicker (selected)="selectStartDate($event)" [options]="pickerOptions" type="submit"/>
+            <p>Od: </p>
+            <input  daterangepicker #datePickerStart [(ngModel)]="msgAddModel.startDate" (selected)="selectStartDate($event)" [options]="pickerOptionsStart" type="submit"/>
             <div class="blackline"></div>
-            <p>do: (jeśli nie chcesz daty zakończenia to zaznacz checkbox) </p>
-            <input type="checkbox" (change)="addprop()">
+            <p>Do: (jeśli nie chcesz daty zakończenia to zaznacz checkbox) </p>
+            <input type="checkbox" [checked]="withEndDate" (change)="addprop()">
             <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
-              <input daterangepicker (selected)="selectEndDate($event)" [options]="pickerOptions" type="submit" />
+              <input daterangepicker [(ngModel)]="msgAddModel.endDate" (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" />
             </div>
+
+            <p>Dodaj treść komunikatu</p>
+            <textarea rows="5" type="text" placeholder="Dodaj treść komunikatu" [(ngModel)]="msgAddModel.content"></textarea>
+            
             
             <div class="blackline"></div>
 
             <div id="addPhoto">
                <ba-card title="Dodaj zdjęcie" baCardClass="with-scroll" aria-hidden="true">
-                  <ba-picture-uploader [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
+                  <ba-picture-uploader #fileUpload  (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
               </ba-card>
             </div>
             
             <div id="addLocalization">
-              <p>dodaj lokalizację: </p>
+              <p>Zmień lokalizacje</p>
               <div id="mapa">
                     <sebm-google-map [latitude]="lat" [longitude]="lng"
                     (mapClick)="mapClicked($event)" [zoom]="zoom"
                     [disableDefaultUI]="false"
-                     [zoomControl]="false">
-                      <sebm-google-map-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true"></sebm-google-map-marker>
+                     [zoomControl]="true">
+                      <sebm-google-map-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></sebm-google-map-marker>
                       <sebm-google-map-info-window>
                            <strong>InfoWindow content</strong>
                        </sebm-google-map-info-window>
                     </sebm-google-map>
+                    <p>{{localization}}</p>
               </div>
             </div>
 
     
-            <p>Dodaj treść komunikatu</p>
-            <textarea type="text" placeholder="Dodaj treść komunikatu" [(ngModel)]="msgAddModel.content"></textarea>
             
             <!-- add image-->
 
             <!-- select type -->
             <div id="buttons">
-              <button (click)="addMessage()">Dodaj</button>
+              <button (click)="addMessage()">{{submitButton}}</button>
               <button>Anuluj</button>
             </div>
             

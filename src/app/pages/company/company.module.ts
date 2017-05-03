@@ -21,9 +21,7 @@ import { MessagesModule } from '../messages/messages.module';
     NgaModule,
     routing,
     ResourceModule.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAd-dXobrRyvVELcejXArzNvt694Y1r9Ho'
-    }),
+    AgmCoreModule,
     MessagesModule
   ],
   providers: [],

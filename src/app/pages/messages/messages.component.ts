@@ -45,9 +45,7 @@ export class MessagesComponent implements OnInit{
                 this.getMessages(this.pageNumber);
             }
             
-        });
-
-        
+        });    
     }
 
     onScrollDown(){
