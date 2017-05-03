@@ -23,13 +23,12 @@ export class ProfileService{
             );
             let options = new RequestOptions({ headers: headers });
 
-            return this.http.get(`${url}/users/business/me`, options)
-            .map((response: Response) => response.json());
+            return this.http.get(`${url}/users/business/me`, options).map((response: Response) => response.json());
         }
     }
 
     getCompany(id: number): Observable<any>{
-        return this.http.get(`${url}/companybranches/companyId/${id}/main`).map((response: Response) => response.json());
+        return this.http.get(`${url}/companies/${id}`).map((response: Response) => response.json());
     }
 
     getUserImages(id: number) : Observable<ObjectList>{
@@ -86,14 +85,13 @@ export class ProfileService{
         let body = JSON.stringify(data);
         return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json());
     }
-/*
-    updateCompany2(id: number, body :any): Observable<any>{
+
+    deleteBranch(id:number): Observable<any>{
         let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
         this.token = currentUser.token;
         let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
-
-        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json());
-    }*/
+        return this.http.delete(`${url}/companybranches/${id}`, {headers: headers}).map((response: Response) => response.json());
+    }
 
     getCompanyBranches(id: number):Observable<any>{
         return this.http.get(`${url}/companybranches/companyId/${id}`).map((response: Response) => response.json());

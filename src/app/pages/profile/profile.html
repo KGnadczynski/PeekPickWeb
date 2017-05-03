@@ -119,7 +119,92 @@
         <template md-tab-label>
             <p class="hidden-sm-down">Oddziały</p>
         </template>
-        <template md-tab-content></template>
+        <template md-tab-content>
+            <div id="branches">
+                <button class="addBranch">Dodaj nowy oddział</button>
+                <div [collapse]="isCollapse">
+                    <form [formGroup]="branchForm">
+                        <label>Nazwa</label>
+                        <input type="text" id="name" formControlName="name">
+                        <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
+                            Musisz wpisać nazwę
+                        </div>
+
+                        <label>Miasto</label>
+                        <input type="text" id="city" formControlName="city">
+                        <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched">
+                            Musisz wpisać miasto
+                        </div>
+
+                        <label>Ulica</label>
+                        <input type="text" id="street" formControlName="street">
+                        <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched">
+                            Musisz wpisać ulicę
+                        </div>
+
+                        <label>Nr ulicy</label>
+                        <input type="number" id="streetNo" formControlName="streetNo">
+                        <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched">
+                            Musisz wpisać nr ulicy
+                        </div>
+
+                        <label>Strona internetowa</label>
+                        <input type="text" id="website" formControlName="website">
+                        <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched">
+                            Musisz wpisać stronę internetową
+                        </div>
+
+                        <label>Numer telefonu</label>
+                        <input type="text" id="phoneNumber" formControlName="phoneNumber">
+                        <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched">
+                            Musisz wpisać numer telefonu
+                        </div>
+
+                        <label>Godziny otwarcia</label>
+                        <input type="text" id="openingHours" formControlName="openingHours">
+                        <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched">
+                            Musisz wpisać godziny otwarcia
+                        </div>
+
+                    </form>
+                </div>
+                <div class="branch" *ngIf="mainBranch">
+                    <h2>
+                        {{ mainBranch?.name}}
+                    </h2>
+                    <p>
+                        <span>
+                            {{ mainBranch?.city }},
+                            {{ mainBranch?.street }}
+                            {{ mainBranch?.streetNo }}
+                        </span>
+                    </p>
+                    <p>
+                        <button class="editBranch">Edytuj oddział</button>
+                        <button class="deleteBranch" (click)="deleteBranch(mainBranch.id)">Usuń oddział</button>
+                    </p>
+                </div>
+                
+                <div class="branch" *ngFor="let branch of companyBranches">
+                    <h2>
+                        {{ branch?.name }}
+                    </h2>
+                    <p>
+                        <span>
+                            {{ branch?.city }},
+                            {{ branch?.street }}
+                            {{ branch?.streetNo }}
+                        </span>
+                    </p>
+                    <p>
+                        <button class="editBranch">Edytuj oddział</button>
+                        <button class="deleteBranch" (click)="deleteBranch(branch.id)">Usuń oddział</button>
+                    </p>
+                </div>
+                
+            </div>
+
+        </template>
         </md-tab>
     </md-tab-group>
 </div>

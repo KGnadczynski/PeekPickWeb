@@ -46,6 +46,9 @@ div#profile{
             margin: 3% 0;
         }
         form#changeCI{
+            input[type=text], input[type=password], input[type=email]{
+                width: 100%;
+            }
             div.image-upload{
                 width: 40%;
                 border: 1px solid gray;
@@ -70,9 +73,7 @@ div#profile{
                 margin: 4% 0;
                 overflow: hidden;
                 width: 100%;
-                input{
-                    width: 100%;
-                }
+                
                 div#town, div#street{
                     width: 40%;
                     float: left;
@@ -107,6 +108,9 @@ div#profile{
         margin: auto;
         padding: 2% 0;
         form{
+            input[type=text], input[type=password], input[type=email]{
+                width: 100%;
+            }
             div#contact{
                 clear: both;
                 float: left;
@@ -152,6 +156,11 @@ div#profile{
                 padding: 1%;
                 color: gray;
             }
+        }
+    }
+    div#branches{
+        p{
+            text-align: center;
         }
     }
     md-tab-group{
