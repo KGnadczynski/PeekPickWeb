@@ -4,6 +4,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { MessagesService } from './messages.service';
 import { MessageList } from './messageList.model';
 
+
 @Component({
     selector: 'messages',
     encapsulation: ViewEncapsulation.None,
@@ -134,9 +135,16 @@ export class MessagesComponent implements OnInit{
 
     }
 
+    navigateToMap(id: number){
+        console.log('odpalamy mape');
+        this.router.navigate(['/pages/mapmodal', id]);
+    }
+
     goToSingle(id: number){
         this.router.navigate(['/pages/komunikat_single', id]);
     }
+
+
 
     checkIfFavourite(id: number){
         if(JSON.parse(localStorage.getItem("favs"))){
