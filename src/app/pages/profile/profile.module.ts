@@ -6,6 +6,7 @@ import { routing } from './profile.routing';
 import { MdTabsModule } from '@angular2-material/tabs';
 import { MessagesModule } from '../messages/messages.module';
 import { NgaModule } from '../../theme/nga.module';
+import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { NgaModule } from '../../theme/nga.module';
     MessagesModule,
     FormsModule,
     NgaModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CollapseModule
   ],
   declarations: [
     ProfileComponent

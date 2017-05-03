@@ -20,15 +20,19 @@ export class ProfileComponent implements OnInit {
   otherUser: User;
   otherObject: ObjectList;
   otherImgs: ObjectList;
+  companyBranches: any[];
+  mainBranch: any;
   idCompany: number;
   passwordForm: FormGroup;
   companyForm: FormGroup;
   additionalForm: FormGroup;
+  branchForm: FormGroup;
   messageAfter: boolean = false;
   public defaultPicture = 'assets/img/theme/add-icon.png';
   public profile:any = {
         picture: 'assets/img/theme/add-icon.png'
  };
+  isCollapse:boolean = true;
 
   constructor(
     private profileService: ProfileService, 
@@ -36,7 +40,7 @@ export class ProfileComponent implements OnInit {
     private router: Router, 
     private fb: FormBuilder)
   {
-      this.passwordForm = fb.group({
+     this.passwordForm = fb.group({
           'oldPassword': [null, Validators.required],
           'passwords': fb.group({
             'password': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -63,6 +67,16 @@ export class ProfileComponent implements OnInit {
             'description': ''
         })
       });
+
+      this.branchForm = fb.group({
+        'name': [null, Validators.required],
+        'city': [null, Validators.required],
+        'street': [null, Validators.required],
+        'streetNo': [null, Validators.required],
+        'website': [null, Validators.required],
+        'phoneNumber': [null, Validators.required],
+        'openingHours': [null, Validators.required]
+      });
   }
 
   ngOnInit() {
@@ -71,6 +85,22 @@ export class ProfileComponent implements OnInit {
         this.profileService.getCompany(user.company.id).subscribe(company => {
             console.log('company: ');
             console.dir(company);
+        });
+      });
+
+      this.profileService.getUser().subscribe(user => {
+        this.profileService.getCompanyBranches(user.company.id).subscribe(branches => {
+            this.companyBranches = branches.filter((el) => {
+                return !el.main
+            });
+            console.log('company branches:');
+            console.dir(this.companyBranches);
+
+            this.mainBranch = branches.filter((el) => {
+                return el.main
+            })[0];
+            console.log('company main branch:');
+            console.dir(this.mainBranch);
         });
       });
 
@@ -140,19 +170,6 @@ export class ProfileComponent implements OnInit {
     }
 
     udpateCompany2(value){
-        console.log('values companyform: ');
-        console.dir(value);
-
-        /** 
-         * 'contact': fb.group({
-            'www': '',
-            'openingHours': '',
-            'telephone': '',
-            'email': '',
-            'description': ''
-        })
-        */
-
         if(value.contact.www || value.contact.openingHours || value.contact.telephone || value.contact.email || value.contact.description){
 
             this.profileService.getUser().subscribe(user => {
@@ -161,11 +178,11 @@ export class ProfileComponent implements OnInit {
                         if(branches[i].main){
                             let bodyAdd = branches[i];
                             if(value.contact.www)
-                                bodyAdd.www = value.contact.www;
+                                bodyAdd.website = value.contact.www;
                             if(value.contact.openingHours)
                                 bodyAdd.openingHours = value.contact.street;
                             if(value.contact.telephone)
-                                bodyAdd.telephone = value.contact.telephone;
+                                bodyAdd.phoneNumber = value.contact.telephone;
                             //if(value.contact.email)
                                 //bodyAdd.email = value.contact.streetNo;
                             if(value.contact.description)
@@ -174,6 +191,7 @@ export class ProfileComponent implements OnInit {
                             this.profileService.updateCompanyBranch(bodyAdd, branches[i].id).subscribe(branch => {
                                 console.log('branch: ');
                                 console.dir(branch);
+                                this.additionalForm.reset();
                             });
                         }
                     }
@@ -181,5 +199,13 @@ export class ProfileComponent implements OnInit {
             });
 
         }
+    }
+
+    deleteBranch(id: number): void{
+        this.profileService.deleteBranch(id).subscribe(result => {
+            this.companyBranches = this.companyBranches.filter((el) => {
+                return el.id !== id
+            });
+        });
     }
 }
