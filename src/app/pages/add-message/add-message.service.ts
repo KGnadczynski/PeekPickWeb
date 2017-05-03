@@ -3,11 +3,9 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-<<<<<<< HEAD
 import { url } from '../../globals/url';
-=======
 import {ImageModel} from "./imagemodel";
->>>>>>> 47e89fc9cd7058e7609fce61a89387aedcb83985
+
 
 import { MessageAddModel } from './add-message-model';
 
@@ -28,12 +26,8 @@ export class AddMessageService {
         let autorizationHeader = 'Bearer '+token.access_token;
         headers.append('Authorization', autorizationHeader);
         headers.append('Content-Type', 'application/json');
-
-<<<<<<< HEAD
         return this.http.post(`${url}/messages`, JSON.stringify(messageModel),{ headers: headers })
-=======
-        return this.http.post(this.Url+`messages`, JSON.stringify(messageModel),{ headers: headers })
->>>>>>> 47e89fc9cd7058e7609fce61a89387aedcb83985
+
         .map(res => res.json())
         .catch(this.handleError);
 
@@ -67,7 +61,7 @@ export class AddMessageService {
         }
       };
 
-      xhr.open('POST', this.Url+"messageimages/messageId/"+imageModel.messageId, true);
+      xhr.open('POST', url+"/messageimages/messageId/"+imageModel.messageId, true);
       xhr.setRequestHeader('Authorization', autorizationHeader);
       xhr.send(formData);
     }));

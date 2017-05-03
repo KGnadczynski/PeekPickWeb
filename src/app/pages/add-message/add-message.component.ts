@@ -368,7 +368,7 @@ export class AddMessageComponent implements OnInit {
             console.log('inside '+this.fileUpload.file); 
             this.addMessageService.addMessageImage(new ImageModel(this.addedMessage.id,this.fileUpload.file)).subscribe(
                 data => {
-                console.log('closing image '+this.fileUpload.file); 
+                  console.log('closing image '+this.fileUpload.file); 
                   this.hideChildModal();   
                 }
             );
