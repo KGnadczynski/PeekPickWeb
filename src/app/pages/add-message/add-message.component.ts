@@ -11,6 +11,9 @@ import { NgUploaderOptions } from 'ngx-uploader';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
 import { MapsAPILoader } from 'angular2-google-maps/core'
 import {ImageModel} from "./imagemodel";
+import { MessagesService } from '../messages/messages.service';
+import { ObjectList} from '../messages/message';
+import { Daterangepicker } from 'ng2-daterangepicker';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -19,7 +22,7 @@ let moment = require('../../../../node_modules/moment/moment');
     encapsulation: ViewEncapsulation.None,
     styles: [require('./add-message.scss')],
     template: require('./add-message.component.html'),
-    providers: [AddMessageService]
+    providers: [AddMessageService,MessagesService]
 })
 
 export class AddMessageComponent implements OnInit {
@@ -33,9 +36,12 @@ export class AddMessageComponent implements OnInit {
     addedMessage: any;
     image:File;
     isCollapsed:boolean = false;
+    withEndDate:boolean = false;
     triggerResize:boolean = true;
     id: number;
     paramValue: any;
+    messageEdit: ObjectList;
+    submitButton: string = "Utwórz";
     public defaultPicture = 'assets/img/theme/add-icon.png';
     public profile:any = {
         picture: 'assets/img/theme/add-icon.png'
@@ -56,6 +62,10 @@ export class AddMessageComponent implements OnInit {
     callback = (address: string) : void => {
          this.localization = address;
          this.locationChanged = true;
+    }
+
+    callbackEdit = (address: string) : void => {
+         this.localization = address;
     }
 
 
@@ -149,23 +159,25 @@ export class AddMessageComponent implements OnInit {
     };
 
     selectStartDate(message) {
-        this.msgAddModel.startDate = moment(new Date(message.start._d)).format("YYYY-MM-DDTHH:mm:ssZZ");
+        this.msgAddModel.startDate = moment(new Date(message.start._d)).format("YYYY-MM-DD HH:mm:ss");
         this.pickerOptionsEnd['minDate'] = '04/01/2017';
     }
 
     selectEndDate(message) {
-        this.msgAddModel.endDate = moment(new Date(message.end._d)).format("YYYY-MM-DDTHH:mm:ssZZ");
+        this.msgAddModel.endDate = moment(new Date(message.end._d)).format("YYYY-MM-DD HH:mm:ss");
     }
 
     @ViewChild('childModal') public childModal: ModalDirective;
     @ViewChild('fileUpload') public fileUpload:any;
+    @ViewChild('datePickerStart') public datePickerStart:Daterangepicker;
 
     constructor(
         private route: ActivatedRoute,
         private addMessageService: AddMessageService,
         private _location: Location,
         private communicationservice: CommunicationService,
-        private mapsApiLoader: MapsAPILoader
+        private mapsApiLoader: MapsAPILoader,
+        private messageService: MessagesService
     ){
        this.mapsApiLoader.load().then(() => {
       console.log('google script loaded');
@@ -178,8 +190,8 @@ export class AddMessageComponent implements OnInit {
     ngOnInit(): void{  
         this.lat = JSON.parse(localStorage.getItem('latitude')).latitude;
         this.lng = JSON.parse(localStorage.getItem('longitude')).longitude;
-        this.msgAddModel.startDate = moment().format("YYYY-MM-DDTHH:mm:ssZZ");
-        this.msgAddModel.endDate = moment().format("YYYY-MM-DDTHH:mm:ssZZ");
+        this.msgAddModel.startDate = moment().format("YYYY-MM-DD HH:mm:ss");
+        this.msgAddModel.endDate = moment().format("YYYY-MM-DD HH:mm:ss");
         console.log('latitude : ' + this.lat);
         console.log('latitude : ' + this.lng);
          this.pickerOptionsEnd['minDate'] = '05/01/2017';
@@ -193,7 +205,23 @@ export class AddMessageComponent implements OnInit {
                 case 'message_id':
                     console.log('PARAMETER IS ' + Object.keys(params)[0]);
                     this.id = params[this.paramValue];
-                    console.log('this id : ' + this.id);
+                    this.submitButton = "Zapisz";
+                    this.msgAddModel.id = this.id;
+                    this.messageService.getMessagesSingle(this.id).subscribe(result => {
+                        this.messageEdit = result;
+                        this.msgAddModel.content = this.messageEdit.content;
+                        this.msgAddModel.startDate = moment(new Date(this.messageEdit.startDate)).format("YYYY-MM-DD HH:mm:ss");
+                        if(this.messageEdit.endDate == null) {
+                            this.withoutEndDate();
+                        } else {
+                            this.msgAddModel.endDate = moment(new Date(this.messageEdit.endDate)).format("YYYY-MM-DD HH:mm:ss");  
+                        }               
+                        this.lat =  this.messageEdit.location.latitude;
+                        this.lng = this.messageEdit.location.longitude;
+                        this.messageTypeName = this.messageEdit.type;
+                        
+                        this.changeAddress(this.callbackEdit);
+                     });
                     break;
                 
                 case 'message_type':
@@ -262,6 +290,12 @@ export class AddMessageComponent implements OnInit {
        this.msgAddModel.endDate = null;
     }
 
+     withoutEndDate():void {
+      this.isCollapsed = false;
+      this.withEndDate = true;
+       this.msgAddModel.endDate = null;
+    }
+
     public collapsed(event:any):void {
         console.log(event);
     }
@@ -279,13 +313,18 @@ export class AddMessageComponent implements OnInit {
         this.messageAddModel = new MessageAddModel();
         //content
         this.messageAddModel.content = this.msgAddModel.content;
+
+        if(this.msgAddModel.id != null) {
+            this.messageAddModel.id = this.msgAddModel.id;
+        }
         
         //startDate
-        this.messageAddModel.startDate = this.msgAddModel.startDate;
+        this.messageAddModel.startDate =  moment(new Date(this.msgAddModel.startDate)).format("YYYY-MM-DDTHH:mm:ssZZ");
 
         //endDate
-        this.messageAddModel.endDate = this.msgAddModel.endDate;
-
+        if(this.msgAddModel.endDate != null) {
+          this.messageAddModel.endDate = moment(new Date(this.msgAddModel.endDate)).format("YYYY-MM-DDTHH:mm:ssZZ");
+        }
         //type
         this.messageAddModel.type = this.messageTypeName;
 
@@ -302,6 +341,8 @@ export class AddMessageComponent implements OnInit {
 
         //companyBranchCount
         this.messageAddModel.companyBranchCount = this.messageAddModel.companyBranchList.length;
+
+
 
         //location
         if(this.locationChanged) {

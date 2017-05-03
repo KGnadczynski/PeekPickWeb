@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { MessageList } from './messageList.model';
+import { ObjectList} from '../messages/message';
 
 @Injectable()
 export class MessagesService{
@@ -23,6 +24,10 @@ export class MessagesService{
 
     getMessagesList(ids: string, latitude: number, longitude: number) : Observable<MessageList>{
         return this.http.get(this.url + 'messages/page/1?messageIdList=' + ids + '&latitude='+latitude+'&longitude='+longitude).map(this.mapMessages).catch(this.handleError);
+    }
+
+    getMessagesSingle(id: number) : Observable<ObjectList>{
+        return this.http.get(this.url + 'messages/'+id).map(this.mapMessageSingle).catch(this.handleError);
     }
 
     getMessagesByType(params: string, latitude: number, longitude: number): Observable<MessageList>{
@@ -45,6 +50,8 @@ export class MessagesService{
         return this.http.get(this.url + `messages/page/${page}?searchTerm=${searchTerm}&latitude=${latitude}&longitude=${longitude}`).map(this.mapMessages).catch(this.handleError);
     }
 
+    
+
     mapMessages(res: Response) {
         let body = res.json();
         let listing = new MessageList();
@@ -54,6 +61,15 @@ export class MessagesService{
 
         return listing;
     }
+
+    mapMessageSingle(res: Response) {
+        let body = res.json();
+        let listing: ObjectList;
+        listing = body;
+
+        return listing;
+    }
+
 
     handleError(error: any){
         console.error(error);
