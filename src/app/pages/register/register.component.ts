@@ -10,7 +10,10 @@ import {Subscription} from "rxjs";
 import * as authorization from "auth-header";
 import {DiggitsObject} from "./user";
 import {URLSearchParams} from "@angular/http";
-
+import {User} from "../komunikat/komunikatdodanie";
+import { BaMenuService , BaPageTopService} from '../../theme';
+import { Routes } from '@angular/router';
+import { PAGES_MENU_LOGGED } from '../pageslogged.menu';
 declare var window: any
 
 @Component({
@@ -41,6 +44,7 @@ export class Register implements OnInit {
   selectedParentKategoria: MainBranze;
   selectedKategoria: PodKategoria;
   podKategorie = Array<MainBranze>();
+  userFromServer:User
 
   ngOnInit() {
     this.registerService.getBranze().subscribe(
@@ -52,7 +56,7 @@ export class Register implements OnInit {
   }
 
 
-  constructor(fb: FormBuilder, private registerService: RegisterService,private loginService: LoginService,private router: Router,private zone:NgZone) {
+  constructor(fb: FormBuilder, private registerService: RegisterService,private loginService: LoginService,private router: Router,private zone:NgZone,private _menuService: BaMenuService,private pageTopService: BaPageTopService) {
 
     window.angularComponentRef = {
       zone: this.zone,
@@ -179,7 +183,25 @@ public onSubmitDigitsCallback(req: any): void {
             this.loginService.login(body).subscribe(
                   data => {
                     localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
-                    this.router.navigate(['/komunikat']);
+                   this.loginService.getInfo().subscribe(
+                data => {
+                      this.userFromServer = data
+                      console.log(this.userFromServer.company.id);
+                      localStorage.setItem('user', JSON.stringify({ user: data}));    
+                      this.loginService.getInfoForCompanyFromUser(this.userFromServer.company.id).subscribe(
+                           data => {
+                             localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
+                             this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
+                             this.pageTopService.changedLoggedFlag();       
+                             this.router.navigate(['/komunikat']);
+                            },
+                             error => {
+                               console.log('error in inside');
+                           });                    
+                    },
+                    error => {
+                      console.log('error inside');
+                    });
                   },
                   error => {
                   });
