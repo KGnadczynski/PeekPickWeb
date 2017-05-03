@@ -21,14 +21,18 @@
 
             <!--data picker-->
             <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
-            <p>od: </p>
-            <input daterangepicker (selected)="selectStartDate($event)" [options]="pickerOptionsStart" type="submit"/>
+            <p>Od: </p>
+            <input  daterangepicker (selected)="selectStartDate($event)" [options]="pickerOptionsStart" type="submit"/>
             <div class="blackline"></div>
-            <p>do: (jeśli nie chcesz daty zakończenia to zaznacz checkbox) </p>
+            <p>Do: (jeśli nie chcesz daty zakończenia to zaznacz checkbox) </p>
             <input type="checkbox" (change)="addprop()">
             <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
               <input daterangepicker (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" />
             </div>
+
+            <p>Dodaj treść komunikatu</p>
+            <textarea rows="5" type="text" placeholder="Dodaj treść komunikatu" [(ngModel)]="msgAddModel.content"></textarea>
+            
             
             <div class="blackline"></div>
 
@@ -55,8 +59,6 @@
             </div>
 
     
-            <p>Dodaj treść komunikatu</p>
-            <textarea type="text" placeholder="Dodaj treść komunikatu" [(ngModel)]="msgAddModel.content"></textarea>
             
             <!-- add image-->
 

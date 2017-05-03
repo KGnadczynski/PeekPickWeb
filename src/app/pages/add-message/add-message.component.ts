@@ -36,9 +36,9 @@ export class AddMessageComponent implements OnInit {
     triggerResize:boolean = true;
     id: number;
     paramValue: any;
-    public defaultPicture = 'assets/img/theme/no-photo.png';
+    public defaultPicture = 'assets/img/theme/add-icon.png';
     public profile:any = {
-        picture: 'assets/img/theme/no-photo.png'
+        picture: 'assets/img/theme/add-icon.png'
     };
      @ViewChild(SebmGoogleMap) sebmGoogleMap: SebmGoogleMap;
     public uploaderOptions:NgUploaderOptions = {
@@ -178,6 +178,8 @@ export class AddMessageComponent implements OnInit {
     ngOnInit(): void{  
         this.lat = JSON.parse(localStorage.getItem('latitude')).latitude;
         this.lng = JSON.parse(localStorage.getItem('longitude')).longitude;
+        this.msgAddModel.startDate = moment().format("YYYY-MM-DDTHH:mm:ssZZ");
+        this.msgAddModel.endDate = moment().format("YYYY-MM-DDTHH:mm:ssZZ");
         console.log('latitude : ' + this.lat);
         console.log('latitude : ' + this.lng);
          this.pickerOptionsEnd['minDate'] = '05/01/2017';
@@ -257,6 +259,7 @@ export class AddMessageComponent implements OnInit {
 
     addprop():void {
         this.isCollapsed = !this.isCollapsed;
+       this.msgAddModel.endDate = null;
     }
 
     public collapsed(event:any):void {
@@ -322,7 +325,14 @@ export class AddMessageComponent implements OnInit {
         this.addedMessage = data;
         if(this.fileUpload.file != null) {
             console.log('inside '+this.fileUpload.file); 
-            this.addMessageService.addMessageImage(new ImageModel(this.addedMessage.id,this.fileUpload.file))
+            this.addMessageService.addMessageImage(new ImageModel(this.addedMessage.id,this.fileUpload.file)).subscribe(
+                data => {
+                console.log('closing image '+this.fileUpload.file); 
+                  this.hideChildModal();   
+                }
+            );
+        } else {
+            this.hideChildModal();   
         }
       },
       error => {
