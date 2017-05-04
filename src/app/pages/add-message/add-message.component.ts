@@ -8,8 +8,8 @@ import { ModalDirective } from 'ng2-bootstrap';
 import { MessageType } from '../../globals/enums/message-type.enum';
 import { MessageAddModel } from './add-message-model';
 import { NgUploaderOptions } from 'ngx-uploader';
-import { SebmGoogleMap } from 'angular2-google-maps/core';
-import { MapsAPILoader } from 'angular2-google-maps/core'
+import { AgmMap } from '@agm/core';
+import { MapsAPILoader } from '@agm/core'
 import {ImageModel} from "./imagemodel";
 import { MessagesService } from '../messages/messages.service';
 import { ObjectList} from '../messages/message';
@@ -46,14 +46,14 @@ export class AddMessageComponent implements OnInit {
     public profile:any = {
         picture: 'assets/img/theme/add-icon.png'
     };
-     @ViewChild(SebmGoogleMap) sebmGoogleMap: SebmGoogleMap;
+     @ViewChild(AgmMap) sebmGoogleMap: any;
     public uploaderOptions:NgUploaderOptions = {
         // url: 'http://website.com/upload'
         url: '',
     };
 
     
-    zoom: number = 6;   
+    zoom: number = 8;   
     lat: number;
     lng: number;
     localization:any;
@@ -250,6 +250,7 @@ export class AddMessageComponent implements OnInit {
         if(this.triggerResize){
             setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
                 console.log('triggerResize');  
+                this.sebmGoogleMap._mapsWrapper.setCenter({lat: this.lat, lng: this.lng});
                  this.changeAddress(this.callback);
             }),300);
             this.triggerResize = false;

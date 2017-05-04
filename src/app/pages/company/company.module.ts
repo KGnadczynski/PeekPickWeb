@@ -7,7 +7,7 @@ import { MdTabsModule } from '@angular2-material/tabs';
 import { ResourceModule } from 'ng2-resource-rest';
 
 import { FormsModule } from '@angular/forms';
-import { AgmCoreModule } from 'angular2-google-maps/core';
+import { AgmCoreModule } from '@agm/core';
 
 import { MessagesModule } from '../messages/messages.module';
 

@@ -1,13 +1,22 @@
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" [config]="{backdrop: 'static'}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content message">
-	   Hello
-
-      <div class="buttonSingle">
+       <div class="buttonSingle">
         <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+	   <div id="mapa">
+                    <agm-map  [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+                    [disableDefaultUI]="false"
+                     [zoomControl]="true">
+                      <agm-marker  [latitude]="lat" [longitude]="lng" [markerDraggable]="false"></agm-marker>
+                      <agm-info-window>
+                           <strong>InfoWindow content</strong>
+                       </agm-info-window>
+                    </agm-map>
+      </div>
+     
     </div>
   </div>
 </div>

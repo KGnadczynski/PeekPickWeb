@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { NouisliderModule } from 'ng2-nouislider';
 import { MdCheckbox } from '@angular2-material/checkbox';
-import { AgmCoreModule } from 'angular2-google-maps/core';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
     imports: [
