@@ -54,7 +54,9 @@
                 <div id="editProfile">
                 <h3>edytuj profil</h3>
                     <form id="changeCI" [formGroup]="companyForm" (ngSubmit)="udpateCompanyName(companyForm.value)">
-                        <image-upload></image-upload>
+                        <ba-card title="Dodaj zdjęcie profilowe" baCardClass="with-scroll" aria-hidden="true">
+                            <ba-picture-uploader  (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture"></ba-picture-uploader>
+                        </ba-card>
 
                         <div id="name">
                             <label for="nazwa">nazwa firmy</label>

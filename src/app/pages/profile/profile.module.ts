@@ -4,18 +4,18 @@ import { ProfileComponent } from './profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { routing } from './profile.routing';
 import { MdTabsModule } from '@angular2-material/tabs';
-import { ImageUploadModule } from 'angular2-image-upload';
 import { MessagesModule } from '../messages/messages.module';
+import { NgaModule } from '../../theme/nga.module';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
     MdTabsModule,
-    ImageUploadModule.forRoot(),
     routing,
     MessagesModule,
     FormsModule,
+    NgaModule,
     ReactiveFormsModule,
     CollapseModule
   ],

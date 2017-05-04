@@ -28,6 +28,10 @@ export class ProfileComponent implements OnInit {
   additionalForm: FormGroup;
   branchForm: FormGroup;
   messageAfter: boolean = false;
+  public defaultPicture = 'assets/img/theme/add-icon.png';
+  public profile:any = {
+        picture: 'assets/img/theme/add-icon.png'
+ };
   isCollapse:boolean = true;
 
   constructor(
