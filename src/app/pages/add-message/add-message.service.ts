@@ -5,11 +5,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { url } from '../../globals/url';
 import {ImageModel} from "./imagemodel";
-<<<<<<< HEAD
-=======
-
-
->>>>>>> a930e9ad5a7a7eacde60f44238ec1f63f77148da
 import { MessageAddModel } from './add-message-model';
 
 @Injectable()
