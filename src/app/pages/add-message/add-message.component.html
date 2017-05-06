@@ -32,10 +32,10 @@
 
             <p>Dodaj treść komunikatu</p>
             <textarea rows="5" type="text" placeholder="Dodaj treść komunikatu" [(ngModel)]="msgAddModel.content"></textarea>
-            
-            
+            <div id="odzialFirmy">
+              <ss-multiselect-dropdown *ngIf="showMulitSelect"  [texts]="myTexts" [settings]="mySettings" defaultTitle="Wybierz oddział" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+            </div>
             <div class="blackline"></div>
-
             <div id="addPhoto">
                <ba-card title="Dodaj zdjęcie" baCardClass="with-scroll" aria-hidden="true">
                   <ba-picture-uploader #fileUpload  (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
