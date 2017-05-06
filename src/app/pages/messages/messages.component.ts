@@ -25,6 +25,7 @@ export class MessagesComponent implements OnInit{
     latitude: number = JSON.parse(localStorage.getItem("latitude")).latitude;
     longitude: number = JSON.parse(localStorage.getItem("longitude")).longitude;
     searchTerm: string;
+    socialVisible: boolean = false;
 
     constructor(private messageService: MessagesService, private router: Router, private route: ActivatedRoute){
         let moment = require('../../../../node_modules/moment/moment.js');
@@ -205,6 +206,11 @@ export class MessagesComponent implements OnInit{
             console.log('search ML: ');
             console.dir(this.messageList);
         })
+    }
+
+    showSocialShare() {
+        console.log('SocialShare ');
+        this.socialVisible =  !this.socialVisible;
     }
 
 }
