@@ -26,6 +26,7 @@ export class MessagesComponent implements OnInit{
     longitude: number = JSON.parse(localStorage.getItem("longitude")).longitude;
     searchTerm: string;
     socialVisible: boolean = false;
+    url: string = "https://tackpadweb.herokuapp.com/#/pages/komunikat_single/"
 
     constructor(private messageService: MessagesService, private router: Router, private route: ActivatedRoute){
         let moment = require('../../../../node_modules/moment/moment.js');
@@ -208,9 +209,10 @@ export class MessagesComponent implements OnInit{
         })
     }
 
-    showSocialShare() {
+    showSocialShare(id:number) {
         console.log('SocialShare ');
         this.socialVisible =  !this.socialVisible;
+        this.url+=id;
     }
 
 }
