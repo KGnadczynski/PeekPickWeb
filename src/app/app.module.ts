@@ -9,7 +9,7 @@ import {CommunicationService} from './pages/komunikat/communicationservice.compo
 /*
  * Platform and Environment providers/directives/pipes
  */
-import { AgmCoreModule } from 'angular2-google-maps/core';
+import { AgmCoreModule } from '@agm/core';
 import { ENV_PROVIDERS } from './environment';
 import { routing } from './app.routing';
 

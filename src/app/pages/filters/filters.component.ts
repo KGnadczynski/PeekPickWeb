@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild, Output, Ev
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MessageType } from '../../globals/enums/message-type.enum';
 import { FiltersService } from './filters.service';
-import { MapsAPILoader } from 'angular2-google-maps/core';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
     selector: 'filters',

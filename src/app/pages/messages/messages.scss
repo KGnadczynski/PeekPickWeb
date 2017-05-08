@@ -22,6 +22,9 @@ div.messages{
             padding-left: 2%;
             div.message-header{
                 margin: 2% 0;
+                 :hover {
+                    color: #FF0000;
+                }
                 a{
                     color: gray;
                     font-weight: bold;
@@ -83,7 +86,9 @@ div.messages{
             clear: both;
             float: left;
             margin: 3% 0;
-            
+            :hover {
+                    color: #FF0000;
+                }
             @media(max-width: 575px){
                 span{
                     font-size: 17px;
@@ -136,6 +141,45 @@ div.messages{
                 }
             }
         }
+   div#odzialFirmy{
+        ss-multiselect-dropdown{
+                button{
+                    background: white;
+                    border: 1px solid gray;
+                    border-radius: 1px;
+                    margin: auto;
+                }
+                div.dropdown{
+                    float: none;
+                    padding: 0;
+                    button{
+                        display: block;
+                        padding: 3%;
+                        border: 1px solid black;
+                    }
+                }
+
+                ul.dropdown-menu{
+                    position: static;
+                    float: right;
+                    padding: 3% 0;
+                    width: 100%;
+                    li{
+                        text-align: center;
+                        a{
+                            color: gray;
+                            font-size: 16px;
+                        }
+                        &.dropdown-divider{
+                            display: none;
+                        }
+                        &.dropdown-item{
+                            padding: 3% 1%;
+                        }
+                    }
+                }
+            }
+   }
         div.message-icons{
             clear: both;
             float: left;
@@ -158,6 +202,10 @@ div.messages{
             }
             div.favourite, div.google, div.dots{
                 cursor: pointer;
+                :hover {
+                    background-color: #FF0000; /* Red*/
+                    color: white;
+                }
                 @media(max-width: 575px){
                     width: 20%;
                 }

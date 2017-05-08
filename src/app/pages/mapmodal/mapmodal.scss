@@ -33,6 +33,11 @@ div.modal-dialog{
             
         }
         
+        div#mapa{
+            .sebm-google-map-container {
+                height: 600px;
+            }
+        }
         div.message-icon{
             width: 25%;
             float: left;

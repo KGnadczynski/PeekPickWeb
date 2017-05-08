@@ -8,12 +8,15 @@ import { ModalDirective } from 'ng2-bootstrap';
 import { MessageType } from '../../globals/enums/message-type.enum';
 import { MessageAddModel } from './add-message-model';
 import { NgUploaderOptions } from 'ngx-uploader';
-import { SebmGoogleMap } from 'angular2-google-maps/core';
-import { MapsAPILoader } from 'angular2-google-maps/core'
+import { AgmMap } from '@agm/core';
+import { MapsAPILoader } from '@agm/core'
 import {ImageModel} from "./imagemodel";
 import { MessagesService } from '../messages/messages.service';
 import { ObjectList} from '../messages/message';
+import {CompanyBranchList} from "./add-message-model";
 import { Daterangepicker } from 'ng2-daterangepicker';
+import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
+
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -46,19 +49,46 @@ export class AddMessageComponent implements OnInit {
     public profile:any = {
         picture: 'assets/img/theme/add-icon.png'
     };
-     @ViewChild(SebmGoogleMap) sebmGoogleMap: SebmGoogleMap;
+     @ViewChild(AgmMap) sebmGoogleMap: any;
     public uploaderOptions:NgUploaderOptions = {
         // url: 'http://website.com/upload'
         url: '',
     };
 
     
-    zoom: number = 6;   
+    zoom: number = 8;   
     lat: number;
     lng: number;
     localization:any;
     geocoder:any;
     locationChanged:boolean =false;
+    optionsModel: number[] =[];
+    myOptions: IMultiSelectOption[] ;
+    companyBranchList: any;
+    companyBranchListSelected: CompanyBranchList[];
+    companyBranchListSelectedFinal: CompanyBranchList[] =[];
+
+    showMulitSelect:boolean = false;
+    // Settings configuration
+    mySettings: IMultiSelectSettings = {
+        checkedStyle: 'glyphicon',
+        dynamicTitleMaxItems: 3,
+        showCheckAll: true,
+		showUncheckAll: true,
+        displayAllSelectedText: true
+    };
+
+// Text configuration
+    myTexts: IMultiSelectTexts = {
+        checkAll: 'Wybierz wszystkie',
+        uncheckAll: 'Wyczyść',
+        checked: 'item selected',
+        checkedPlural: 'items selected',
+        searchPlaceholder: 'Find',
+        defaultTitle: 'Wybierz oddział',
+        allSelected: 'All selected',
+    };
+
     callback = (address: string) : void => {
          this.localization = address;
          this.locationChanged = true;
@@ -192,9 +222,20 @@ export class AddMessageComponent implements OnInit {
         this.lng = JSON.parse(localStorage.getItem('longitude')).longitude;
         this.msgAddModel.startDate = moment().format("YYYY-MM-DD HH:mm:ss");
         this.msgAddModel.endDate = moment().format("YYYY-MM-DD HH:mm:ss");
+        this.companyBranchList = JSON.parse(localStorage.getItem('companyBranchList'));
+        console.log('Company branch list ' + this.companyBranchList.companyBranchList);
+        if(this.companyBranchList.companyBranchList.length >1) {
+            this.showMulitSelect = true;
+           /*  this.myOptions = [
+            { id: 1, name: 'Option 1' },
+            { id: 2, name: 'Option 2' },
+        ];*/
+         this.myOptions = this.companyBranchList.companyBranchList;
+        }
         console.log('latitude : ' + this.lat);
         console.log('latitude : ' + this.lng);
          this.pickerOptionsEnd['minDate'] = '05/01/2017';
+          
         for(let i = this.messageTypes.length-1; i >= 0; i--)
             if(i%2 !== 0)
                 this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
@@ -250,6 +291,7 @@ export class AddMessageComponent implements OnInit {
         if(this.triggerResize){
             setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
                 console.log('triggerResize');  
+                this.sebmGoogleMap._mapsWrapper.setCenter({lat: this.lat, lng: this.lng});
                  this.changeAddress(this.callback);
             }),300);
             this.triggerResize = false;
@@ -336,15 +378,18 @@ export class AddMessageComponent implements OnInit {
         this.messageAddModel.user = user.user;
 
         //companyBranchList
-        let companyBranchList = JSON.parse(localStorage.getItem('companyBranchList'));
-        this.messageAddModel.companyBranchList = companyBranchList.companyBranchList;
-
+        if(this.showMulitSelect) {
+          this.messageAddModel.companyBranchList=this.companyBranchListSelectedFinal
+        } else {
+        this.messageAddModel.companyBranchList = this.companyBranchList.companyBranchList;
+        }
         //companyBranchCount
         this.messageAddModel.companyBranchCount = this.messageAddModel.companyBranchList.length;
 
 
 
         //location
+        console.log('LOCATION CHANGED '+this.locationChanged);
         if(this.locationChanged) {
             this.messageAddModel.location.address=this.localization;
             this.messageAddModel.location.latitude=this.lat;
@@ -380,7 +425,23 @@ export class AddMessageComponent implements OnInit {
       });
     }
 
-
+    onChange() {
+        console.log(this.optionsModel);
+        console.log(this.companyBranchList.companyBranchList);
+        this.companyBranchListSelected = this.companyBranchList.companyBranchList;
+        this.companyBranchListSelectedFinal = [];
+        console.log(this.companyBranchListSelected[0].id);
+        for (let id of this.optionsModel) {
+            for (let companyBranch of  this.companyBranchListSelected) {
+                if(id == companyBranch.id) {
+                this.companyBranchListSelectedFinal.push(companyBranch);
+                console.log(this.companyBranchListSelectedFinal);
+              }
+            }
+        
+        }
+  
+    }
 
 
     
