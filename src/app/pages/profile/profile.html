@@ -123,9 +123,9 @@
         </template>
         <template md-tab-content>
             <div id="branches">
-                <button class="addBranch">Dodaj nowy oddział</button>
+                <button class="addBranch" (click)="isCollapse = !isCollapse">Dodaj nowy oddział</button>
                 <div [collapse]="isCollapse">
-                    <form [formGroup]="branchForm">
+                    <form [formGroup]="branchForm" (ngSubmit) = "addNewBranch(branchForm.value)">
                         <label>Nazwa</label>
                         <input type="text" id="name" formControlName="name">
                         <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
@@ -168,28 +168,27 @@
                             Musisz wpisać godziny otwarcia
                         </div>
 
+                        <label>E-mail</label>
+                        <input type="text" id="email" formControlName="email">
+                        <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched">
+                            Musisz wpisać e mail
+                        </div>
+
+                        <label>Opis</label>
+                        <input type="text" id="description" formControlName="description">
+                        <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched">
+                            Musisz wpisać opis
+                        </div>
+
+                        <input type="submit" value="Stwórz oddział">
+                        <!--<input type="submit" [disabled]="!branchForm.valid" value="Stwórz oddział">-->
                     </form>
-                </div>
-                <div class="branch" *ngIf="mainBranch">
-                    <h2>
-                        {{ mainBranch?.name}}
-                    </h2>
-                    <p>
-                        <span>
-                            {{ mainBranch?.city }},
-                            {{ mainBranch?.street }}
-                            {{ mainBranch?.streetNo }}
-                        </span>
-                    </p>
-                    <p>
-                        <button class="editBranch">Edytuj oddział</button>
-                        <button class="deleteBranch" (click)="deleteBranch(mainBranch.id)">Usuń oddział</button>
-                    </p>
                 </div>
                 
                 <div class="branch" *ngFor="let branch of companyBranches">
                     <h2>
                         {{ branch?.name }}
+                        <i class="fa fa-home fa-1x" *ngIf="branch.main" aria-hidden="true"></i>
                     </h2>
                     <p>
                         <span>
@@ -199,9 +198,71 @@
                         </span>
                     </p>
                     <p>
-                        <button class="editBranch">Edytuj oddział</button>
+                        <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>
                         <button class="deleteBranch" (click)="deleteBranch(branch.id)">Usuń oddział</button>
+                        <button *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
                     </p>
+                    <div class="editBranch" [collapse]="branch.collapse">
+                        <h4>Edytuj oddział</h4>
+                        <form [formGroup]="branchForm" (ngSubmit) = "editBranch(branchForm.value, branch.id)">
+                            <label>Nazwa</label>
+                            <input type="text" id="name" formControlName="name">
+                            <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
+                                Musisz wpisać nazwę
+                            </div>
+
+                            <label>Miasto</label>
+                            <input type="text" id="city" formControlName="city">
+                            <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched">
+                                Musisz wpisać miasto
+                            </div>
+
+                            <label>Ulica</label>
+                            <input type="text" id="street" formControlName="street">
+                            <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched">
+                                Musisz wpisać ulicę
+                            </div>
+
+                            <label>Nr ulicy</label>
+                            <input type="number" id="streetNo" formControlName="streetNo">
+                            <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched">
+                                Musisz wpisać nr ulicy
+                            </div>
+
+                            <label>Strona internetowa</label>
+                            <input type="text" id="website" formControlName="website">
+                            <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched">
+                                Musisz wpisać stronę internetową
+                            </div>
+
+                            <label>Numer telefonu</label>
+                            <input type="text" id="phoneNumber" formControlName="phoneNumber">
+                            <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched">
+                                Musisz wpisać numer telefonu
+                            </div>
+
+                            <label>Godziny otwarcia</label>
+                            <input type="text" id="openingHours" formControlName="openingHours">
+                            <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched">
+                                Musisz wpisać godziny otwarcia
+                            </div>
+
+                            <label>E-mail</label>
+                            <input type="text" id="email" formControlName="email">
+                            <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched">
+                                Musisz wpisać e mail
+                            </div>
+
+                            <label>Opis</label>
+                            <input type="text" id="description" formControlName="description">
+                            <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched">
+                                Musisz wpisać opis
+                            </div>
+
+                            <!--<input type="submit" [disabled]="!branchForm.valid" value="Stwórz oddział">-->
+                            <input type="submit" value="Stwórz oddział">
+                        </form>
+                    </div>
                 </div>
                 
             </div>

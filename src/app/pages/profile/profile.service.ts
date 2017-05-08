@@ -93,7 +93,33 @@ export class ProfileService{
         return this.http.delete(`${url}/companybranches/${id}`, {headers: headers}).map((response: Response) => response.json());
     }
 
+    getCompanyBranch(id: number): Observable<any> {
+        return this.http.get(`${url}/companybranches/${id}`).map((response: Response) => response.json()).catch(
+            (error: any) => Observable.throw(error.json().error) || 'Server output'
+        );
+    }
+
     getCompanyBranches(id: number):Observable<any>{
         return this.http.get(`${url}/companybranches/companyId/${id}`).map((response: Response) => response.json());
+    }
+
+    addNewBranch(data: any): Observable<any>{
+        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        this.token = currentUser.token;
+        let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
+
+        let body = JSON.stringify(data);
+
+        return this.http.post(`${url}/companybranches`, body, {headers: headers}).map((response: Response) => response.json());
+    }
+
+    editBranch(data: any, id: number): Observable<any>{
+        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        this.token = currentUser.token;
+        let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
+
+        let body = JSON.stringify(data);
+
+        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json());
     }
 }

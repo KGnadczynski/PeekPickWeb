@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
   otherObject: ObjectList;
   otherImgs: ObjectList;
   companyBranches: any[];
-  mainBranch: any;
   idCompany: number;
   passwordForm: FormGroup;
   companyForm: FormGroup;
@@ -75,12 +74,13 @@ export class ProfileComponent implements OnInit {
         'streetNo': [null, Validators.required],
         'website': [null, Validators.required],
         'phoneNumber': [null, Validators.required],
-        'openingHours': [null, Validators.required]
+        'openingHours': [null, Validators.required],
+        'description': [null, Validators.required],
+        'email': [null, Validators.required]
       });
   }
 
   ngOnInit() {
-
       this.profileService.getUser().subscribe(user => {
         this.profileService.getCompany(user.company.id).subscribe(company => {
             console.log('company: ');
@@ -90,17 +90,12 @@ export class ProfileComponent implements OnInit {
 
       this.profileService.getUser().subscribe(user => {
         this.profileService.getCompanyBranches(user.company.id).subscribe(branches => {
-            this.companyBranches = branches.filter((el) => {
-                return !el.main
+            this.companyBranches = branches;
+            this.companyBranches.forEach((obj) => {
+                obj.collapse = true;
             });
             console.log('company branches:');
             console.dir(this.companyBranches);
-
-            this.mainBranch = branches.filter((el) => {
-                return el.main
-            })[0];
-            console.log('company main branch:');
-            console.dir(this.mainBranch);
         });
       });
 
@@ -122,6 +117,7 @@ export class ProfileComponent implements OnInit {
       else{
         this.router.navigateByUrl('/pages/komunikat');
       }
+
     }
 
     udpatePassword(values: any){
@@ -205,6 +201,81 @@ export class ProfileComponent implements OnInit {
         this.profileService.deleteBranch(id).subscribe(result => {
             this.companyBranches = this.companyBranches.filter((el) => {
                 return el.id !== id
+            });
+        });
+    }
+
+    addNewBranch(value): void{
+        
+        this.profileService.getUser().subscribe(user => {
+            this.profileService.getCompanyBranches(user.company.id).subscribe(branches => {
+                let size = branches.length;
+                let body = {
+                    "city": value.city,
+                    "company": {
+                        "category": {
+                            "id": user.company.category.id,
+                            "name": user.company.category.name
+                        },
+                        "id": user.company.id,
+                        "name": user.company.name
+                    },
+                    "description": value.description,
+                    "distance": 0,
+                    "email": value.email,
+                    "main": false,
+                    "latitude": 0,
+                    "longitude": 0,
+                    "name": value.name,
+                    "openingHours": value.openingHours,
+                    "phoneNumber": value.phoneNumber,
+                    "street": value.street,
+                    "streetNo": value.streetNo,
+                    "website": value.website
+                }
+                
+                if(size === 0)
+                    body.main = true;
+                
+                this.profileService.addNewBranch(body).subscribe(result => {
+                    this.companyBranches.push(result);
+                    this.branchForm.reset();
+                    console.log('result adding: ');
+                    console.dir(result);
+                });
+            });
+        });
+    }
+
+    editBranch(value:any, id: number){
+        
+        this.profileService.getCompanyBranch(id).subscribe(companyBranch => {
+
+            Object.keys(value).forEach((key) => {
+                if(value[key])
+                    companyBranch[key] = value[key];
+            });
+
+            this.profileService.editBranch(companyBranch, companyBranch.id).subscribe(editedBranch => {
+                let objIndex = this.companyBranches.findIndex((obj => obj.id === companyBranch.id));
+                this.companyBranches[objIndex] = editedBranch;
+            });
+
+        });
+
+    }
+
+    changeMainBranch(id: number): void{
+        this.profileService.getCompanyBranch(id).subscribe(companyBranch => {
+            companyBranch.main = true;
+            this.companyBranches[this.companyBranches.findIndex(x => x.main)].main = false;
+
+            this.profileService.editBranch(companyBranch, id).subscribe(edited => {
+                let objIndex = this.companyBranches.findIndex((obj => obj.id === companyBranch.id));
+                this.companyBranches[objIndex] = edited;
+                this.companyBranches.forEach((obj) =>{
+                    obj.collapse = true;
+                });
             });
         });
     }
