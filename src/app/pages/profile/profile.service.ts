@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { url } from '../../globals/url';
 import { ResourceAction, ResourceMethod, ResourceParams } from 'ng2-resource-rest';
 import { ObjectList } from './user';
+import { ImageModel } from '../add-message/imagemodel';
 
 @Injectable()
 
@@ -90,7 +91,8 @@ export class ProfileService{
         let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
         this.token = currentUser.token;
         let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
-        return this.http.delete(`${url}/companybranches/${id}`, {headers: headers}).map((response: Response) => response.json());
+        return this.http.delete(`${url}/companybranches/${id}`, {headers: headers}).map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json().error) || 'Server output');;
     }
 
     getCompanyBranch(id: number): Observable<any> {
@@ -121,5 +123,35 @@ export class ProfileService{
         let body = JSON.stringify(data);
 
         return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json());
+    }
+
+    addCompanyImage(imageModel: ImageModel){
+
+        return Observable.fromPromise(new Promise((resolve, reject) => {
+
+            let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+            let headers = new Headers();
+            let token = currentUser.token;
+            let authorizationHeader = 'Bearer ' + token.access_token;
+
+            let formData: FormData = new FormData();
+            let xhr: XMLHttpRequest = new XMLHttpRequest();
+
+            formData.append('file', imageModel.file, imageModel.file.name);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200){
+                        resolve(JSON.parse(xhr.response))
+                    } else {
+                        reject(xhr.response);
+                    }
+                }
+            };
+
+            xhr.open('POST', url+'/companyimages/companyId/' + imageModel.messageId, true);
+            xhr.setRequestHeader('Authorization', authorizationHeader);
+            xhr.send(formData);
+
+        }));
     }
 }

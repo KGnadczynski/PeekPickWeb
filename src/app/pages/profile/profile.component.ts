@@ -1,4 +1,4 @@
-import { Component,OnInit ,ViewEncapsulation } from '@angular/core';
+import { Component,OnInit ,ViewEncapsulation, ViewChild } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { ObjectList } from './user';
 import { Http, Headers, RequestOptions } from '@angular/http';
@@ -7,6 +7,8 @@ import { User } from './user';
 import { MessagesComponent } from '../messages/messages.component';
 import { Router } from '@angular/router';
 import { EqualPasswordsValidator } from '../../theme/validators';
+import { NgUploaderOptions } from 'ngx-uploader';
+import { ImageModel } from '../add-message/imagemodel';
 
 @Component({
   selector: 'profile',
@@ -30,8 +32,13 @@ export class ProfileComponent implements OnInit {
   public defaultPicture = 'assets/img/theme/add-icon.png';
   public profile:any = {
         picture: 'assets/img/theme/add-icon.png'
- };
+    };
   isCollapse:boolean = true;
+  error: any;
+    public uploaderOptions:NgUploaderOptions = {
+        url: '',
+    };
+    @ViewChild('fileUpload') public fileUpload:any;
 
   constructor(
     private profileService: ProfileService, 
@@ -68,25 +75,19 @@ export class ProfileComponent implements OnInit {
       });
 
       this.branchForm = fb.group({
-        'name': [null, Validators.required],
-        'city': [null, Validators.required],
-        'street': [null, Validators.required],
-        'streetNo': [null, Validators.required],
-        'website': [null, Validators.required],
-        'phoneNumber': [null, Validators.required],
-        'openingHours': [null, Validators.required],
-        'description': [null, Validators.required],
-        'email': [null, Validators.required]
+        'name': '',
+        'city': '',
+        'street': '',
+        'streetNo': '',
+        'website': '',
+        'phoneNumber': '',
+        'openingHours': '',
+        'description': '',
+        'email': ''
       });
   }
 
   ngOnInit() {
-      this.profileService.getUser().subscribe(user => {
-        this.profileService.getCompany(user.company.id).subscribe(company => {
-            console.log('company: ');
-            console.dir(company);
-        });
-      });
 
       this.profileService.getUser().subscribe(user => {
         this.profileService.getCompanyBranches(user.company.id).subscribe(branches => {
@@ -128,6 +129,9 @@ export class ProfileComponent implements OnInit {
     }
 
     udpateCompanyName(value){
+
+        this.addCompanyImage();
+
         if(value.name || value.address.city || value.address.street || value.address.streetNo){
             this.profileService.getUser().subscribe(user => {
                 let body = user.company;
@@ -154,9 +158,13 @@ export class ProfileComponent implements OnInit {
                                     bodyAdd.streetNo = value.address.streetNo;
                                 
                                 this.profileService.updateCompanyBranch(bodyAdd, branches[i].id).subscribe(branch => {
-                                    console.log('branch: ');
-                                    console.dir(branch);
+                                    let objIndex = this.companyBranches.findIndex((obj => obj.id === branches[i].id));
+                                    this.companyBranches[objIndex] = branch;
+                                    this.companyBranches[objIndex].collapse = true;
+                                    this.companyForm.reset();
                                 });
+
+
                             }
                         }
                     });
@@ -189,6 +197,8 @@ export class ProfileComponent implements OnInit {
                                 console.dir(branch);
                                 this.additionalForm.reset();
                             });
+
+                            
                         }
                     }
                 });
@@ -203,6 +213,13 @@ export class ProfileComponent implements OnInit {
                 return el.id !== id
             });
         });
+
+        this.profileService.deleteBranch(id).map(res => res.json()).subscribe(
+            (data) => this.companyBranches = this.companyBranches.filter((el) => {
+                return el.id !== id
+            }),
+            (err) => this.error = err
+        );
     }
 
     addNewBranch(value): void{
@@ -240,6 +257,12 @@ export class ProfileComponent implements OnInit {
                 this.profileService.addNewBranch(body).subscribe(result => {
                     this.companyBranches.push(result);
                     this.branchForm.reset();
+
+                    this.companyBranches.forEach((obj) =>{
+                        obj.collapse = true;
+                    });
+                    this.isCollapse = !this.isCollapse;
+
                     console.log('result adding: ');
                     console.dir(result);
                 });
@@ -259,6 +282,7 @@ export class ProfileComponent implements OnInit {
             this.profileService.editBranch(companyBranch, companyBranch.id).subscribe(editedBranch => {
                 let objIndex = this.companyBranches.findIndex((obj => obj.id === companyBranch.id));
                 this.companyBranches[objIndex] = editedBranch;
+                this.branchForm.reset();
             });
 
         });
@@ -278,5 +302,26 @@ export class ProfileComponent implements OnInit {
                 });
             });
         });
+    }
+
+    addCompanyImage(): void {
+        if(this.fileUpload.file != null){
+            this.profileService.getUser().subscribe(user => {
+                this.profileService.addCompanyImage(new ImageModel(user.company.id, this.fileUpload.file)).subscribe(
+                    data => {
+                        this.otherImgs.imageUrl = data.imageUrl;
+                        console.log('closing image: ');
+                        console.dir(this.fileUpload.file);
+                        console.log('data');
+                        console.dir(data);
+                    },
+                    error => {}
+                )
+            });
+            
+        }
+        else {
+            console.log('nic nie uploadowano');
+        }
     }
 }

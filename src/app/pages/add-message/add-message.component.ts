@@ -54,7 +54,6 @@ export class AddMessageComponent implements OnInit {
         // url: 'http://website.com/upload'
         url: '',
     };
-
     
     zoom: number = 8;   
     lat: number;
@@ -97,7 +96,6 @@ export class AddMessageComponent implements OnInit {
     callbackEdit = (address: string) : void => {
          this.localization = address;
     }
-
 
     mapClicked($event: any) {
       console.log('Map clicked');
@@ -209,10 +207,10 @@ export class AddMessageComponent implements OnInit {
         private mapsApiLoader: MapsAPILoader,
         private messageService: MessagesService
     ){
-       this.mapsApiLoader.load().then(() => {
-      console.log('google script loaded');
-      this.geocoder = new google.maps.Geocoder();
-      console.log(this.geocoder);
+        this.mapsApiLoader.load().then(() => {
+        console.log('google script loaded');
+        this.geocoder = new google.maps.Geocoder();
+        console.log(this.geocoder);
     });
        
     }
@@ -322,7 +320,6 @@ export class AddMessageComponent implements OnInit {
     }
 
     public hideChildModal(): void {
-     
       this.childModal.hide();
       this._location.back();
     }
@@ -346,9 +343,9 @@ export class AddMessageComponent implements OnInit {
         console.log(event);
     }
 
-     ngOnDestroy() { 
-         this.triggerResize = true;   
-        }
+    ngOnDestroy() { 
+        this.triggerResize = true;
+    }
 
     addMessage(): void{
 
@@ -386,8 +383,6 @@ export class AddMessageComponent implements OnInit {
         //companyBranchCount
         this.messageAddModel.companyBranchCount = this.messageAddModel.companyBranchList.length;
 
-
-
         //location
         console.log('LOCATION CHANGED '+this.locationChanged);
         if(this.locationChanged) {
@@ -407,22 +402,24 @@ export class AddMessageComponent implements OnInit {
         console.log(this.msgAddModel);
 
         this.addMessageService.addMessage(this.messageAddModel).subscribe(
-      data => {
-        this.addedMessage = data;
-        if(this.fileUpload.file != null) {
-            console.log('inside '+this.fileUpload.file); 
-            this.addMessageService.addMessageImage(new ImageModel(this.addedMessage.id,this.fileUpload.file)).subscribe(
-                data => {
-                  console.log('closing image '+this.fileUpload.file); 
-                  this.hideChildModal();   
+            data => {
+                this.addedMessage = data;
+                if(this.fileUpload.file != null) {
+                    console.log('inside '+this.fileUpload.file); 
+                    this.addMessageService.addMessageImage(new ImageModel(this.addedMessage.id,this.fileUpload.file)).subscribe(
+                        data => {
+                        console.log('closing image '+this.fileUpload.file); 
+                        this.hideChildModal();   
+                        }
+                    );
+                } else {
+                    this.hideChildModal();   
                 }
-            );
-        } else {
-            this.hideChildModal();   
+            },
+        error => {
+            
         }
-      },
-      error => {
-      });
+      );
     }
 
     onChange() {
@@ -440,10 +437,6 @@ export class AddMessageComponent implements OnInit {
             }
         
         }
-  
     }
-
-
-    
 
 }

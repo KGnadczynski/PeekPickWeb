@@ -45,22 +45,27 @@ div#profile{
             text-align: center;
             margin: 3% 0;
         }
+        
         form#changeCI{
+            div.picture-group{
+                border: none;
+                width: auto;
+                height: auto;
+            }
             input[type=text], input[type=password], input[type=email]{
                 width: 100%;
             }
             div.image-upload{
                 width: 40%;
-                border: 1px solid gray;
                 border-radius: 1px;
                 float: left;
-                div.file-upload{
-                    background: white;
-                    label{
-                        background: white;
-                        color: gray;
-                        border: 1px solid gray;
-                    }
+                
+                div.picture-wrapper{
+                    width: 100%;
+                    height: auto;
+                }
+                a.change-picture, i.ion-ios-close-outline{
+                    display: none;
                 }
             }
             div#name{
@@ -159,8 +164,39 @@ div#profile{
         }
     }
     div#branches{
+        div.branch{
+            clear: both;
+            h2{
+                margin-top: 4%;
+                margin-bottom: 2%;
+            }
+            p{
+                margin: 2% 0;
+            }
+            span.error{
+                color: #A20E12;
+            }
+        }
         p{
             text-align: center;
+        }
+        i.fa-plus-circle{
+            cursor: pointer;
+            float: right;
+            margin-bottom: 2%;
+        }
+        div#addCollapseDiv{
+            clear: both;
+        }
+        p.buttons{
+            button{
+                padding: 8px;
+                background: white;
+                border: 1px solid black;
+                border-radius: 2px;
+                margin-bottom: 10px;
+                outline: none;
+            }
         }
         form{
             width: 100%;

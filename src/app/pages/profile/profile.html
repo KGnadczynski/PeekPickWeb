@@ -54,9 +54,9 @@
                 <div id="editProfile">
                 <h3>edytuj profil</h3>
                     <form id="changeCI" [formGroup]="companyForm" (ngSubmit)="udpateCompanyName(companyForm.value)">
-                        <ba-card title="Dodaj zdjęcie profilowe" baCardClass="with-scroll" aria-hidden="true">
-                            <ba-picture-uploader  (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture"></ba-picture-uploader>
-                        </ba-card>
+                        <div class="image-upload">
+                            <ba-picture-uploader #fileUpload (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
+                        </div>
 
                         <div id="name">
                             <label for="nazwa">nazwa firmy</label>
@@ -123,8 +123,8 @@
         </template>
         <template md-tab-content>
             <div id="branches">
-                <button class="addBranch" (click)="isCollapse = !isCollapse">Dodaj nowy oddział</button>
-                <div [collapse]="isCollapse">
+                <i class="fa fa-plus-circle fa-3x" aria-hidden="true" (click)="isCollapse = !isCollapse"></i>
+                <div [collapse]="isCollapse" id="addCollapseDiv">
                     <form [formGroup]="branchForm" (ngSubmit) = "addNewBranch(branchForm.value)">
                         <label>Nazwa</label>
                         <input type="text" id="name" formControlName="name">
@@ -197,10 +197,13 @@
                             {{ branch?.streetNo }}
                         </span>
                     </p>
-                    <p>
+                    <p class="buttons">
                         <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>
                         <button class="deleteBranch" (click)="deleteBranch(branch.id)">Usuń oddział</button>
                         <button *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
+                    </p>
+                    <p *ngIf="branch.main">
+                        <span *ngIf="error" class="error">Nie można usunąć głównego oddziału</span>
                     </p>
                     <div class="editBranch" [collapse]="branch.collapse">
                         <h4>Edytuj oddział</h4>
