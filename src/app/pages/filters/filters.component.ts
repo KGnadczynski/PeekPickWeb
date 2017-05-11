@@ -22,6 +22,7 @@ export class FiltersComponent implements OnInit{
     someValue: number = 0;
     google:any;
     @Output() myEvent: EventEmitter<any> = new EventEmitter<any>();
+    trade: string = "";
 
     public latitude: number;
     public longitude: number;
@@ -36,14 +37,15 @@ export class FiltersComponent implements OnInit{
             filterBy: '',
             distance : [10],
             types: fb.array([false, false, false, false, false]),
-            searchControl: ''
+            searchControl: '',
+            trades: fb.array([false, false, false, false, false, false, false])
         });
 
         this.filterForm.valueChanges.subscribe(data => {
 
             //console.log('data from filtrs component: ');
             //console.dir(data);
-/*
+
             this.setCurrentPosition();
 
             this.mapsAPILoader.load().then(() => {
@@ -62,27 +64,36 @@ export class FiltersComponent implements OnInit{
                         this.zoom = 12;
                     })
                 })
-            })
+            });
 
-            let params:{messageTypes: string, filterBy: string, distance: number, latitude: number, longitude: number} = {
-                messageTypes: "",
-                filterBy: "",
-                distance: 0,
-                latitude: this.latitude,
-                longitude: this.longitude
+            let params: {sortType: string, range: number, messageTypeList: string, companyCategoryMainIdList: string} = {
+                sortType: '',
+                range: 0,
+                messageTypeList: "",
+                companyCategoryMainIdList: ""
             };
 
-            let messageTypes = "";
-
+            if(data.filterBy)
+                params.sortType = data.filterBy;
+            
+            if(data.distance)
+                params.range = data.distance;
+            
             for(let i = 0; i < data.types.length; i++)
                 if(data.types[i])
-                    messageTypes += this.messageTypesOb[i].name + ";";
+                    params.messageTypeList += this.messageTypesOb[i].name + ";";
+                
+            for(let i = 0; i < data.trades.length; i++)
+                if(data.trades[i]){
+                    params.companyCategoryMainIdList += (i+1) + ";";
+                }
+                    //params.companyTypeMainList.push(i+1);
 
-            params.messageTypes = messageTypes;
-            params.filterBy = data.filterBy;
-            params.distance = data.distance;
 
-            this.myEvent.emit(params);*/
+            //console.log('trades:');
+            //console.dir(params.companyTypeMainList);
+
+            this.myEvent.emit(params);
         });
     }
 

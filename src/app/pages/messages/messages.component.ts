@@ -147,14 +147,13 @@ export class MessagesComponent implements OnInit{
     }
 
 
-
     checkIfFavourite(id: number){
         if(JSON.parse(localStorage.getItem("favs"))){
             if(JSON.parse(localStorage.getItem("favs")).indexOf(id) > -1) return true;
             else return false;
         }
     }
-
+/*
     getMessagesByType(params: string):void {
         this.messageService.getMessagesByType(params, this.latitude,this.longitude).subscribe(result => {
             this.messageList = result;
@@ -178,28 +177,70 @@ export class MessagesComponent implements OnInit{
             });
         });
 
-    }
+    }*/
 
     filter(event){
         console.log('data event: ');
         console.dir(event);
-        //vent.messageTypes = event.messageTypes.substring(0, event.messageTypes.length-1);
+        event.messageTypeList = event.messageTypeList.substring(0, event.messageTypeList.length-1);
+        event.companyCategoryMainIdList = event.companyCategoryMainIdList.substring(0, event.companyCategoryMainIdList.length-1);
         
-        /*this.getMessagesByType(event.messageTypes);
-        if(event.filterBy === 'lokalizacja'){
-            this.getMessagesByDistance(this.pageNumber);
-        } else if(event.filterBy === 'data dodania'){
-            this.getMessagesByCreateDate(this.pageNumber);
+        let params: string = "";
+        Object.keys(event).forEach((key) => {
+            if(event[key])
+                params += key + "=" + event[key] + "&";
+        });
+        params = params.substring(0, params.length-1);
+        params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
+        console.log('params: ' + params);
+        if(params !== "")
+            this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
+                this.messageList = result;
+            });
+        else
+            this.getMessages(this.pageNumber);
+
+        /*if(event.sortType){
+            if(event.sortType === 'lokalizacja'){
+                this.getMessagesByDistance(this.pageNumber);
+            }
+            if(event.sortType === 'data dodania'){
+                this.getMessagesByCreateDate(this.pageNumber);
+            }
+        }
+        if(event.range){
+            this.getRange(event.distance);
+        }else {
+            this.getMessages(this.pageNumber);
+        }
+
+        if(event.messageTypeList){
+            this.getMessagesByType(event.messageTypeList);
+        } else {
+            this.getMessages(this.pageNumber);
+        }*/
+/*
+        if(event.companyCategoryMainIdList){
+            this.getMessagesByCompanyTypeMain(event.companyCategoryMainIdList);
+        } else {
+            this.getMessages(this.pageNumber);
         }*/
 
+    }
+
+    /*getMessagesByCompanyTypeMain(params: string): void{
+        this.messageService.getMessagesByCompanyTypeMain(params, this.latitude, this.longitude, this.pageNumber).subscribe(result => {
+            this.messageList = result;
+        });
     }
 
     getRange(range: number): void{
         this.messageService.getRange(this.latitude, this.longitude, this.pageNumber, range).subscribe(result => {
             console.log('range: ');
             console.dir(result);
+            this.messageList = result;
         });
-    }
+    }*/
 
     getSearchMessages(searchTerm: string) {
         this.messageService.searchMessages(searchTerm, this.pageNumber, this.latitude, this.longitude).subscribe(result => {

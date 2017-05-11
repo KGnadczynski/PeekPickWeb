@@ -23,9 +23,9 @@
 
         <input id="searchLocation" placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="searchControl">
         
-        <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+        <!--<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
             <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-        </agm-map>
+        </agm-map>-->
         
         <h5>odległość</h5>
         <nouislider [min]="0" [max]="14" [step]="0.05" [(ngModel)]="someValue" formControlName = "distance"></nouislider>
@@ -39,10 +39,15 @@
             <label *ngFor="let messageType of messageTypesOb">{{messageType.value}}</label>
         </div>
 
-        <p>Branża</p>
+        <div id="trades">
+            <h3>Branża</h3>
+            <!--<input type="checkbox" *ngFor="let trade of filterForm.controls['trades'].controls" [formControl]="trade">-->
+        </div>
 
         <div id="companyCategories">
-            <div *ngFor="let category of categories">
+            <div *ngFor="let category of categories; let i = index">
+                <md-checkbox [formControl]="filterForm.controls['trades'].controls[i]"></md-checkbox>
+                <!--<label (click)="category.bol = !category.bol">{{ category.name }}</label>-->
                 <button type="button" (click)="category.bol = !category.bol">{{ category.name }}</button>
                 <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="category.bol">
                     <div class="subcategories">

@@ -310,10 +310,7 @@ export class ProfileComponent implements OnInit {
                 this.profileService.addCompanyImage(new ImageModel(user.company.id, this.fileUpload.file)).subscribe(
                     data => {
                         this.otherImgs.imageUrl = data.imageUrl;
-                        console.log('closing image: ');
                         console.dir(this.fileUpload.file);
-                        console.log('data');
-                        console.dir(data);
                     },
                     error => {}
                 )

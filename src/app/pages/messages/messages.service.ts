@@ -28,9 +28,17 @@ export class MessagesService{
 
         return this.http.get(url + '/messages/'+id).map(this.mapMessageSingle).catch(this.handleError);
     }
-
+    
+    getFilterMessages(params: string, pageNumber: number): Observable<MessageList>{
+        return this.http.get(url + `/messages/page/${pageNumber}?` + params).map(this.mapMessages).catch(this.handleError);
+    }
+/*
     getMessagesByType(params: string, latitude: number, longitude: number): Observable<MessageList>{
         return this.http.get(url + '/messages/page/1?messageTypeList=' + params + "&latitude=" + latitude + "&longitude=" + longitude).map(this.mapMessages).catch(this.handleError);
+    }
+
+    getMessagesByCompanyTypeMain(params: string, latitude: number, longitude: number, page:number): Observable<MessageList>{
+        return this.http.get(url + `/messages/page/${page}?companyCategoryMainIdList=${params}`+ "&latitude=" + latitude + "&longitude=" + longitude).map(this.mapMessages).catch(this.handleError);
     }
 
     getRange(latitude: number, longitude: number, page: number, range: number): Observable<MessageList>{
@@ -43,7 +51,7 @@ export class MessagesService{
 
     sortMessagesByCreateDate(page:number, latitude: number, longitude: number): Observable<MessageList>{
         return this.http.get(url+'/messages/page/' + page + '?latitude=' + latitude + '&longitude=' + longitude + '&sortType=create_date').map(this.mapMessages).catch(this.handleError);
-    }
+    }*/
 
     searchMessages(searchTerm:string, page:number, latitude: number, longitude: number): Observable<MessageList>{
         return this.http.get(url + `/messages/page/${page}?searchTerm=${searchTerm}&latitude=${latitude}&longitude=${longitude}`).map(this.mapMessages).catch(this.handleError);
