@@ -40,14 +40,14 @@ export class BaPageTop implements OnInit{
     
     let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
 
-    let  companyBranch = JSON.parse(localStorage.getItem('companyBranchList'));
+    let user = JSON.parse(localStorage.getItem('user'));
    
     if(currentUser != null) {
       this.isLogged = true;
     }
 
-     if(companyBranch != null) {
-     this.profileService.getUserImages(companyBranch.companyBranchList[0].company.id).subscribe((value)=> {
+     if(user != null) {
+     this.profileService.getUserImages(user.user.company.id).subscribe((value)=> {
         this.userLogo = value.imageUrl;
       }) 
     }
