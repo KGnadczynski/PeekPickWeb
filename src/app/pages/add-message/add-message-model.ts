@@ -125,10 +125,11 @@
         startDate: string;
         status: string;
         type: string;
-        user: User;
 
-        constructor() {
-          this.user = new User();
-          this.location = new Location();
+        constructor(locationChanged:boolean) {
+            if(locationChanged)
+            {
+             this.location = new Location();
+            }
         }
     }

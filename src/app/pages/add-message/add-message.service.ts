@@ -10,9 +10,14 @@ import { MessageAddModel } from './add-message-model';
 @Injectable()
 export class AddMessageService {
 
-     private Url:string = "https://damp-temple-52216.herokuapp.com/";
 
     constructor(private http: Http){}
+
+
+
+     getUserCompanyBranchList(id: number) : Observable<any>{
+        return this.http.get(`${url}/companybranches/companyId/${id}`).map((res:Response) => res.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+    }
 
     addMessage(messageModel: MessageAddModel){
         let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
