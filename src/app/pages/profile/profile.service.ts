@@ -32,7 +32,7 @@ export class ProfileService{
         return this.http.get(`${url}/companies/${id}`).map((response: Response) => response.json());
     }
 
-    getUserImages(id: number) : Observable<ObjectList>{
+    getUserImages(id: number) : Observable<any>{
         return this.http.get(`${url}/companyimages/companyId/${id}`).map((res:Response) => res.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
     }
 

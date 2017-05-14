@@ -3,28 +3,35 @@ import {GlobalState} from '../../../global.state';
 import {CommunicationService} from '../../../pages/komunikat/communicationservice.component';
 import { MessageType } from '../../../globals/enums/message-type.enum';
 import { BaPageTopService } from '../../services';
+import { url } from '../../globals/url';
+import { ProfileService } from '../../../pages/profile/profile.service';
 
 @Component({
   selector: 'ba-page-top',
   styles: [require('./baPageTop.scss')],
   template: require('./baPageTop.html'),
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [ProfileService]
 })
 export class BaPageTop implements OnInit{
 
   messageTypes: string[] = Object.keys(MessageType);
   messageTypesOb: {name: string, value: string}[] = [];
   isLogged: boolean;
+  userLogo: string;
 
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
 
-  constructor(private _state:GlobalState,private communicationservice: CommunicationService,private pageTopService: BaPageTopService) {
+  constructor(private _state:GlobalState,private communicationservice: CommunicationService,private pageTopService: BaPageTopService,private profileService: ProfileService) {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
     this.pageTopService.loggedChange.subscribe((value) => { 
-     this.isLogged = value; 
+      this.isLogged = true;
+      this.profileService.getUserImages(value).subscribe((value)=> {
+        this.userLogo = value.imageUrl;
+      }) 
     });
 
   }

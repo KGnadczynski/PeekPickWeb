@@ -4,13 +4,13 @@ import { Subject }    from 'rxjs/Subject';
 @Injectable()
 export class BaPageTopService {
 
-  loggedChange: Subject<boolean> = new Subject<boolean>();
+  loggedChange: Subject<number> = new Subject<number>();
 
   constructor() {
   }
 
-  public changedLoggedFlag():void {
-    this.loggedChange.next(true)
+  public changedLoggedFlag(companyId:number):void {
+    this.loggedChange.next(companyId)
   }
 
 }
