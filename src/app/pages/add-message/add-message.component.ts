@@ -225,24 +225,13 @@ export class AddMessageComponent implements OnInit {
         let user = JSON.parse(localStorage.getItem('user'));
         if(user != null) {
             this.addMessageService.getUserCompanyBranchList(user.user.company.id).subscribe((value)=> {
-          
                  this.companyBranchList = value;
-             console.log('Company branch list ' + value);
                 if(this.companyBranchList.length >1) {
-                    console.log('Company branch list  2' + value);
                     this.showMulitSelect = true;
-                /*  this.myOptions = [
-                    { id: 1, name: 'Option 1' },
-                    { id: 2, name: 'Option 2' },
-                ];*/
                 this.myOptions = this.companyBranchList;
                 }
             }) 
        }
-       //this.companyBranchList = JSON.parse(localStorage.getItem('companyBranchList'));
-      
-        console.log('latitude : ' + this.lat);
-        console.log('latitude : ' + this.lng);
          this.pickerOptionsEnd['minDate'] = '05/01/2017';
           
         for(let i = this.messageTypes.length-1; i >= 0; i--)
@@ -261,15 +250,21 @@ export class AddMessageComponent implements OnInit {
                         this.messageEdit = result;
                         this.msgAddModel.content = this.messageEdit.content;
                         this.msgAddModel.startDate = moment(new Date(this.messageEdit.startDate)).format("YYYY-MM-DD HH:mm:ss");
+                        this.profile.picture = this.messageEdit.mainImageUrl;
+
+                        if(this.messageEdit.location != null) {
+                            this.lat =  this.messageEdit.location.latitude;
+                            this.lng = this.messageEdit.location.longitude;
+                        } else {
+                            this.lat =  this.messageEdit.companyBranchList[0].latitude;
+                            this.lng = this.messageEdit.companyBranchList[0].longitude;
+                        }
+                        this.messageTypeName = this.messageEdit.type;
                         if(this.messageEdit.endDate == null) {
                             this.withoutEndDate();
                         } else {
                             this.msgAddModel.endDate = moment(new Date(this.messageEdit.endDate)).format("YYYY-MM-DD HH:mm:ss");  
                         }               
-                        this.lat =  this.messageEdit.location.latitude;
-                        this.lng = this.messageEdit.location.longitude;
-                        this.messageTypeName = this.messageEdit.type;
-                        this.profile.picture = this.messageEdit.mainImageUrl;
                         this.changeAddress(this.callbackEdit);
                      });
                     break;
@@ -383,8 +378,15 @@ export class AddMessageComponent implements OnInit {
 
 
         //companyBranchList
+        console.log('showMulitSelect '+this.showMulitSelect);
         if(this.showMulitSelect) {
-          this.messageAddModel.companyBranchList=this.companyBranchListSelectedFinal
+            if(this.companyBranchListSelectedFinal.length>=1) {
+                 this.messageAddModel.companyBranchList=this.companyBranchListSelectedFinal;
+            } else {
+                var companyBranchListSelectedLocal = [];
+                companyBranchListSelectedLocal.push(this.companyBranchList[0])
+                this.messageAddModel.companyBranchList= companyBranchListSelectedLocal;
+            }
         } else {
         this.messageAddModel.companyBranchList = this.companyBranchList;
         }
