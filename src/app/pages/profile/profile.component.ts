@@ -90,107 +90,78 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
 
       if(localStorage.getItem('currentUserToken')){
-
         this.profileService.getUser().subscribe(
             user => {
                 console.log('user:');
                 console.dir(user);
+                this.otherUser = user;
+                this.companyForm.controls['name'].setValue(this.otherUser.company.name);
+                
+                this.idCompany = user.company.id;
+                this.profileService.getCompanyBranches(user.company.id).subscribe(
+                    branches => {
+                        console.log('branches: ');
+                        console.dir(branches);
+                        this.companyBranches = branches;
+                        this.companyBranches.forEach((obj) => {
+                            obj.collapse = true;
+                        });
+                        let objIndex = this.companyBranches.findIndex((obj => obj.main));
+                        let addressGroup = <FormGroup>this.companyForm.get('address');
+                        let additionalGroup = <FormGroup>this.additionalForm.get('contact');
+                        addressGroup.setValue({
+                            city: this.companyBranches[objIndex].city,
+                            street: this.companyBranches[objIndex].street,
+                            streetNo: this.companyBranches[objIndex].streetNo
+                        });
+
+                        additionalGroup.setValue({
+                            www: this.companyBranches[objIndex].website,
+                            openingHours: this.companyBranches[objIndex].openingHours,
+                            telephone: this.companyBranches[objIndex].phoneNumber,
+                            email: this.companyBranches[objIndex].email,
+                            description: this.companyBranches[objIndex].description
+                        });
+
+                    },
+                    errI => {
+                        console.log('Error from getCompanyBranches');
+                        console.dir(errI);
+                        if(errI.error === 'invalid_token'){
+                            this.router.navigateByUrl('/pages/komunikat');
+                            localStorage.removeItem('currentUserToken');
+                            localStorage.removeItem('user');
+                        }
+                    }
+                );
+                this.profileService.getUserImages(user.company.id).subscribe(
+                    images => {
+                        this.otherImgs = images;
+                    },
+                    errI => {
+                        console.log('Error from get user images: ');
+                        console.dir(errI);
+                        if(errI.error === 'invalid_token'){
+                            this.router.navigateByUrl('/pages/komunikat');
+                            localStorage.removeItem('currentUserToken');
+                            localStorage.removeItem('user');
+                        }
+                    }
+                )
             },
             err => {
-                console.log('error: ');
+                console.log('error from user: ');
                 console.dir(err);
+                if(err.error === 'invalid_token'){
+                    this.router.navigateByUrl('/pages/komunikat');
+                    localStorage.removeItem('currentUserToken');
+                    localStorage.removeItem('user');
+                }
             }
-        )
-
-            /*this.profileService.getUser().map(res => res.json()).subscribe(
-                (user) => {
-                    this.profileService.getCompanyBranches(user.company.id).map(res => res.json()).subscribe(
-                        (branches) => {
-                            this.companyBranches = branches;
-                            this.companyBranches.forEach((obj) => {
-                                obj.collapse = true;
-                            });
-                        },
-                        (errI) => {
-                            console.log('Error from getCompanyBranches');
-                            console.dir(errI);
-                        }
-                    )
-                },
-                (err) => {
-                    console.log('Error from get user: ' + err._body);
-                    console.dir(err);
-                    let error =JSON.parse(JSON.stringify(err._body || null ));
-                    if(error){
-                        if(error.error === 'invalid_token'){
-                            this.router.navigateByUrl('/pages/komunikat');
-                            localStorage.removeItem('currentUserToken');
-                            localStorage.removeItem('user');
-                        }
-                    }
-                    
-                }
-            );*/
-
-            /*this.profileService.getUser().map(res => res.json()).subscribe(
-                (user) => {
-                    this.otherUser = user;
-                    this.idCompany = user.company.id;
-                    this.profileService.getUserImages(this.otherUser.company.id).map(res => res.json()).subscribe(
-                        (imgs) => {
-                            this.otherImgs = imgs;
-                        },
-                        (errI) => {
-                            console.log('Error from get User Images: ');
-                            console.dir(errI);
-                        }
-                    )
-                },
-                (err) => {
-                    let error =JSON.parse(JSON.stringify(err._body || null ));
-
-                    if(error){
-                        if(error.error === 'invalid_token'){
-                            this.router.navigateByUrl('/pages/komunikat');
-                            localStorage.removeItem('currentUserToken');
-                            localStorage.removeItem('user');
-                        }
-                    }
-
-                    console.log('Error from get User: ');
-                    console.dir(error);
-                }
-            );*/
-
-          /*this.profileService.getUser().subscribe(user => {
-            this.profileService.getCompanyBranches(user.company.id).subscribe(branches => {
-                this.companyBranches = branches;
-                this.companyBranches.forEach((obj) => {
-                    obj.collapse = true;
-                });
-            },
-            err => {
-                console.log('error: ');
-                console.dir(err);
-            });
-        });
-
-          this.profileService.getUser().subscribe(user => {
-            this.otherUser = user;
-            console.log("otherUser: ");
-            console.dir(this.otherUser);
-            this.idCompany = user.company.id;
-            this.profileService.getUserImages(this.otherUser.company.id).subscribe(imgs => {
-              this.otherImgs = imgs;
-              console.log('imgs:');
-              console.dir(this.otherImgs);
-            });
-          });*/
-          
+        );
       }
-      else{
+      else
         this.router.navigateByUrl('/pages/komunikat');
-      }
 
     }
 
@@ -201,83 +172,79 @@ export class ProfileComponent implements OnInit {
         });
     }
 
-    udpateCompanyName(value){
+    udpateCompanyName(value: any){
 
         this.addCompanyImage();
 
-        if(value.name || value.address.city || value.address.street || value.address.streetNo){
-            this.profileService.getUser().subscribe(user => {
+        this.profileService.getUser().subscribe(
+            user => {
                 let body = user.company;
                 if(value.name){
                     body.name = value.name;
-                    this.profileService.updateCompany(body, user.company.id).subscribe(result => {
-                        this.companyForm.reset();
-                        this.otherUser.company = result;
-                    });
+                    this.profileService.updateCompany(body, user.company.id).subscribe(
+                        company => {
+                            this.companyForm.reset();
+                            this.otherUser.company = company;
+                        },
+                        errUser => {}
+                    );
                 }
 
-                this.profileService.getUser().subscribe(user => {
-                    this.profileService.getCompanyBranches(user.company.id).subscribe(branches => {
-                        for(let i = 0; i < branches.length; i++){
-                            if(branches[i].main){
-                                let bodyAdd = branches[i];
-                                if(value.name)
-                                    bodyAdd.name = value.name;
-                                if(value.address.street)
-                                    bodyAdd.street = value.address.street;
-                                if(value.address.city)
-                                    bodyAdd.city = value.address.city;
-                                if(value.address.streetNo)
-                                    bodyAdd.streetNo = value.address.streetNo;
-                                
-                                this.profileService.updateCompanyBranch(bodyAdd, branches[i].id).subscribe(branch => {
-                                    let objIndex = this.companyBranches.findIndex((obj => obj.id === branches[i].id));
-                                    this.companyBranches[objIndex] = branch;
-                                    this.companyBranches[objIndex].collapse = true;
-                                    this.companyForm.reset();
-                                });
-
-
+                this.profileService.getMainCompanyBranch(user.company.id).subscribe(
+                    mainBranch => {
+                        let body = mainBranch;
+                        Object.keys(value.address).forEach((key) => {
+                            if(value.address[key])
+                                body[key] = value.address[key];
+                        });
+                        this.profileService.updateCompanyBranch(body, body.id).subscribe(
+                            updatedBranch => {
+                                let objIndex = this.companyBranches.findIndex((obj => obj.id === updatedBranch.id));
+                                this.companyBranches[objIndex] = updatedBranch;
+                                this.companyBranches[objIndex].collapse = true;
+                                this.companyForm.reset();
                             }
-                        }
-                    });
-                });
-            });   
-        }
+                        );
+                    },
+                    errMain => {}
+                );
+            },
+            errUser => {}
+        );
+
     }
 
-    udpateCompany2(value){
-        if(value.contact.www || value.contact.openingHours || value.contact.telephone || value.contact.email || value.contact.description){
-
-            this.profileService.getUser().subscribe(user => {
-                this.profileService.getCompanyBranches(user.company.id).subscribe(branches => {
-                    for(let i = 0; i < branches.length; i++){
-                        if(branches[i].main){
-                            let bodyAdd = branches[i];
-                            if(value.contact.www)
-                                bodyAdd.website = value.contact.www;
-                            if(value.contact.openingHours)
-                                bodyAdd.openingHours = value.contact.street;
-                            if(value.contact.telephone)
-                                bodyAdd.phoneNumber = value.contact.telephone;
-                            //if(value.contact.email)
-                                //bodyAdd.email = value.contact.streetNo;
-                            if(value.contact.description)
-                                bodyAdd.description = value.contact.description;
-                            
-                            this.profileService.updateCompanyBranch(bodyAdd, branches[i].id).subscribe(branch => {
+    udpateCompanyAdditional(value: any){
+        this.profileService.getUser().subscribe(
+            user => {
+                this.profileService.getCompanyBranches(user.company.id).subscribe(
+                    branches => {
+                        let objIndex = branches.findIndex((obj => obj.main));
+                        let branch = branches[objIndex];
+                        Object.keys(value.contact).forEach((key) => {
+                            if(value.contact[key])
+                                branch[key] = value.contact[key];
+                        });
+                        this.profileService.updateCompanyBranch(branch, branch.id).subscribe(
+                            editedBranch => {
                                 console.log('branch: ');
                                 console.dir(branch);
                                 this.additionalForm.reset();
-                            });
-
-                            
-                        }
+                            }
+                        );
+                    },
+                    errBranches => {
+                        console.log('error get company branches:');
+                        console.dir(errBranches);
                     }
-                });
-            });
+                )
+            },
+            errUser => {
+                console.log('error get company branches:');
+                console.dir(errUser);
+            }
+        );
 
-        }
     }
 
     deleteBranch(id: number): void{
@@ -383,9 +350,11 @@ export class ProfileComponent implements OnInit {
                 this.profileService.addCompanyImage(new ImageModel(user.company.id, this.fileUpload.file)).subscribe(
                     data => {
                         this.otherImgs.imageUrl = data.imageUrl;
-                        console.dir(this.fileUpload.file);
                     },
-                    error => {}
+                    error => {
+                        console.log('image add error: ');
+                        console.dir(error);
+                    }
                 )
             });
             

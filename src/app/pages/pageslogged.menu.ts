@@ -16,12 +16,12 @@ export const PAGES_MENU_LOGGED = [
         }
       },
       {
-        path: 'kulturairozrywka',  // path for our page
-        data: { // custom menu declaration
+        path: 'kulturairozrywka',
+        data: {
           menu: {
-            title: 'Kultura i rozrywka', // menu title
-            icon: 'ion-android-home', // menu icon
-            pathMatch: 'prefix', // use it if item children not displayed in menu
+            title: 'Kultura i rozrywka',
+            icon: 'ion-android-home',
+            pathMatch: 'prefix',
             selected: false,
             expanded: false,
             order: 0

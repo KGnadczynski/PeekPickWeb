@@ -13,7 +13,7 @@
       <a *ngFor="let messageType of messageTypesOb" [routerLink]="['/pages/add_message/', messageType.value]">{{ messageType.value }} </a>
     </div>
   </div>
-  <i id="searchIcon" class="fa fa-search fa-2x hidden-lg-up" aria-hidden="true" [routerLink]="['/pages/search/']"></i>
+  <i id="searchIcon" class="fa fa-search fa-2x" aria-hidden="true" [routerLink]="['/pages/search/']"></i>
 
   <div class="user-profile clearfix hidden-xs-down" *ngIf="isLogged">
     <div class="dropdown al-user-profile">

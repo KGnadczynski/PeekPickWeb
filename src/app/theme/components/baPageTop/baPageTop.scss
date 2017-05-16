@@ -4,35 +4,24 @@
 i#searchIcon{
   color: white;
   float: right;
-  padding-right: 2%;
+  padding-right: 10px;
   cursor: pointer;
   text-align: right;
-  @media(max-width: 575px){
-    padding-top: 18px;
-  }
-  @media (min-width: 576px){
-    padding-top: 18px;
-    padding-right: 10px;
-  }
-  @media (min-width: 768px){
-    padding-top: 2.5%;
-  }
+  padding-top: 20px;
+
+}
+
+i#dropdownMenuButton{
+  padding-top: 20px;
 }
 
 div.dropdown{
     float: right;
     cursor: pointer;
-    padding-left: 2%;
+    padding-left: 2px;
+    margin-right: 20px;
     @media(max-width: 575px){
-      padding-top: 18px;
-      
-    }
-    @media (min-width: 576px){
-      padding-top: 18px;
-      padding-left: 0;
-    }
-    @media (min-width: 768px){
-      padding-top: 2.5%;
+      margin-right: 0;
     }
     i{
       color: white;
@@ -87,8 +76,8 @@ a.al-logo {
 }
 
 .user-profile {
-  margin-top: 10px;
   float: right;
+  padding-top: 11px;
 }
 
 .al-user-profile {
@@ -199,38 +188,9 @@ a.collapse-menu-link {
   }
 }
 
-//@media screen and (max-width: 362px) {
   .search {
     display: none;
   }
-  
-//}
-
-@media(max-width: 575px){
-    a.al-logo{
-      // color: red;
-    }
-}
-@media (min-width: 576px) {
-    a.al-logo{
-      // color: green;
-    }
-}
-@media (min-width: 768px) {
-   a.al-logo{
-    //  color: orange;
-    }
-}
-@media (min-width: 992px) {
-    a.al-logo{
-      // color: yellow;
-    }
-}
-@media (min-width: 1200px) {
-    a.al-logo{
-      // color: blue;
-    }
-}
 
 nav{
   padding-top: 4%;

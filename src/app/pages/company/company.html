@@ -16,26 +16,25 @@
       </template>
       <template md-tab-content>
         <div id="daneFirmy">
-
-          
-          <div id="opisInfo" *ngIf="otherOneCompany?.description">
+          <div id="opisInfo">
             <h5>Opis:</h5>
-            <span>{{ otherOneCompany?.description }}</span>
+            <span *ngIf="otherOneCompany?.description">{{ otherOneCompany?.description }}</span>
           </div>
 
           <div id="adresInfo">
             <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
             <h5>Adres:</h5>
-            <span *ngIf="otherOneCompany?.city">
-              {{  otherOneCompany?.city }},
-              {{  otherOneCompany?.street }}
-              {{  otherOneCompany?.streetNo }}</span>
+            <p>
+              <span *ngIf="otherOneCompany?.city">{{  otherOneCompany?.city }}, </span>
+              <span *ngIf="otherOneCompany?.street">{{  otherOneCompany?.street }}, </span>
+              <span *ngIf="otherOneCompany?.streetNo">{{  otherOneCompany?.streetNo }}, </span>
+            </p>
           </div>         
 
-          <div id="godzinyInfo" *ngIf="otherOneCompany?.openingHours">
+          <div id="godzinyInfo">
             <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
             <h5>Godziny otwarcia: </h5>
-            <span>{{ otherOneCompany?.openingHours }}</span>
+            <span *ngIf="otherOneCompany?.openingHours">{{ otherOneCompany?.openingHours }}</span>
           </div>
           
           <div id="kontaktInfo">
@@ -58,7 +57,7 @@
             </div>
           </div>
 
-          <h4 id="companyDate" *ngIf="otherOneCompany?.companyName">
+          <h4 id="companyDate" *ngIf="otherOneCompany?.createDate">
             <span>Data:</span>
             {{ otherOneCompany?.createDate }}
           </h4>

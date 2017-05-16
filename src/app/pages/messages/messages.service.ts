@@ -26,7 +26,7 @@ export class MessagesService{
     getCompanyMessages(page: any, id: number, latitude: number, longitude: number) : Observable<MessageList>{
 
         this.urlNew = url + '/messages/page/' + page + '?companyId=' + id;
-        if(latitude === 0 && longitude === 0)
+        if(!(latitude === 0 && longitude === 0))
             this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;
 
         return this.http.get(this.urlNew).map(this.mapMessages).catch(this.handleError);
@@ -34,9 +34,10 @@ export class MessagesService{
 
     getMessagesList(ids: string, latitude: number, longitude: number, page: number) : Observable<MessageList>{
 
-        this.urlNew = url + '/messages/page/' + page + '?messageIdList' + ids;
-        if(latitude === 0 && longitude === 0)
+        this.urlNew = url + '/messages/page/' + page + '?messageIdList=' + ids;
+        if(!(latitude === 0 && longitude === 0))
             this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;
+        console.log('URL NEW: ' + this.urlNew);
 
         return this.http.get(this.urlNew).map(this.mapMessages).catch(this.handleError);
     }
@@ -52,7 +53,7 @@ export class MessagesService{
     searchMessages(searchTerm:string, page:number, latitude: number, longitude: number): Observable<MessageList>{
 
         this.urlNew = url + '/messages/page/' + page + '?searchTerm=' + searchTerm;
-        if(latitude === 0 && longitude === 0)
+        if(!(latitude === 0 && longitude === 0))
             this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;
 
         return this.http.get(this.urlNew).map(this.mapMessages).catch(this.handleError);

@@ -128,14 +128,17 @@ export class MessagesComponent implements OnInit{
 
             case 'favourites':
                 let x = JSON.parse(localStorage.getItem("favs"));
-
+                console.log('x: ');
+                console.dir(x.join(';'));
                 if(x.length !== 0){
                     if("geolocation"  in navigator){
                         navigator.geolocation.getCurrentPosition((position) => {
                             this.latitude = position.coords.latitude;
                             this.longitude = position.coords.longitude;
-                            this.busy = this.messageService.getMessagesList(x.join(';'), this.pageNumber, this.latitude, this.longitude).subscribe(result => {
+                            this.busy = this.messageService.getMessagesList(x.join(';'), this.latitude, this.longitude, this.pageNumber).subscribe(result => {
                                 this.messageList = result;
+                                console.log('favsy message list:');
+                                console.dir(result);
                             });
                         });
                     }

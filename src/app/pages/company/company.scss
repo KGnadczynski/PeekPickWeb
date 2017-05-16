@@ -20,6 +20,7 @@ div.company-name{
     }
 }
 md-tab-group{
+    width: 100%;
     padding: 3% 0;
     div.md-tab-header{
         border: none !important;
@@ -62,8 +63,16 @@ md-tab-group{
                 letter-spacing: 0.1px;
             }
         }
+
+        div#adresInfo{
+            p{
+                span{
+                    
+                }
+            }
+        }
         
-        div#godzinyInfo, div#kontaktInfo, div#adresInfo{
+        div#godzinyInfo, div#kontaktInfo{
             overflow: hidden;
             i{
                 float: left;
@@ -94,6 +103,7 @@ md-tab-group{
                 }
             }
         }
+
         div#kontaktInfo{
             div{
                 margin: 1% 0;

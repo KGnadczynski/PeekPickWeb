@@ -29,44 +29,46 @@ export class ProfileService{
         }
 
     getCompany(id: number): Observable<any>{
-        return this.http.get(`${url}/companies/${id}`).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+        return this.http.get(`${url}/companies/${id}`)
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
 
     getUserImages(id: number) : Observable<any>{
-        return this.http.get(`${url}/companyimages/companyId/${id}`).map((res:Response) => res.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+        return this.http.get(`${url}/companyimages/companyId/${id}`)
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
 
     updateUserEmail(email: string, password: string): Observable<any>{
         var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
         this.token = currentUser.token;
         let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
-        let body = [
-            {
-                "updateEmailForm":
-                {
-                    "email": email,
-                    "password": password
-                }
+        let body = [{
+            "updateEmailForm":{
+                "email": email,
+                "password": password
             }
-
-        ];
+        }];
         let options = new RequestOptions({ headers: headers, body:  body });
-        return this.http.put(`${url}/users/email`, options).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+        return this.http.put(`${url}/users/email`, options)
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
 
     updateUserPassword(password: string, newPassword: string): Observable<any>{
         var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
         this.token = currentUser.token;
         let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
-        let data = 
-            {
-                "newPassword": newPassword,
-                "password": password
-            };
+        let data = {
+            "newPassword": newPassword,
+            "password": password
+        };
         let body = JSON.stringify(data);
 
-        //let options = new RequestOptions({ headers: headers, body:  body });
-        return this.http.put(`${url}/users/password`, body, {headers: headers}).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+        return this.http.put(`${url}/users/password`, body, {headers: headers})
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
 
     updateCompany(data: any, id: number) : Observable<any>{
@@ -75,7 +77,9 @@ export class ProfileService{
         let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
         let body = JSON.stringify(data);
 
-        return this.http.put(`${url}/companies/${id}`, body, {headers: headers}).map((response:Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+        return this.http.put(`${url}/companies/${id}`, body, {headers: headers})
+        .map((response:Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
 
     }
 
@@ -84,25 +88,36 @@ export class ProfileService{
         this.token = currentUser.token;
         let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
         let body = JSON.stringify(data);
-        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers})
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
 
     deleteBranch(id:number): Observable<any>{
         let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
         this.token = currentUser.token;
         let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
-        return this.http.delete(`${url}/companybranches/${id}`, {headers: headers}).map((response: Response) => response.json())
-        .catch((error: any) => Observable.throw(error.json().error) || 'Server output');;
+        return this.http.delete(`${url}/companybranches/${id}`, {headers: headers})
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');;
     }
 
     getCompanyBranch(id: number): Observable<any> {
-        return this.http.get(`${url}/companybranches/${id}`).map((response: Response) => response.json()).catch(
-            (error: any) => Observable.throw(error.json().error) || 'Server output'
-        );
+        return this.http.get(`${url}/companybranches/${id}`)
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json().error) || 'Server output');
     }
 
     getCompanyBranches(id: number):Observable<any>{
-        return this.http.get(`${url}/companybranches/companyId/${id}`).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+        return this.http.get(`${url}/companybranches/companyId/${id}`)
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
+    }
+
+    getMainCompanyBranch(id: number) : Observable<any>{
+        return this.http.get(`${url}/companybranches/companyId/${id}/main`)
+        .map((response :Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json() || 'Server output'));
     }
 
     addNewBranch(data: any): Observable<any>{
@@ -112,7 +127,9 @@ export class ProfileService{
 
         let body = JSON.stringify(data);
 
-        return this.http.post(`${url}/companybranches`, body, {headers: headers}).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+        return this.http.post(`${url}/companybranches`, body, {headers: headers})
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
 
     editBranch(data: any, id: number): Observable<any>{
@@ -122,7 +139,9 @@ export class ProfileService{
 
         let body = JSON.stringify(data);
 
-        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
+        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers})
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
 
     addCompanyImage(imageModel: ImageModel){

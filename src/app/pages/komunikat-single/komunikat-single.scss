@@ -37,13 +37,11 @@ div.modal-dialog{
             width: 25%;
             float: left;
             position: relative;
-            span{
-                width: 20px;
-                height: 20px;
-                background: #A20E12;
-                position: absolute;
-                right: 10px;
-                top: 0;
+            i {
+                font-size: 40px;
+                color: #A20E12;
+                float: right;
+                margin-right: 15px;
             }
         }
 
