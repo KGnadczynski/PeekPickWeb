@@ -35,9 +35,9 @@ export class App {
 
   public ngAfterViewInit(): void {
     // hide spinner once all loaders are completed
-    BaThemePreloader.load().then((values) => {
+    /*BaThemePreloader.load().then((values) => {
       this._spinner.hide();
-    });
+    });*/
   }
 
   private _loadImages(): void {

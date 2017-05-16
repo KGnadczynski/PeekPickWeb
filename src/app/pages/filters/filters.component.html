@@ -11,17 +11,16 @@
         <h5>sortuj po:</h5>
         
         <div class="filterBy">
-            <input type="radio" name="filterBy" value="lokalizacja" formControlName="filterBy"> lokalizacja
+            <input type="radio" name="filterBy" value="DISTANCE" formControlName="filterBy"> lokalizacja
         </div>
 
         <div class="filterBy">
-            <input type="radio" name="filterBy" value="data dodania" formControlName="filterBy"> data dodania
+            <input type="radio" name="filterBy" value="CREATE_DATE" formControlName="filterBy"> data dodania
         </div>
-
 
         <h5>Lokalizacja</h5>
 
-        <input id="searchLocation" placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="searchControl">
+        <input id="searchLocation" placeholder="miasto" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="searchControl">
         
         <!--<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
             <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
@@ -29,6 +28,7 @@
         
         <h5>odległość</h5>
         <nouislider [min]="0" [max]="14" [step]="0.05" [(ngModel)]="someValue" formControlName = "distance"></nouislider>
+        <p id="distance">Odległośc: {{ someValue }}</p>
 
         <h5>typ wiadomości</h5>
 
@@ -41,22 +41,34 @@
 
         <div id="trades">
             <h3>Branża</h3>
-            <!--<input type="checkbox" *ngFor="let trade of filterForm.controls['trades'].controls" [formControl]="trade">-->
         </div>
 
         <div id="companyCategories">
-            <div *ngFor="let category of categories; let i = index">
-                <md-checkbox [formControl]="filterForm.controls['trades'].controls[i]"></md-checkbox>
-                <!--<label (click)="category.bol = !category.bol">{{ category.name }}</label>-->
-                <button type="button" (click)="category.bol = !category.bol">{{ category.name }}</button>
-                <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="category.bol">
-                    <div class="subcategories">
-                        <md-checkbox *ngFor="let subcategory of category.subcategories">
-                            {{ subcategory.name }}
-                        </md-checkbox>
-                    </div>
+            <!--<div *ngFor="let trade of trades.controls; let i = index">
+                <input type="checkbox" [formControlName]="i">
+            </div>-->
+            <!--<div *ngFor="let category of categories; let i = index">-->
+                <div formArrayName="trades" class="tradesI">
+                    <md-checkbox *ngFor="let trade of trades.controls; let i = index" class="categoryMain" [formControlName]="i"></md-checkbox>
                 </div>
-            </div>
+                <div class="categoriesI" *ngFor="let category of categories">
+                    <button type="button" (click)="category.bol = !category.bol">{{ category.name }}</button>
+                    <!--<div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="category.bol" [formGroup]="subtrades">
+                        <input type="checkbox" *ngFor="let subtrade of filterForm.controls['sub'+i].controls" [formControl]="subtrade">
+                    </div>-->
+                </div>
+                
+                <!--<md-checkbox class="categoryMain" [formControl]="filterForm.controls['trades'].controls[i]"></md-checkbox>-->
+                <!--<button type="button" (click)="category.bol = !category.bol">{{ category.name }}</button>-->
+                <!--<div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="category.bol">
+                    <div class="subcategories">
+                        <md-checkbox *ngFor="let subtrade of filterForm.controls['subtrades'+(i+1)].controls" [formControl]="subtrade"></md-checkbox>
+                    </div>
+                    <div class="subcategoriesValues">
+                        <label *ngFor="let subc of category.subcategories">{{subc.name}}</label>
+                    </div>
+                </div>-->
+            <!--</div>-->
         </div>
 
     </form>

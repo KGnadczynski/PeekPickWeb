@@ -54,6 +54,8 @@ export class AddMessageComponent implements OnInit {
         // url: 'http://website.com/upload'
         url: '',
     };
+    @Input() disVal:string = "false";
+    ifTextAreaDisabled: boolean = false;
     
     zoom: number = 8;   
     lat: number;
@@ -275,10 +277,7 @@ export class AddMessageComponent implements OnInit {
 
                     break;
             }
-            
-            
         });
-        
     }
 
     ngAfterViewInit(): void {
@@ -296,6 +295,9 @@ export class AddMessageComponent implements OnInit {
         }             
         
      }
+
+
+
      public changeAddress(callback: Function):void {
          var address="";
 
@@ -311,9 +313,6 @@ export class AddMessageComponent implements OnInit {
                     callback(address);  
                 }); 
      }
-
-
-   
 
     public showChildModal(): void {
       this.childModal.show();

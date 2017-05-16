@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
 
   otherUser: User;
   otherObject: ObjectList;
-  otherImgs: ObjectList;
+  otherImgs: any;
   companyBranches: any[];
   idCompany: number;
   passwordForm: FormGroup;
@@ -89,18 +89,91 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
 
-      this.profileService.getUser().subscribe(user => {
-        this.profileService.getCompanyBranches(user.company.id).subscribe(branches => {
-            this.companyBranches = branches;
-            this.companyBranches.forEach((obj) => {
-                obj.collapse = true;
-            });
-            console.log('company branches:');
-            console.dir(this.companyBranches);
-        });
-      });
-
       if(localStorage.getItem('currentUserToken')){
+
+        this.profileService.getUser().subscribe(
+            user => {
+                console.log('user:');
+                console.dir(user);
+            },
+            err => {
+                console.log('error: ');
+                console.dir(err);
+            }
+        )
+
+            /*this.profileService.getUser().map(res => res.json()).subscribe(
+                (user) => {
+                    this.profileService.getCompanyBranches(user.company.id).map(res => res.json()).subscribe(
+                        (branches) => {
+                            this.companyBranches = branches;
+                            this.companyBranches.forEach((obj) => {
+                                obj.collapse = true;
+                            });
+                        },
+                        (errI) => {
+                            console.log('Error from getCompanyBranches');
+                            console.dir(errI);
+                        }
+                    )
+                },
+                (err) => {
+                    console.log('Error from get user: ' + err._body);
+                    console.dir(err);
+                    let error =JSON.parse(JSON.stringify(err._body || null ));
+                    if(error){
+                        if(error.error === 'invalid_token'){
+                            this.router.navigateByUrl('/pages/komunikat');
+                            localStorage.removeItem('currentUserToken');
+                            localStorage.removeItem('user');
+                        }
+                    }
+                    
+                }
+            );*/
+
+            /*this.profileService.getUser().map(res => res.json()).subscribe(
+                (user) => {
+                    this.otherUser = user;
+                    this.idCompany = user.company.id;
+                    this.profileService.getUserImages(this.otherUser.company.id).map(res => res.json()).subscribe(
+                        (imgs) => {
+                            this.otherImgs = imgs;
+                        },
+                        (errI) => {
+                            console.log('Error from get User Images: ');
+                            console.dir(errI);
+                        }
+                    )
+                },
+                (err) => {
+                    let error =JSON.parse(JSON.stringify(err._body || null ));
+
+                    if(error){
+                        if(error.error === 'invalid_token'){
+                            this.router.navigateByUrl('/pages/komunikat');
+                            localStorage.removeItem('currentUserToken');
+                            localStorage.removeItem('user');
+                        }
+                    }
+
+                    console.log('Error from get User: ');
+                    console.dir(error);
+                }
+            );*/
+
+          /*this.profileService.getUser().subscribe(user => {
+            this.profileService.getCompanyBranches(user.company.id).subscribe(branches => {
+                this.companyBranches = branches;
+                this.companyBranches.forEach((obj) => {
+                    obj.collapse = true;
+                });
+            },
+            err => {
+                console.log('error: ');
+                console.dir(err);
+            });
+        });
 
           this.profileService.getUser().subscribe(user => {
             this.otherUser = user;
@@ -112,7 +185,7 @@ export class ProfileComponent implements OnInit {
               console.log('imgs:');
               console.dir(this.otherImgs);
             });
-          });
+          });*/
           
       }
       else{

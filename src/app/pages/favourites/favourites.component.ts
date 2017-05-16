@@ -23,7 +23,7 @@ export class FavouritesComponent implements OnInit{
         this.filterForm.valueChanges.subscribe(data => {
 
             let sortBy:string = "";
-
+/*
             switch (sortBy) {
                 case "lokalizacja":
                     this.messageComponent.getMessagesByDistance(this.messageComponent.pageNumber);
@@ -35,7 +35,7 @@ export class FavouritesComponent implements OnInit{
             
                 default:
                     break;
-            }
+            }*/
         });
     }
 

@@ -16,7 +16,6 @@ export class ProfileService{
     constructor(private http: Http){}
 
     getUser(){
-        if(localStorage.getItem('currentUserToken')){
             var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
             this.token = currentUser.token;
             let headers = new Headers(
@@ -24,12 +23,13 @@ export class ProfileService{
             );
             let options = new RequestOptions({ headers: headers });
 
-            return this.http.get(`${url}/users/business/me`, options).map((response: Response) => response.json());
+            return this.http.get(`${url}/users/business/me`, options)
+            .map((response: Response) => response.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
         }
-    }
 
     getCompany(id: number): Observable<any>{
-        return this.http.get(`${url}/companies/${id}`).map((response: Response) => response.json());
+        return this.http.get(`${url}/companies/${id}`).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
     }
 
     getUserImages(id: number) : Observable<any>{
@@ -51,7 +51,7 @@ export class ProfileService{
 
         ];
         let options = new RequestOptions({ headers: headers, body:  body });
-        return this.http.put(`${url}/users/email`, options).map((response: Response) => response.json());
+        return this.http.put(`${url}/users/email`, options).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
     }
 
     updateUserPassword(password: string, newPassword: string): Observable<any>{
@@ -66,7 +66,7 @@ export class ProfileService{
         let body = JSON.stringify(data);
 
         //let options = new RequestOptions({ headers: headers, body:  body });
-        return this.http.put(`${url}/users/password`, body, {headers: headers}).map((response: Response) => response.json());
+        return this.http.put(`${url}/users/password`, body, {headers: headers}).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
     }
 
     updateCompany(data: any, id: number) : Observable<any>{
@@ -75,7 +75,7 @@ export class ProfileService{
         let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
         let body = JSON.stringify(data);
 
-        return this.http.put(`${url}/companies/${id}`, body, {headers: headers}).map((response:Response) => response.json());
+        return this.http.put(`${url}/companies/${id}`, body, {headers: headers}).map((response:Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
 
     }
 
@@ -84,7 +84,7 @@ export class ProfileService{
         this.token = currentUser.token;
         let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
         let body = JSON.stringify(data);
-        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json());
+        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
     }
 
     deleteBranch(id:number): Observable<any>{
@@ -102,7 +102,7 @@ export class ProfileService{
     }
 
     getCompanyBranches(id: number):Observable<any>{
-        return this.http.get(`${url}/companybranches/companyId/${id}`).map((response: Response) => response.json());
+        return this.http.get(`${url}/companybranches/companyId/${id}`).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
     }
 
     addNewBranch(data: any): Observable<any>{
@@ -112,7 +112,7 @@ export class ProfileService{
 
         let body = JSON.stringify(data);
 
-        return this.http.post(`${url}/companybranches`, body, {headers: headers}).map((response: Response) => response.json());
+        return this.http.post(`${url}/companybranches`, body, {headers: headers}).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
     }
 
     editBranch(data: any, id: number): Observable<any>{
@@ -122,7 +122,7 @@ export class ProfileService{
 
         let body = JSON.stringify(data);
 
-        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json());
+        return this.http.put(`${url}/companybranches/${id}`, body, {headers: headers}).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
     }
 
     addCompanyImage(imageModel: ImageModel){

@@ -45,7 +45,7 @@ export const PAGES_MENU_LOGGED = [
         path: 'favourites',  // path for our page
         data: { // custom menu declaration
           menu: {
-            title: 'Ulubione', // menu title
+            title: 'Obserwowane', // menu title
             icon: 'ion-android-home', // menu icon
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,

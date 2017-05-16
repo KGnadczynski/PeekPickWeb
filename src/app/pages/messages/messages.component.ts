@@ -22,11 +22,10 @@ export class MessagesComponent implements OnInit{
     messageList: MessageList;
     canScrool: boolean = true;
     busy: Subscription;
-    latitude: number = JSON.parse(localStorage.getItem("latitude")).latitude;
-    longitude: number = JSON.parse(localStorage.getItem("longitude")).longitude;
     searchTerm: string;
     socialVisible: boolean = false;
-    url: string = "https://tackpadweb.herokuapp.com/#/pages/komunikat_single/";
+    latitude: number;
+    longitude: number;
 
     constructor(private messageService: MessagesService, private router: Router, private route: ActivatedRoute){
         let moment = require('../../../../node_modules/moment/moment.js');
@@ -65,41 +64,82 @@ export class MessagesComponent implements OnInit{
         
         switch (this.dest) {
             case '':
-                this.busy = this.messageService.getMessages(page, this.latitude, this.longitude).subscribe(result => {
-                    if(page === 1) {
-                        this.messageList = result;
-                        console.log('komunikaty: ');
-                        console.dir(this.messageList);
-                    } else {
-                        this.messageList.messages = this.messageList.messages.concat(result.messages);
-                        this.messageList.isLastPage = result.isLastPage;
-                        this.canScrool = true;
-                        console.log('komunikaty: ');
-                        console.dir(this.messageList);
-                    }
-                });
+                if("geolocation"  in navigator){
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        this.latitude = position.coords.latitude;
+                        this.longitude = position.coords.longitude;
+                        this.busy = this.messageService.getMessages(page, this.latitude, this.longitude).subscribe(result => {
+                            if(page === 1) {
+                                this.messageList = result;
+                                console.log('komunikaty: ');
+                                console.dir(this.messageList);
+                            } else {
+                                this.messageList.messages = this.messageList.messages.concat(result.messages);
+                                this.messageList.isLastPage = result.isLastPage;
+                                this.canScrool = true;
+                                console.log('komunikaty: ');
+                                console.dir(this.messageList);
+                            }
+                        });
+                    });
+                } else {
+                    this.busy = this.messageService.getMessages(page, 0, 0).subscribe(result => {
+                        if(page === 1) {
+                            this.messageList = result;
+                        } else {
+                            this.messageList.messages = this.messageList.messages.concat(result.messages);
+                            this.messageList.isLastPage = result.isLastPage;
+                            this.canScrool = true;
+                        }
+                    });
+                }
+                
                 break;
             
             case 'company':
             case 'profile':
-                this.busy = this.messageService.getCompanyMessages(page, this.id, this.latitude,this.longitude).subscribe(result => {
-                    if(page === 1)
-                        this.messageList = result;
-                    else {
-                        this.messageList.messages = this.messageList.messages.concat(result.messages);
-                        this.messageList.isLastPage = result.isLastPage;
-                        this.canScrool = true;
-                    }
-                });
+                if("geolocation"  in navigator){
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        this.latitude = position.coords.latitude;
+                        this.longitude = position.coords.longitude;
+                        this.busy = this.messageService.getCompanyMessages(page, this.id, this.latitude, this.longitude).subscribe(result => {
+                            if(page === 1)
+                                this.messageList = result;
+                            else {
+                                this.messageList.messages = this.messageList.messages.concat(result.messages);
+                                this.messageList.isLastPage = result.isLastPage;
+                                this.canScrool = true;
+                            }
+                        });
+                    });
+                } else {
+                    this.busy = this.messageService.getCompanyMessages(page, this.id, 0, 0).subscribe(result => {
+                        if(page === 1)
+                            this.messageList = result;
+                        else {
+                            this.messageList.messages = this.messageList.messages.concat(result.messages);
+                            this.messageList.isLastPage = result.isLastPage;
+                            this.canScrool = true;
+                        }
+                    });
+                }
+                
                 break;
 
-            case 'favourites':    
+            case 'favourites':
                 let x = JSON.parse(localStorage.getItem("favs"));
 
-                if(x.length !== 0)
-                    this.busy = this.messageService.getMessagesList(x.join(';'), this.latitude,this.longitude, this.pageNumber).subscribe(result => {
-                        this.messageList = result;
-                    });
+                if(x.length !== 0){
+                    if("geolocation"  in navigator){
+                        navigator.geolocation.getCurrentPosition((position) => {
+                            this.latitude = position.coords.latitude;
+                            this.longitude = position.coords.longitude;
+                            this.busy = this.messageService.getMessagesList(x.join(';'), this.pageNumber, this.latitude, this.longitude).subscribe(result => {
+                                this.messageList = result;
+                            });
+                        });
+                    }
+                }
                 else
                     this.messageList = {messages: [], isLastPage: false};
                 
@@ -153,31 +193,6 @@ export class MessagesComponent implements OnInit{
             else return false;
         }
     }
-/*
-    getMessagesByType(params: string):void {
-        this.messageService.getMessagesByType(params, this.latitude,this.longitude).subscribe(result => {
-            this.messageList = result;
-        });
-    }
-
-    getMessagesByDistance(page: number){
-
-        this.busy = this.messageService.getMessages(page, this.latitude,this.longitude).subscribe(result => {
-                this.messageService.sortMessagesByDistance(page, this.latitude, this.longitude).subscribe(result => {
-                this.messageList = result;
-            });
-        });
-    }
-
-    getMessagesByCreateDate(page: number){
-
-        this.busy = this.messageService.getMessages(page, this.latitude, this.longitude).subscribe(result => {
-                this.messageService.sortMessagesByCreateDate(page, this.latitude, this.longitude).subscribe(result => {
-                this.messageList = result;
-            });
-        });
-
-    }*/
 
     filter(event){
         console.log('data event: ');
@@ -191,7 +206,17 @@ export class MessagesComponent implements OnInit{
                 params += key + "=" + event[key] + "&";
         });
         params = params.substring(0, params.length-1);
-        params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
+
+        if(event.latitude === 0 && event.longitude === 0){
+            if("geolocation"  in navigator){
+                navigator.geolocation.getCurrentPosition((position) => {
+                    this.latitude = position.coords.latitude;
+                    this.longitude = position.coords.longitude;
+                    params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
+                });
+            }
+        }
+        
         console.log('params: ' + params);
         if(params !== "")
             this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
@@ -200,59 +225,25 @@ export class MessagesComponent implements OnInit{
         else
             this.getMessages(this.pageNumber);
 
-        /*if(event.sortType){
-            if(event.sortType === 'lokalizacja'){
-                this.getMessagesByDistance(this.pageNumber);
-            }
-            if(event.sortType === 'data dodania'){
-                this.getMessagesByCreateDate(this.pageNumber);
-            }
-        }
-        if(event.range){
-            this.getRange(event.distance);
-        }else {
-            this.getMessages(this.pageNumber);
-        }
-
-        if(event.messageTypeList){
-            this.getMessagesByType(event.messageTypeList);
-        } else {
-            this.getMessages(this.pageNumber);
-        }*/
-/*
-        if(event.companyCategoryMainIdList){
-            this.getMessagesByCompanyTypeMain(event.companyCategoryMainIdList);
-        } else {
-            this.getMessages(this.pageNumber);
-        }*/
-
     }
-
-    /*getMessagesByCompanyTypeMain(params: string): void{
-        this.messageService.getMessagesByCompanyTypeMain(params, this.latitude, this.longitude, this.pageNumber).subscribe(result => {
-            this.messageList = result;
-        });
-    }
-
-    getRange(range: number): void{
-        this.messageService.getRange(this.latitude, this.longitude, this.pageNumber, range).subscribe(result => {
-            console.log('range: ');
-            console.dir(result);
-            this.messageList = result;
-        });
-    }*/
 
     getSearchMessages(searchTerm: string) {
-        this.messageService.searchMessages(searchTerm, this.pageNumber, this.latitude, this.longitude).subscribe(result => {
+        if("geolocation"  in navigator){
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                this.messageService.searchMessages(searchTerm, this.pageNumber, this.latitude, this.longitude).subscribe(result => {
+                    this.messageList = result;
+                });
+            });
+        }
+        this.messageService.searchMessages(searchTerm, this.pageNumber, 0, 0).subscribe(result => {
             this.messageList = result;
-            console.log('search ML: ');
-            console.dir(this.messageList);
-        })
+        });
     }
 
     showSocialShare() {
         this.socialVisible =  !this.socialVisible;
     }  
-
 
 }

@@ -60,27 +60,55 @@ form#messageTypeForm{
 }
 
 div#companyCategories{
-  width: 80%;
+  width: 90%;
   margin: auto;
   color: #95989A;
   font-size: 16px;
-  div{
+  overflow: hidden;
+  div.tradesI{
+    width: 10%;
+    float: left;
+  }
+
+  div.categoriesI{
+    width: 90%;
     display: flex;
     flex-direction: column;
+    float: left;
+    button{
+      padding: 3%;
+      color: black;
+      border: 0;
+      border-radius: 1px;
+      outline: none;
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+  }
+  div{
+    md-checkbox.categoryMain{
+    }
+    
     div.subcategories{
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      width: 10%;
+      float: left;
     }
-    button{
-      display: block;
-      margin-bottom: 4%;
-      padding: 3%;
-      backface-visibility: gray;
-      color: black;
-      border: 0;
-      border-radius: 1px;
+    div.subcategoriesValues{
+      width: 90%;
+      float: right;
+      display: flex;
+      flex-direction: column;
+      label {
+        margin-top: 16px;
+      }
     }
+
+    
+
+    
   }
 }
 

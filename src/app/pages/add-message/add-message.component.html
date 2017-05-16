@@ -31,7 +31,8 @@
             </div>
 
             <p>Dodaj treść komunikatu</p>
-            <textarea rows="5" type="text" placeholder="Dodaj treść komunikatu" [(ngModel)]="msgAddModel.content"></textarea>
+            <textarea rows="5" type="text" placeholder="Dodaj treść komunikatu" [(ngModel)]="msgAddModel.content" #messageContent maxlength="200"></textarea>
+            <p>Zostało: {{200 - messageContent.value.length}} znaków</p>
             <div id="odzialFirmy">
               <ss-multiselect-dropdown *ngIf="showMulitSelect"  [texts]="myTexts" [settings]="mySettings" defaultTitle="Wybierz oddział" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
             </div>
@@ -58,16 +59,10 @@
               </div>
             </div>
 
-    
-            
-            <!-- add image-->
-
-            <!-- select type -->
             <div id="buttons">
               <button (click)="addMessage()">{{submitButton}}</button>
               <button>Anuluj</button>
             </div>
-            
 
         </div>
 
