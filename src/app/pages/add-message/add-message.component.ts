@@ -91,11 +91,13 @@ export class AddMessageComponent implements OnInit {
     };
 
     callback = (address: string) : void => {
+        console.log('callback');  
          this.localization = address;
          this.locationChanged = true;
     }
 
     callbackEdit = (address: string) : void => {
+        console.log('callbackEdit');  
          this.localization = address;
     }
 
@@ -222,18 +224,16 @@ export class AddMessageComponent implements OnInit {
         this.lng = JSON.parse(localStorage.getItem('longitude')).longitude;
         this.msgAddModel.startDate = moment().format("YYYY-MM-DD HH:mm:ss");
         this.msgAddModel.endDate = moment().format("YYYY-MM-DD HH:mm:ss");
-        this.companyBranchList = JSON.parse(localStorage.getItem('companyBranchList'));
-        console.log('Company branch list ' + this.companyBranchList.companyBranchList);
-        if(this.companyBranchList.companyBranchList.length >1) {
-            this.showMulitSelect = true;
-           /*  this.myOptions = [
-            { id: 1, name: 'Option 1' },
-            { id: 2, name: 'Option 2' },
-        ];*/
-         this.myOptions = this.companyBranchList.companyBranchList;
-        }
-        console.log('latitude : ' + this.lat);
-        console.log('latitude : ' + this.lng);
+        let user = JSON.parse(localStorage.getItem('user'));
+        if(user != null) {
+            this.addMessageService.getUserCompanyBranchList(user.user.company.id).subscribe((value)=> {
+                 this.companyBranchList = value;
+                if(this.companyBranchList.length >1) {
+                    this.showMulitSelect = true;
+                this.myOptions = this.companyBranchList;
+                }
+            }) 
+       }
          this.pickerOptionsEnd['minDate'] = '05/01/2017';
           
         for(let i = this.messageTypes.length-1; i >= 0; i--)
@@ -252,15 +252,21 @@ export class AddMessageComponent implements OnInit {
                         this.messageEdit = result;
                         this.msgAddModel.content = this.messageEdit.content;
                         this.msgAddModel.startDate = moment(new Date(this.messageEdit.startDate)).format("YYYY-MM-DD HH:mm:ss");
+                        this.profile.picture = this.messageEdit.mainImageUrl;
+
+                        if(this.messageEdit.location != null) {
+                            this.lat =  this.messageEdit.location.latitude;
+                            this.lng = this.messageEdit.location.longitude;
+                        } else {
+                            this.lat =  this.messageEdit.companyBranchList[0].latitude;
+                            this.lng = this.messageEdit.companyBranchList[0].longitude;
+                        }
+                        this.messageTypeName = this.messageEdit.type;
                         if(this.messageEdit.endDate == null) {
                             this.withoutEndDate();
                         } else {
                             this.msgAddModel.endDate = moment(new Date(this.messageEdit.endDate)).format("YYYY-MM-DD HH:mm:ss");  
                         }               
-                        this.lat =  this.messageEdit.location.latitude;
-                        this.lng = this.messageEdit.location.longitude;
-                        this.messageTypeName = this.messageEdit.type;
-                        this.profile.picture = this.messageEdit.mainImageUrl;
                         this.changeAddress(this.callbackEdit);
                      });
                     break;
@@ -289,7 +295,7 @@ export class AddMessageComponent implements OnInit {
             setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
                 console.log('triggerResize');  
                 this.sebmGoogleMap._mapsWrapper.setCenter({lat: this.lat, lng: this.lng});
-                 this.changeAddress(this.callback);
+                 this.changeAddress(this.callbackEdit);
             }),300);
             this.triggerResize = false;
         }             
@@ -347,8 +353,8 @@ export class AddMessageComponent implements OnInit {
     }
 
     addMessage(): void{
-
-        this.messageAddModel = new MessageAddModel();
+        
+        this.messageAddModel = new MessageAddModel(this.locationChanged);
         //content
         this.messageAddModel.content = this.msgAddModel.content;
 
@@ -369,15 +375,19 @@ export class AddMessageComponent implements OnInit {
         //status
         this.messageAddModel.status = "NEW";
 
-        //user
-        let user = JSON.parse(localStorage.getItem('user'));
-        this.messageAddModel.user = user.user;
 
         //companyBranchList
+        console.log('showMulitSelect '+this.showMulitSelect);
         if(this.showMulitSelect) {
-          this.messageAddModel.companyBranchList=this.companyBranchListSelectedFinal
+            if(this.companyBranchListSelectedFinal.length>=1) {
+                 this.messageAddModel.companyBranchList=this.companyBranchListSelectedFinal;
+            } else {
+                var companyBranchListSelectedLocal = [];
+                companyBranchListSelectedLocal.push(this.companyBranchList[0])
+                this.messageAddModel.companyBranchList= companyBranchListSelectedLocal;
+            }
         } else {
-        this.messageAddModel.companyBranchList = this.companyBranchList.companyBranchList;
+        this.messageAddModel.companyBranchList = this.companyBranchList;
         }
         //companyBranchCount
         this.messageAddModel.companyBranchCount = this.messageAddModel.companyBranchList.length;
@@ -390,13 +400,13 @@ export class AddMessageComponent implements OnInit {
             this.messageAddModel.location.longitude=this.lng;
             this.messageAddModel.location.name=this.localization;
         } else {
-            this.messageAddModel.location.name = this.messageAddModel.companyBranchList[0].name;
-            this.messageAddModel.location.city = this.messageAddModel.companyBranchList[0].city;
-            this.messageAddModel.location.latitude = this.messageAddModel.companyBranchList[0].latitude;
-            this.messageAddModel.location.longitude = this.messageAddModel.companyBranchList[0].longitude;
-            this.messageAddModel.location.street = this.messageAddModel.companyBranchList[0].street;
-            this.messageAddModel.location.streetNo = this.messageAddModel.companyBranchList[0].streetNo;
-            this.messageAddModel.location.address = this.messageAddModel.companyBranchList[0].city;
+       //     this.messageAddModel.location.name = this.messageAddModel.companyBranchList[0].name;
+          //  this.messageAddModel.location.city = this.messageAddModel.companyBranchList[0].city;
+         //   this.messageAddModel.location.latitude = this.messageAddModel.companyBranchList[0].latitude;
+          //  this.messageAddModel.location.longitude = this.messageAddModel.companyBranchList[0].longitude;
+           // this.messageAddModel.location.street = this.messageAddModel.companyBranchList[0].street;
+           // this.messageAddModel.location.streetNo = this.messageAddModel.companyBranchList[0].streetNo;
+           // this.messageAddModel.location.address = this.messageAddModel.companyBranchList[0].city;
         }
         console.log(this.msgAddModel);
 
@@ -423,10 +433,8 @@ export class AddMessageComponent implements OnInit {
 
     onChange() {
         console.log(this.optionsModel);
-        console.log(this.companyBranchList.companyBranchList);
-        this.companyBranchListSelected = this.companyBranchList.companyBranchList;
+        this.companyBranchListSelected = this.companyBranchList;
         this.companyBranchListSelectedFinal = [];
-        console.log(this.companyBranchListSelected[0].id);
         for (let id of this.optionsModel) {
             for (let companyBranch of  this.companyBranchListSelected) {
                 if(id == companyBranch.id) {
