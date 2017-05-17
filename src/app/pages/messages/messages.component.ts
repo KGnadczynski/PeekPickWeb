@@ -34,16 +34,19 @@ export class MessagesComponent implements OnInit{
 
     ngOnInit():void{
 
+        console.log('dest: ' + this.dest);
+        console.log('id: ' + this.id);
+
         this.route.queryParams.subscribe(params => {
             this.searchTerm = params["searchTerm"];
             
-            console.log('search Terms: ' + this.searchTerm);
+            //console.log('search Terms: ' + this.searchTerm);
             this.messageList = new MessageList();
             if(this.searchTerm !== undefined){
-                console.log('search messages');
+                //console.log('search messages');
                 this.getSearchMessages(this.searchTerm);
             } else {
-                console.log('po prostu get messages');
+                //console.log('po prostu get messages');
                 this.getMessages(this.pageNumber);
             }
             
@@ -64,6 +67,7 @@ export class MessagesComponent implements OnInit{
         
         switch (this.dest) {
             case '':
+                console.log('switch: ');
                 if("geolocation"  in navigator){
                     navigator.geolocation.getCurrentPosition((position) => {
                         this.latitude = position.coords.latitude;
@@ -98,6 +102,7 @@ export class MessagesComponent implements OnInit{
             
             case 'company':
             case 'profile':
+                console.log('switch: company profile');
                 if("geolocation"  in navigator){
                     navigator.geolocation.getCurrentPosition((position) => {
                         this.latitude = position.coords.latitude;
@@ -127,6 +132,7 @@ export class MessagesComponent implements OnInit{
                 break;
 
             case 'favourites':
+                console.log('switch: favourites');
                 let x = JSON.parse(localStorage.getItem("favs"));
                 console.log('x: ');
                 console.dir(x.join(';'));
@@ -146,6 +152,41 @@ export class MessagesComponent implements OnInit{
                 else
                     this.messageList = {messages: [], isLastPage: false};
                 
+                break;
+
+                case 'companyCategory':
+                console.log('switch: companyCategory');
+                     if("geolocation"  in navigator){
+                        navigator.geolocation.getCurrentPosition((position) => {
+                            this.latitude = position.coords.latitude;
+                            this.longitude = position.coords.longitude;
+                            this.busy = this.messageService.getCompanyCategoryMessages(this.id, this.pageNumber, this.latitude, this.longitude).subscribe(result => {
+                                if(this.pageNumber === 1){
+                                    this.messageList = result;
+                                    console.log('komunikaty: ');
+                                    console.dir(this.messageList);
+                                }
+                                else {
+                                    this.messageList.messages = this.messageList.messages.concat(result.messages);
+                                    this.messageList.isLastPage = result.isLastPage;
+                                    this.canScrool = true;
+                                }
+                            });
+                        });
+                    } else {
+                        this.busy = this.messageService.getCompanyCategoryMessages(this.id, this.pageNumber, 0, 0).subscribe(result => {
+                            if(this.pageNumber === 1){
+                                this.messageList = result;
+                                console.log('komunikaty: ');
+                                console.dir(this.messageList);
+                            }
+                            else {
+                                this.messageList.messages = this.messageList.messages.concat(result.messages);
+                                this.messageList.isLastPage = result.isLastPage;
+                                this.canScrool = true;
+                            }
+                        });
+                    }
                 break;
 
             default:

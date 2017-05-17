@@ -70,58 +70,9 @@
           <p class="hidden-xs-down">
             Posty
           </p>
-          <!--<div class="hidden-sm-up square"></div>-->
       </template>
       <template md-tab-content>
-        <!--
-        <div id="postyFirmy">
-          <ul>
-            <li *ngFor="let ob of otherObjectList.objectList">
-              <div class="companyInfo">
-                <div class="companyImg">
-                  <img src="{{companyImages?.imageUrl}}" alt="">
-                </div>
-                <div class="company-text-block">
-                  <div class="companyName">
-                    <h2>{{ otherOneCompany?.company.name }}</h2>
-                  </div>
-                  <div class="companyCategory">
-                    <p>{{ otherOneCompany?.company.category.name }}</p>
-                  </div>
-                  <div class="companyAddress">
-                    <p *ngIf="otherOneCompany?.city">
-                      {{  otherOneCompany?.city }},
-                      {{  otherOneCompany?.street }}
-                      {{  otherOneCompany?.streetNo }}
-                    </p>
-                  </div>
-                </div>
-                <div class="company-distance">
-                    dystans
-                </div>
-              </div>
-
-              <h3>{{ ob.content }}</h3>
-              <div class="obTime">
-                <p class="obDate" *ngIf="ob.createDate">
-                  <span>Data rozpoczęcia:</span>
-                  {{ob.createDate | date: 'dd.MM.yyyy hh:mm'}}
-                </p>
-                <p class="obDate" *ngIf="ob.endDate">
-                  <span>Data zakończenia:</span>
-                  {{ob.endDate | date: 'dd.MM.yyyy hh:mm'}}
-                </p>
-              </div>
-              <div class="obImg" *ngIf="ob.mainImageUrl">
-                <img src="{{ ob.mainImageUrl }}" alt="">
-              </div>
-              
-            </li>
-          </ul>
-        </div>
-        -->
         <messages [dest] = "'company'" [id] = id></messages>
-        
       </template>
     </md-tab>
     <md-tab>
@@ -129,7 +80,6 @@
         <p class="hidden-xs-down">
           Mapa
         </p>
-        <!--<div class="hidden-sm-up square"></div>-->
         </template>
       <template md-tab-content>
         <div id="mapaFirmy">

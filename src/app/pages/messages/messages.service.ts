@@ -59,6 +59,14 @@ export class MessagesService{
         return this.http.get(this.urlNew).map(this.mapMessages).catch(this.handleError);
     }
 
+    getCompanyCategoryMessages(id: number, page:number, latitude: number, longitude: number): Observable<MessageList>{
+        
+        this.urlNew = url + '/messages/page/' + page + '?companyCategoryMainIdList=' + id;
+        if(!(latitude === 0 && longitude === 0))
+            this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;
+        return this.http.get(this.urlNew).map(this.mapMessages).catch(this.handleError);
+    }
+
     mapMessages(res: Response) {
         let body = res.json();
         let listing = new MessageList();

@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 
 import 'style-loader!./baMenuItem.scss';
 
@@ -6,13 +6,16 @@ import 'style-loader!./baMenuItem.scss';
   selector: 'ba-menu-item',
   templateUrl: './baMenuItem.html'
 })
-export class BaMenuItem {
+export class BaMenuItem implements OnInit{
 
   @Input() menuItem:any;
   @Input() child:boolean = false;
 
   @Output() itemHover = new EventEmitter<any>();
   @Output() toggleSubMenu = new EventEmitter<any>();
+
+  ngOnInit(): void {
+  }
 
   public onHoverItem($event):void {
     this.itemHover.emit($event);

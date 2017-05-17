@@ -11,11 +11,11 @@ import 'style-loader!./baMenu.scss';
   selector: 'ba-menu',
   templateUrl: './baMenu.html'
 })
+
 export class BaMenu {
 
   @Input() sidebarCollapsed: boolean = false;
   @Input() menuHeight: number;
-
   @Output() expandMenu = new EventEmitter<any>();
 
   public menuItems: any[];

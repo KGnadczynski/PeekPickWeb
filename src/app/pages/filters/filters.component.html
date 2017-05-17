@@ -4,7 +4,7 @@
 <h4 *ngIf="!isFiltryCollapse">filtry</h4>
 <i class="fa fa-window-close fa-2x" *ngIf="!isFiltryCollapse" (click)="isFiltryCollapse = !isFiltryCollapse"></i>
 
-<div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isFiltryCollapse">
+<div [collapse]="isFiltryCollapse">
 
     <form [formGroup]="filterForm" novalidate id="mainForm">
          
@@ -43,36 +43,23 @@
             <label *ngFor="let messageType of messageTypesOb">{{messageType.value}}</label>
         </div>
 
-        <div id="trades">
+        <div id="trades" *ngIf="id === undefined">
             <h3>Branża</h3>
         </div>
 
-        <div id="companyCategories">
-            <!--<div *ngFor="let trade of trades.controls; let i = index">
-                <input type="checkbox" [formControlName]="i">
-            </div>-->
-            <!--<div *ngFor="let category of categories; let i = index">-->
-                <div formArrayName="trades" class="tradesI">
-                    <md-checkbox *ngFor="let trade of trades.controls; let i = index" class="categoryMain" [formControlName]="i"></md-checkbox>
-                </div>
-                <div class="categoriesI" *ngFor="let category of categories">
-                    <button type="button" (click)="category.bol = !category.bol">{{ category.name }}</button>
-                    <!--<div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="category.bol" [formGroup]="subtrades">
-                        <input type="checkbox" *ngFor="let subtrade of filterForm.controls['sub'+i].controls" [formControl]="subtrade">
-                    </div>-->
-                </div>
-                
-                <!--<md-checkbox class="categoryMain" [formControl]="filterForm.controls['trades'].controls[i]"></md-checkbox>-->
-                <!--<button type="button" (click)="category.bol = !category.bol">{{ category.name }}</button>-->
-                <!--<div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="category.bol">
-                    <div class="subcategories">
-                        <md-checkbox *ngFor="let subtrade of filterForm.controls['subtrades'+(i+1)].controls" [formControl]="subtrade"></md-checkbox>
+        <div id="companyCategories" *ngIf="id === undefined">
+            <div class="categoriesI" *ngFor="let category of categories; let i = index">
+                <button type="button" (click)="category.bol = !category.bol; setTrade(category.id)">{{ category.name }}</button>
+                <div [collapse]="category.bol">
+                    <div class="subcategories" [formGroup]="subtrades">
+                        <md-checkbox *ngFor="let subtrade of subtrades.controls['subtrade'+(i+1)].controls" [formControl]="subtrade"></md-checkbox>
                     </div>
                     <div class="subcategoriesValues">
                         <label *ngFor="let subc of category.subcategories">{{subc.name}}</label>
+                        <!--moja propozycja do naprawy<label *ngFor="let subc of categoryies[i].subcategories">{{subc.name}}</label>-->
                     </div>
-                </div>-->
-            <!--</div>-->
+                </div>
+            </div>
         </div>
 
     </form>

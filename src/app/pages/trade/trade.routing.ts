@@ -1,10 +1,10 @@
 import { Routes, RouterModule }  from '@angular/router';
-import { KulturairozrywkaComponent } from './kulturairozrywka.component';
+import { TradeComponent } from './trade.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: KulturairozrywkaComponent
+    component: TradeComponent
   }
 ];
 

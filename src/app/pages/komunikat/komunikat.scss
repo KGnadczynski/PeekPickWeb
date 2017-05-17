@@ -1,5 +1,3 @@
-@import "/node_modules/nouislider/distribute/nouislider.css";
-
 div#addIcon{
   margin-bottom: 3%;
   overflow: hidden;
@@ -65,13 +63,9 @@ div#companyCategories{
   color: #95989A;
   font-size: 16px;
   overflow: hidden;
-  div.tradesI{
-    width: 10%;
-    float: left;
-  }
 
   div.categoriesI{
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     float: left;

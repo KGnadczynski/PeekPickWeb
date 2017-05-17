@@ -1,4 +1,4 @@
-import { Component,OnInit ,ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component,OnInit ,ViewEncapsulation, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { ObjectList } from './user';
 import { Http, Headers, RequestOptions } from '@angular/http';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { EqualPasswordsValidator } from '../../theme/validators';
 import { NgUploaderOptions } from 'ngx-uploader';
 import { ImageModel } from '../add-message/imagemodel';
+
 
 @Component({
   selector: 'profile',
@@ -39,6 +40,8 @@ export class ProfileComponent implements OnInit {
         url: '',
     };
     @ViewChild('fileUpload') public fileUpload:any;
+
+    @Output() myEvent: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
     private profileService: ProfileService, 
@@ -127,11 +130,11 @@ export class ProfileComponent implements OnInit {
                     errI => {
                         console.log('Error from getCompanyBranches');
                         console.dir(errI);
-                        if(errI.error === 'invalid_token'){
+                        /*if(errI.error === 'invalid_token'){
                             this.router.navigateByUrl('/pages/komunikat');
                             localStorage.removeItem('currentUserToken');
                             localStorage.removeItem('user');
-                        }
+                        }*/
                     }
                 );
                 this.profileService.getUserImages(user.company.id).subscribe(
@@ -141,22 +144,23 @@ export class ProfileComponent implements OnInit {
                     errI => {
                         console.log('Error from get user images: ');
                         console.dir(errI);
-                        if(errI.error === 'invalid_token'){
+                        /*if(errI.error === 'invalid_token'){
                             this.router.navigateByUrl('/pages/komunikat');
                             localStorage.removeItem('currentUserToken');
                             localStorage.removeItem('user');
-                        }
+                        }*/
                     }
                 )
             },
             err => {
                 console.log('error from user: ');
                 console.dir(err);
-                if(err.error === 'invalid_token'){
+                this.myEvent.emit('emitting from profile component');
+                /*if(err.error === 'invalid_token'){
                     this.router.navigateByUrl('/pages/komunikat');
                     localStorage.removeItem('currentUserToken');
                     localStorage.removeItem('user');
-                }
+                }*/
             }
         );
       }

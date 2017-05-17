@@ -3,8 +3,6 @@ import { Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import {KomunikatService} from './komunikatservice.component';
 import { Modal,BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {overlayConfigFactory } from 'angular2-modal';
-//import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
-import {ClickedKomunikatModal} from './dialogs/clickedkomunikat-modal';
 import {CommunicationService} from "./communicationservice.component";
 import {ObjectList} from "./komunikat"
 import { ActivatedRoute } from '@angular/router';
@@ -39,8 +37,8 @@ export class KomunikatComponent implements OnInit {
           var token = currentUser.token
           this.logged = true;
         }
-/*
-        this.route.queryParams.subscribe(params => {
+
+        /*this.route.queryParams.subscribe(params => {
             this.searchTerm = params["searchTerm"];
 
             if(this.searchTerm !== undefined){
@@ -94,6 +92,5 @@ export class KomunikatComponent implements OnInit {
   handleClick(e:MouseEvent, komunikat: ObjectList) {
     return this.modal.open(ClickedKomunikatModal,  overlayConfigFactory({ komunikat: komunikat }, BSModalContext));
   }*/
-
 
 }
