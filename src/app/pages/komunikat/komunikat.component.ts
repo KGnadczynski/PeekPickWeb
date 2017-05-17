@@ -40,7 +40,11 @@ export class KomunikatComponent implements OnInit {
         if(currentUser != null) {
           var token = currentUser.token
           this.logged = true;
-          this.registerFCMToken();
+          var isTokenFCMRegister = localStorage.getItem('isTokenFCMRegister');
+          console.log('isTokenFCMRegister '+isTokenFCMRegister);
+          if(isTokenFCMRegister != "true") {
+            this.registerFCMToken();
+          }
         }
   }
 
@@ -65,6 +69,7 @@ export class KomunikatComponent implements OnInit {
       var deviceType="WEB"
       xmlHttp.onreadystatechange = function() { 
       if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+          localStorage.setItem('isTokenFCMRegister', "true"); 
           console.log(xmlHttp.responseText);
       }
       xmlHttp.open( "POST", url+'/userdevicefcmtoken', true ); // false for synchronous request
