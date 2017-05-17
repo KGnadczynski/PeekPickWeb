@@ -19,6 +19,9 @@ import { AppState, InternalStateType } from './app.service';
 import { GlobalState } from './global.state';
 import { NgaModule } from './theme/nga.module';
 import { PagesModule } from './pages/pages.module';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from './globals/environment';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -42,6 +45,7 @@ export type StoreType = {
   ],
   imports: [ // import Angular's modules
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
     HttpModule,
     RouterModule,
     FormsModule,

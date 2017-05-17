@@ -1,5 +1,5 @@
 ///<reference path="../../../../node_modules/@types/googlemaps/index.d.ts"/>
-import { Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
+import { Inject,Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import {KomunikatService} from './komunikatservice.component';
 import { Modal,BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {overlayConfigFactory } from 'angular2-modal';
@@ -7,6 +7,9 @@ import {CommunicationService} from "./communicationservice.component";
 import {ObjectList} from "./komunikat"
 import { ActivatedRoute } from '@angular/router';
 import { MessagesComponent } from '../messages/messages.component';
+import { FirebaseApp } from "angularfire2";
+import * as firebase from 'firebase';
+import { url } from '../../globals/url';
 
 
 @Component({
@@ -27,7 +30,8 @@ export class KomunikatComponent implements OnInit {
     private _komunikatyService: KomunikatService, 
     private modal: Modal,
     private communicationservice: CommunicationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    @Inject(FirebaseApp) private _firebaseApp: firebase.app.App
   ){}
 
   ngOnInit() {
@@ -36,61 +40,42 @@ export class KomunikatComponent implements OnInit {
         if(currentUser != null) {
           var token = currentUser.token
           this.logged = true;
+          this.registerFCMToken();
         }
-
-        /*this.route.queryParams.subscribe(params => {
-            this.searchTerm = params["searchTerm"];
-
-            if(this.searchTerm !== undefined){
-              console.log('tteraz powinno wyszukane dać');
-              this.messageChild.getSearchMessages(this.searchTerm);
-            }
-            
-        });*/
-
-        /*this.communicationservice.dodanieKomunkatuSubject$.subscribe(messageId=> {
-            this.pageNumber = 1;
-            if( messageId.file == null) {
-              this.getDataFromServer(1);
-            } else {
-              this._komunikatyService.postKomunikatImage(messageId).subscribe((result => {
-                this.getDataFromServer(1);
-              }));
-            }
-        });*/
-        
-        /*this.communicationservice.szukanieKomunkatuSubject$.subscribe(term=> {
-            this.getDataFromServerWithSearch(1,term);
-        });*/
-        
   }
 
-  /*onDateChanged(event:any) {
-    console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
-  }*/
-
-  /*onClick() {
-    this.modal.prompt()
-      .size('lg')
-      .showClose(true)
-      .title('Dodaj komunikat')
-      .body(`
-
-      <input type="file" name="pic" accept="image/*">
-      <input type="submit">
-      <p><strong>Note:</strong> The accept attribute of the input tag is not supported in Internet Explorer 9 (and earlier versions), and Safari 5 (and earlier).</p>
-      <p><strong>Note:</strong> Because of security issues, this example will not allow you to upload files.</p>
-
-            `)
-      .open();
-  }*/
-  /*
-  openCustom() {
-    return this.modal.open(DodajKomunikatModal, overlayConfigFactory({ num1: 2, num2: 3 },BSModalContext));
+  registerFCMToken() {
+    const messaging = firebase.messaging();
+    messaging.requestPermission()
+    .then(function() {
+      console.log('Notification permission granted.');
+      return messaging.getToken();
+    })
+    .then(function(token){
+      console.log('token '+token);
+      var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+      var userFromStorage = JSON.parse(localStorage.getItem('user'));
+       if(currentUser != null) {
+        var tokenBearer = currentUser.token
+      }
+       let headers = new Headers();
+      var autorizationHeader = 'Bearer '+tokenBearer.access_token;
+      var xmlHttp = new XMLHttpRequest();
+      var user= userFromStorage.user;
+      var deviceType="WEB"
+      xmlHttp.onreadystatechange = function() { 
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+          console.log(xmlHttp.responseText);
+      }
+      xmlHttp.open( "POST", url+'/userdevicefcmtoken', true ); // false for synchronous request
+      xmlHttp.setRequestHeader('Authorization', autorizationHeader);
+      xmlHttp.setRequestHeader('Content-Type', 'application/json');
+      xmlHttp.send(JSON.stringify({user, token,deviceType}));
+    })
+    .catch(function(err) {
+      console.log('', err);
+    });
+    
   }
-
-  handleClick(e:MouseEvent, komunikat: ObjectList) {
-    return this.modal.open(ClickedKomunikatModal,  overlayConfigFactory({ komunikat: komunikat }, BSModalContext));
-  }*/
 
 }
