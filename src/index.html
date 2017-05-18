@@ -29,6 +29,25 @@
   <script src="/webpack-dev-server.js"></script>
   <% } %>
 
+<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"></script>
+ <script>
+   var config = {
+    apiKey: 'AIzaSyCH9EVAqYfnCjkEHAnIDd31zf_rcxB67fE',
+    authDomain: 'peekpick-91e2c.firebaseapp.com',
+    databaseURL: 'peekpick-91e2c.firebaseapp.com',
+    projectId: 'peekpick-91e2c',
+    storageBucket: 'peekpick-91e2c.appspot.com',
+    messagingSenderId: '1055630097023'
+  };
+  firebase.initializeApp(config);
+   const messaging = firebase.messaging();
+     messaging.onMessage(function(payload) {
+    console.log("Message received. ",  payload.notification);
+    alert(payload.notification.title+"\n"+payload.notification.body);
+  });
+  </script>
+
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900&subset=latin,greek,greek-ext,vietnamese,cyrillic-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </body>

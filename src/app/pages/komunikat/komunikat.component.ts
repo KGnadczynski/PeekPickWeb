@@ -10,6 +10,7 @@ import { MessagesComponent } from '../messages/messages.component';
 import { FirebaseApp } from "angularfire2";
 import * as firebase from 'firebase';
 import { url } from '../../globals/url';
+import { messaging } from './src/firebase-messaging-sw.js';
 
 
 @Component({
@@ -80,6 +81,7 @@ export class KomunikatComponent implements OnInit {
     .catch(function(err) {
       console.log('', err);
     });
+
     
   }
 

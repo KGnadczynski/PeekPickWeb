@@ -1,0 +1,17 @@
+<div class="search-results" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="100" (scrolled)="onScrollDown()">
+	<div class="messages">
+		<div class="message" *ngFor="let message of powiadomieniaList.objectList" >
+			<div class="message-text-block">
+               <div class="message-header">
+						<a> {{ message.title }}</a>
+				</div>
+                <div class="message-content">
+                    <span class="content">{{ message.content}} </span>
+                </div>
+                <div id="delete" (click)="usunPowiadomienie(message.id)">
+					<a >Usuń</a>
+				</div>
+			</div>
+		</div>
+ </div>
+</div>

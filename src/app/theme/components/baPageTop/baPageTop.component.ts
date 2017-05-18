@@ -86,6 +86,7 @@ export class BaPageTop implements OnInit{
        console.log("Signout clicked");
        localStorage.removeItem('currentUserToken');
        localStorage.removeItem('user');
+       localStorage.removeItem('isTokenFCMRegister'); 
        //localStorage.removeItem('latitude');
        //localStorage.removeItem('longitude');
   }
