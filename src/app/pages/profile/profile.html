@@ -10,7 +10,29 @@
             </template>
             <template md-tab-content>
                 <div id="messages">
-                    <messages [dest] = "'profile'" *ngIf="idCompany" [id] = idCompany></messages>
+                    <!--<p>aktywne: </p>-->
+                    <!--<button (click)="showActive()">show active</button>-->
+                    <!--<messages #msgs [dest] = "'profile'" *ngIf="idCompany" [id] = idCompany></messages>-->
+
+                    <md-tab-group>
+                        <md-tab>
+                            <template md-tab-label>
+                                <p>Aktywne</p>
+                            </template>
+                            <template md-tab-content>
+                                active posts
+                            </template>
+                        </md-tab>
+                        <md-tab>
+                            <template md-tab-label>
+                                <p>Zakończone</p>
+                            </template>
+                            <template md-tab-content>
+                                enede posts
+                            </template>
+                        </md-tab>
+                    </md-tab-group>
+
                 </div>
             </template>
         </md-tab>
@@ -26,8 +48,7 @@
                         <div [ngClass]="{'has-error':!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched}">
                             <input type="password" id="oldPassword" placeholder="stare hasło" [formControl]="passwordForm.controls['oldPassword']">
                             <div 
-                                *ngIf="!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched"
-                            >
+                                *ngIf="!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched">
                                 Musisz wpisać stare hasło
                             </div>
                         </div>

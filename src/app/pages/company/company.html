@@ -1,92 +1,83 @@
-<div class="company-image" *ngIf="companyImages?.imageUrl">
-    <img src="{{companyImages?.imageUrl}}" alt="">
-</div>
-<div class="company-name" *ngIf="otherOneCompany?.name">
-    <h4>
-      {{ otherOneCompany?.company.name }}
-    </h4>
-</div>
-  <md-tab-group>
-    <md-tab>
-      <template md-tab-label>
-        <p class="hidden-xs-down">
-          Dane firmy
-        </p>
-        <!--<div class="hidden-sm-up square"></div>-->
-      </template>
-      <template md-tab-content>
-        <div id="daneFirmy">
-          <div id="opisInfo">
-            <h5>Opis:</h5>
-            <span *ngIf="otherOneCompany?.description">{{ otherOneCompany?.description }}</span>
-          </div>
-
-          <div id="adresInfo">
-            <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
-            <h5>Adres:</h5>
-            <p>
-              <span *ngIf="otherOneCompany?.city">{{  otherOneCompany?.city }}, </span>
-              <span *ngIf="otherOneCompany?.street">{{  otherOneCompany?.street }}, </span>
-              <span *ngIf="otherOneCompany?.streetNo">{{  otherOneCompany?.streetNo }}, </span>
-            </p>
-          </div>         
-
-          <div id="godzinyInfo">
-            <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
-            <h5>Godziny otwarcia: </h5>
-            <span *ngIf="otherOneCompany?.openingHours">{{ otherOneCompany?.openingHours }}</span>
-          </div>
-          
-          <div id="kontaktInfo">
-            <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
-            <h5>Kontakt:</h5>
-            <div *ngIf="otherOneCompany?.website">
-              <i class="fa fa-desktop fa-2x" aria-hidden="true"></i>
-              <h5>Strona internetowa:</h5>
-               <a href="{{ otherOneCompany?.website }}" _target="blank">{{ otherOneCompany?.website }}</a>
-            </div>
-            <div *ngIf="otherOneCompany?.phoneNumber">
-              <i class="fa fa-mobile fa-2x" aria-hidden="true"></i>
-              <h5>Nr telefonu:</h5>
-              <p>{{ otherOneCompany?.phoneNumber }}</p>
-            </div>
-            <div *ngIf="otherOneCompany?.email">
-              <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-              <h5>Email:</h5>
-              <p>{{ otherOneCompany?.email }}</p>
-            </div>
-          </div>
-
-          <h4 id="companyDate" *ngIf="otherOneCompany?.createDate">
-            <span>Data:</span>
-            {{ otherOneCompany?.createDate }}
-          </h4>
+<div class="container-fluid">
+    <div class="row">
+        <div class="company-image" *ngIf="companyImages?.imageUrl">
+            <img src="{{companyImages?.imageUrl}}" alt="">
         </div>
-        
-      </template>
-    </md-tab>
-    <md-tab>
-      <template md-tab-label >
-          <p class="hidden-xs-down">
-            Posty
-          </p>
-      </template>
-      <template md-tab-content>
-        <messages [dest] = "'company'" [id] = id></messages>
-      </template>
-    </md-tab>
-    <md-tab>
-      <template md-tab-label>
-        <p class="hidden-xs-down">
-          Mapa
-        </p>
-        </template>
-      <template md-tab-content>
-        <div id="mapaFirmy">
-            <agm-map [latitude]="lat" [longitude]="lng">
-              <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-            </agm-map>
+
+        <div class="company-name" *ngIf="otherOneCompany?.name">
+            <h4>{{ otherOneCompany?.company.name }}</h4>
         </div>
-      </template>
-    </md-tab>
-  </md-tab-group>
+
+        <md-tab-group>
+            <md-tab>
+                <template md-tab-label>
+                    <p class="hidden-xs-down">Dane firmy</p>
+                </template>
+                <template md-tab-content>
+                  <div class="container" id="companyMain">
+                        <h4>Opis:</h4>
+                        <p *ngIf="otherOneCompany?.description">{{ otherOneCompany?.description }}</p>
+                        
+                        <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
+                        <h4>Adres:</h4>
+                        <p>
+                            <span *ngIf="otherOneCompany?.city">{{  otherOneCompany?.city }}, </span>
+                            <span *ngIf="otherOneCompany?.street">{{  otherOneCompany?.street }}, </span>
+                            <span *ngIf="otherOneCompany?.streetNo">{{  otherOneCompany?.streetNo }}, </span>
+                        </p>
+
+                        <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+                        <h4>Godziny otwarcia: </h4>
+                        <p *ngIf="otherOneCompany?.openingHours">{{ otherOneCompany?.openingHours }}</p>
+
+                        <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
+                        <h4>Kontakt:</h4>
+                        <div *ngIf="otherOneCompany?.website" class="compDiv">
+                            <i class="fa fa-desktop fa-2x" aria-hidden="true"></i>
+                            <h4>Strona internetowa:</h4>
+                            <a href="{{ otherOneCompany?.website }}" _target="blank">{{ otherOneCompany?.website }}</a>
+                        </div>
+                        <div *ngIf="otherOneCompany?.phoneNumber" class="compDiv">
+                            <i class="fa fa-mobile fa-2x" aria-hidden="true"></i>
+                            <h4>Nr telefonu:</h4>
+                            <p>{{ otherOneCompany?.phoneNumber }}</p>
+                        </div>
+                        <div *ngIf="otherOneCompany?.email" class="compDiv">
+                            <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                            <h4>Email:</h4>
+                            <p>{{ otherOneCompany?.email }}</p>
+                        </div>
+
+                        <!--<h4 id="companyDate" *ngIf="otherOneCompany?.createDate">
+                            <span>Data:</span>
+                            {{ otherOneCompany?.createDate }}
+                        </h4>-->
+                  </div>
+                    
+                </template>
+            </md-tab>
+            <md-tab>
+                <template md-tab-label >
+                    <p class="hidden-xs-down">Posty</p>
+                </template>
+                <template md-tab-content>
+                    <div class="container" id="messages">
+                        <messages [dest] = "'company'" [id] = id></messages>
+                    </div>
+                </template>
+            </md-tab>
+            <md-tab>
+                <template md-tab-label>
+                    <p class="hidden-xs-down">Mapa</p>
+                </template>
+                <template md-tab-content>
+                    <div id="mapaFirmy">
+                        <agm-map [latitude]="lat" [longitude]="lng">
+                            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                        </agm-map>
+                    </div>
+                </template>
+            </md-tab>
+        </md-tab-group>
+    </div>
+</div>

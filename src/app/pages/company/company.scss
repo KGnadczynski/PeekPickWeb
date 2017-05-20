@@ -1,10 +1,19 @@
 div.company-image{
-    margin: 1% 0;
+    margin-top: 3%;
     img{
-        width: 15%;
         display: block;
         margin: auto;
-        border-radius: 2500px;
+        // border-radius: 2500px;
+        @media(max-width: 575px){
+            width: 80%;
+        }
+        @media (min-width: 576px) {
+            width: 70%;
+        }
+        @media (min-width: 768px) {
+            width: 50%;
+        }
+        
     }
 }
 div.company-name{
@@ -15,10 +24,18 @@ div.company-name{
         font-size: 25px;
         padding: 2% 0;
         border-bottom: 2px solid black;
-        width: 85%;
+        float: none;
         margin: auto;
+        width: 70%;
     }
 }
+
+div#mapaFirmy{
+    agm-map{
+        height: 300px;
+    }
+}
+
 md-tab-group{
     width: 100%;
     padding: 3% 0;
@@ -46,122 +63,40 @@ md-tab-group{
         color: white !important;
         background-color:black !important;
     }
-    div#daneFirmy{
-        margin: auto;
-        div#opisInfo{
-            h5{
-                font-size: 20px;
-                text-align: center;
-                margin: 2% 0;
-                text-transform: capitalize;
-            }
-            span {
-                display: block;
-                text-align: center;
-                font-size: 16px;
-                line-height: 22px;
-                letter-spacing: 0.1px;
-            }
-        }
+}
 
-        div#adresInfo{
-            p{
-                span{
-                    
-                }
-            }
-        }
-        
-        div#godzinyInfo, div#kontaktInfo{
-            overflow: hidden;
-            i{
-                float: left;
-            }
-            h5{
-                float: left;
-                width: auto;
-                padding-top: 0.6%;
-                margin-left: 1%;
-                margin-bottom: 0;
-                
-            }
-            span{
-                float: left;
-                clear: left;
-                margin: 1% 0;
-            }
-            div{
-                clear: both;
-                float: left;
-                p {
-                    display: block;
-                    float: left;
-                    margin: 2% 0;
-                }
-                h5{
-                    padding: 2% 0;
-                }
-            }
-        }
-
-        div#kontaktInfo{
-            div{
-                margin: 1% 0;
-                h5{
-                    margin-left: 3%;
-                }
-                a, p{
-                    display: block;
-                    float: left;
-                    width: 100%;
-                    margin-top: 3%;
-                }
-            }
-        }
-        
-        p{
-            margin: 2% 0;
-        }
-        a, label{
-            margin-bottom: 2%;
-        }
+div#companyMain{
+    padding-top: 5%;
+    h4{
+        float: left;
+        margin: 6px 0;
+        text-align: left;
+        width: auto;
     }
-    div#mapaFirmy{
-        .sebm-google-map-container {
-            height: 600px;
-        }
+    p{
+        clear: both;
+        text-align: left;
+    }
+    i{
+        float: left;
+        margin-right: 1%;
+    }
+    div{
+        clear: both;
+        margin: 5% 0;
     }
 }
 
+div#messages{
+    padding-top: 5%;
+}
+
 @media(max-width: 575px){
-    div#daneFirmy{
-        width: 90%;
-        div#opisInfo{
-            span{
-                text-align: justify !important;
-            }
-        }
-        div#opisInfo, div#adresInfo, div#godzinyInfo{
-            margin: 3% 0 !important;
-            span{
-                margin: 2% 0 !important;
-            }
-        }
-    }
-    
-    div.company-image{
-        img{
-            width: 50%;
-        }
-    }
     md-tab-group{
         div.md-tab-header{
             justify-content: space-around;
-            border: none !important;
-            margin-bottom: 10%;
         }
         div.md-tab-label{
-            background: white;
             border: 2px solid black;
             min-width: 30px !important;
             height: 30px !important;
@@ -180,105 +115,5 @@ md-tab-group{
             color: white !important;
             background-color:black !important;
         }
-        
-    }
-    div.company-image{
-        img{
-            border: 1px solid black;
-            width: 30%;
-        }
-    }
-    
-}
-@media (min-width: 576px) {
-    div.company-image{
-        img{
-            width: 30%;
-        }
-    }
-    md-tab-group{
-        div#daneFirmy{
-            width: 70%;
-        }
-        div#adresInfo, div#godzinyInfo, div#kontaktInfo{
-            margin: 3% 0 !important;
-        }
-        div#opisInfo{
-            span{
-                text-align: justify !important;
-            }
-        }
-    }
-    div.search{
-        padding-top: 3%;
-    }
-}
-@media (min-width: 768px) {
-    div.company-image{
-        img{
-            width: 25%;
-        }
-    }
-    md-tab-group{
-        div#adresInfo, div#godzinyInfo, div#kontaktInfo{
-            margin: 3% 0 !important;
-        }
-    }
-    div#daneFirmy{
-        width: 55% !important;
-    }
-    div.search{
-        padding-top: 2%;
-    }
-}
-@media (min-width: 992px) {
-    div.company-image{
-        img{
-            width: 20%;
-        }
-    }
-
-    div#daneFirmy{
-        width: 60% !important;
-    }
-    div.search{
-        padding-top: 1.5%;
-    }
-}
-@media (min-width: 1200px) {
-    div.company-image{
-        img{
-        }
-    }
-    div.company-name{
-        h4{
-            width: 50%;
-        }
-    }
-    md-tab-group {
-        padding: 2% 0;
-    }
-
-    div#daneFirmy{
-        width: 40% !important;
-        div#opisInfo{
-            h5{
-                margin: 2% 0;
-            }
-            
-        }
-        div#adresInfo, div#godzinyInfo, div#kontaktInfo{
-            margin: 1% 0 !important;
-            h5{
-                padding: 0.5% 0;
-            }
-            span{
-                margin: 1% 0;
-            }
-        }
-        
-    }
-    div.search{
-        padding-top: 1% !important;
     }
 }

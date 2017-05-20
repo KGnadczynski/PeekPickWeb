@@ -28,13 +28,18 @@ div.dropdown{
       
     }
     div.dropdown-menu{
-      left: -130px;
+      left: -194px;
       padding: 10px;
+      top: 70px;
+      min-width: 240px;
       a{
         display: block;
-        margin-bottom: 5px;
-        margin-top: 5px;
         color: gray;
+        font-size: 15px;
+        line-height: 22px;
+        padding: 10px 0;
+        border-bottom: 1px solid #A20E12;
+        text-align: center;
       }
       
     }
@@ -54,11 +59,11 @@ div.dropdown{
   }
 }
 
-.blur {
+/*.blur {
   .page-top.scrolled {
     background-color: rgba(black, 0.85)
   }
-}
+}*/
 
 a.al-logo {
   float: left;
@@ -69,10 +74,13 @@ a.al-logo {
   white-space: nowrap;
   outline: none !important;
   line-height: 60px;
-
+  img{
+      width: 50px;
+  }
+/*
   span {
     color: $primary;
-  }
+  }*/
 }
 
 .user-profile {
@@ -100,7 +108,7 @@ a.al-logo {
   }
 }
 
-a.refresh-data {
+/*a.refresh-data {
   color: $sidebar-text;
   font-size: 13px;
   text-decoration: none;
@@ -112,7 +120,7 @@ a.refresh-data {
   &:hover {
     color: $warning !important;
   }
-}
+}*/
 
 a.collapse-menu-link {
   font-size: 31px;
@@ -156,42 +164,10 @@ a.collapse-menu-link {
   background-size: cover;
 }
 
-.search {
-  float: left;
-  font-size: 13px;
-  line-height: 25px;
-  transition: all 0.5s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  margin-left: 2%;
-  label {
-    cursor: pointer;
-  }
-  i {
-    width: 16px;
-    display: inline-block;
-    cursor: pointer;
-    padding-left: 1px;
-    font-size: 16px;
-    margin-right: 13px;
-    color: white;
-  }
-  input {
-    color: $sidebar-text;
-    background: none;
-    border: none;
-    outline: none;
-    width: 120px;
-    padding: 0;
-    margin: 0 0 0 -3px;
-    height: 27px;
-  }
+i {
+  width: auto !important;
 }
 
-  .search {
-    display: none;
-  }
-
-nav{
-  padding-top: 4%;
+.al-sidebar .sidebar-hover-elem{
+    left: 236px;
 }

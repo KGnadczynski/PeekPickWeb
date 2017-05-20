@@ -10,7 +10,6 @@ import { EqualPasswordsValidator } from '../../theme/validators';
 import { NgUploaderOptions } from 'ngx-uploader';
 import { ImageModel } from '../add-message/imagemodel';
 
-
 @Component({
   selector: 'profile',
   encapsulation: ViewEncapsulation.None,
@@ -40,6 +39,7 @@ export class ProfileComponent implements OnInit {
         url: '',
     };
     @ViewChild('fileUpload') public fileUpload:any;
+    @ViewChild('msgs') messagesCom: MessagesComponent;
 
     @Output() myEvent: EventEmitter<string> = new EventEmitter<string>();
 
@@ -167,6 +167,10 @@ export class ProfileComponent implements OnInit {
       else
         this.router.navigateByUrl('/pages/komunikat');
 
+    }
+
+    showActive(): void {
+        this.messagesCom.getActivePost();
     }
 
     udpatePassword(values: any){

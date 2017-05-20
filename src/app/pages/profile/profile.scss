@@ -104,8 +104,12 @@ div#profile{
         
     }
     div#messages{
+        margin: auto;
         i.material-icons{
             margin-left: 40%;
+        }
+        md-tab-group{
+            margin-top: 3%;
         }
     }
     div#additionalInfo{

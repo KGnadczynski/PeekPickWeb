@@ -1,12 +1,10 @@
 <div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled}">
-  <a routerLink="/pages/komunikat" class="al-logo clearfix"><span>tack</span>pad</a>
+  <a routerLink="/pages/komunikat" class="al-logo clearfix">
+      <!--<span>tack</span>pad-->
+      <img src="../../../meta/ikona.png" alt="">
+  </a>
   <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
-  <div class="search hidden-md-up">
-    <i class="ion-ios-search-strong" ng-click="startSearch()"></i>
-    <input id="searchInput" #term type="text" placeholder="Szukaj..." (keyup)="search(term.value)">
-  </div>
 
-  
   <div class="dropdown" *ngIf="isLogged">
     <i class="fa fa-plus-circle fa-2x dropdown-toggle" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

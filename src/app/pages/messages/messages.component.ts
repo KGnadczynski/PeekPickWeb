@@ -4,6 +4,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { MessagesService } from './messages.service';
 import { MessageList } from './messageList.model';
 
+let moment = require('../../../../node_modules/moment/moment');
 
 @Component({
     selector: 'messages',
@@ -54,6 +55,7 @@ export class MessagesComponent implements OnInit{
     }
 
     onScrollDown(){
+        console.log('sc scrolling ATTENTION! page: ' + this.pageNumber);
         if(!this.messageList.isLastPage){
             if(this.canScrool){
                 this.pageNumber += 1;
@@ -102,18 +104,26 @@ export class MessagesComponent implements OnInit{
             
             case 'company':
             case 'profile':
-                console.log('switch: company profile');
                 if("geolocation"  in navigator){
                     navigator.geolocation.getCurrentPosition((position) => {
                         this.latitude = position.coords.latitude;
                         this.longitude = position.coords.longitude;
                         this.busy = this.messageService.getCompanyMessages(page, this.id, this.latitude, this.longitude).subscribe(result => {
-                            if(page === 1)
+                            console.log('page: ' + page);
+                            if(page === 1){
+                                
                                 this.messageList = result;
+                                console.log('komunikatY p1: ');
+                                console.dir(this.messageList);
+                            }
                             else {
-                                this.messageList.messages = this.messageList.messages.concat(result.messages);
-                                this.messageList.isLastPage = result.isLastPage;
-                                this.canScrool = true;
+                                console.log('komunikatY p>1: ');
+                                console.dir(this.messageList);
+                                    this.messageList.messages = this.messageList.messages.concat(result.messages);
+                                    this.messageList.isLastPage = result.isLastPage;
+                                    this.canScrool = true;
+                               
+                                
                             }
                         });
                     });
@@ -141,7 +151,7 @@ export class MessagesComponent implements OnInit{
                         navigator.geolocation.getCurrentPosition((position) => {
                             this.latitude = position.coords.latitude;
                             this.longitude = position.coords.longitude;
-                            this.busy = this.messageService.getMessagesList(x.join(';'), this.latitude, this.longitude, this.pageNumber).subscribe(result => {
+                            this.busy = this.messageService.getMessagesList(x.join(';'), this.latitude, this.longitude, page).subscribe(result => {
                                 this.messageList = result;
                                 console.log('favsy message list:');
                                 console.dir(result);
@@ -160,8 +170,8 @@ export class MessagesComponent implements OnInit{
                         navigator.geolocation.getCurrentPosition((position) => {
                             this.latitude = position.coords.latitude;
                             this.longitude = position.coords.longitude;
-                            this.busy = this.messageService.getCompanyCategoryMessages(this.id, this.pageNumber, this.latitude, this.longitude).subscribe(result => {
-                                if(this.pageNumber === 1){
+                            this.busy = this.messageService.getCompanyCategoryMessages(this.id, page, this.latitude, this.longitude).subscribe(result => {
+                                if(page === 1){
                                     this.messageList = result;
                                     console.log('komunikaty: ');
                                     console.dir(this.messageList);
@@ -174,8 +184,8 @@ export class MessagesComponent implements OnInit{
                             });
                         });
                     } else {
-                        this.busy = this.messageService.getCompanyCategoryMessages(this.id, this.pageNumber, 0, 0).subscribe(result => {
-                            if(this.pageNumber === 1){
+                        this.busy = this.messageService.getCompanyCategoryMessages(this.id, page, 0, 0).subscribe(result => {
+                            if(page === 1){
                                 this.messageList = result;
                                 console.log('komunikaty: ');
                                 console.dir(this.messageList);
@@ -288,6 +298,21 @@ export class MessagesComponent implements OnInit{
 
     showSocialShare() {
         this.socialVisible =  !this.socialVisible;
-    }  
+    }
+
+    getActivePost(){
+        let date = new Date('1995-12-17T03:24:00');
+        date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+        this.messageService.getActiveMessages(this.pageNumber, date, 0, 0).subscribe(
+            result => {
+                console.log('active posts: ');
+                console.dir(result);
+            },
+            err => {
+                console.log('error from active posts:');
+                console.dir(err);
+            }
+        )
+    }
 
 }
