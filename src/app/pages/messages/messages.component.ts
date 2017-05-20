@@ -260,18 +260,8 @@ export class MessagesComponent implements OnInit{
                 params += key + "=" + event[key] + "&";
         });
         params = params.substring(0, params.length-1);
-
-        if(event.latitude === 0 && event.longitude === 0){
-            if("geolocation"  in navigator){
-                navigator.geolocation.getCurrentPosition((position) => {
-                    this.latitude = position.coords.latitude;
-                    this.longitude = position.coords.longitude;
-                    params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
-                });
-            }
-        }
+        params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
         
-        console.log('params: ' + params);
         if(params !== "")
             this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
                 this.messageList = result;

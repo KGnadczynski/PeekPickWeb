@@ -11,6 +11,8 @@ import { ObjectList} from '../messages/message';
 export class MessagesService{
 
     urlNew: string;
+    latitude:number;
+    longitude: number;
 
     constructor(private http: Http){}
 

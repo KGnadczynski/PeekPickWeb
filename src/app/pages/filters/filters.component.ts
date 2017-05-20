@@ -65,8 +65,8 @@ export class FiltersComponent implements OnInit{
 
         this.filterForm.valueChanges.subscribe(data => {
 
-            console.log('data: ');
-            console.dir(data);
+            // console.log('data: ');
+            // console.dir(data);
 
             let params: {sortType: string, range: number, messageTypeList: string, companyCategoryMainIdList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
                 sortType: '',
@@ -116,9 +116,23 @@ export class FiltersComponent implements OnInit{
                     params.companyCategoryMainIdList += (i+1) + ";";
                 }
             
-            // console.log('params: ');
-            // console.dir(params);
-            //this.myEvent.emit(params);
+            Object.keys(data.subtrades).forEach((key) =>{
+                data.subtrades[key].forEach((v, i) => {
+                    if(v) params.companyCategoryIdList += (i+1) + ';';
+                });
+            });
+
+            let i = 0;
+            Object.keys(params).forEach((key)=>{
+                if(params[key]) i++;
+            });
+
+            if(i > 0){
+                //console.log('params: ');
+                //console.dir(params);
+                this.myEvent.emit(params);
+            }
+
         });
     }
 
@@ -141,9 +155,17 @@ export class FiltersComponent implements OnInit{
             for(let categ in resultCategories){
                 this.filtersService.getCategorySubcategories(resultCategories[categ].id).subscribe(resultSub => {
                     this.categories.push({id: resultCategories[categ].id, name: resultCategories[categ].name, subcategories: resultSub, bol: true});
-                    resultSub.forEach(() => this.addSubSubTrade(resultCategories[categ].id));
+                    // resultSub.forEach(() => this.addSubSubTrade(resultCategories[categ].id));
+                    // console.log('ID:::: ' + this.categories[categ].id);
+                    for(let x in this.categories)
+                        if(this.categories[x].id === resultCategories[categ].id)
+                            this.categories[x].subcategories.forEach(() => {
+                                this.addSubSubTrade(this.categories[x].id);
+                            });
                 });
             }
+            
+            // this.categories.forEach((c) => this.addSubSubTrade(c.id));
         });
         
         for(let i = this.messageTypes.length-1; i >= 0; i--)
