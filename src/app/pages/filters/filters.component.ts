@@ -63,7 +63,7 @@ export class FiltersComponent implements OnInit{
             subtrades: this.fb.group({})
         });
 
-        /*this.filterForm.valueChanges.subscribe(data => {
+        this.filterForm.valueChanges.subscribe(data => {
 
             console.log('data: ');
             console.dir(data);
@@ -119,7 +119,7 @@ export class FiltersComponent implements OnInit{
             // console.log('params: ');
             // console.dir(params);
             //this.myEvent.emit(params);
-        });*/
+        });
     }
 
     setTrade(id: number){

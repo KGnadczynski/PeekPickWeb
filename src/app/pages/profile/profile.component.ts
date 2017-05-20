@@ -43,12 +43,7 @@ export class ProfileComponent implements OnInit {
 
     @Output() myEvent: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(
-    private profileService: ProfileService, 
-    private _http: Http, 
-    private router: Router, 
-    private fb: FormBuilder)
-  {
+  constructor(private profileService: ProfileService, private _http: Http, private router: Router, private fb: FormBuilder){
      this.passwordForm = fb.group({
           'oldPassword': [null, Validators.required],
           'passwords': fb.group({
@@ -69,9 +64,9 @@ export class ProfileComponent implements OnInit {
 
       this.additionalForm = fb.group({
         'contact': fb.group({
-            'www': '',
+            'website': '',
             'openingHours': '',
-            'telephone': '',
+            'phoneNumber': '',
             'email': '',
             'description': ''
         })
@@ -109,9 +104,11 @@ export class ProfileComponent implements OnInit {
                         this.companyBranches.forEach((obj) => {
                             obj.collapse = true;
                         });
+                        
                         let objIndex = this.companyBranches.findIndex((obj => obj.main));
                         let addressGroup = <FormGroup>this.companyForm.get('address');
                         let additionalGroup = <FormGroup>this.additionalForm.get('contact');
+                        
                         addressGroup.setValue({
                             city: this.companyBranches[objIndex].city,
                             street: this.companyBranches[objIndex].street,
@@ -119,12 +116,28 @@ export class ProfileComponent implements OnInit {
                         });
 
                         additionalGroup.setValue({
-                            www: this.companyBranches[objIndex].website,
+                            website: this.companyBranches[objIndex].website,
                             openingHours: this.companyBranches[objIndex].openingHours,
-                            telephone: this.companyBranches[objIndex].phoneNumber,
+                            phoneNumber: this.companyBranches[objIndex].phoneNumber,
                             email: this.companyBranches[objIndex].email,
                             description: this.companyBranches[objIndex].description
                         });
+
+                        /*branches.forEach((obj) =>{
+
+                        });
+
+                        this.branchForm.setValue({
+                            name: this.companyBranches[objIndex].name,
+                            city: this.companyBranches[objIndex].city,
+                            street: this.companyBranches[objIndex].street,
+                            streetNo: this.companyBranches[objIndex].streetNo,
+                            website: this.companyBranches[objIndex].website,
+                            openingHours: this.companyBranches[objIndex].openingHours,
+                            phoneNumber: this.companyBranches[objIndex].phoneNumber,
+                            email: this.companyBranches[objIndex].email,
+                            description: this.companyBranches[objIndex].description
+                        });*/
 
                     },
                     errI => {
