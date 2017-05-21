@@ -30,12 +30,12 @@
         </button>
       </div>
 			
-			<div class="message-icon">
+      <div class="message-icon-work">
 				<i *ngIf="message?.type === 'EVENT'" class="material-icons">event</i>
 				<i *ngIf="message?.type === 'WORK'" class="material-icons">work</i>
-				<i *ngIf="message?.type === 'SHORT_TERM_OFFER'" class="material-icons">local_offer</i>
-				<i *ngIf="message?.type === 'WORTH_SEEING'" class="material-icons">local_see</i>
-				<i *ngIf="message?.type === 'PROMOTION'" class="material-icons">star_rate</i>
+				<i *ngIf="message?.type === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
+				<i *ngIf="message?.type === 'WORTH_SEEING'" class="material-icons">visibility</i>
+				<i *ngIf="message?.type === 'PROMOTION'" class="material-icons">loyalty</i>
 			</div>
 
         <div class="message-content">

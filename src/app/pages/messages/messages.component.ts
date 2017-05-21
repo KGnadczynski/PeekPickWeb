@@ -199,6 +199,14 @@ export class MessagesComponent implements OnInit{
                     }
                 break;
 
+                case 'active':
+                    this.getActivePost();
+                break;
+
+                case 'ended':
+                    this.getEnded();
+                break;
+
             default:
                 console.log('something else')
                 break;
@@ -253,6 +261,7 @@ export class MessagesComponent implements OnInit{
         console.dir(event);
         event.messageTypeList = event.messageTypeList.substring(0, event.messageTypeList.length-1);
         event.companyCategoryMainIdList = event.companyCategoryMainIdList.substring(0, event.companyCategoryMainIdList.length-1);
+        event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
         
         let params: string = "";
         Object.keys(event).forEach((key) => {
@@ -291,18 +300,52 @@ export class MessagesComponent implements OnInit{
     }
 
     getActivePost(){
-        let date = new Date('1995-12-17T03:24:00');
-        date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+        let date = new Date('2017-05-21T23:59:00');
+        date = moment(date).format("YYYY-MM-DD HH:mm");
         this.messageService.getActiveMessages(this.pageNumber, date, 0, 0).subscribe(
             result => {
                 console.log('active posts: ');
                 console.dir(result);
+                if("geolocation"  in navigator){
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        this.latitude = position.coords.latitude;
+                        this.longitude = position.coords.longitude;
+                        this.busy = this.messageService.getActiveMessages(this.pageNumber, date, this.latitude, this.longitude).subscribe(result => {
+                            this.messageList = result;
+                        });
+                    });
+                }
             },
             err => {
                 console.log('error from active posts:');
                 console.dir(err);
             }
         )
+    }
+
+    getEnded() {
+        //let date1: Date = new Date('1995-12-17T03:23:58');
+        //let date2: Date = new Date('1995-12-17T03:23:59');
+
+        let date: any = Date.now();
+        date = moment(date).format("YYYY-MM-DD HH:mm");
+
+        console.log('getCurrentDate: ' + date);
+
+        if("geolocation"  in navigator){
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                this.busy = this.messageService.getMessages(this.pageNumber, this.latitude, this.longitude).subscribe(result => {
+                    this.messageList = result;
+                    // this.messageList.messages = this.messageList.messages.filter((el) => {
+                    //     return +el.endDate < +date;
+                    // });
+                    // console.log('ended message list:');
+                    // console.dir(result);
+                });
+            });
+        }
     }
 
 }

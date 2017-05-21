@@ -19,168 +19,165 @@ import { ImageModel } from '../add-message/imagemodel';
 })
 export class ProfileComponent implements OnInit {
 
-  otherUser: User;
-  otherObject: ObjectList;
-  otherImgs: any;
-  companyBranches: any[];
-  idCompany: number;
-  passwordForm: FormGroup;
-  companyForm: FormGroup;
-  additionalForm: FormGroup;
-  branchForm: FormGroup;
-  messageAfter: boolean = false;
-  public defaultPicture = 'assets/img/theme/add-icon.png';
-  public profile:any = {
+    otherUser: User;
+    otherObject: ObjectList;
+    otherImgs: any;
+    companyBranches: any[];
+    idCompany: number;
+    passwordForm: FormGroup;
+    companyForm: FormGroup;
+    additionalForm: FormGroup;
+    branchForm: FormGroup;
+    messageAfter: boolean = false;
+    public defaultPicture = 'assets/img/theme/add-icon.png';
+    public profile:any = {
         picture: 'assets/img/theme/add-icon.png'
     };
-  isCollapse:boolean = true;
-  error: any;
+    isCollapse:boolean = true;
+    error: any;
     public uploaderOptions:NgUploaderOptions = {
         url: '',
     };
     @ViewChild('fileUpload') public fileUpload:any;
     @ViewChild('msgs') messagesCom: MessagesComponent;
 
-    @Output() myEvent: EventEmitter<string> = new EventEmitter<string>();
+    constructor(private profileService: ProfileService, private _http: Http, private router: Router, private fb: FormBuilder){
+        this.passwordForm = fb.group({
+            'oldPassword': [null, Validators.required],
+            'passwords': fb.group({
+                'password': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
+                'repeatPassword': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
+            }, {validator: EqualPasswordsValidator.validate("password", "repeatPassword")})
+        });
+        
+        this.companyForm = fb.group({
+            'name': '',
+            'address': fb.group({
+                'city': '',
+                'street': '',
+                'streetNo': ''
+            }),
+            
+        });
 
-  constructor(private profileService: ProfileService, private _http: Http, private router: Router, private fb: FormBuilder){
-     this.passwordForm = fb.group({
-          'oldPassword': [null, Validators.required],
-          'passwords': fb.group({
-            'password': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
-            'repeatPassword': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
-          }, {validator: EqualPasswordsValidator.validate("password", "repeatPassword")})
-      });
-      
-      this.companyForm = fb.group({
-          'name': '',
-          'address': fb.group({
-              'city': '',
-              'street': '',
-              'streetNo': ''
-          }),
-          
-      });
+        this.additionalForm = fb.group({
+            'contact': fb.group({
+                'website': '',
+                'openingHours': '',
+                'phoneNumber': '',
+                'email': '',
+                'description': ''
+            })
+        });
 
-      this.additionalForm = fb.group({
-        'contact': fb.group({
+        this.branchForm = fb.group({
+            'name': '',
+            'city': '',
+            'street': '',
+            'streetNo': '',
             'website': '',
-            'openingHours': '',
             'phoneNumber': '',
-            'email': '',
-            'description': ''
-        })
-      });
-
-      this.branchForm = fb.group({
-        'name': '',
-        'city': '',
-        'street': '',
-        'streetNo': '',
-        'website': '',
-        'phoneNumber': '',
-        'openingHours': '',
-        'description': '',
-        'email': ''
-      });
-  }
-
-  ngOnInit() {
-
-      if(localStorage.getItem('currentUserToken')){
-        this.profileService.getUser().subscribe(
-            user => {
-                console.log('user:');
-                console.dir(user);
-                this.otherUser = user;
-                this.companyForm.controls['name'].setValue(this.otherUser.company.name);
-                
-                this.idCompany = user.company.id;
-                this.profileService.getCompanyBranches(user.company.id).subscribe(
-                    branches => {
-                        console.log('branches: ');
-                        console.dir(branches);
-                        this.companyBranches = branches;
-                        this.companyBranches.forEach((obj) => {
-                            obj.collapse = true;
-                        });
-                        
-                        let objIndex = this.companyBranches.findIndex((obj => obj.main));
-                        let addressGroup = <FormGroup>this.companyForm.get('address');
-                        let additionalGroup = <FormGroup>this.additionalForm.get('contact');
-                        
-                        addressGroup.setValue({
-                            city: this.companyBranches[objIndex].city,
-                            street: this.companyBranches[objIndex].street,
-                            streetNo: this.companyBranches[objIndex].streetNo
-                        });
-
-                        additionalGroup.setValue({
-                            website: this.companyBranches[objIndex].website,
-                            openingHours: this.companyBranches[objIndex].openingHours,
-                            phoneNumber: this.companyBranches[objIndex].phoneNumber,
-                            email: this.companyBranches[objIndex].email,
-                            description: this.companyBranches[objIndex].description
-                        });
-
-                        /*branches.forEach((obj) =>{
-
-                        });
-
-                        this.branchForm.setValue({
-                            name: this.companyBranches[objIndex].name,
-                            city: this.companyBranches[objIndex].city,
-                            street: this.companyBranches[objIndex].street,
-                            streetNo: this.companyBranches[objIndex].streetNo,
-                            website: this.companyBranches[objIndex].website,
-                            openingHours: this.companyBranches[objIndex].openingHours,
-                            phoneNumber: this.companyBranches[objIndex].phoneNumber,
-                            email: this.companyBranches[objIndex].email,
-                            description: this.companyBranches[objIndex].description
-                        });*/
-
-                    },
-                    errI => {
-                        console.log('Error from getCompanyBranches');
-                        console.dir(errI);
-                        /*if(errI.error === 'invalid_token'){
-                            this.router.navigateByUrl('/pages/komunikat');
-                            localStorage.removeItem('currentUserToken');
-                            localStorage.removeItem('user');
-                        }*/
-                    }
-                );
-                this.profileService.getUserImages(user.company.id).subscribe(
-                    images => {
-                        this.otherImgs = images;
-                    },
-                    errI => {
-                        console.log('Error from get user images: ');
-                        console.dir(errI);
-                        /*if(errI.error === 'invalid_token'){
-                            this.router.navigateByUrl('/pages/komunikat');
-                            localStorage.removeItem('currentUserToken');
-                            localStorage.removeItem('user');
-                        }*/
-                    }
-                )
-            },
-            err => {
-                console.log('error from user: ');
-                console.dir(err);
-                this.myEvent.emit('emitting from profile component');
-                /*if(err.error === 'invalid_token'){
-                    this.router.navigateByUrl('/pages/komunikat');
-                    localStorage.removeItem('currentUserToken');
-                    localStorage.removeItem('user');
-                }*/
-            }
-        );
-      }
-      else
-        this.router.navigateByUrl('/pages/komunikat');
-
+            'openingHours': '',
+            'description': '',
+            'email': ''
+        });
     }
+
+    ngOnInit() {
+
+        if(localStorage.getItem('currentUserToken')){
+            this.profileService.getUser().subscribe(
+                user => {
+                    console.log('user:');
+                    console.dir(user);
+                    this.otherUser = user;
+                    this.companyForm.controls['name'].setValue(this.otherUser.company.name);
+                    
+                    this.idCompany = user.company.id;
+                    this.profileService.getCompanyBranches(user.company.id).subscribe(
+                        branches => {
+                            console.log('branches: ');
+                            console.dir(branches);
+                            this.companyBranches = branches;
+                            this.companyBranches.forEach((obj) => {
+                                obj.collapse = true;
+                            });
+                            
+                            let objIndex = this.companyBranches.findIndex((obj => obj.main));
+                            let addressGroup = <FormGroup>this.companyForm.get('address');
+                            let additionalGroup = <FormGroup>this.additionalForm.get('contact');
+                            
+                            addressGroup.setValue({
+                                city: this.companyBranches[objIndex].city,
+                                street: this.companyBranches[objIndex].street,
+                                streetNo: this.companyBranches[objIndex].streetNo
+                            });
+
+                            additionalGroup.setValue({
+                                website: this.companyBranches[objIndex].website,
+                                openingHours: this.companyBranches[objIndex].openingHours,
+                                phoneNumber: this.companyBranches[objIndex].phoneNumber,
+                                email: this.companyBranches[objIndex].email,
+                                description: this.companyBranches[objIndex].description
+                            });
+
+                            /*branches.forEach((obj) =>{
+
+                            });
+
+                            this.branchForm.setValue({
+                                name: this.companyBranches[objIndex].name,
+                                city: this.companyBranches[objIndex].city,
+                                street: this.companyBranches[objIndex].street,
+                                streetNo: this.companyBranches[objIndex].streetNo,
+                                website: this.companyBranches[objIndex].website,
+                                openingHours: this.companyBranches[objIndex].openingHours,
+                                phoneNumber: this.companyBranches[objIndex].phoneNumber,
+                                email: this.companyBranches[objIndex].email,
+                                description: this.companyBranches[objIndex].description
+                            });*/
+
+                        },
+                        errI => {
+                            console.log('Error from getCompanyBranches');
+                            console.dir(errI);
+                            /*if(errI.error === 'invalid_token'){
+                                this.router.navigateByUrl('/pages/komunikat');
+                                localStorage.removeItem('currentUserToken');
+                                localStorage.removeItem('user');
+                            }*/
+                        }
+                    );
+                    this.profileService.getUserImages(user.company.id).subscribe(
+                        images => {
+                            this.otherImgs = images;
+                        },
+                        errI => {
+                            console.log('Error from get user images: ');
+                            console.dir(errI);
+                            /*if(errI.error === 'invalid_token'){
+                                this.router.navigateByUrl('/pages/komunikat');
+                                localStorage.removeItem('currentUserToken');
+                                localStorage.removeItem('user');
+                            }*/
+                        }
+                    )
+                },
+                err => {
+                    console.log('error from user: ');
+                    console.dir(err);
+                    /*if(err.error === 'invalid_token'){
+                        this.router.navigateByUrl('/pages/komunikat');
+                        localStorage.removeItem('currentUserToken');
+                        localStorage.removeItem('user');
+                    }*/
+                }
+            );
+        }
+        else
+            this.router.navigateByUrl('/pages/komunikat');
+
+        }
 
     showActive(): void {
         this.messagesCom.getActivePost();

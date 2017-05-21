@@ -29,13 +29,14 @@
 			<div class="message-icon-work">
 				<i *ngIf="message.type === 'EVENT'" class="material-icons">event</i>
 				<i *ngIf="message.type === 'WORK'" class="material-icons">work</i>
-				<i *ngIf="message.type === 'SHORT_TERM_OFFER'" class="material-icons">local_offer</i>
-				<i *ngIf="message.type === 'WORTH_SEEING'" class="material-icons">local_see</i>
-				<i *ngIf="message.type === 'PROMOTION'" class="material-icons">star_rate</i>
+				<i *ngIf="message.type === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
+				<i *ngIf="message.type === 'WORTH_SEEING'" class="material-icons">visibility</i>
+				<i *ngIf="message.type === 'PROMOTION'" class="material-icons">loyalty</i>
 			</div>
 
 			<div class="message-content" (click)="goToSingle(message.id)">
 				<span class="content">{{ message.content}} </span>
+				<p>{{message.type}}</p>
 			</div>
 
 			<div class="message-time">
@@ -95,7 +96,7 @@
 				</div>
 			</div>
 			<div class="blackline"></div>
-			<div *ngIf="dest === 'profile'" class="actions">
+			<div *ngIf="dest === 'profile' || dest === 'active' || dest === 'ended'" class="actions">
 				
 				<div id="edit">
 					<a [routerLink]="['/pages/edit_message', message.id]">edytuj</a>

@@ -70,10 +70,13 @@ export class MessagesService{
     }
 
     getActiveMessages(page: number, date: Date, latitude: number, longitude: number): Observable<MessageList>{
-        this.urlNew = url + '/messages/page/' + page + '?startBeforeDate=' + date;
+        
+        this.urlNew = url + '/messages/page/' + page + '?startBeforeDate=' + date.toString();
+        //this.urlNew = url + '/messages/page/' + page + '?startBeforeDate=2017-05-21%2023%3A59';
+        
         if(!(latitude === 0 && longitude === 0))
             this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;
-
+        
         return this.http.get(this.urlNew).map(this.mapMessages).catch(this.handleError);
     }
 
