@@ -3,6 +3,7 @@
 		<div class="message" *ngFor="let message of messageList.messages">
 			<div class="message-icon">
 				<img *ngIf="message.user.company.mainImageUrl" class="photo-icon" src="{{ message.user.company.mainImageUrl }}">
+				<ng2-letter-avatar *ngIf="!message.user.company.mainImageUrl" avatar-data='{{message.user.company.name}}' ></ng2-letter-avatar>
 			</div>
 
 			<div class="message-text-block">

@@ -1,9 +1,8 @@
 <div id="profile">
 
-    <img src="{{otherImgs?.imageUrl}}" alt="" id="companyImg">
+    <img *ngIf="otherImgs?.imageUrl" src="{{otherImgs?.imageUrl}}" alt="" id="companyImg">
+    <ng2-letter-avatar *ngIf="!otherImgs?.imageUrl && name" avatar-data='{{name}}' ></ng2-letter-avatar>
     <h2>{{otherUser?.company.name}}</h2>
-
-
 
     <md-tab-group>
         <md-tab>
@@ -11,7 +10,7 @@
                 <p class="hidden-sm-down">Moje posty</p>
             </template>
             <template md-tab-content>
-                <div>
+                <div id="activeAndEndedPosts">
                     <ng2-tab selected="active" selected-index-class="selected" selected-contents-class="fadeIn animated">
                         <div class="tabs">
                             <div index="active">AKTYWNE</div>

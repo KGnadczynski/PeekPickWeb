@@ -119,7 +119,8 @@ const NGA_VALIDATORS = [
   exports: [
     ...NGA_PIPES,
     ...NGA_DIRECTIVES,
-    ...NGA_COMPONENTS
+    ...NGA_COMPONENTS,
+    Ng2LetterAvatar
   ]
 })
 export class NgaModule {

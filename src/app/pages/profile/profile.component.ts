@@ -40,6 +40,7 @@ export class ProfileComponent implements OnInit {
     };
     @ViewChild('fileUpload') public fileUpload:any;
     @ViewChild('msgs') messagesCom: MessagesComponent;
+    name: string = '';
 
     constructor(private profileService: ProfileService, private _http: Http, private router: Router, private fb: FormBuilder){
         this.passwordForm = fb.group({
@@ -91,6 +92,7 @@ export class ProfileComponent implements OnInit {
                     console.log('user:');
                     console.dir(user);
                     this.otherUser = user;
+                    this.name = user.company.name;
                     this.companyForm.controls['name'].setValue(this.otherUser.company.name);
                     
                     this.idCompany = user.company.id;

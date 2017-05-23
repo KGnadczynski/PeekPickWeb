@@ -60,19 +60,23 @@ export class BaPageTop implements OnInit{
     let user = JSON.parse(localStorage.getItem('user'));
    
     if(currentUser != null) {
-      this.isLogged = true;
+      console.log('curent user not null');
+        this.isLogged = true;
+        this.profileService.getUser().subscribe(
+          user => {
+              this.name = user.company.name;
+              console.log('name: ' + this.name);
+              console.dir(user);
+          }
+        );
     }
 
      if(user != null) {
      this.profileService.getUserImages(user.user.company.id).subscribe((value)=> {
         this.userLogo = value.imageUrl;
-      })
-      this.profileService.getUser().subscribe(
-        user => {
-            this.name = user.company.name;
-            console.log('name: ' + name);
-        }
-      );
+        console.log('user logo: ' + this.userLogo);
+      });
+      
     }
 
     for(let i = this.messageTypes.length-1; i >= 0; i--){

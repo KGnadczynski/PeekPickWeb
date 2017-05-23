@@ -3,6 +3,15 @@
 
 div#profile{
     margin: auto;
+
+    ng2-letter-avatar{
+        img{
+            width: 300px;
+            display: block;
+            margin: auto;
+        }
+    }
+
     img#companyImg{
         width: 200px;
         height: 200px;
@@ -404,22 +413,26 @@ select:-webkit-autofill:focus {
     }       
 }
 
-div.tabs{
-    display: flex;
-    justify-content: space-around;
-    div{
-        border: 0 !important;
-        font-size: 20px;
-        background: white !important;
-        cursor: pointer;
+div#activeAndEndedPosts{
+    padding: 3%;
+    div.tabs{
+        display: flex;
+        justify-content: space-around;
+        div{
+            border: 0 !important;
+            font-size: 20px;
+            background: white !important;
+            cursor: pointer;
+        }
+        div.selected{
+            border-bottom: 5px solid #00BCD4 !important;
+            border-top: 0 !important;
+        }
     }
-    div.selected{
-        border-bottom: 5px solid #00BCD4 !important;
-        border-top: 0 !important;
+
+    div.tab-contents{
+        border: 0 !important;
+        margin-top: 3%;
     }
 }
 
-div.tab-contents{
-    border: 0 !important;
-    margin-top: 3%;
-}

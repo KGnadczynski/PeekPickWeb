@@ -27,6 +27,7 @@ export class MessagesComponent implements OnInit{
     socialVisible: boolean = false;
     latitude: number;
     longitude: number;
+    name: string = "";
 
     constructor(private messageService: MessagesService, private router: Router, private route: ActivatedRoute){
         let moment = require('../../../../node_modules/moment/moment.js');

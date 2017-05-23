@@ -6,9 +6,10 @@ import { CommonModule } from '@angular/common';
 import { MessagesComponent } from './messages.component';
 import { routing } from './messages.routing';
 import {ShareButtonsModule} from 'ngx-sharebuttons';
+import { NgaModule } from '../../theme/nga.module';
 
 @NgModule({
-    imports:[CommonModule, InfiniteScrollModule, MomentModule, routing, ShareButtonsModule.forRoot()],
+    imports:[CommonModule, InfiniteScrollModule, MomentModule, routing, ShareButtonsModule.forRoot(), NgaModule],
     declarations: [MessagesComponent],
     exports: [MessagesComponent]
 })
