@@ -35,8 +35,8 @@ export class MessagesComponent implements OnInit{
 
     ngOnInit():void{
 
-        console.log('dest: ' + this.dest);
-        console.log('id: ' + this.id);
+        // console.log('dest: ' + this.dest);
+        // console.log('id: ' + this.id);
 
         this.route.queryParams.subscribe(params => {
             this.searchTerm = params["searchTerm"];
@@ -55,7 +55,6 @@ export class MessagesComponent implements OnInit{
     }
 
     onScrollDown(){
-        console.log('sc scrolling ATTENTION! page: ' + this.pageNumber);
         if(!this.messageList.isLastPage){
             if(this.canScrool){
                 this.pageNumber += 1;
@@ -248,7 +247,6 @@ export class MessagesComponent implements OnInit{
         this.router.navigate(['/pages/komunikat_single', id]);
     }
 
-
     checkIfFavourite(id: number){
         if(JSON.parse(localStorage.getItem("favs"))){
             if(JSON.parse(localStorage.getItem("favs")).indexOf(id) > -1) return true;
@@ -256,9 +254,10 @@ export class MessagesComponent implements OnInit{
         }
     }
 
-    filter(event){
-        console.log('data event: ');
-        console.dir(event);
+    filter(event: any){
+        // console.log('data event: ');
+        // console.dir(event);
+
         event.messageTypeList = event.messageTypeList.substring(0, event.messageTypeList.length-1);
         event.companyCategoryMainIdList = event.companyCategoryMainIdList.substring(0, event.companyCategoryMainIdList.length-1);
         event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
@@ -272,8 +271,6 @@ export class MessagesComponent implements OnInit{
         if(this.latitude !== undefined && this.longitude !== undefined)
             params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
 
-        // console.log('params: ' + params);
-        
         if(params !== "")
             this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
                 this.messageList = result;
@@ -309,33 +306,35 @@ export class MessagesComponent implements OnInit{
     }
 
     getActivePost(){
-        // let date = new Date('2017-05-22T23:59:00');
-        let date: Date = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-        this.messageService.getActiveMessages(this.pageNumber, date, 0, 0, this.id).subscribe(
-            result => {
-                console.log('active posts: ');
-                console.dir(result);
-                if("geolocation"  in navigator){
-                    navigator.geolocation.getCurrentPosition((position) => {
-                        this.latitude = position.coords.latitude;
-                        this.longitude = position.coords.longitude;
-                        this.busy = this.messageService.getActiveMessages(this.pageNumber, date, this.latitude, this.longitude, this.id).subscribe(result => {
-                            this.messageList = result;
-                        });
-                    });
-                }
-            },
-            err => {
-                console.log('error from active posts:');
-                console.dir(err);
-            }
-        )
+
+        let date: any = Date.now();
+        date = moment().format("YYYY-MM-DD HH:mm");
+
+        if("geolocation"  in navigator){
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                this.busy = this.messageService.getActiveMessages(this.pageNumber, date, this.latitude, this.longitude, this.id).subscribe(
+                    result => {
+                        this.messageList = result;
+                        console.log('active posts: ');
+                        console.dir(result);
+                    },
+                    err => {
+                        console.log('error from active posts:');
+                        console.dir(err);
+                    }
+                );
+            });
+        }
+
+        
     }
 
     getEnded() {
         //let date1: Date = new Date('1995-12-17T03:23:58');
         //let date2: Date = new Date('1995-12-17T03:23:59');
-
+/*
         let date: any = Date.now();
         date = moment(date).format("YYYY-MM-DD HH:mm");
 
@@ -354,7 +353,7 @@ export class MessagesComponent implements OnInit{
                     // console.dir(result);
                 });
             });
-        }
+        }*/
     }
 
 }

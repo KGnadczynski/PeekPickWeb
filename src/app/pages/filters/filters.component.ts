@@ -4,6 +4,8 @@ import { MessageType } from '../../globals/enums/message-type.enum';
 import { FiltersService } from './filters.service';
 import { MapsAPILoader } from '@agm/core';
 
+let moment = require('../../../../node_modules/moment/moment');
+
 @Component({
     selector: 'filters',
     encapsulation: ViewEncapsulation.None,
@@ -56,7 +58,7 @@ export class FiltersComponent implements OnInit{
     constructor(private fb: FormBuilder, private filtersService: FiltersService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone){
         this.filterForm = this.fb.group({
             filterBy: 'CREATE_DATE',
-            ifActiveSort: false,
+            startBeforeDate: false,
             distance : [10],
             types: fb.array([false, false, false, false, false]),
             searchControl: '',
@@ -69,8 +71,9 @@ export class FiltersComponent implements OnInit{
             console.log('data: ');
             console.dir(data);
 
-            let params: {sortType: string, range: number, messageTypeList: string, companyCategoryMainIdList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
+            let params: {sortType: string, startBeforeDate: string, range: number, messageTypeList: string, companyCategoryMainIdList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
                 sortType: '',
+                startBeforeDate: '',
                 range: 0,
                 messageTypeList: "",
                 companyCategoryMainIdList: "",
@@ -108,6 +111,13 @@ export class FiltersComponent implements OnInit{
             if(data.distance)
                 params.range = data.distance;
             
+            if(data.startBeforeDate){
+                let date: any = Date.now();
+                date = moment().format("YYYY-MM-DD HH:mm");
+                params.startBeforeDate = date;
+            }
+                
+            
             for(let i = 0; i < data.types.length; i++)
                 if(data.types[i])
                     params.messageTypeList += this.messageTypesOb[i].name + ";";
@@ -128,11 +138,11 @@ export class FiltersComponent implements OnInit{
                 if(params[key]) i++;
             });
 
-            /*if(i > 1){
-                //console.log('params: ');
-                //console.dir(params);
+            if(i > 1){
+                // console.log('params: ');
+                // console.dir(params);
                 this.myEvent.emit(params);
-            }*/
+            }
 
         });
     }

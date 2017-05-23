@@ -72,7 +72,7 @@ export class MessagesService{
 
     getActiveMessages(page: number, date: Date, latitude: number, longitude: number, id:number): Observable<MessageList>{
         
-        this.urlNew = url + '/messages/page/' + page + '?companyId=' + id + '&startBeforeDate=' + date.toString();
+        this.urlNew = url + '/messages/page/' + page + '?companyId=' + id + '&startBeforeDate=' + date;
         
         if(!(latitude === 0 && longitude === 0))
             this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;
