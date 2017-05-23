@@ -269,7 +269,10 @@ export class MessagesComponent implements OnInit{
                 params += key + "=" + event[key] + "&";
         });
         params = params.substring(0, params.length-1);
-        params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
+        if(this.latitude !== undefined && this.longitude !== undefined)
+            params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
+
+        // console.log('params: ' + params);
         
         if(params !== "")
             this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
@@ -278,6 +281,12 @@ export class MessagesComponent implements OnInit{
         else
             this.getMessages(this.pageNumber);
 
+    }
+
+    filterFavourites(sortType: string): void{
+        this.messageService.getFilterMessages('sortType=' + sortType, this.pageNumber).subscribe(result => {
+            this.messageList = result;
+        });
     }
 
     getSearchMessages(searchTerm: string) {
@@ -300,9 +309,9 @@ export class MessagesComponent implements OnInit{
     }
 
     getActivePost(){
-        let date = new Date('2017-05-21T23:59:00');
-        date = moment(date).format("YYYY-MM-DD HH:mm");
-        this.messageService.getActiveMessages(this.pageNumber, date, 0, 0).subscribe(
+        // let date = new Date('2017-05-22T23:59:00');
+        let date: Date = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+        this.messageService.getActiveMessages(this.pageNumber, date, 0, 0, this.id).subscribe(
             result => {
                 console.log('active posts: ');
                 console.dir(result);
@@ -310,7 +319,7 @@ export class MessagesComponent implements OnInit{
                     navigator.geolocation.getCurrentPosition((position) => {
                         this.latitude = position.coords.latitude;
                         this.longitude = position.coords.longitude;
-                        this.busy = this.messageService.getActiveMessages(this.pageNumber, date, this.latitude, this.longitude).subscribe(result => {
+                        this.busy = this.messageService.getActiveMessages(this.pageNumber, date, this.latitude, this.longitude, this.id).subscribe(result => {
                             this.messageList = result;
                         });
                     });

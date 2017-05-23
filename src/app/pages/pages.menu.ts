@@ -6,7 +6,7 @@ export const PAGES_MENU = [
         path: 'komunikat',  // path for our page
         data: { // custom menu declaration
           menu: {
-            title: 'Komunikaty', // menu title
+            title: 'Strona Głowna', // menu title
             icon: 'ion-android-home', // menu icon
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,

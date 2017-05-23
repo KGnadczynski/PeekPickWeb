@@ -7,6 +7,8 @@ import { url } from '../../globals/url';
 import { MessageList } from './messageList.model';
 import { ObjectList} from '../messages/message';
 
+let moment = require('../../../../node_modules/moment/moment');
+
 @Injectable()
 export class MessagesService{
 
@@ -39,7 +41,6 @@ export class MessagesService{
         this.urlNew = url + '/messages/page/' + page + '?messageIdList=' + ids;
         if(!(latitude === 0 && longitude === 0))
             this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;
-        console.log('URL NEW: ' + this.urlNew);
 
         return this.http.get(this.urlNew).map(this.mapMessages).catch(this.handleError);
     }
@@ -69,10 +70,9 @@ export class MessagesService{
         return this.http.get(this.urlNew).map(this.mapMessages).catch(this.handleError);
     }
 
-    getActiveMessages(page: number, date: Date, latitude: number, longitude: number): Observable<MessageList>{
+    getActiveMessages(page: number, date: Date, latitude: number, longitude: number, id:number): Observable<MessageList>{
         
-        this.urlNew = url + '/messages/page/' + page + '?startBeforeDate=' + date.toString();
-        //this.urlNew = url + '/messages/page/' + page + '?startBeforeDate=2017-05-21%2023%3A59';
+        this.urlNew = url + '/messages/page/' + page + '?companyId=' + id + '&startBeforeDate=' + date.toString();
         
         if(!(latitude === 0 && longitude === 0))
             this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;

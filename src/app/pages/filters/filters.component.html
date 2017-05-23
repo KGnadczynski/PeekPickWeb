@@ -6,21 +6,29 @@
 
 <div [collapse]="isFiltryCollapse">
 
+        
+
+
     <form [formGroup]="filterForm" novalidate id="mainForm">
-         
+
         <h5>sortuj po:</h5>
         
         <div class="filterBy">
-            <input type="radio" name="filterBy" value="DISTANCE" formControlName="filterBy"> lokalizacja
+            <input type="radio" id="distance" name="filterBy" value="DISTANCE" formControlName="filterBy"> lokalizacja
         </div>
 
         <div class="filterBy">
-            <input type="radio" name="filterBy" value="CREATE_DATE" formControlName="filterBy" checked> data dodania
+            <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy" checked> data dodania
         </div>
 
-        <div class="filterBy">
+        <div class="ifActive">
+            <input type="checkbox" formControlName="ifActiveSort">
+            <span>Dostępne dziś</span>
+        </div>
+
+        <!--<div class="filterBy">
             <input type="radio" name="filterBy" value="ACTIVE" formControlName="filterBy"> aktywne posty
-        </div>
+        </div>-->
 
         <h5>Lokalizacja</h5>
 
@@ -64,4 +72,8 @@
 
     </form>
 
+    <script>
+        var radiobtn = document.getElementById('create_day');
+        radiobtn.checked = true;
+    </script>
 </div>

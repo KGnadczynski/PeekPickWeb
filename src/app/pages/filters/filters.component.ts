@@ -55,7 +55,8 @@ export class FiltersComponent implements OnInit{
 
     constructor(private fb: FormBuilder, private filtersService: FiltersService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone){
         this.filterForm = this.fb.group({
-            filterBy: '',
+            filterBy: 'CREATE_DATE',
+            ifActiveSort: false,
             distance : [10],
             types: fb.array([false, false, false, false, false]),
             searchControl: '',
@@ -65,8 +66,8 @@ export class FiltersComponent implements OnInit{
 
         this.filterForm.valueChanges.subscribe(data => {
 
-            // console.log('data: ');
-            // console.dir(data);
+            console.log('data: ');
+            console.dir(data);
 
             let params: {sortType: string, range: number, messageTypeList: string, companyCategoryMainIdList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
                 sortType: '',
@@ -127,11 +128,11 @@ export class FiltersComponent implements OnInit{
                 if(params[key]) i++;
             });
 
-            if(i > 0){
+            /*if(i > 1){
                 //console.log('params: ');
                 //console.dir(params);
                 this.myEvent.emit(params);
-            }
+            }*/
 
         });
     }

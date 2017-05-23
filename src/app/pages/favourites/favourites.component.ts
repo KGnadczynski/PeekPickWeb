@@ -17,25 +17,25 @@ export class FavouritesComponent implements OnInit{
 
     constructor(private fb: FormBuilder){
         this.filterForm = this.fb.group({
-            filterBy: ''
+            filterBy: 'CREATE_DATE'
         });
 
         this.filterForm.valueChanges.subscribe(data => {
 
             let sortBy:string = "";
-/*
+
             switch (sortBy) {
-                case "lokalizacja":
-                    this.messageComponent.getMessagesByDistance(this.messageComponent.pageNumber);
+                case "DISTANCE":
+                    this.messageComponent.filterFavourites('DISTANCE');
                 break;
                     
-                case "data dodania":
-                    this.messageComponent.getMessagesByCreateDate(this.messageComponent.pageNumber);
+                case "CREATE_DATE":
+                    this.messageComponent.filterFavourites('CREATE_DATE');
                 break;
             
                 default:
                     break;
-            }*/
+            }
         });
     }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Routes } from '@angular/router';
 
 import { BaMenuService } from '../theme';
@@ -7,15 +7,17 @@ import { PAGES_MENU_LOGGED } from './pageslogged.menu';
 
 @Component({
   selector: 'pages',
-  templateUrl: './pages.component.html' 
+  templateUrl: './pages.component.html'
 })
-export class Pages {
+
+export class Pages implements OnInit {
 
     currentUser: any;
 
     constructor(private _menuService: BaMenuService) {}
 
     ngOnInit() {
+
         if(navigator.geolocation)
           navigator.geolocation.getCurrentPosition(this.setPosition);
    
@@ -27,6 +29,18 @@ export class Pages {
             this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU);
         }
    
+    }
+
+    ngOnChanges(){
+        console.log('CHANGING HAPPENS');
+    }
+
+    ngDoCheck(){
+
+        /*this.currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        if(this.currentUser === null) {
+            this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU);
+        }*/
     }
 
     setPosition(position){

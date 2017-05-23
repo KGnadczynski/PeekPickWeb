@@ -1,4 +1,4 @@
-import { Component,OnInit ,ViewEncapsulation, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component,OnInit ,ViewEncapsulation, ViewChild, Output, EventEmitter, NgZone } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { ObjectList } from './user';
 import { Http, Headers, RequestOptions } from '@angular/http';
@@ -121,22 +121,6 @@ export class ProfileComponent implements OnInit {
                                 description: this.companyBranches[objIndex].description
                             });
 
-                            /*branches.forEach((obj) =>{
-
-                            });
-
-                            this.branchForm.setValue({
-                                name: this.companyBranches[objIndex].name,
-                                city: this.companyBranches[objIndex].city,
-                                street: this.companyBranches[objIndex].street,
-                                streetNo: this.companyBranches[objIndex].streetNo,
-                                website: this.companyBranches[objIndex].website,
-                                openingHours: this.companyBranches[objIndex].openingHours,
-                                phoneNumber: this.companyBranches[objIndex].phoneNumber,
-                                email: this.companyBranches[objIndex].email,
-                                description: this.companyBranches[objIndex].description
-                            });*/
-
                         },
                         errI => {
                             console.log('Error from getCompanyBranches');
@@ -151,6 +135,11 @@ export class ProfileComponent implements OnInit {
                     this.profileService.getUserImages(user.company.id).subscribe(
                         images => {
                             this.otherImgs = images;
+                            if(this.otherImgs.imageUrl){
+                                this.defaultPicture = this.otherImgs.imageUrl;
+                                this.profile.picture = this.otherImgs.imageUrl;
+                            }
+                                
                         },
                         errI => {
                             console.log('Error from get user images: ');
@@ -166,11 +155,11 @@ export class ProfileComponent implements OnInit {
                 err => {
                     console.log('error from user: ');
                     console.dir(err);
-                    /*if(err.error === 'invalid_token'){
+                    if(err.error === 'invalid_token'){
                         this.router.navigateByUrl('/pages/komunikat');
                         localStorage.removeItem('currentUserToken');
                         localStorage.removeItem('user');
-                    }*/
+                    }
                 }
             );
         }

@@ -5,6 +5,7 @@ import { MessageType } from '../../../globals/enums/message-type.enum';
 import { BaPageTopService } from '../../services';
 import { url } from '../../globals/url';
 import { ProfileService } from '../../../pages/profile/profile.service';
+import {} from 'angular2-letter-avatar';
 
 @Component({
   selector: 'ba-page-top',

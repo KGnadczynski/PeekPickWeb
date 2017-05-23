@@ -12,28 +12,6 @@
             </template>
             <template md-tab-content>
                 <div>
-                    <!--<p>aktywne: </p>-->
-                    <!--<button (click)="showActive()">show active</button>-->
-                    <!--<messages #msgs [dest] = "'profile'" *ngIf="idCompany" [id] = idCompany></messages>-->
-                    <!--<style>
-                        div#messages{
-                            display: flex;
-                        }
-                        div#active{
-                            width: 50%;
-                        }
-                        div#ended{
-                            width: 50%;
-                        }
-                    </style>
-                    <div id="active">
-                        <p>ACTIVE</p>
-                        <messages #msgs [dest] = "'active'" *ngIf="idCompany" [id] = idCompany></messages>
-                    </div>
-                    <div class="ended">
-                        <p>ENDED</p>
-                        <messages #msgs [dest] = "'ended'" *ngIf="idCompany" [id] = idCompany></messages>
-                    </div>-->
                     <ng2-tab selected="active" selected-index-class="selected" selected-contents-class="fadeIn animated">
                         <div class="tabs">
                             <div index="active">AKTYWNE</div>
@@ -41,11 +19,9 @@
                         </div>
                         <div class="tab-contents">
                             <div contents="active">
-                                active
                                 <messages #msgs [dest] = "'active'" *ngIf="idCompany" [id] = idCompany></messages>
                             </div>
                             <div contents="ended">
-                                ended
                                 <messages #msgs [dest] = "'ended'" *ngIf="idCompany" [id] = idCompany></messages>
                             </div>
                         </div>
