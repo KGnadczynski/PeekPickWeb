@@ -3,8 +3,8 @@ $height: 52px;
 
 .ba-back-top {
   position: fixed;
-  width: $height;
-  height: $height;
+  width: 52px !important;
+  height: 52px;
   cursor: pointer;
   z-index: 9999;
   display: none;
@@ -15,8 +15,7 @@ $height: 52px;
   text-align: center;
   opacity: 0.4;
   color: white;
-//  background-color: rgba(0, 0, 0, 0.75);
-  background-color: black;
+ background-color: #A20E12 !important;
   border-radius: 50%;
   line-height: 46px;
   &:hover {

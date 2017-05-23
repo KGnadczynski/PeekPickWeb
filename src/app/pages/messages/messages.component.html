@@ -1,6 +1,6 @@
 <div class="search-results" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="100" (scrolled)="onScrollDown()">
 	<div class="messages">
-		<div class="message" *ngFor="let message of messageList.messages" >
+		<div class="message" *ngFor="let message of messageList.messages">
 			<div class="message-icon">
 				<img *ngIf="message.user.company.mainImageUrl" class="photo-icon" src="{{ message.user.company.mainImageUrl }}">
 			</div>
@@ -12,42 +12,28 @@
 					</a>
 				</div>
 				<div class="message-category">
-					<p>
-						{{ message.user.company.category.name }}
-					</p>
+					<p>{{ message.user.company.category.name }}</p>
 				</div>
 				<div class="message-address">
-					<p>
-						{{message?.location?.address }}
-					</p>
+					<p>{{message?.location?.address }}</p>
 				</div>
-				<div class="message-distance">
-					<p>{{ message.distance | number: '1.2-2'}} km</p>
-				</div>
+				
 			</div>
-			
-			<div class="message-icon-work">
+
+			<div class="message-distance-message-icon-work">
 				<i *ngIf="message.type === 'EVENT'" class="material-icons">event</i>
 				<i *ngIf="message.type === 'WORK'" class="material-icons">work</i>
 				<i *ngIf="message.type === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
 				<i *ngIf="message.type === 'WORTH_SEEING'" class="material-icons">visibility</i>
 				<i *ngIf="message.type === 'PROMOTION'" class="material-icons">loyalty</i>
+				<p>({{ message.distance | number: '1.2-2'}} km)</p>
 			</div>
 
 			<div class="message-content" (click)="goToSingle(message.id)">
-				<span class="content">{{ message.content}} </span>
+				<p class="content">{{ message.content}} </p>
 			</div>
 
 			<div class="message-time">
-				<!--<div class="start-date" *ngIf="message.startDate">
-					<span *ngIf="message.startDate">
-						Data dodania
-					</span>
-					<p>
-						{{ message.createDate | date: 'dd.MM.yyyy hh:mm' }}
-					</p>
-				</div>
-				<h5>{{ message.type }}</h5>-->
 				<div class="start-date" *ngIf="message.startDate">
 					<span *ngIf="message.startDate">
 						Data rozpoczęcia
@@ -77,7 +63,7 @@
 			<div class="message-photo" *ngIf="message.mainImageUrl">
 				<img src="{{ message.mainImageUrl}}">
 			</div>
-
+			<div class="blackline"></div>
 			<div class="message-icons">
 				<div class="favourite">
 					<img *ngIf="!checkIfFavourite(message.id)" (click)="addToFavourites(message.id)" class="icon icons8-Christmas-Star-Filled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAC30lEQVRoQ92a4XVUIRBGv1RgrECtQK1ArUCtQDuIVqBWoOlAKzCpQK1ArSCxArUCPdcDewj7Hsy8ZTZv5V/yBpgLfMMAe6T48jV1cT+yq6PIxiU9kfQx9fFI0ueo/qJBziQ9Ts6fJ7AQlkiQ25IuKq/vSLqMIIkEeS3pVeX0G0n8f3iJBGE2mJWyMBvMyvASBVKKvHb6qSS0M7REgZQirx0OEX0EyJTIa5jhoo8AmRJ5DTJc9BEgUyKvQYaLfjRIS+Shoh8N0hJ5qOhHglhEHib6kSAWkYeJfiSIReRhou+BPCh6PpZ0r/ibpZRTkPqbZ9f+JulXqkA0K5PK8hsmX+YaBoRIc5IMcBSnDqEADyjlFBBPpFkr4DkgzAAnt7tr9bLj13dJD0uNvJf07MBgPkh6js+12F9IensgMC8lvcu+TkUtCDG4sVKg32kWrpxp5sIv0QvdrA3mR4qyOVptxrq1j6wtCPwTdbHnXFkwvQ0RGJbZdQcBRI1+88a5tep7ILnCkjxqlMRMhzArCE7tOwggamaBbaFbPCA0tq8gAAR62BJ1K9fq0lYG0UGgKeqRILRFaC4zY+9gtOzJcJkNV/Eurdz4H1cvfmO3X+4KabQ++X1z1XA/QSwB2UcoNoXccmiWgPACVZ4UXUNtNHbrxAtCxPppdGZXM5dvLuPqKW1XR3v1XTrxgpB35fN9z5Fdv7t04gVZog8cotSvVz1Ql048IF594Aj5Wb7e4eqIvMmzkd5sZbxLo5b1grqX7HmST/PrlmdGLPronhvSKFrPOacpA+4tw63Lh1aFlj44gjLS3h8EkFOx3G7NdEz2a/rFhHVGWvpwRZcJh2mbc8dcMDDpxAoypQ/EjAPmM0NnfZAtsHzrYGDSiRWk1AdiJt/a3Cl1F7DPgMGh/XyDY9KJFSTfQvK0jBZmLwF8Ps9as9zok9+xbG4TW21bQWiDqR+1jKy85j49INbOr8XuvwH5C+BzgkP8GvuMAAAAAElFTkSuQmCC">
@@ -94,7 +80,7 @@
 					{{ message.createDate | amTimeAgo }}
 				</div>
 			</div>
-			<div class="blackline"></div>
+			
 			<div *ngIf="dest === 'profile' || dest === 'active' || dest === 'ended'" class="actions">
 				
 				<div id="edit">
@@ -107,7 +93,6 @@
 					<a href="#">usuń</a>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>
