@@ -8,7 +8,7 @@ import { routing } from './messages.routing';
 import {ShareButtonsModule} from 'ngx-sharebuttons';
 
 @NgModule({
-    imports:[CommonModule, InfiniteScrollModule, MomentModule, routing,ShareButtonsModule.forRoot()],
+    imports:[CommonModule, InfiniteScrollModule, MomentModule, routing, ShareButtonsModule.forRoot()],
     declarations: [MessagesComponent],
     exports: [MessagesComponent]
 })

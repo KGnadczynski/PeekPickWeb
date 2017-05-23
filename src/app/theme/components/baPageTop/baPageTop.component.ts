@@ -1,11 +1,12 @@
-import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit, NgModule} from '@angular/core';
 import {GlobalState} from '../../../global.state';
 import {CommunicationService} from '../../../pages/komunikat/communicationservice.component';
 import { MessageType } from '../../../globals/enums/message-type.enum';
 import { BaPageTopService } from '../../services';
 import { url } from '../../globals/url';
 import { ProfileService } from '../../../pages/profile/profile.service';
-import {} from 'angular2-letter-avatar';
+
+
 
 @Component({
   selector: 'ba-page-top',
@@ -14,12 +15,14 @@ import {} from 'angular2-letter-avatar';
   encapsulation: ViewEncapsulation.None,
   providers: [ProfileService]
 })
+
 export class BaPageTop implements OnInit{
 
   messageTypes: string[] = Object.keys(MessageType);
   messageTypesOb: {name: string, value: string}[] = [];
   isLogged: boolean;
   userLogo: string;
+  name: string = '';
 
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
@@ -32,7 +35,8 @@ export class BaPageTop implements OnInit{
       this.isLogged = true;
       this.profileService.getUserImages(value).subscribe((value)=> {
         this.userLogo = value.imageUrl;
-      }) 
+      }) ;
+      
     });
 
   }
@@ -50,7 +54,13 @@ export class BaPageTop implements OnInit{
      if(user != null) {
      this.profileService.getUserImages(user.user.company.id).subscribe((value)=> {
         this.userLogo = value.imageUrl;
-      }) 
+      })
+      this.profileService.getUser().subscribe(
+        user => {
+            this.name = user.company.name;
+            console.log('name: ' + name);
+        }
+      );
     }
 
     for(let i = this.messageTypes.length-1; i >= 0; i--){

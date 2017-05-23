@@ -154,8 +154,6 @@ export class FiltersComponent implements OnInit{
 
     ngOnInit(): void {
 
-        console.log('id from filters: ' + this.id);
-
         this.zoom = 4;
         this.latitude = 39.8282;
         this.longitude = -98.5795;

@@ -3,6 +3,7 @@ import { CommonModule }  from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgUploaderModule } from 'ngx-uploader';
+import { Ng2LetterAvatar } from "ng2letteravatar/ng2letteravatar";
 
 import {
   BaThemeConfig
@@ -103,7 +104,8 @@ const NGA_VALIDATORS = [
   declarations: [
     ...NGA_PIPES,
     ...NGA_DIRECTIVES,
-    ...NGA_COMPONENTS
+    ...NGA_COMPONENTS,
+    Ng2LetterAvatar
   ],
   imports: [
     CommonModule,
