@@ -5,7 +5,7 @@ import { MessageType } from '../../../globals/enums/message-type.enum';
 import { BaPageTopService } from '../../services';
 import { url } from '../../../globals/url';
 import { ProfileService } from '../../../pages/profile/profile.service';
-import { CompleterService, CompleterData } from 'ng2-completer';
+import { CompleterService, RemoteData} from 'ng2-completer';
 
 @Component({
   selector: 'ba-page-top',
@@ -27,7 +27,7 @@ export class BaPageTop implements OnInit{
   public isMenuCollapsed:boolean = false;
 
   protected searchStr: string;
-  protected dataService: CompleterData;
+  protected dataService: RemoteData;
   protected searchData = [
     { color: 'red', value: '#f00' },
     { color: 'green', value: '#0f0' },
@@ -39,7 +39,8 @@ export class BaPageTop implements OnInit{
   ];
 
   constructor(private _state:GlobalState,private communicationservice: CommunicationService,private pageTopService: BaPageTopService,private profileService: ProfileService,private completerService: CompleterService) {
-    this.dataService =  completerService.remote(url+ '/messages/page/1?searchTerm=','Firma','Firma');
+    this.dataService =  completerService.remote(url+ '/messages/page/1?searchTerm=','user.name,content','user.name,content');
+    this.dataService.dataField('objectList');
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
