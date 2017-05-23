@@ -16,10 +16,10 @@ import { Ng2TabModule } from 'ng2-tab';
     routing,
     MessagesModule,
     FormsModule,
+    Ng2TabModule,
     NgaModule,
     ReactiveFormsModule,
-    CollapseModule,
-    Ng2TabModule
+    CollapseModule
   ],
   declarations: [
     ProfileComponent
