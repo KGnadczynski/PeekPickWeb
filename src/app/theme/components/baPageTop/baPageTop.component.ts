@@ -3,9 +3,10 @@ import {GlobalState} from '../../../global.state';
 import {CommunicationService} from '../../../pages/komunikat/communicationservice.component';
 import { MessageType } from '../../../globals/enums/message-type.enum';
 import { BaPageTopService } from '../../services';
-import { url } from '../../globals/url';
+import { url } from '../../../globals/url';
 import { ProfileService } from '../../../pages/profile/profile.service';
 import {} from 'angular2-letter-avatar';
+import { CompleterService, CompleterData } from 'ng2-completer';
 
 @Component({
   selector: 'ba-page-top',
@@ -24,7 +25,20 @@ export class BaPageTop implements OnInit{
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
 
-  constructor(private _state:GlobalState,private communicationservice: CommunicationService,private pageTopService: BaPageTopService,private profileService: ProfileService) {
+  protected searchStr: string;
+  protected dataService: CompleterData;
+  protected searchData = [
+    { color: 'red', value: '#f00' },
+    { color: 'green', value: '#0f0' },
+    { color: 'blue', value: '#00f' },
+    { color: 'cyan', value: '#0ff' },
+    { color: 'magenta', value: '#f0f' },
+    { color: 'yellow', value: '#ff0' },
+    { color: 'black', value: '#000' }
+  ];
+
+  constructor(private _state:GlobalState,private communicationservice: CommunicationService,private pageTopService: BaPageTopService,private profileService: ProfileService,private completerService: CompleterService) {
+    this.dataService =  completerService.remote(url+ '/messages/page/1?searchTerm=','Firma','Firma');
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
