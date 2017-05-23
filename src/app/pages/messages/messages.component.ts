@@ -332,28 +332,26 @@ export class MessagesComponent implements OnInit{
     }
 
     getEnded() {
-        //let date1: Date = new Date('1995-12-17T03:23:58');
-        //let date2: Date = new Date('1995-12-17T03:23:59');
-/*
-        let date: any = Date.now();
-        date = moment(date).format("YYYY-MM-DD HH:mm");
-
-        console.log('getCurrentDate: ' + date);
-
         if("geolocation"  in navigator){
             navigator.geolocation.getCurrentPosition((position) => {
                 this.latitude = position.coords.latitude;
                 this.longitude = position.coords.longitude;
-                this.busy = this.messageService.getMessages(this.pageNumber, this.latitude, this.longitude).subscribe(result => {
-                    this.messageList = result;
-                    // this.messageList.messages = this.messageList.messages.filter((el) => {
-                    //     return +el.endDate < +date;
-                    // });
-                    // console.log('ended message list:');
-                    // console.dir(result);
-                });
+
+                let params: string = 'statusList=ENDED&latitude='+this.latitude+'&longitude='+this.longitude;
+
+                this.busy = this.messageService.getFilterMessages(params, this.pageNumber).subscribe(
+                    result => {
+                        this.messageList = result;
+                        console.log('ended posts: ');
+                        console.dir(result);
+                    },
+                    err => {
+                        console.log('error from ended posts:');
+                        console.dir(err);
+                    }
+                );
             });
-        }*/
+        }
     }
 
 }

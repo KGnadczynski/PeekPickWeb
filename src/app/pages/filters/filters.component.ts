@@ -68,8 +68,8 @@ export class FiltersComponent implements OnInit{
 
         this.filterForm.valueChanges.subscribe(data => {
 
-            console.log('data: ');
-            console.dir(data);
+            // console.log('data: ');
+            // console.dir(data);
 
             let params: {sortType: string, startBeforeDate: string, range: number, messageTypeList: string, companyCategoryMainIdList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
                 sortType: '',
