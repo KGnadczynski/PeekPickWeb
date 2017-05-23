@@ -7,6 +7,7 @@ import { MdTabsModule } from '@angular2-material/tabs';
 import { MessagesModule } from '../messages/messages.module';
 import { NgaModule } from '../../theme/nga.module';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { Ng2TabModule } from 'ng2-tab';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
     routing,
     MessagesModule,
     FormsModule,
+    Ng2TabModule,
     NgaModule,
     ReactiveFormsModule,
     CollapseModule
