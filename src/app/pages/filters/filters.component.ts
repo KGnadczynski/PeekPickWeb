@@ -29,6 +29,7 @@ export class FiltersComponent implements OnInit{
     public latitude: number;
     public longitude: number;
     public zoom: number;
+    width: any;
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -145,6 +146,19 @@ export class FiltersComponent implements OnInit{
             }
 
         });
+
+        window.onresize = (e) => {
+            ngZone.run(() => {
+                this.width = window.innerWidth;
+                console.log('this.width: ' + this.width);
+                if(this.width > 992){
+                    this.isFiltryCollapse = false;
+                } else {
+                    this.isFiltryCollapse = true;
+                }
+            });
+        };
+
     }
 
     setTrade(id: number){
@@ -153,6 +167,12 @@ export class FiltersComponent implements OnInit{
     }
 
     ngOnInit(): void {
+
+        if(window.innerWidth > 992){
+            this.isFiltryCollapse = false;
+        } else {
+            this.isFiltryCollapse = true;
+        }
 
         this.zoom = 4;
         this.latitude = 39.8282;
