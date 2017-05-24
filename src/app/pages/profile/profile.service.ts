@@ -144,7 +144,7 @@ export class ProfileService{
         .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
 
-    addCompanyImage(imageModel: ImageModel){
+    addCompanyImage(imageModel: ImageModel) : Observable<any>{
 
         return Observable.fromPromise(new Promise((resolve, reject) => {
 
