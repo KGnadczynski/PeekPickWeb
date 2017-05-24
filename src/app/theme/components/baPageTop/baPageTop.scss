@@ -4,22 +4,21 @@
 i#searchIcon{
   color: white;
   float: right;
-  padding-right: 10px;
   cursor: pointer;
   text-align: right;
   padding-top: 20px;
-
+  outline: 0;
 }
 
 i#dropdownMenuButton{
   padding-top: 20px;
+  outline: 0;
 }
 
 div.dropdown{
     float: right;
     cursor: pointer;
-    padding-left: 2px;
-    margin-right: 20px;
+    margin-left: 20px;
     @media(max-width: 575px){
       margin-right: 0;
     }
@@ -170,4 +169,11 @@ i {
 
 .al-sidebar .sidebar-hover-elem{
     left: 236px;
+}
+
+input.completer-input{
+    margin-top: 20px;
+    border: 0;
+    border-radius: 1px;
+    padding: 7px;
 }

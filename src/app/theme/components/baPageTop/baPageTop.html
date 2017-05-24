@@ -5,7 +5,7 @@
   </a>
   <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
 
- <div class="dropdown">
+ <div class="dropdown hidden-xs-down">
   <ng2-completer [(ngModel)]="searchStr" [dataService]="dataService" [minSearchLength]="0"></ng2-completer>
 </div>
   <div class="dropdown" *ngIf="isLogged">
