@@ -1,31 +1,40 @@
-<h4 (click)="isFiltryCollapse = !isFiltryCollapse"  *ngIf="isFiltryCollapse">
-    filtry
-</h4>
-<h4 *ngIf="!isFiltryCollapse">filtry</h4>
-<i class="fa fa-window-close fa-2x" *ngIf="!isFiltryCollapse" (click)="isFiltryCollapse = !isFiltryCollapse"></i>
+<div id="head">
+    <h4 (click)="isFiltryCollapse = !isFiltryCollapse"  *ngIf="isFiltryCollapse">
+        filtry
+    </h4>
+    <h4 *ngIf="!isFiltryCollapse">filtry</h4>
+    <i class="fa fa-window-close fa-2x" *ngIf="!isFiltryCollapse" (click)="isFiltryCollapse = !isFiltryCollapse"></i>
+</div>
+
 
 <div [collapse]="isFiltryCollapse">
 
     <form [formGroup]="filterForm" novalidate id="mainForm">
 
-        <h5>sortuj po:</h5>
-        
-        <div class="filterBy">
-            <input type="radio" id="distance" name="filterBy" value="DISTANCE" formControlName="filterBy"> lokalizacja
-        </div>
-
-        <div class="filterBy">
-            <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy" checked> data dodania
-        </div>
+        <h5>Dostępność</h5>
 
         <div class="ifActive">
-            <input type="checkbox" formControlName="startBeforeDate">
+            <div class="checkbox">
+                <input type="checkbox" id="ifActiveCheckbox" formControlName="startBeforeDate">
+                <label for="ifActiveCheckbox"></label>
+            </div>
             <span>Dostępne dziś</span>
         </div>
 
-        <!--<div class="filterBy">
-            <input type="radio" name="filterBy" value="ACTIVE" formControlName="filterBy"> aktywne posty
-        </div>-->
+        <h5>Sortuj po:</h5>
+        
+        <div class="filterBy">
+            <div>
+                <input type="radio" id="distance" name="filterBy" value="DISTANCE" formControlName="filterBy"> 
+                <label for="distance"><span></span></label>lokalizacja
+            </div>
+            
+            <div>
+                <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy" checked>
+                <label for="create_day"><span></span></label>data dodania
+            </div>
+
+        </div>
 
         <h5>Lokalizacja</h5>
 
@@ -35,42 +44,45 @@
             <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
         </agm-map>-->
         
-        <h5>odległość</h5>
-        <nouislider [min]="0" [max]="14" [step]="0.05" [(ngModel)]="someValue" formControlName = "distance"></nouislider>
+        <h5>Odległość</h5>
+        <div id="nouisliderDiv">
+            <nouislider [min]="0" [max]="14" [step]="0.05" [(ngModel)]="someValue" formControlName = "distance"></nouislider>
+        </div>
+        
         <p id="distance">Odległośc: {{ someValue }}</p>
 
-        <h5>typ wiadomości</h5>
+        <h5>Typ wiadomości</h5>
 
-        <div id="checkboxes">
-            <md-checkbox *ngFor="let control of filterForm.controls['types'].controls" [formControl]="control"></md-checkbox>
+        <div id="checkboxDiv">
+            <div id="checkboxes">
+                <div class="checkbox" *ngFor="let control of filterForm.controls['types'].controls; let i = index">
+                    <input type="checkbox" [formControl]="control" id="{{i}}">
+                    <label for="{{i}}"></label>
+                </div>
+            </div>
+            <div id="checkboxesValues">
+                <label *ngFor="let messageType of messageTypesOb">{{messageType.value}}</label>
+            </div>
         </div>
-        <div id="checkboxesValues">
-            <label *ngFor="let messageType of messageTypesOb">{{messageType.value}}</label>
-        </div>
-
-        <div id="trades" *ngIf="id === undefined">
-            <h3>Branża</h3>
-        </div>
+        
+        <h5 *ngIf="id === undefined">Branża</h5>
 
         <div id="companyCategories" *ngIf="id === undefined">
             <div class="categoriesI" *ngFor="let category of categories; let i = index">
                 <button type="button" (click)="category.bol = !category.bol; setTrade(category.id)">{{ category.name }}</button>
                 <div [collapse]="category.bol">
                     <div class="subcategories" [formGroup]="subtrades">
-                        <md-checkbox *ngFor="let subtrade of subtrades.controls['subtrade'+(i+1)].controls" [formControl]="subtrade"></md-checkbox>
+                        <div class="checkbox" *ngFor="let subtrade of subtrades.controls['subtrade'+(i+1)].controls; let j = index">
+                            <input type="checkbox" [formControl]="subtrade" id="{{j}}">
+                            <label for="{{j}}"></label>
+                        </div>
                     </div>
                     <div class="subcategoriesValues">
                         <label *ngFor="let subc of category.subcategories">{{subc.name}}</label>
-                        <!--<label *ngFor="let subc of categories[i].subcategories">{{subc.name}}</label>-->
                     </div>
                 </div>
             </div>
         </div>
 
     </form>
-
-    <script>
-        var radiobtn = document.getElementById('create_day');
-        radiobtn.checked = true;
-    </script>
 </div>

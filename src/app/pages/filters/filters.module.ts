@@ -5,7 +5,6 @@ import { routing } from './filters.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { NouisliderModule } from 'ng2-nouislider';
-import { MdCheckbox } from '@angular2-material/checkbox';
 import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
@@ -19,8 +18,7 @@ import { AgmCoreModule } from '@agm/core';
         AgmCoreModule
     ],
     declarations: [
-        FiltersComponent,
-        MdCheckbox
+        FiltersComponent
     ],
     providers: [
     ],

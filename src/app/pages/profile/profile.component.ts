@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { EqualPasswordsValidator } from '../../theme/validators';
 import { NgUploaderOptions } from 'ngx-uploader';
 import { ImageModel } from '../add-message/imagemodel';
+import { BaMenuService, BaPageTopService} from '../../theme';
+import { Routes } from '@angular/router';
+import { PAGES_MENU } from '../pages.menu';
 
 @Component({
   selector: 'profile',
@@ -42,7 +45,7 @@ export class ProfileComponent implements OnInit {
     @ViewChild('msgs') messagesCom: MessagesComponent;
     name: string = '';
 
-    constructor(private profileService: ProfileService, private _http: Http, private router: Router, private fb: FormBuilder){
+    constructor(private menuService: BaMenuService, private profileService: ProfileService, private _http: Http, private router: Router, private fb: FormBuilder){
         this.passwordForm = fb.group({
             'oldPassword': [null, Validators.required],
             'passwords': fb.group({
@@ -159,6 +162,7 @@ export class ProfileComponent implements OnInit {
                     console.dir(err);
                     if(err.error === 'invalid_token'){
                         this.router.navigateByUrl('/pages/komunikat');
+                        this.menuService.updateMenuByRoutes(<Routes>PAGES_MENU );
                         localStorage.removeItem('currentUserToken');
                         localStorage.removeItem('user');
                     }

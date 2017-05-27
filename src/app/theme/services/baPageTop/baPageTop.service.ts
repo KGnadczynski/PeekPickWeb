@@ -6,11 +6,8 @@ export class BaPageTopService {
 
   loggedChange: Subject<number> = new Subject<number>();
 
-  constructor() {
-  }
-
   public changedLoggedFlag(companyId:number):void {
-    this.loggedChange.next(companyId)
+      this.loggedChange.next(companyId)
   }
 
 }

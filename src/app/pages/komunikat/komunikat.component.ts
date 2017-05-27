@@ -11,14 +11,17 @@ import { FirebaseApp } from "angularfire2";
 import * as firebase from 'firebase';
 import { url } from '../../globals/url';
 import { messaging } from './src/firebase-messaging-sw.js';
-
+import { BaMenuService, BaPageTopService} from '../../theme';
+import { Routes } from '@angular/router';
+import { PAGES_MENU } from '../pages.menu';
+import { ProfileService } from '../profile/profile.service';
 
 @Component({
   selector: 'komunikatcomponent',
   templateUrl: './komunikat.html',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./komunikat.scss')],
-  providers: [KomunikatService,Modal]
+  providers: [KomunikatService,Modal, ProfileService]
 })
 export class KomunikatComponent implements OnInit {
 
@@ -32,12 +35,17 @@ export class KomunikatComponent implements OnInit {
     private modal: Modal,
     private communicationservice: CommunicationService,
     private route: ActivatedRoute,
-    @Inject(FirebaseApp) private _firebaseApp: firebase.app.App
+    @Inject(FirebaseApp) private _firebaseApp: firebase.app.App,
+    private menuService: BaMenuService,
+    private profileService: ProfileService,
+    private topService: BaPageTopService
   ){}
 
   ngOnInit() {
         var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
     
+        
+
         if(currentUser != null) {
           var token = currentUser.token
           this.logged = true;
@@ -46,7 +54,21 @@ export class KomunikatComponent implements OnInit {
           if(isTokenFCMRegister != "true") {
             this.registerFCMToken();
           }
+
+          this.profileService.getUser().subscribe(
+            result => {},
+            error => {
+                this.menuService.updateMenuByRoutes(<Routes>PAGES_MENU );
+                if(localStorage.getItem('currentUserToken'))
+                  localStorage.removeItem('currentUserToken');
+                if(localStorage.getItem('user'))
+                  localStorage.removeItem('user');
+                this.topService.changedLoggedFlag(-1);
+            }
+          );
+
         }
+
   }
 
   registerFCMToken() {

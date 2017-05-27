@@ -7,6 +7,8 @@ import { url } from '../../../globals/url';
 import { ProfileService } from '../../../pages/profile/profile.service';
 import { CompleterService, RemoteData} from 'ng2-completer';
 
+import { tokenNotExpired } from 'angular2-jwt';
+
 @Component({
   selector: 'ba-page-top',
   styles: [require('./baPageTop.scss')],
@@ -46,8 +48,13 @@ export class BaPageTop implements OnInit{
     });
     this.pageTopService.loggedChange.subscribe((value) => { 
       this.isLogged = true;
+      if(value === -1)
+        this.isLogged = false;
+        console.log('value: ' + value);
       this.profileService.getUserImages(value).subscribe((value)=> {
         this.userLogo = value.imageUrl;
+        
+
       }) ;
       
     });
@@ -84,7 +91,6 @@ export class BaPageTop implements OnInit{
       if(i%2 !== 0)
         this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
     }
-    //console.dir(this.messageTypesOb);
     
   }
 

@@ -150,7 +150,6 @@ export class FiltersComponent implements OnInit{
         window.onresize = (e) => {
             ngZone.run(() => {
                 this.width = window.innerWidth;
-                console.log('this.width: ' + this.width);
                 if(this.width > 992){
                     this.isFiltryCollapse = false;
                 } else {

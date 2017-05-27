@@ -1,7 +1,10 @@
 <div id="profile">
 
     <img *ngIf="otherImgs?.imageUrl" src="{{otherImgs?.imageUrl}}" alt="" id="companyImg">
-    <ng2-letter-avatar *ngIf="!otherImgs?.imageUrl && name" avatar-data='{{name}}' ></ng2-letter-avatar>
+    <div id="headAvatar">
+        <ng2-letter-avatar *ngIf="!otherImgs?.imageUrl && name" avatar-data='{{name}}' ></ng2-letter-avatar>
+    </div>
+    
     <h2>{{otherUser?.company.name}}</h2>
 
     <md-tab-group>
@@ -40,7 +43,7 @@
                     <form id="changeEP" [formGroup]="passwordForm" (ngSubmit)="udpatePassword(passwordForm.value)">
                         <div [ngClass]="{'has-error':!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched}">
                             <input type="password" id="oldPassword" placeholder="stare hasło" [formControl]="passwordForm.controls['oldPassword']">
-                            <div 
+                            <div class="errorDiv"
                                 *ngIf="!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched">
                                 Musisz wpisać stare hasło
                             </div>
@@ -48,7 +51,7 @@
                         <div formGroupName="passwords">
                             <input type="password" id="password" placeholder="nowe hasło" formControlName="password">
                             <input type="password" id="passwordRepeat" placeholder="powtórz nowe hasło" formControlName="repeatPassword">
-                            <div>
+                            <div class="errorDiv">
                                 <span *ngIf="!passwordForm.controls['passwords'].valid && passwordForm.controls['passwords'].touched">Hasła nie są takie same</span>
                             </div>
                         </div>
