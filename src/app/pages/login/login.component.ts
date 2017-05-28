@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {LoginService} from "./loginservice.component";
 import {UserLogin} from "./userlogin";
@@ -8,15 +8,16 @@ import {User} from "../komunikat/komunikatdodanie";
 import { BaMenuService, BaPageTopService} from '../../theme';
 import { Routes } from '@angular/router';
 import { PAGES_MENU_LOGGED } from '../pageslogged.menu';
+import { ProfileService } from '../profile/profile.service';
 
 @Component({
   selector: 'login',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./login.scss')],
   template: require('./login.html'),
-  providers: [LoginService]
+  providers: [LoginService, ProfileService]
 })
-export class Login {
+export class Login implements OnInit{
 
   public form:FormGroup;
   public email:AbstractControl;
@@ -27,7 +28,13 @@ export class Login {
   user :any = {};
   error: any;
 
-  constructor(fb:FormBuilder, private loginService: LoginService,private _menuService: BaMenuService, private router: Router,private pageTopService: BaPageTopService) {
+  constructor(
+    private profileService: ProfileService, 
+    private fb:FormBuilder, 
+    private loginService: LoginService,
+    private _menuService: BaMenuService, 
+    private router: Router,
+    private pageTopService: BaPageTopService) {
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required])],
       'password': ['', Validators.compose([Validators.required])]
@@ -37,6 +44,31 @@ export class Login {
     this.password = this.form.controls['password'];
     
   }
+
+  ngOnInit():void{
+
+      let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+
+      if(currentUser != null){
+          this.profileService.getUser().subscribe(
+            result => {
+              this.router.navigateByUrl('/pages/komunikat');
+            },
+            err => {
+                this.router.navigateByUrl('/pages/komunikat');
+                this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
+                this.pageTopService.changedLoggedFlag(-1);
+                if(localStorage.getItem('currentUserToken'))
+                  localStorage.removeItem('currentUserToken');
+                if(localStorage.getItem('user'))
+                  localStorage.removeItem('user');
+            }
+          );
+      } else {
+          this.router.navigateByUrl('/pages/komunikat');
+      }
+  }
+
   onScroll () {
 	    console.log('scrolled!!')
 	}

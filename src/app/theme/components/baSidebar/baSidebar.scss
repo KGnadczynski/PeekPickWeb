@@ -303,5 +303,9 @@ a.al-sidebar-list-link {
 }
 
 .al-sidebar{
-    width: 240px;
+    width: 210px;
+
+    .sidebar-hover-elem{
+      left: 207px !important;
+    }
 }

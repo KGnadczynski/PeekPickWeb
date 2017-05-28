@@ -48,8 +48,9 @@ div.messages{
             width: 25%;
             float: left;
             p{
-                float: left;
+                float: right;
                 color: $message_color;
+                margin-right: 10px;
             }
             i{
                 float: right;

@@ -36,19 +36,13 @@ export class MessagesComponent implements OnInit{
 
     ngOnInit():void{
 
-        // console.log('dest: ' + this.dest);
-        // console.log('id: ' + this.id);
-
         this.route.queryParams.subscribe(params => {
             this.searchTerm = params["searchTerm"];
             
-            //console.log('search Terms: ' + this.searchTerm);
             this.messageList = new MessageList();
             if(this.searchTerm !== undefined){
-                //console.log('search messages');
                 this.getSearchMessages(this.searchTerm);
             } else {
-                //console.log('po prostu get messages');
                 this.getMessages(this.pageNumber);
             }
             
@@ -259,25 +253,36 @@ export class MessagesComponent implements OnInit{
         // console.log('data event: ');
         // console.dir(event);
 
-        event.messageTypeList = event.messageTypeList.substring(0, event.messageTypeList.length-1);
-        event.companyCategoryMainIdList = event.companyCategoryMainIdList.substring(0, event.companyCategoryMainIdList.length-1);
-        event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
+        let i = 0;
+        Object.keys(event).forEach((key)=>{
+            if(event[key]) i++;
+        });
         
         let params: string = "";
+
         Object.keys(event).forEach((key) => {
             if(event[key])
                 params += key + "=" + event[key] + "&";
         });
         params = params.substring(0, params.length-1);
+        
         if(this.latitude !== undefined && this.longitude !== undefined)
             params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
 
-        if(params !== "")
-            this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
-                this.messageList = result;
-            });
-        else
-            this.getMessages(this.pageNumber);
+        if(i === 1 && params === 'sortType=CREATE_DATE'){
+            console.log('jest tylko cerate date');
+        } else {
+            event.messageTypeList = event.messageTypeList.substring(0, event.messageTypeList.length-1);
+            event.companyCategoryMainIdList = event.companyCategoryMainIdList.substring(0, event.companyCategoryMainIdList.length-1);
+            event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
+
+            if(i > 1)
+                this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
+                    this.messageList = result;
+                });
+            else
+                this.getMessages(this.pageNumber);
+        }
 
     }
 
@@ -318,8 +323,8 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getActiveMessages(this.pageNumber, date, this.latitude, this.longitude, this.id).subscribe(
                     result => {
                         this.messageList = result;
-                        console.log('active posts: ');
-                        console.dir(result);
+                        // console.log('active posts: ');
+                        // console.dir(result);
                     },
                     err => {
                         console.log('error from active posts:');
@@ -338,13 +343,13 @@ export class MessagesComponent implements OnInit{
                 this.latitude = position.coords.latitude;
                 this.longitude = position.coords.longitude;
 
-                let params: string = 'statusList=ENDED&latitude='+this.latitude+'&longitude='+this.longitude;
+                let params: string = 'statusList=ENDED&latitude='+this.latitude+'&longitude='+this.longitude + '&companyId=' + this.id;
 
                 this.busy = this.messageService.getFilterMessages(params, this.pageNumber).subscribe(
                     result => {
                         this.messageList = result;
-                        console.log('ended posts: ');
-                        console.dir(result);
+                        // console.log('ended posts: ');
+                        // console.dir(result);
                     },
                     err => {
                         console.log('error from ended posts:');

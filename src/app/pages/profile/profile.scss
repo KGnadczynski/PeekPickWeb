@@ -313,7 +313,6 @@ select:-webkit-autofill:focus {
 }
 @media (min-width: 576px) {
     div#profile{
-        width: 80%;
         padding-top: 3%;
         div#editProfile{
             width: 100%;
@@ -336,7 +335,6 @@ select:-webkit-autofill:focus {
 @media (min-width: 768px) {
     div#profile{
         
-        width: 80%;
         padding-top: 3%;
         div#editProfile{
             width: 40%;
@@ -351,7 +349,6 @@ select:-webkit-autofill:focus {
 }
 @media (min-width: 992px) {
     div#profile{
-        width: 80%;
         padding-top: 2%;
         div#editProfile{
             width: 40%;
@@ -430,7 +427,7 @@ div#activeAndEndedPosts{
             cursor: pointer;
         }
         div.selected{
-            border-bottom: 5px solid #00BCD4 !important;
+            border-bottom: 5px solid #A20E12 !important;
             border-top: 0 !important;
         }
     }

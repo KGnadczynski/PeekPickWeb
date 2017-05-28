@@ -8,7 +8,7 @@ div#addIcon{
 }
 
 div#filterMessages{
-    padding: 3%;
+    padding: 3vw;
 }
 
 div#googleForm{
@@ -83,10 +83,15 @@ div.blackLine{
 }
 
 div#messagesDiv{
-    padding-top: 3%;
+    padding-top: 3vw;
 }
 
 div#mainPage{
+    display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
   display: flex;
 }
 

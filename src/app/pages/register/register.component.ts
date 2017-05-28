@@ -14,6 +14,8 @@ import {User} from "../komunikat/komunikatdodanie";
 import { BaMenuService , BaPageTopService} from '../../theme';
 import { Routes } from '@angular/router';
 import { PAGES_MENU_LOGGED } from '../pageslogged.menu';
+import { ProfileService } from '../profile/profile.service';
+
 declare var window: any
 
 @Component({
@@ -21,7 +23,7 @@ declare var window: any
   encapsulation: ViewEncapsulation.None,
   styles: [require('./register.scss')],
   template: require('./register.html'),
-  providers: [RegisterService,LoginService]
+  providers: [RegisterService,LoginService, ProfileService]
 })
 export class Register implements OnInit {
 
@@ -53,10 +55,40 @@ export class Register implements OnInit {
       },
       error => {
       });
+
+      let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+
+      if(currentUser != null){
+            this.profileService.getUser().subscribe(
+            result => {
+                this.router.navigateByUrl('/pages/komunikat');
+            },
+            err => {
+                this.router.navigateByUrl('/pages/komunikat');
+                this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
+                this.pageTopService.changedLoggedFlag(-1);
+                if(localStorage.getItem('currentUserToken'))
+                  localStorage.removeItem('currentUserToken');
+                if(localStorage.getItem('user'))
+                  localStorage.removeItem('user');
+            }
+          );
+      } else {
+          this.router.navigateByUrl('/pages/komunikat');
+      }
   }
 
 
-  constructor(fb: FormBuilder, private registerService: RegisterService,private loginService: LoginService,private router: Router,private zone:NgZone,private _menuService: BaMenuService,private pageTopService: BaPageTopService) {
+  constructor(
+    private fb: FormBuilder, 
+    private registerService: RegisterService,
+    private loginService: LoginService,
+    private router: Router,
+    private zone:NgZone,
+    private _menuService: BaMenuService,
+    private pageTopService: BaPageTopService,
+    private profileService: ProfileService
+  ){
 
     window.angularComponentRef = {
       zone: this.zone,

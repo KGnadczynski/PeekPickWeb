@@ -43,8 +43,6 @@ export class KomunikatComponent implements OnInit {
 
   ngOnInit() {
         var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
-    
-        
 
         if(currentUser != null) {
           var token = currentUser.token

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="company-image" *ngIf="companyImages?.imageUrl">
             <img src="{{companyImages?.imageUrl}}" alt="">
@@ -14,7 +14,7 @@
                     <p class="hidden-xs-down">Dane firmy</p>
                 </template>
                 <template md-tab-content>
-                  <div class="container" id="companyMain">
+                  <div id="companyMain">
                         <h4>Opis:</h4>
                         <p *ngIf="otherOneCompany?.description">{{ otherOneCompany?.description }}</p>
                         

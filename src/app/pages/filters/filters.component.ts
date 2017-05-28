@@ -139,6 +139,8 @@ export class FiltersComponent implements OnInit{
                 if(params[key]) i++;
             });
 
+            // console.log('params length: ' + i);
+
             if(i > 1){
                 // console.log('params: ');
                 // console.dir(params);

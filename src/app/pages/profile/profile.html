@@ -1,293 +1,298 @@
-<div id="profile">
+<div class="container">
+    <div class="row">
+        <div id="profile">
 
-    <img *ngIf="otherImgs?.imageUrl" src="{{otherImgs?.imageUrl}}" alt="" id="companyImg">
-    <div id="headAvatar">
-        <ng2-letter-avatar *ngIf="!otherImgs?.imageUrl && name" avatar-data='{{name}}' ></ng2-letter-avatar>
-    </div>
-    
-    <h2>{{otherUser?.company.name}}</h2>
+            <img *ngIf="otherImgs?.imageUrl" src="{{otherImgs?.imageUrl}}" alt="" id="companyImg">
+            <div id="headAvatar">
+                <ng2-letter-avatar *ngIf="!otherImgs?.imageUrl && name" avatar-data='{{name}}' ></ng2-letter-avatar>
+            </div>
+            
+            <h2>{{otherUser?.company.name}}</h2>
 
-    <md-tab-group>
-        <md-tab>
-            <template md-tab-label>
-                <p class="hidden-sm-down">Moje posty</p>
-            </template>
-            <template md-tab-content>
-                <div id="activeAndEndedPosts">
-                    <ng2-tab selected="active" selected-index-class="selected" selected-contents-class="fadeIn animated">
-                        <div class="tabs">
-                            <div index="active">AKTYWNE</div>
-                            <div index="ended">ZAKOŃCZONE</div>
+            <md-tab-group>
+                <md-tab>
+                    <template md-tab-label>
+                        <p class="hidden-sm-down">Moje posty</p>
+                    </template>
+                    <template md-tab-content>
+                        <div id="activeAndEndedPosts">
+                            <ng2-tab selected="active" selected-index-class="selected" selected-contents-class="fadeIn animated">
+                                <div class="tabs">
+                                    <div index="active">AKTYWNE</div>
+                                    <div index="ended">ZAKOŃCZONE</div>
+                                </div>
+                                <div class="tab-contents">
+                                    <div contents="active">
+                                        <messages #msgs [dest] = "'active'" *ngIf="idCompany" [id] = idCompany></messages>
+                                    </div>
+                                    <div contents="ended">
+                                        <messages #msgs [dest] = "'ended'" *ngIf="idCompany" [id] = idCompany></messages>
+                                    </div>
+                                </div>
+                            </ng2-tab>
+
                         </div>
-                        <div class="tab-contents">
-                            <div contents="active">
-                                <messages #msgs [dest] = "'active'" *ngIf="idCompany" [id] = idCompany></messages>
-                            </div>
-                            <div contents="ended">
-                                <messages #msgs [dest] = "'ended'" *ngIf="idCompany" [id] = idCompany></messages>
-                            </div>
+                    </template>
+                </md-tab>
+
+                <md-tab>
+                    <template md-tab-label>
+                        <p class="hidden-sm-down">Edytuj profil</p>
+                    </template>
+                    <template md-tab-content>
+                        <div id="daneFirmy">
+                            <h3>zmień hasło/email</h3>
+                            <form id="changeEP" [formGroup]="passwordForm" (ngSubmit)="udpatePassword(passwordForm.value)">
+                                <div [ngClass]="{'has-error':!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched}">
+                                    <input type="password" id="oldPassword" placeholder="stare hasło" [formControl]="passwordForm.controls['oldPassword']">
+                                    <div class="errorDiv"
+                                        *ngIf="!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched">
+                                        Musisz wpisać stare hasło
+                                    </div>
+                                </div>
+                                <div formGroupName="passwords">
+                                    <input type="password" id="password" placeholder="nowe hasło" formControlName="password">
+                                    <input type="password" id="passwordRepeat" placeholder="powtórz nowe hasło" formControlName="repeatPassword">
+                                    <div class="errorDiv">
+                                        <span *ngIf="!passwordForm.controls['passwords'].valid && passwordForm.controls['passwords'].touched">Hasła nie są takie same</span>
+                                    </div>
+                                </div>
+                                <button type="submit" [disabled]="!passwordForm.valid">Zapisz</button>
+                            </form>
+                            <span *ngIf="messageAfter">Pomyślnie zmieniono hasło</span>
                         </div>
-                    </ng2-tab>
+                    </template>
+                </md-tab>
 
-                </div>
-            </template>
-        </md-tab>
+                <md-tab>
+                    <template md-tab-label>
+                        <p class="hidden-sm-down">Edytuj Dane Firmy</p>
+                    </template>
 
-        <md-tab>
-            <template md-tab-label>
-                <p class="hidden-sm-down">Edytuj profil</p>
-            </template>
-            <template md-tab-content>
-                <div id="daneFirmy">
-                    <h3>zmień hasło/email</h3>
-                    <form id="changeEP" [formGroup]="passwordForm" (ngSubmit)="udpatePassword(passwordForm.value)">
-                        <div [ngClass]="{'has-error':!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched}">
-                            <input type="password" id="oldPassword" placeholder="stare hasło" [formControl]="passwordForm.controls['oldPassword']">
-                            <div class="errorDiv"
-                                *ngIf="!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched">
-                                Musisz wpisać stare hasło
-                            </div>
+                    <template md-tab-content>
+                        <div id="editProfile">
+                        <h3>edytuj profil</h3>
+                            <form id="changeCI" [formGroup]="companyForm" (ngSubmit)="udpateCompanyName(companyForm.value)">
+                                <div class="image-upload">
+                                    <ba-picture-uploader #fileUpload (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
+                                </div>
+
+                                <div id="name">
+                                    <label for="nazwa">nazwa firmy</label>
+                                    <input type="text" id="nazwa" formControlName="name">
+                                </div>
+                                
+                                <div id="address" formGroupName="address">
+                                    <div id="town">
+                                        <label for="miasto">miasto</label>
+                                        <input type="text" id="miasto" formControlName="city">
+                                    </div>
+                                    <div id="street">
+                                        <label for="ulica">ulica</label>
+                                        <input type="text" id="ulica" formControlName="street">
+                                    </div>
+                                    <div id="streetNo">
+                                        <label for="numer">nr ulicy</label>
+                                        <input type="text" id="numer" formControlName="streetNo">
+                                    </div>
+                                </div>
+                                <button type="submit">Zapisz</button>
+                            </form>
                         </div>
-                        <div formGroupName="passwords">
-                            <input type="password" id="password" placeholder="nowe hasło" formControlName="password">
-                            <input type="password" id="passwordRepeat" placeholder="powtórz nowe hasło" formControlName="repeatPassword">
-                            <div class="errorDiv">
-                                <span *ngIf="!passwordForm.controls['passwords'].valid && passwordForm.controls['passwords'].touched">Hasła nie są takie same</span>
-                            </div>
+                    </template>
+                </md-tab>
+
+                <md-tab>
+                    <template md-tab-label>
+                        <p class="hidden-sm-down">Dodatkowe Informacje</p>
+                    </template>
+                    <template md-tab-content>
+                        <div id="additionalInfo">
+                            <form [formGroup]="additionalForm" (ngSubmit)="udpateCompanyAdditional(additionalForm.value)">
+                                <div id="contact" formGroupName="contact">
+                                    <div id="website">
+                                        <label>www</label>
+                                        <input type="text" id="website" formControlName="website">
+                                    </div>
+                                    <div id="openingHours">
+                                        <label for="openingHours">godziny otwarcia</label>
+                                        <textarea name="openingHours" id="openingHours" cols="30" rows="10" formControlName="openingHours"></textarea>
+                                    </div>
+                                    <div id="phoneNumber">
+                                        <label for="phoneNumber">tel</label>
+                                        <input type="text" id="phoneNumber" formControlName="phoneNumber"> 
+                                    </div>
+                                    <div id="email">
+                                        <label for="email">e-mail</label>
+                                        <input type="email" id="email" formControlName="email">
+                                    </div>
+                                        <div id="description">
+                                        <label for="description">opis</label>
+                                        <textarea name="description" id="description" cols="30" rows="10" formControlName="description"></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit">Zapisz</button>
+                            </form>
                         </div>
-                        <button type="submit" [disabled]="!passwordForm.valid">Zapisz</button>
-                    </form>
-                    <span *ngIf="messageAfter">Pomyślnie zmieniono hasło</span>
-                </div>
-            </template>
-        </md-tab>
+                    </template>
+                </md-tab>
+                <md-tab>
+                <template md-tab-label>
+                    <p class="hidden-sm-down">Oddziały</p>
+                </template>
+                <template md-tab-content>
+                    <div id="branches">
+                        <i class="fa fa-plus-circle fa-3x" aria-hidden="true" (click)="isCollapse = !isCollapse"></i>
+                        <div [collapse]="isCollapse" id="addCollapseDiv">
+                            <form [formGroup]="branchForm" (ngSubmit) = "addNewBranch(branchForm.value)">
+                                <label>Nazwa</label>
+                                <input type="text" id="name" formControlName="name">
+                                <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
+                                    Musisz wpisać nazwę
+                                </div>
 
-        <md-tab>
-            <template md-tab-label>
-                <p class="hidden-sm-down">Edytuj Dane Firmy</p>
-            </template>
+                                <label>Miasto</label>
+                                <input type="text" id="city" formControlName="city">
+                                <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched">
+                                    Musisz wpisać miasto
+                                </div>
 
-            <template md-tab-content>
-                <div id="editProfile">
-                <h3>edytuj profil</h3>
-                    <form id="changeCI" [formGroup]="companyForm" (ngSubmit)="udpateCompanyName(companyForm.value)">
-                        <div class="image-upload">
-                            <ba-picture-uploader #fileUpload (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
-                        </div>
+                                <label>Ulica</label>
+                                <input type="text" id="street" formControlName="street">
+                                <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched">
+                                    Musisz wpisać ulicę
+                                </div>
 
-                        <div id="name">
-                            <label for="nazwa">nazwa firmy</label>
-                            <input type="text" id="nazwa" formControlName="name">
+                                <label>Nr ulicy</label>
+                                <input type="number" id="streetNo" formControlName="streetNo">
+                                <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched">
+                                    Musisz wpisać nr ulicy
+                                </div>
+
+                                <label>Strona internetowa</label>
+                                <input type="text" id="website" formControlName="website">
+                                <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched">
+                                    Musisz wpisać stronę internetową
+                                </div>
+
+                                <label>Numer telefonu</label>
+                                <input type="text" id="phoneNumber" formControlName="phoneNumber">
+                                <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched">
+                                    Musisz wpisać numer telefonu
+                                </div>
+
+                                <label>Godziny otwarcia</label>
+                                <input type="text" id="openingHours" formControlName="openingHours">
+                                <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched">
+                                    Musisz wpisać godziny otwarcia
+                                </div>
+
+                                <label>E-mail</label>
+                                <input type="text" id="email" formControlName="email">
+                                <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched">
+                                    Musisz wpisać e mail
+                                </div>
+
+                                <label>Opis</label>
+                                <input type="text" id="description" formControlName="description">
+                                <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched">
+                                    Musisz wpisać opis
+                                </div>
+
+                                <input type="submit" value="Stwórz oddział">
+                                <!--<input type="submit" [disabled]="!branchForm.valid" value="Stwórz oddział">-->
+                            </form>
                         </div>
                         
-                        <div id="address" formGroupName="address">
-                            <div id="town">
-                                <label for="miasto">miasto</label>
-                                <input type="text" id="miasto" formControlName="city">
-                            </div>
-                            <div id="street">
-                                <label for="ulica">ulica</label>
-                                <input type="text" id="ulica" formControlName="street">
-                            </div>
-                            <div id="streetNo">
-                                <label for="numer">nr ulicy</label>
-                                <input type="text" id="numer" formControlName="streetNo">
+                        <div class="branch" *ngFor="let branch of companyBranches">
+                            <h2>
+                                {{ branch?.name }}
+                                <i class="fa fa-home fa-1x" *ngIf="branch.main" aria-hidden="true"></i>
+                            </h2>
+                            <p>
+                                <span>
+                                    {{ branch?.city }},
+                                    {{ branch?.street }}
+                                    {{ branch?.streetNo }}
+                                </span>
+                            </p>
+                            <p class="buttons">
+                                <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>
+                                <button class="deleteBranch" (click)="deleteBranch(branch.id)">Usuń oddział</button>
+                                <button *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
+                            </p>
+                            <p *ngIf="branch.main">
+                                <span *ngIf="error" class="error">Nie można usunąć głównego oddziału</span>
+                            </p>
+                            <div class="editBranch" [collapse]="branch.collapse">
+                                <h4>Edytuj oddział</h4>
+                                <form [formGroup]="branchForm" (ngSubmit) = "editBranch(branchForm.value, branch.id)">
+                                    <label>Nazwa</label>
+                                    <input type="text" id="name" formControlName="name">
+                                    <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
+                                        Musisz wpisać nazwę
+                                    </div>
+
+                                    <label>Miasto</label>
+                                    <input type="text" id="city" formControlName="city">
+                                    <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched">
+                                        Musisz wpisać miasto
+                                    </div>
+
+                                    <label>Ulica</label>
+                                    <input type="text" id="street" formControlName="street">
+                                    <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched">
+                                        Musisz wpisać ulicę
+                                    </div>
+
+                                    <label>Nr ulicy</label>
+                                    <input type="number" id="streetNo" formControlName="streetNo">
+                                    <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched">
+                                        Musisz wpisać nr ulicy
+                                    </div>
+
+                                    <label>Strona internetowa</label>
+                                    <input type="text" id="website" formControlName="website">
+                                    <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched">
+                                        Musisz wpisać stronę internetową
+                                    </div>
+
+                                    <label>Numer telefonu</label>
+                                    <input type="text" id="phoneNumber" formControlName="phoneNumber">
+                                    <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched">
+                                        Musisz wpisać numer telefonu
+                                    </div>
+
+                                    <label>Godziny otwarcia</label>
+                                    <input type="text" id="openingHours" formControlName="openingHours">
+                                    <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched">
+                                        Musisz wpisać godziny otwarcia
+                                    </div>
+
+                                    <label>E-mail</label>
+                                    <input type="text" id="email" formControlName="email">
+                                    <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched">
+                                        Musisz wpisać e mail
+                                    </div>
+
+                                    <label>Opis</label>
+                                    <input type="text" id="description" formControlName="description">
+                                    <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched">
+                                        Musisz wpisać opis
+                                    </div>
+
+                                    <!--<input type="submit" [disabled]="!branchForm.valid" value="Stwórz oddział">-->
+                                    <input type="submit" value="Stwórz oddział">
+                                </form>
                             </div>
                         </div>
-                        <button type="submit">Zapisz</button>
-                    </form>
-                </div>
-            </template>
-        </md-tab>
-
-        <md-tab>
-            <template md-tab-label>
-                <p class="hidden-sm-down">Dodatkowe Informacje</p>
-            </template>
-            <template md-tab-content>
-                <div id="additionalInfo">
-                    <form [formGroup]="additionalForm" (ngSubmit)="udpateCompanyAdditional(additionalForm.value)">
-                        <div id="contact" formGroupName="contact">
-                            <div id="website">
-                                <label>www</label>
-                                <input type="text" id="website" formControlName="website">
-                            </div>
-                            <div id="openingHours">
-                                <label for="openingHours">godziny otwarcia</label>
-                                <textarea name="openingHours" id="openingHours" cols="30" rows="10" formControlName="openingHours"></textarea>
-                            </div>
-                            <div id="phoneNumber">
-                                <label for="phoneNumber">tel</label>
-                                <input type="text" id="phoneNumber" formControlName="phoneNumber"> 
-                            </div>
-                            <div id="email">
-                                <label for="email">e-mail</label>
-                                <input type="email" id="email" formControlName="email">
-                            </div>
-                                <div id="description">
-                                <label for="description">opis</label>
-                                <textarea name="description" id="description" cols="30" rows="10" formControlName="description"></textarea>
-                            </div>
-                        </div>
-                        <button type="submit">Zapisz</button>
-                    </form>
-                </div>
-            </template>
-        </md-tab>
-        <md-tab>
-        <template md-tab-label>
-            <p class="hidden-sm-down">Oddziały</p>
-        </template>
-        <template md-tab-content>
-            <div id="branches">
-                <i class="fa fa-plus-circle fa-3x" aria-hidden="true" (click)="isCollapse = !isCollapse"></i>
-                <div [collapse]="isCollapse" id="addCollapseDiv">
-                    <form [formGroup]="branchForm" (ngSubmit) = "addNewBranch(branchForm.value)">
-                        <label>Nazwa</label>
-                        <input type="text" id="name" formControlName="name">
-                        <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
-                            Musisz wpisać nazwę
-                        </div>
-
-                        <label>Miasto</label>
-                        <input type="text" id="city" formControlName="city">
-                        <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched">
-                            Musisz wpisać miasto
-                        </div>
-
-                        <label>Ulica</label>
-                        <input type="text" id="street" formControlName="street">
-                        <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched">
-                            Musisz wpisać ulicę
-                        </div>
-
-                        <label>Nr ulicy</label>
-                        <input type="number" id="streetNo" formControlName="streetNo">
-                        <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched">
-                            Musisz wpisać nr ulicy
-                        </div>
-
-                        <label>Strona internetowa</label>
-                        <input type="text" id="website" formControlName="website">
-                        <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched">
-                            Musisz wpisać stronę internetową
-                        </div>
-
-                        <label>Numer telefonu</label>
-                        <input type="text" id="phoneNumber" formControlName="phoneNumber">
-                        <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched">
-                            Musisz wpisać numer telefonu
-                        </div>
-
-                        <label>Godziny otwarcia</label>
-                        <input type="text" id="openingHours" formControlName="openingHours">
-                        <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched">
-                            Musisz wpisać godziny otwarcia
-                        </div>
-
-                        <label>E-mail</label>
-                        <input type="text" id="email" formControlName="email">
-                        <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched">
-                            Musisz wpisać e mail
-                        </div>
-
-                        <label>Opis</label>
-                        <input type="text" id="description" formControlName="description">
-                        <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched">
-                            Musisz wpisać opis
-                        </div>
-
-                        <input type="submit" value="Stwórz oddział">
-                        <!--<input type="submit" [disabled]="!branchForm.valid" value="Stwórz oddział">-->
-                    </form>
-                </div>
-                
-                <div class="branch" *ngFor="let branch of companyBranches">
-                    <h2>
-                        {{ branch?.name }}
-                        <i class="fa fa-home fa-1x" *ngIf="branch.main" aria-hidden="true"></i>
-                    </h2>
-                    <p>
-                        <span>
-                            {{ branch?.city }},
-                            {{ branch?.street }}
-                            {{ branch?.streetNo }}
-                        </span>
-                    </p>
-                    <p class="buttons">
-                        <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>
-                        <button class="deleteBranch" (click)="deleteBranch(branch.id)">Usuń oddział</button>
-                        <button *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
-                    </p>
-                    <p *ngIf="branch.main">
-                        <span *ngIf="error" class="error">Nie można usunąć głównego oddziału</span>
-                    </p>
-                    <div class="editBranch" [collapse]="branch.collapse">
-                        <h4>Edytuj oddział</h4>
-                        <form [formGroup]="branchForm" (ngSubmit) = "editBranch(branchForm.value, branch.id)">
-                            <label>Nazwa</label>
-                            <input type="text" id="name" formControlName="name">
-                            <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
-                                Musisz wpisać nazwę
-                            </div>
-
-                            <label>Miasto</label>
-                            <input type="text" id="city" formControlName="city">
-                            <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched">
-                                Musisz wpisać miasto
-                            </div>
-
-                            <label>Ulica</label>
-                            <input type="text" id="street" formControlName="street">
-                            <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched">
-                                Musisz wpisać ulicę
-                            </div>
-
-                            <label>Nr ulicy</label>
-                            <input type="number" id="streetNo" formControlName="streetNo">
-                            <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched">
-                                Musisz wpisać nr ulicy
-                            </div>
-
-                            <label>Strona internetowa</label>
-                            <input type="text" id="website" formControlName="website">
-                            <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched">
-                                Musisz wpisać stronę internetową
-                            </div>
-
-                            <label>Numer telefonu</label>
-                            <input type="text" id="phoneNumber" formControlName="phoneNumber">
-                            <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched">
-                                Musisz wpisać numer telefonu
-                            </div>
-
-                            <label>Godziny otwarcia</label>
-                            <input type="text" id="openingHours" formControlName="openingHours">
-                            <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched">
-                                Musisz wpisać godziny otwarcia
-                            </div>
-
-                            <label>E-mail</label>
-                            <input type="text" id="email" formControlName="email">
-                            <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched">
-                                Musisz wpisać e mail
-                            </div>
-
-                            <label>Opis</label>
-                            <input type="text" id="description" formControlName="description">
-                            <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched">
-                                Musisz wpisać opis
-                            </div>
-
-                            <!--<input type="submit" [disabled]="!branchForm.valid" value="Stwórz oddział">-->
-                            <input type="submit" value="Stwórz oddział">
-                        </form>
+                        
                     </div>
-                </div>
-                
-            </div>
 
-        </template>
-        </md-tab>
-    </md-tab-group>
+                </template>
+                </md-tab>
+            </md-tab-group>
+        </div>
+    </div>
 </div>
+
