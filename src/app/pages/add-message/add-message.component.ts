@@ -3,7 +3,6 @@ import { Location } from '@angular/common';
 import { AddMessageService } from './add-message.service';
 import { CommunicationService } from '../komunikat/communicationservice.component';
 import { ActivatedRoute, Params } from '@angular/router';
-
 import { ModalDirective } from 'ng2-bootstrap';
 import { MessageType } from '../../globals/enums/message-type.enum';
 import { MessageAddModel } from './add-message-model';
@@ -16,7 +15,7 @@ import { ObjectList} from '../messages/message';
 import {CompanyBranchList} from "./add-message-model";
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
-
+import { DaterangepickerConfig } from 'ng2-daterangepicker';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -45,9 +44,9 @@ export class AddMessageComponent implements OnInit {
     paramValue: any;
     messageEdit: ObjectList;
     submitButton: string = "Utwórz";
-    public defaultPicture = 'assets/img/theme/add-icon.png';
+    public defaultPicture = 'assets/img/theme/add-iconczerwony.png';
     public profile:any = {
-        picture: 'assets/img/theme/add-icon.png'
+        picture: 'assets/img/theme/add-iconczerwony.png'
     };
      @ViewChild(AgmMap) sebmGoogleMap: any;
     public uploaderOptions:NgUploaderOptions = {
@@ -209,12 +208,14 @@ export class AddMessageComponent implements OnInit {
         private _location: Location,
         private communicationservice: CommunicationService,
         private mapsApiLoader: MapsAPILoader,
-        private messageService: MessagesService
+        private messageService: MessagesService,
+        private daterange: DaterangepickerConfig
     ){
         this.mapsApiLoader.load().then(() => {
         console.log('google script loaded');
         this.geocoder = new google.maps.Geocoder();
         console.log(this.geocoder);
+        this.daterange.skipCSS = true;
     });
        
     }

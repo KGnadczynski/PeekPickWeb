@@ -1,6 +1,8 @@
+<link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 <div class="auth-main" id="loginFormMain">
   <div class="auth-block" id="loginFormBlock">
-    <h1>Zaloguj się w tackpadzie</h1>
+    <h1>Logowanie</h1>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
       <div class="inputForm" [ngClass]="{'has-error': (!form.controls['email'].valid && form.controls['email'].touched), 'has-success': (form.controls['email'].valid && form.controls['email'].touched)}">
@@ -16,9 +18,8 @@
         <div *ngIf="error" class="alert alert-danger">
           {{error.error_description}}
         </div>
-        <a id="forgotPassword" routerLink="/login">Przypominj hasło</a>
-        <p>nie masz jeszcze konta?</p>
-        <a id="register" routerLink="/pages/register">Zarejestruj się!</a>
+        <a id="forgotPassword" routerLink="/login">zapomniałem hasła</a>
+        <a id="register" routerLink="/pages/register">utwórz konto</a>
       </div>
       
     </form>

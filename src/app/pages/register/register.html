@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 <body>
+
+<link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
 <div class="auth-main" id="registerFormMain">
   <div class="auth-block" id="registerFormBlock">
-    <h1>Zarejestruj sie w tackpadzie</h1>
-    <a routerLink="/pages/login" class="auth-link">Masz już konto? Zaloguj się!</a>
+    <h1>Rejestracja</h1>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
       <div class="formRegDiv" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
@@ -15,7 +18,7 @@
       </div>
       <div class="formRegDiv" [ngClass]="{'has-error': (!repeatPassword.valid && repeatPassword.touched), 'has-success': (repeatPassword.valid && repeatPassword.touched)}">
           <input [formControl]="repeatPassword" type="password" placeholder="Powtórz">
-          <span *ngIf="!passwords.valid && (password.touched || repeatPassword.touched)" class="help-block sub-little-text">Hasła są niezgodne</span>
+          <span *ngIf="!passwords.valid && (password.touched || repeatPassword.touched)">Hasła są niezgodne</span>
       </div>
       <div [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}" class="formRegDiv">
           <input [formControl]="name" type="text" [(ngModel)]="user.name" placeholder="Nazwa firmy">
@@ -23,20 +26,12 @@
       
       <div class="blackline"></div>
 
-      <div class="formRegDiv" >
-          <input [formControl]="name" type="text" placeholder="Miasto" [(ngModel)]="company.city">
+      <div class="formRegDiv" id="address">
+          <input id="city" [formControl]="name" type="text" placeholder="Miasto" [(ngModel)]="company.city">
+          <input id="street" [formControl]="name" type="text" placeholder="Ulica" [(ngModel)]="company.street" >
+          <input id="streetNo" [formControl]="name" type="number" min="0" placeholder="Nr" [(ngModel)]="company.streetNo">
       </div>
 
-      <div id="streetNo">
-        <div class="formRegDiv" id="street">
-          <input [formControl]="name" type="text" placeholder="Ulica" [(ngModel)]="company.street" >
-        </div>
-
-        <div class="formRegDiv" id="number">
-            <input [formControl]="name" type="number" min="0" placeholder="Numer" [(ngModel)]="company.streetNo">
-        </div>
-      </div>
-      
       <div class="blackline"></div>
 
       <!--<div class="formRegDiv">
@@ -56,6 +51,7 @@
       
       <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
       <button [disabled]="!form.valid" type="submit">Zarejestruj się</button>
+      <a routerLink="/pages/login">Zaloguj się</a>
     </form>
   </div>
 </div>

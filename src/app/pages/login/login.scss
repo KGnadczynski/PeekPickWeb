@@ -1,19 +1,30 @@
 @import '../../theme/sass/auth';
 
+$colorRed: #A20E12;
+$colorBlack: #263238;
+
 div.alert-danger{
-    border: 1px solid #A20E12;
+    border: 0;
+    border-bottom: 1px dotted #A20E12;
     color: #A20E12;
     background: white;
+    margin: 1% 0;
+    border-radius: 0;
+    width: 45%;
 }
 
 div#loginFormMain{
+    border: 2px solid $colorBlack;
     margin: auto;
     
     div#loginFormBlock{
         h1{
             text-align: center;
             margin: 3% 0;
-            color: gray;
+            text-transform: uppercase;
+            color: $colorRed;
+            font-size: 20px;
+            font-family: 'Sanchez', serif;
         }
         form{
             overflow: hidden;
@@ -28,10 +39,14 @@ div#loginFormMain{
                 }
                 input{
                     width: 100%;
-                    text-align: center;
                     padding: 2% 0;
                     font-size: 16px;
-                    
+                    outline: 0;
+                    border: 0;
+                    border-bottom: 1px solid $colorBlack;
+                    text-transform: lowercase;
+                    color: $colorBlack;
+                    font-family: 'Open Sans', sans-serif;
                 }
                 
             }
@@ -39,21 +54,26 @@ div#loginFormMain{
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                text-transform: lowercase;
                 
-                button#login{
-                    width: 25%;
-                    padding: 2%;
+                button#login, a#register{
+                    padding: 3%;
                     margin-bottom: 2%;
+                    background: white;
+                    color: $colorRed;
+                    border: 1px dotted $colorRed;
+                    font-size: 20px;
+                    font-family: 'Sanchez', serif;
                 }
-                a#forgotPassword, a#register{
+                a#forgotPassword{
                     margin-bottom: 3%;
-                    color: gray;
-                    font-size: 17px;
+                    color: $colorBlack;
+                    font-size: 15px;
+                    color: $colorBlack;
+                    font-size: 15px;
+                    font-family: 'Open Sans', sans-serif;
                 }
-                p{
-                    font-size: 17px;
-                    color: gray;
-                }
+                
             }
         }
     }
@@ -77,7 +97,7 @@ select:-webkit-autofill:focus {
 
 @media(max-width: 575px){
     div#loginFormMain{
-        border: 1px solid gray;
+        
         width: 90%;
         margin-top: 15%;
         div#loginFormBlock{

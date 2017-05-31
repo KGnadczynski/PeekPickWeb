@@ -1,16 +1,27 @@
+$colorRed: #A20E12;
+$colorBlack: #263238;
+
 div.modal-content{
     color: gray;
     div#addForm{
         padding: 4%;
-        h3{
-            text-align: center;
-        }
+        overflow: hidden;
         p{
+            margin-bottom: 7%;
             text-align: center;
-            font-weight: bold;
+            color: $colorBlack;
+            font-size: 16px;
+            font-family: 'Open Sans', sans-serif;
+            clear: both;
+            width: 100%;
+            float: left;
             span{
                 font-weight: normal;
                 text-transform: lowercase;
+                font-family: 'Sanchez', serif;
+                font-size: 25px;
+                display: block;
+                color: $colorRed;
             }
         }
         i{
@@ -18,7 +29,7 @@ div.modal-content{
             text-align: center;
             margin-bottom: 5%;
         }
-        input{
+        input[type=text], input[type=submit]{
             display: block;
             margin: auto;
             padding: 3%;
@@ -26,13 +37,23 @@ div.modal-content{
             border: 1px solid gray;
             border-radius: 2px;
             margin-bottom: 5%;
+            color: $colorBlack;
+            border: 5px dotted $colorRed;
+            outline: 0;
+            font-family: 'Open Sans', sans-serif;
         }
         div.blackline{
-            width: 60%;
-            height: 2px;
-            background: black;
-            margin: auto;
-            margin-bottom: 4%;
+            clear: both;
+            width: 100%;
+            float: left;
+            div{
+                width: 80%;
+                height: 2px;
+                background: black;
+                margin: auto;
+            }
+            margin-top: 2%;
+            margin-bottom: 5%;
         }
         textarea{
             margin: auto;
@@ -40,18 +61,56 @@ div.modal-content{
             width: 80%;
             text-align: center;
             padding-top: 2%;
-            border-radius: 3px;
             margin-bottom: 4%;
+            color: $colorBlack;
+            border: 5px dotted $colorRed;
+            outline: 0;
+            font-family: 'Open Sans', sans-serif;
         }
         div#buttons{
             width: 80%;
             margin: auto;
+            clear: both;
+            text-align: center;
+            float: left;
+            font-family: 'Sanchez', sans-serif;
             button {
-                padding: 3%;
+                padding: 5%;
                 background: white;
-                border: 1px solid gray;
-                color: gray;
+                border: 2px dotted $colorRed;
+                color: $colorRed;
                 margin-right: 2%;
+                outline: 0;
+            }
+        }
+        div#checkBoxDiv{
+            text-align: center;
+            margin: 3% 0;
+            
+            label{
+                color: $colorBlack;
+            }
+        }
+        div#odzialFirmy{
+            div.dropdown{
+                text-align: center;
+            }
+            ul {
+                min-width: 240px;
+                border: 2px solid $colorBlack;
+                left: 20%;
+                li {
+                    text-align: center;
+                    &:hover{
+                        background: none;
+                    }
+                    a {
+                        color: $colorBlack;
+                        font-size: 16px;
+                        padding: 13px 0;
+                        display: block;
+                    }
+                }
             }
         }
     }
@@ -59,9 +118,9 @@ div.modal-content{
 }
 
 div.daterangepicker {
-    left: 2% !important;
+    left: 5% !important;
     right: 2% !important;
-    width: 94% !important;
+    width: 90% !important;
     button.btn-success, button.btn-default {
         background-color: white;
         border: 1px solid gray;
@@ -72,15 +131,43 @@ div.daterangepicker {
 div#addPhoto{
     float: left;
     width: 50%;
+    .picture-group{
+        border: 0;
+        width: auto;
+        height: auto;
+        a.change-picture{
+            display: none;
+        }
+        .picture-wrapper{
+            width: auto;
+            height: auto;
+            overflow: auto;
+            display: block;
+
+        }
+    }
+    .ion-ios-close-outline{
+        display: none !important;
+    }
+    img{
+        width: 80%;
+        display: block;
+        margin: auto;
+        margin-top: 30%;
+    }
 }
 
 div#addLocalization{
     float: right;
     width: 50%;
+    p {
+        font-family: 'Open Sans', sans-serif;
+        line-height: 25px;
+    }
 }
 
 div#mapa{
         .sebm-google-map-container {
-            height: 250px;
+            height: 200px;
         }
     }

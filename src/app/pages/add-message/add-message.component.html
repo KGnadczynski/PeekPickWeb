@@ -1,50 +1,53 @@
+<link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 <div bsModal #childModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" backdrop="false" keyboard="false">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-        
         <div id="addForm">
-            
             <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
               <span aria-hidden="true">&times;</span>
             </button>
 
-            <h3 [ngSwitch]="paramValue">
+            <!--<h3 [ngSwitch]="paramValue">
               <span *ngSwitchCase="'message_id'">Edytuj komunikat</span>
               <span *ngSwitchCase="'message_type'">Dodaj komunikat</span>
-              <!--Dodaj komunikat: {{ paramValue }}  -->
-            </h3>
+            </h3>-->
             
             <p [ngSwitch]="paramValue">
-              <span *ngSwitchCase="'message_type'">Typ: {{ messageTypeValue }}</span>
+              <span *ngSwitchCase="'message_type'">{{ messageTypeValue }}</span>
               <!--<span *ngSwitchCase="'message_id'">Typ: {{ messageTypeValue }}</span>-->
             </p>
 
             <!--data picker-->
-            <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
-            <p>Od: </p>
+            <p>Data rozpoczęcia: </p>
             <input  daterangepicker #datePickerStart [(ngModel)]="msgAddModel.startDate" (selected)="selectStartDate($event)" [options]="pickerOptionsStart" type="submit"/>
-            <div class="blackline"></div>
-            <p>Do: (jeśli nie chcesz daty zakończenia to zaznacz checkbox) </p>
-            <input type="checkbox" [checked]="withEndDate" (change)="addprop()">
+            <div class="blackline">
+              <div></div>
+            </div>
+            <p>Data zakończenia: </p>
+            <div id="checkBoxDiv">
+                <input type="checkbox" [checked]="withEndDate" (change)="addprop()">
+                <label>bez daty zakończenia</label>
+            </div>
+            
             <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
               <input daterangepicker [(ngModel)]="msgAddModel.endDate" (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" />
             </div>
 
-            <p>Dodaj treść komunikatu</p>
-            <textarea rows="5" type="text" placeholder="Dodaj treść komunikatu" [(ngModel)]="msgAddModel.content" #messageContent maxlength="200"></textarea>
+            <p>Treść komunikatu</p>
+            <textarea rows="5" type="text" placeholder="..." [(ngModel)]="msgAddModel.content" #messageContent maxlength="200"></textarea>
             <p>Zostało: {{200 - messageContent.value.length}} znaków</p>
             <div id="odzialFirmy">
               <ss-multiselect-dropdown *ngIf="showMulitSelect"  [texts]="myTexts" [settings]="mySettings" defaultTitle="Wybierz oddział" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
             </div>
-            <div class="blackline"></div>
+            <div class="blackline">
+              <div></div>
+            </div>
             <div id="addPhoto">
-               <ba-card title="Dodaj zdjęcie" baCardClass="with-scroll" aria-hidden="true">
-                  <ba-picture-uploader #fileUpload  (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
-              </ba-card>
+                <ba-picture-uploader #fileUpload  (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
             </div>
             
             <div id="addLocalization">
-              <p>Zmień lokalizacje</p>
               <div id="mapa">
                     <agm-map [latitude]="lat" [longitude]="lng"
                     (mapClick)="mapClicked($event)" [zoom]="zoom"

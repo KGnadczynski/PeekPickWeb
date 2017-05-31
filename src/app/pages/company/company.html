@@ -1,7 +1,8 @@
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 <div class="container">
-    <div class="row">
-        <div class="company-image" *ngIf="companyImages?.imageUrl">
-            <img src="{{companyImages?.imageUrl}}" alt="">
+        <div class="company-image">
+            <img *ngIf="companyImages?.imageUrl" src="{{companyImages?.imageUrl}}" alt="">
+            <ng2-letter-avatar *ngIf="name && !companyImages?.imageUrl" avatar-data='{{name}}'></ng2-letter-avatar>
         </div>
 
         <div class="company-name" *ngIf="otherOneCompany?.name">
@@ -15,43 +16,48 @@
                 </template>
                 <template md-tab-content>
                   <div id="companyMain">
-                        <h4>Opis:</h4>
-                        <p *ngIf="otherOneCompany?.description">{{ otherOneCompany?.description }}</p>
+
+                        <div class="compDiv">
+                            <h4>Opis:</h4>
+                            <p *ngIf="otherOneCompany?.description">{{ otherOneCompany?.description }}</p>
+                        </div>
                         
-                        <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
-                        <h4>Adres:</h4>
-                        <p>
-                            <span *ngIf="otherOneCompany?.city">{{  otherOneCompany?.city }}, </span>
-                            <span *ngIf="otherOneCompany?.street">{{  otherOneCompany?.street }}, </span>
-                            <span *ngIf="otherOneCompany?.streetNo">{{  otherOneCompany?.streetNo }}, </span>
-                        </p>
-
-                        <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
-                        <h4>Godziny otwarcia: </h4>
-                        <p *ngIf="otherOneCompany?.openingHours">{{ otherOneCompany?.openingHours }}</p>
-
-                        <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
-                        <h4>Kontakt:</h4>
-                        <div *ngIf="otherOneCompany?.website" class="compDiv">
-                            <i class="fa fa-desktop fa-2x" aria-hidden="true"></i>
-                            <h4>Strona internetowa:</h4>
-                            <a href="{{ otherOneCompany?.website }}" _target="blank">{{ otherOneCompany?.website }}</a>
+                        <div class="compDiv">
+                            <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
+                            <h4>Adres:</h4>
+                            <p>
+                                <span *ngIf="otherOneCompany?.city">{{  otherOneCompany?.city }}, </span>
+                                <span *ngIf="otherOneCompany?.street">{{  otherOneCompany?.street }}, </span>
+                                <span *ngIf="otherOneCompany?.streetNo">{{  otherOneCompany?.streetNo }}, </span>
+                            </p>
                         </div>
-                        <div *ngIf="otherOneCompany?.phoneNumber" class="compDiv">
-                            <i class="fa fa-mobile fa-2x" aria-hidden="true"></i>
-                            <h4>Nr telefonu:</h4>
-                            <p>{{ otherOneCompany?.phoneNumber }}</p>
-                        </div>
-                        <div *ngIf="otherOneCompany?.email" class="compDiv">
-                            <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-                            <h4>Email:</h4>
-                            <p>{{ otherOneCompany?.email }}</p>
+                        
+                        <div class="compDiv">
+                            <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+                            <h4>Godziny otwarcia: </h4>
+                            <p *ngIf="otherOneCompany?.openingHours">{{ otherOneCompany?.openingHours }}</p>
                         </div>
 
-                        <!--<h4 id="companyDate" *ngIf="otherOneCompany?.createDate">
-                            <span>Data:</span>
-                            {{ otherOneCompany?.createDate }}
-                        </h4>-->
+                        <div class="compDiv">
+                            <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
+                            <h4>Kontakt:</h4>
+                            <div *ngIf="otherOneCompany?.website">
+                                <i class="fa fa-desktop fa-2x" aria-hidden="true"></i>
+                                <h4>Strona internetowa:</h4>
+                                <a href="{{ otherOneCompany?.website }}" _target="blank">{{ otherOneCompany?.website }}</a>
+                            </div>
+                            <div *ngIf="otherOneCompany?.phoneNumber">
+                                <i class="fa fa-mobile fa-2x" aria-hidden="true"></i>
+                                <h4>Nr telefonu:</h4>
+                                <p>{{ otherOneCompany?.phoneNumber }}</p>
+                            </div>
+                            <div *ngIf="otherOneCompany?.email">
+                                <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                                <h4>Email:</h4>
+                                <p>{{ otherOneCompany?.email }}</p>
+                            </div>
+                        </div>
+                        
                   </div>
                     
                 </template>
@@ -79,5 +85,4 @@
                 </template>
             </md-tab>
         </md-tab-group>
-    </div>
 </div>

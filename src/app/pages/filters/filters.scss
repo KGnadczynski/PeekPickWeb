@@ -1,5 +1,6 @@
 @import "../komunikat/komunikat.scss";
 $redColor: #A20E12;
+$blackColor: #263238;
 
 @mixin checkboxMixin {
     div.checkbox{
@@ -17,7 +18,7 @@ $redColor: #A20E12;
               top: 0;
               left: 0;
               background: white;
-              border: 2px solid $redColor;
+              border: 2px dotted $redColor;
               margin: 0;
               &:after{
                   opacity: 0;
@@ -47,22 +48,46 @@ $redColor: #A20E12;
 @mixin radioButton {}
 
 div#head{
-    display: flex;
+    overflow: hidden;
     h4{
+      float: left;
       cursor: pointer;
       width: 90%;
       text-align: center;
+      color: $redColor;
+      margin: 5px 0;
+      font-weight: normal;
+      font-size: 20px;
     }
     i{
       width: 10%;
-      cursor: pointer;  
+      cursor: pointer;
+      float: right;
+    }
+    div.line{
+        clear: both;
+        float: left;
+        width: 100%;
+        div{
+            display: block;
+            width: 94%;
+            margin: 0 auto;
+            height: 2px;
+            background: $redColor;
+        }
     }
 }
 
 form#mainForm{
+    
     h5{
-      margin-top: 4%;
-      margin-bottom: 4%;
+      font-family: 'Open Sans', sans-serif;
+      margin: 4% 0;
+      color: $blackColor;
+      text-align: center;
+      font-weight: normal;
+      font-size: 16px;
+      text-transform: lowercase;
     }
 
     div.ifActive{
@@ -73,12 +98,14 @@ form#mainForm{
           float: left;
           margin-top: 15px;
           margin-left: 10px;
+          color: $blackColor;
       }
     }
 
     div.filterBy{
       display: flex;
       justify-content: center;
+      color: $blackColor;
       div{
           width: 50%;
           text-align: center;
@@ -101,6 +128,10 @@ form#mainForm{
         margin: auto;
         padding: 8px;
         text-align: center;
+        border: 1px dotted $redColor;
+        border-radius: 2px;
+        outline: 0;
+        color: $blackColor;
     }
 
     div#checkboxDiv{
@@ -137,7 +168,7 @@ form#mainForm{
     
     p#distance{
       clear: both;
-      color: black;
+      color: $blackColor;
       float: left;
       width: 100%;
       margin: 1% 0;
@@ -155,7 +186,7 @@ form#mainForm{
           flex-direction: column;
           float: left;
           button{
-            padding: 0.5vw;
+            padding: 1.5vw;
             color: black;
             border: 0;
             border-radius: 1px;
@@ -186,15 +217,22 @@ form#mainForm{
           
         }
       }
+      @media(max-width: 575px){
+          padding: 0 4%;
+      }
 }
 
-div.blackLine{
-  clear: both;
-  float: left;
-  width: 60%;
-  margin: auto;
-  height: 2px;
-  background: black;
-  margin-top: 4%;
-  margin-bottom: 4%;
+div.blacklineF{
+    div{
+        width: 80%;
+        margin: auto;
+        height: 2px;
+        background: black;  
+    }
+    
+    margin-top: 4%;
+    margin-bottom: 4%;
+    clear: both;
+    float: left;
+    width: 100%;
 }

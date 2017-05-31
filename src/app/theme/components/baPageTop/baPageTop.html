@@ -1,34 +1,45 @@
 <div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled}">
-  <a routerLink="/pages/komunikat" class="al-logo clearfix">
-      <!--<span>tack</span>pad-->
-      <img src="../../../meta/ikona.png" alt="">
-  </a>
+  
   <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
 
- <div class="dropdown hidden-xs-down">
-  <ng2-completer [(ngModel)]="searchStr" [dataService]="dataService" [minSearchLength]="0"></ng2-completer>
-</div>
-  <div class="dropdown" *ngIf="isLogged">
-    <i class="fa fa-plus-circle fa-2x dropdown-toggle" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a *ngFor="let messageType of messageTypesOb" [routerLink]="['/pages/add_message/', messageType.value]">{{ messageType.value }} </a>
-    </div>
+  <a routerLink="/pages/komunikat" class="al-logo clearfix">
+      <img src="../../../meta/ikona.png" alt="">
+  </a>
+
+  <span>peekpick</span>
+
+  <div class="dropdown hidden-xs-down">
+      <ng2-completer [(ngModel)]="searchStr" [dataService]="dataService" [minSearchLength]="0"></ng2-completer>
   </div>
+
+  <div class="dropdown" *ngIf="isLogged">
+      <i class="fa fa-plus-circle fa-2x dropdown-toggle" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a *ngFor="let messageType of messageTypesOb" [routerLink]="['/pages/add_message/', messageType.value]">{{ messageType.value }} </a>
+      </div>
+  </div>
+
   <i id="searchIcon" class="fa fa-search fa-2x" aria-hidden="true" [routerLink]="['/pages/search/']"></i>
 
-  <div class="user-profile clearfix hidden-xs-down" *ngIf="isLogged">
-    <div class="dropdown al-user-profile">
-      <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
-        <img *ngIf="userLogo" src="{{userLogo}}">
-        <!--<ng2-letter-avatar *ngIf="!userLogo && name" avatar-data='{{name}}' ></ng2-letter-avatar>-->
-        <!--<ng2-letter-avatar *ngIf="!userLogo" avatar-data='{{name}}'></ng2-letter-avatar>-->
-      </a>
-      <ul class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
-        <li class="dropdown-item"><i class="dropdown-arr"></i></li>
-        <li class="dropdown-item" (click)="profileClick()"><a href="#/pages/profile"><i class="fa fa-user"></i>Profile</a></li>
-        <li class="dropdown-item" (click)="settingsClick()"><a href><i class="fa fa-cog"></i>Settings</a></li>
-        <li class="dropdown-item" (click)="signoutClick()"><a href class="signout"><i class="fa fa-power-off"></i>Sign out</a></li>
-      </ul>
+  <div class="user-profile clearfix hidden-sm-down" *ngIf="isLogged">
+      <div class="dropdown al-user-profile">
+          <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
+              <!--<img *ngIf="userLogo" src="{{userLogo}}">-->
+              <ng2-letter-avatar *ngIf="!userLogo && name" avatar-data='{{name}}' ></ng2-letter-avatar>
+              <!--<ng2-letter-avatar *ngIf="!userLogo" avatar-data='{{name}}'></ng2-letter-avatar>-->
+          </a>
+
+          <ul class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
+              <li class="dropdown-item"><i class="dropdown-arr"></i></li>
+              <li class="dropdown-item" (click)="profileClick()"><a href="#/pages/profile"><i class="fa fa-user"></i>Profile</a></li>
+              <li class="dropdown-item" (click)="settingsClick()"><a href><i class="fa fa-cog"></i>Settings</a></li>
+              <li class="dropdown-item" (click)="signoutClick()"><a href class="signout"><i class="fa fa-power-off"></i>Sign out</a></li>
+          </ul>
+      </div>
     </div>
+
+    <div class="line">
+        <div></div>
+    </div>
+
   </div>
-</div>

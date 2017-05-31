@@ -52,20 +52,20 @@ export class Login implements OnInit{
       if(currentUser != null){
           this.profileService.getUser().subscribe(
             result => {
-              this.router.navigateByUrl('/pages/komunikat');
+              // this.router.navigateByUrl('/pages/komunikat');
             },
             err => {
-                this.router.navigateByUrl('/pages/komunikat');
+                /*this.router.navigateByUrl('/pages/komunikat');
                 this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
                 this.pageTopService.changedLoggedFlag(-1);
                 if(localStorage.getItem('currentUserToken'))
                   localStorage.removeItem('currentUserToken');
                 if(localStorage.getItem('user'))
-                  localStorage.removeItem('user');
+                  localStorage.removeItem('user');*/
             }
           );
       } else {
-          this.router.navigateByUrl('/pages/komunikat');
+          // this.router.navigateByUrl('/pages/komunikat');
       }
   }
 

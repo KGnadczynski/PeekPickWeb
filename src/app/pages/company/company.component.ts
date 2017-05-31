@@ -1,18 +1,16 @@
 import { Component, OnInit ,ViewEncapsulation} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import {  ActivatedRoute } from '@angular/router';
-
+import { ActivatedRoute } from '@angular/router';
 import { Company } from './company';
 import { CompanyService } from './company.service';
-
 import { ObjectList } from './company';
-
 
 @Component({
   selector: 'company',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./company.scss')],
   template: require('./company.html'),
+  providers: [CompanyService]
 })
 
 export class CompanyComponent implements OnInit {
@@ -21,8 +19,7 @@ export class CompanyComponent implements OnInit {
   private id: number;
   private otherOneCompany: Company;
   private companyImages: any;
-  lat: number;
-  lng: number;
+  name: string = '';
 
   constructor(private route: ActivatedRoute, private _companyService: CompanyService) {}
 
@@ -30,22 +27,30 @@ export class CompanyComponent implements OnInit {
     
     this.sub = this.route.params.subscribe(params =>  {
         this.id = +params['name'];
+        console.log('id: ' + this.id);
+        this._companyService.getCompany(this.id).subscribe(
+          receivedCompany => {
+              this.otherOneCompany = receivedCompany;
+              this.name = receivedCompany.company.name;
+              console.log('this.name : ' + this.name);
+              console.log('this other company:');
+              console.dir(this.otherOneCompany);
+              this._companyService.getCompanyImages(this.id).subscribe(
+                  receivedImgs => {
+                      this.companyImages = receivedImgs;
+                      console.log('this other imgs:');
+                      console.dir(this.companyImages);
+                  },
+                  imageError => {
+                      console.log('Error from image');
+                      console.dir(imageError);
+                  }
+              )
+          },
+          companyError => {}
+        );
     });
     
-    let company = this._companyService.getCompany({id: this.id});
-    company.$observable.subscribe((receivedCompany: Company) => {
-      this.otherOneCompany = receivedCompany;
-      console.log('this other company:');
-      console.dir(this.otherOneCompany);
-      this.lat = this.otherOneCompany.latitude;
-      this.lng = this.otherOneCompany.longitude;
-      let imgs = this._companyService.getCompanyImages({id:this.id});
-      imgs.$observable.subscribe((receivedImgs: any) => {
-        this.companyImages = receivedImgs;
-        console.log('this other imgs:');
-        console.dir(this.companyImages);
-      });
-    });
 
   }
 

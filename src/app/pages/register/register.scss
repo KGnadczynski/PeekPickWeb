@@ -1,5 +1,8 @@
 @import '../../theme/sass/auth';
 
+$colorRed: #A20E12;
+$colorBlack: #263238;
+
 .digits-button {
   width: 320px;
   margin: 30px auto 0;
@@ -22,57 +25,95 @@ div#registerFormMain{
   div#registerFormBlock{
     h1 {
         text-align: center;
-        color: gray;
+        color: $colorRed;
+        text-transform: uppercase;
+        font-size: 25px;
+        font-family: 'Sanchez', serif;
+        margin-bottom: 4%;
     }
     a{
         display: block;
         text-align: center;
+        width: 40%;
     }
     form{
         margin: auto;
-        div#streetNo{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            div#street{
-              width: 70%;
-            }
-            div#number{
-              width: 28%;
-              input{
-                padding: 5% 0;
-              }
-            }
-        }
-        input, select{
-            width: 100%;
+        
+        input{
+            width: 50%;
             padding: 2% 0;
-            text-align: center;
+            outline: 0;
+            color: $colorBlack !important;
+            text-transform: lowercase;
+            padding-left: 3%;
+            border: 0;
+            border-bottom: 1px solid $colorBlack;
+            color: $colorBlack;
+            margin: auto;
+            display: block;
+            font-family: 'Open Sans', sans-serif;
+          }
+          select {
+            width: 100%;
+            padding: 2%;
+            outline: 0;
+            color: $colorBlack !important;
+            text-transform: lowercase;
+            padding-left: 3%;
+            border: 0;
+            border-bottom: 1px solid $colorBlack;
+            color: $colorBlack;
+            margin: auto;
+            display: block;
+            font-family: 'Open Sans', sans-serif;
+            option{
+                padding: 2% 0;
+            }
           }
         div.formRegDiv {
           margin: 2% 0;
-          input, select{
-            width: 100%;
-            
+          
+          span{
+              color: #A20E12;
+              font-size: 15px;
+              display: block;
+              text-align: center;
+              margin: 3% 0;
           }
         }
-        button{
+        button, a{
           display: block;
           margin: auto;
           margin-top: 3%;
           margin-bottom: 3%;
           padding: 4%;
           background: white;
-          border: 1px solid gray;
-          color: gray;
+          border: 1px dotted $colorRed;
+          color: $colorRed;
+          font-family: 'Sanchez', serif;
+          font-size: 20px;
         }
         div.blackline{
               height: 2px;
-              background: black;
-              width: 94%;
+              background: $colorRed;
+              width: 100%;
               margin: auto;
               margin-top: 4%;
               margin-bottom: 4%;
+        }
+
+        div#address{
+            display: flex;
+            justify-content: space-around;
+            input#city{
+              width: 40%;
+            }
+            input#street{
+              width: 40%;
+            }
+            input#streetNo{
+              width: 11%;
+            }
         }
         
     }

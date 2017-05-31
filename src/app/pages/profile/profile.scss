@@ -15,9 +15,10 @@ div#profile{
     div#headAvatar{
         ng2-letter-avatar{
             img{
-                width: 300px;
+                width: 50%;
                 display: block;
                 margin: auto;
+                border-radius: 2500px;
             }
         }
     }
@@ -32,6 +33,8 @@ div#profile{
     h2{
         margin: 4% 0;
         text-align: center;
+        text-transform: capitalize;
+        font-family: 'Open Sans', sans-serif;
     }
 
     div#daneFirmy{
@@ -416,10 +419,10 @@ select:-webkit-autofill:focus {
 }
 
 div#activeAndEndedPosts{
-    padding: 3%;
     div.tabs{
         display: flex;
         justify-content: space-around;
+        font-family: 'Open Sans', sans-serif;
         div{
             border: 0 !important;
             font-size: 20px;
