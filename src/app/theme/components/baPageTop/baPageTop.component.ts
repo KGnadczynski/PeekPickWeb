@@ -157,7 +157,7 @@ export class BaPageTop implements OnInit{
     }
 
     onSelected(item: CompleterItem) {
-      console.log('Wybrano '+JSON.stringify(item));
+      console.log('Wybranoo '+JSON.stringify(item));
       if(item == null) {
           this.router.navigate(['/pages/komunikat']);
       } else {
