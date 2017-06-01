@@ -212,6 +212,7 @@ public onSubmitDigitsCallback(req: any): void {
             body.set('username', this.registerJson.user.email);
             body.set('grant_type', "password");
             body.set('client_secret', "client_secret");
+            this.pageTopService.showLoadingBar(true);  
             this.loginService.login(body).subscribe(
                   data => {
                     localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
@@ -225,6 +226,7 @@ public onSubmitDigitsCallback(req: any): void {
                              localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
                              this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
                              this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);       
+                               this.pageTopService.showLoadingBar(false);
                              this.router.navigate(['/komunikat']);
                             },
                              error => {

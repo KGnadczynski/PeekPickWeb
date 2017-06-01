@@ -6,6 +6,7 @@ import { BaPageTopService } from '../../services';
 import { url } from '../../../globals/url';
 import { ProfileService } from '../../../pages/profile/profile.service';
 import { CompleterService, RemoteData} from 'ng2-completer';
+import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 
 import { tokenNotExpired } from 'angular2-jwt';
 
@@ -40,7 +41,7 @@ export class BaPageTop implements OnInit{
     { color: 'black', value: '#000' }
   ];
 
-  constructor(private _state:GlobalState,private communicationservice: CommunicationService,private pageTopService: BaPageTopService,private profileService: ProfileService,private completerService: CompleterService) {
+  constructor(private _state:GlobalState,private communicationservice: CommunicationService,private pageTopService: BaPageTopService,private profileService: ProfileService,private completerService: CompleterService,private slimLoadingBarService: SlimLoadingBarService) {
     this.dataService =  completerService.remote(url+ '/messages/page/1?searchTerm=','user.name,content','user.name,content');
     this.dataService.dataField('objectList');
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
@@ -58,6 +59,18 @@ export class BaPageTop implements OnInit{
       }) ;
       
     });
+
+      this.pageTopService.showLoading.subscribe((value) => { 
+      if(value) {
+        this.startLoading();
+      } else {
+        this.completeLoading();
+      }
+  
+ 
+    });
+
+    
 
   }
 
@@ -124,4 +137,18 @@ export class BaPageTop implements OnInit{
        //localStorage.removeItem('latitude');
        //localStorage.removeItem('longitude');
   }
+
+   startLoading() {
+        this.slimLoadingBarService.start(() => {
+            console.log('Loading complete');
+        });
+    }
+
+    stopLoading() {
+        this.slimLoadingBarService.stop();
+    }
+
+    completeLoading() {
+        this.slimLoadingBarService.complete();
+    }
 }

@@ -83,7 +83,7 @@ export class Login implements OnInit{
       body.set('grant_type', "password");
       body.set('client_secret', "client_secret");
       body.set('client_id', "clientapp");
-
+      this.pageTopService.showLoadingBar(true);
       this.loginService.login(body).subscribe(
           data => {
               localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
@@ -97,6 +97,7 @@ export class Login implements OnInit{
                              localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
                              this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
                              this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);    
+                             this.pageTopService.showLoadingBar(false);
                              this.router.navigate(['/komunikat']);
                             },
                              error => {

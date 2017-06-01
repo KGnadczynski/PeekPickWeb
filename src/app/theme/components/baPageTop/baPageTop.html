@@ -1,5 +1,5 @@
 <div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled}">
-  
+   <ng2-slim-loading-bar [height]="'5px'"></ng2-slim-loading-bar>
   <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
 
   <a routerLink="/pages/komunikat" class="al-logo clearfix">
@@ -43,3 +43,4 @@
     </div>
 
   </div>
+  
