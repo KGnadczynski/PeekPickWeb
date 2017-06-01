@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Router,ActivatedRoute } from '@angular/router';
 import { MessagesService } from './messages.service';
 import { MessageList } from './messageList.model';
+import { BaPageTopService} from '../../theme';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -29,7 +30,7 @@ export class MessagesComponent implements OnInit{
     longitude: number;
     name: string = "";
 
-    constructor(private messageService: MessagesService, private router: Router, private route: ActivatedRoute){
+    constructor(private messageService: MessagesService, private router: Router, private route: ActivatedRoute,private pageTopService: BaPageTopService){
         let moment = require('../../../../node_modules/moment/moment.js');
         moment.locale('pl');
     }
@@ -60,7 +61,7 @@ export class MessagesComponent implements OnInit{
     }
 
     getMessages(page: any){
-        
+        this.pageTopService.showLoadingBar(true);
         switch (this.dest) {
             case '':
                 console.log('switch: ');
@@ -80,10 +81,11 @@ export class MessagesComponent implements OnInit{
                                 console.log('komunikaty: ');
                                 console.dir(this.messageList);
                             }
+                             this.pageTopService.showLoadingBar(false);
                         });
                     });
                 } else {
-                    this.busy = this.messageService.getMessages(page, 0, 0).subscribe(result => {
+                    this.busy = this.messageService.getMessages(page, 0, 0).subscribe(result => {           
                         if(page === 1) {
                             this.messageList = result;
                         } else {
@@ -91,6 +93,7 @@ export class MessagesComponent implements OnInit{
                             this.messageList.isLastPage = result.isLastPage;
                             this.canScrool = true;
                         }
+                         this.pageTopService.showLoadingBar(false);
                     });
                 }
                 
@@ -119,6 +122,7 @@ export class MessagesComponent implements OnInit{
                                
                                 
                             }
+                             this.pageTopService.showLoadingBar(false);
                         });
                     });
                 } else {
@@ -130,6 +134,7 @@ export class MessagesComponent implements OnInit{
                             this.messageList.isLastPage = result.isLastPage;
                             this.canScrool = true;
                         }
+                         this.pageTopService.showLoadingBar(false);
                     });
                 }
                 
@@ -149,6 +154,7 @@ export class MessagesComponent implements OnInit{
                                 this.messageList = result;
                                 console.log('favsy message list:');
                                 console.dir(result);
+                                 this.pageTopService.showLoadingBar(false);
                             });
                         });
                     }
@@ -175,6 +181,7 @@ export class MessagesComponent implements OnInit{
                                     this.messageList.isLastPage = result.isLastPage;
                                     this.canScrool = true;
                                 }
+                                 this.pageTopService.showLoadingBar(false);
                             });
                         });
                     } else {
@@ -189,6 +196,7 @@ export class MessagesComponent implements OnInit{
                                 this.messageList.isLastPage = result.isLastPage;
                                 this.canScrool = true;
                             }
+                             this.pageTopService.showLoadingBar(false);
                         });
                     }
                 break;
@@ -252,7 +260,7 @@ export class MessagesComponent implements OnInit{
     filter(event: any){
         // console.log('data event: ');
         // console.dir(event);
-
+        this.pageTopService.showLoadingBar(true);
         let i = 0;
         Object.keys(event).forEach((key)=>{
             if(event[key]) i++;
@@ -293,6 +301,7 @@ export class MessagesComponent implements OnInit{
             if(i > 1)
                 this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
                     this.messageList = result;
+                    this.pageTopService.showLoadingBar(false);
                 });
             else
                 this.getMessages(this.pageNumber);
@@ -301,23 +310,28 @@ export class MessagesComponent implements OnInit{
     }
 
     filterFavourites(sortType: string): void{
+        this.pageTopService.showLoadingBar(true);
         this.messageService.getFilterMessages('sortType=' + sortType, this.pageNumber).subscribe(result => {
             this.messageList = result;
+            this.pageTopService.showLoadingBar(false);
         });
     }
 
     getSearchMessages(searchTerm: string) {
+         this.pageTopService.showLoadingBar(true);
         if("geolocation"  in navigator){
             navigator.geolocation.getCurrentPosition((position) => {
                 this.latitude = position.coords.latitude;
                 this.longitude = position.coords.longitude;
                 this.messageService.searchMessages(searchTerm, this.pageNumber, this.latitude, this.longitude).subscribe(result => {
                     this.messageList = result;
+                    this.pageTopService.showLoadingBar(false);
                 });
             });
         }
         this.messageService.searchMessages(searchTerm, this.pageNumber, 0, 0).subscribe(result => {
             this.messageList = result;
+            this.pageTopService.showLoadingBar(false);
         });
     }
 
@@ -337,6 +351,7 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getActiveMessages(this.pageNumber, date, this.latitude, this.longitude, this.id).subscribe(
                     result => {
                         this.messageList = result;
+                         this.pageTopService.showLoadingBar(false);
                         // console.log('active posts: ');
                         // console.dir(result);
                     },
@@ -362,6 +377,7 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getFilterMessages(params, this.pageNumber).subscribe(
                     result => {
                         this.messageList = result;
+                         this.pageTopService.showLoadingBar(false);
                         // console.log('ended posts: ');
                         // console.dir(result);
                     },

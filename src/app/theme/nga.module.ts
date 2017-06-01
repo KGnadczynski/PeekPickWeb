@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { NgUploaderModule } from 'ngx-uploader';
 import { Ng2LetterAvatar } from "ng2letteravatar/ng2letteravatar";
 import { Ng2CompleterModule } from "ng2-completer";
+import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
 
 import {
   BaThemeConfig
@@ -115,11 +116,13 @@ const NGA_VALIDATORS = [
     FormsModule,
     ReactiveFormsModule,
     NgUploaderModule,
+    SlimLoadingBarModule.forRoot()
   ],
   exports: [
     ...NGA_PIPES,
     ...NGA_DIRECTIVES,
     ...NGA_COMPONENTS,
+    SlimLoadingBarModule,
     Ng2LetterAvatar
   ]
 })

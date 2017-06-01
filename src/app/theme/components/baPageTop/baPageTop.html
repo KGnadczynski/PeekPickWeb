@@ -1,5 +1,5 @@
 <div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled}">
-  
+   <ng2-slim-loading-bar [height]="'5px'"></ng2-slim-loading-bar>
   <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
 
   <a routerLink="/pages/komunikat" class="al-logo clearfix">
@@ -9,7 +9,7 @@
   <span>peekpick</span>
 
   <div class="dropdown hidden-xs-down">
-      <ng2-completer [(ngModel)]="searchStr" [dataService]="dataService" [minSearchLength]="0"></ng2-completer>
+      <ng2-completer [(ngModel)]="searchStr" [dataService]="dataService" [minSearchLength]="0" (selected)="onSelected($event)" [textNoResults]="'Brak wyników'" [textSearching]="'Proszę czekać...'"></ng2-completer>
   </div>
 
   <div class="dropdown" *ngIf="isLogged">
@@ -18,8 +18,6 @@
           <a *ngFor="let messageType of messageTypesOb" [routerLink]="['/pages/add_message/', messageType.value]">{{ messageType.value }} </a>
       </div>
   </div>
-
-  <i id="searchIcon" class="fa fa-search fa-2x" aria-hidden="true" [routerLink]="['/pages/search/']"></i>
 
   <div class="user-profile clearfix hidden-sm-down" *ngIf="isLogged">
       <div class="dropdown al-user-profile">
@@ -43,3 +41,4 @@
     </div>
 
   </div>
+  

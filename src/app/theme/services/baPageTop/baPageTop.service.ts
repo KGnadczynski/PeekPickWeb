@@ -5,9 +5,16 @@ import { Subject }    from 'rxjs/Subject';
 export class BaPageTopService {
 
   loggedChange: Subject<number> = new Subject<number>();
+  showLoading: Subject<boolean> = new Subject<boolean>();
 
   public changedLoggedFlag(companyId:number):void {
       this.loggedChange.next(companyId)
   }
+
+  public showLoadingBar(show:boolean):void {
+      this.showLoading.next(show);
+  }
+
+ 
 
 }
