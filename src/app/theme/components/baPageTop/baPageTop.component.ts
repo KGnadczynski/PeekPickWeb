@@ -7,6 +7,7 @@ import { url } from '../../../globals/url';
 import { ProfileService } from '../../../pages/profile/profile.service';
 import { CompleterService, RemoteData} from 'ng2-completer';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
+import { Router, NavigationExtras } from '@angular/router';
 
 import { tokenNotExpired } from 'angular2-jwt';
 
@@ -41,8 +42,8 @@ export class BaPageTop implements OnInit{
     { color: 'black', value: '#000' }
   ];
 
-  constructor(private _state:GlobalState,private communicationservice: CommunicationService,private pageTopService: BaPageTopService,private profileService: ProfileService,private completerService: CompleterService,private slimLoadingBarService: SlimLoadingBarService) {
-    this.dataService =  completerService.remote(url+ '/messages/page/1?searchTerm=','user.name,content','user.name,content');
+  constructor(private _state:GlobalState,private communicationservice: CommunicationService,private pageTopService: BaPageTopService,private profileService: ProfileService,private completerService: CompleterService,private slimLoadingBarService: SlimLoadingBarService, private router: Router) {
+    this.dataService =  completerService.remote(url+ '/messages/page/1?searchTerm=','user.name,content','user.name,content').imageField("user.company.mainImageUrl");
     this.dataService.dataField('objectList');
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
@@ -151,4 +152,18 @@ export class BaPageTop implements OnInit{
     completeLoading() {
         this.slimLoadingBarService.complete();
     }
+
+    onSelected(item: CompleterItem) {
+      console.log('Wybrano '+JSON.stringify(item));
+      if(item == null) {
+          this.router.navigate(['/pages/komunikat']);
+      } else {
+      let navigationExtras: NavigationExtras = {
+            queryParams: {
+                "searchTerm": item.originalObject.content
+            }
+        };
+        this.router.navigate(['/pages/komunikat'], navigationExtras);
+      }
+  }
 }
