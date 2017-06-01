@@ -5,7 +5,7 @@ import { MessageType } from '../../../globals/enums/message-type.enum';
 import { BaPageTopService } from '../../services';
 import { url } from '../../../globals/url';
 import { ProfileService } from '../../../pages/profile/profile.service';
-import { CompleterService, RemoteData} from 'ng2-completer';
+import { CompleterItem,CompleterService, RemoteData} from 'ng2-completer';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 import { Router, NavigationExtras } from '@angular/router';
 
