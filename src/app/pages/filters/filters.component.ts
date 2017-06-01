@@ -66,6 +66,8 @@ export class FiltersComponent implements OnInit{
             trades: this.fb.array([]),
             subtrades: this.fb.group({})
         });
+        
+        let x = 0;
 
         this.filterForm.valueChanges.subscribe(data => {
 
@@ -118,7 +120,6 @@ export class FiltersComponent implements OnInit{
                 params.startBeforeDate = date;
             }
                 
-            
             for(let i = 0; i < data.types.length; i++)
                 if(data.types[i])
                     params.messageTypeList += this.messageTypesOb[i].name + ";";
@@ -140,10 +141,13 @@ export class FiltersComponent implements OnInit{
             });
 
             // console.log('params length: ' + i);
-
+            
             if(i > 1){
+                x = 1;
                 // console.log('params: ');
                 // console.dir(params);
+                this.myEvent.emit(params);
+            } else if(i === 1 && x === 1){
                 this.myEvent.emit(params);
             }
 

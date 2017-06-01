@@ -267,6 +267,9 @@ export class MessagesComponent implements OnInit{
         });
         
         let params: string = "";
+        event.messageTypeList = event.messageTypeList.substring(0, event.messageTypeList.length-1);
+        event.companyCategoryMainIdList = event.companyCategoryMainIdList.substring(0, event.companyCategoryMainIdList.length-1);
+        event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
 
         Object.keys(event).forEach((key) => {
             if(event[key])
@@ -277,7 +280,18 @@ export class MessagesComponent implements OnInit{
         if(this.latitude !== undefined && this.longitude !== undefined)
             params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
 
-        if(i === 1 && params === 'sortType=CREATE_DATE'){
+        //if(i === 1){
+           // this.getMessages(this.pageNumber);
+        //} else {
+
+            this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
+                this.messageList = result;
+                console.log('result: ');
+                console.dir(result);
+            });
+        //}
+
+        /*if(i === 1 && params === 'sortType=CREATE_DATE'){
             console.log('jest tylko cerate date');
         } else {
             event.messageTypeList = event.messageTypeList.substring(0, event.messageTypeList.length-1);
@@ -291,7 +305,7 @@ export class MessagesComponent implements OnInit{
                 });
             else
                 this.getMessages(this.pageNumber);
-        }
+        }*/
 
     }
 

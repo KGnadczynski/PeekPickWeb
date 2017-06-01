@@ -9,8 +9,6 @@ import { CompleterItem,CompleterService, RemoteData} from 'ng2-completer';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 import { Router, NavigationExtras } from '@angular/router';
 
-import { tokenNotExpired } from 'angular2-jwt';
-
 @Component({
   selector: 'ba-page-top',
   styles: [require('./baPageTop.scss')],
@@ -50,6 +48,11 @@ export class BaPageTop implements OnInit{
     });
     this.pageTopService.loggedChange.subscribe((value) => { 
       this.isLogged = true;
+      this.profileService.getUser().subscribe(
+        result => {
+            this.name = result.company.name;
+        }
+      );
       if(value === -1)
         this.isLogged = false;
         console.log('value: ' + value);
