@@ -48,6 +48,11 @@ export class BaPageTop implements OnInit{
     });
     this.pageTopService.loggedChange.subscribe((value) => { 
       this.isLogged = true;
+      this.profileService.getUser().subscribe(
+        result => {
+            this.name = result.company.name;
+        }
+      );
       if(value === -1)
         this.isLogged = false;
         console.log('value: ' + value);
