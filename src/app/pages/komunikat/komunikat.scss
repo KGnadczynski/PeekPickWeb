@@ -9,6 +9,13 @@ div#addIcon{
 
 div#filterMessages{
     padding: 1vw 3vw;
+    @media (max-width: 576px){
+        padding: 1vw 3vw;
+    }
+    @media (min-width: 577px) and (max-width: 992px){
+        padding: 1vw 12vw;
+    }
+    
 }
 
 div#googleForm{

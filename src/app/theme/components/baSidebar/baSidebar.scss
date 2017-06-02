@@ -1,19 +1,26 @@
 @import '../../sass/conf/conf';
 
+$redColor: #A20E12;
+$blackColor: #263238;
+
 $sidebar-scroll-width: 4px;
 $angle-left: "\f100";
 $angle-right: "\f101";
 
 .al-sidebar {
   width: $sidebar-width;
-  top: $top-height;
+  top: 67px;
   left: 0;
   z-index: 1001;
   display: block;
   min-height: 100%;
-  background-color: $sidebar;
+  background-color: white;
   height: 100%;
   position: fixed;
+
+  @media(max-width: 1200px){
+      background-color: white !important;
+  }
 }
 
 .al-sidebar-list {
@@ -38,10 +45,18 @@ $angle-right: "\f101";
   position: relative;
   float: none;
   padding: 0;
+
+  a.al-sidebar-list-link{
+      color: $blackColor;
+      &:hover {
+          color: $redColor;
+      }
+  }
+
   &.selected:not(.with-sub-menu) {
     background-color: $sidebar-elem;
     a.al-sidebar-list-link {
-      color: $sidebar-text;
+      color: white;
       b {
         color: $sidebar-text;
       }
@@ -171,7 +186,7 @@ a.al-sidebar-list-link {
 
 .sidebar-hover-elem{
   width: $sidebar-scroll-width;
-  background: $primary;
+  background: $redColor;
   position: absolute;
   top: -150px;
   left: $sidebar-width - $sidebar-scroll-width;
