@@ -96,12 +96,9 @@ export class Login implements OnInit{
                            data => {
                              localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
                              this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
-<<<<<<< HEAD
                              this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);
-=======
                              this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);    
                              this.pageTopService.showLoadingBar(false);
->>>>>>> 0f21c8c1c8cb9b393d5779dda37a01911ab2f416
                              this.router.navigate(['/komunikat']);
                             },
                              error => {
