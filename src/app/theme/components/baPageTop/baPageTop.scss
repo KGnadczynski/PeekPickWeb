@@ -153,3 +153,29 @@ $redColor: #A20E12;
 .completer-title {
     top: 10%;
 }
+
+@media(max-width: 575px){
+    span{
+        color: green !important;
+    }
+}
+@media (min-width: 576px) {
+    span{
+        color: red !important;
+    }
+}
+@media (min-width: 768px) {
+    span{
+        color: orange !important;
+    }
+}
+@media (min-width: 992px) {
+    span{
+        color: blue !important;
+    }
+}
+@media (min-width: 1200px) {
+    span{
+        color: yellow !important;
+    }
+}
