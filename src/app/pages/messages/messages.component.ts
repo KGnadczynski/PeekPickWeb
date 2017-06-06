@@ -83,6 +83,8 @@ export class MessagesComponent implements OnInit{
                             }
                              this.pageTopService.showLoadingBar(false);
                         });
+                    }, (error) => {
+                           this.getMessagesWhenGeolocationDisabled(page);
                     });
                 } else {
                     this.busy = this.messageService.getMessages(page, 0, 0).subscribe(result => {           
@@ -124,6 +126,8 @@ export class MessagesComponent implements OnInit{
                             }
                              this.pageTopService.showLoadingBar(false);
                         });
+                    }, (error) => {
+                           this.getMessagesWhenGeolocationDisabled(page);
                     });
                 } else {
                     this.busy = this.messageService.getCompanyMessages(page, this.id, 0, 0).subscribe(result => {
@@ -156,7 +160,9 @@ export class MessagesComponent implements OnInit{
                                 console.dir(result);
                                  this.pageTopService.showLoadingBar(false);
                             });
-                        });
+                        }, (error) => {
+                           this.getMessagesWhenGeolocationDisabled(page);
+                    });
                     }
                 }
                 else
@@ -183,6 +189,8 @@ export class MessagesComponent implements OnInit{
                                 }
                                  this.pageTopService.showLoadingBar(false);
                             });
+                        }, (error) => {
+                           this.getMessagesWhenGeolocationDisabled(page);
                         });
                     } else {
                         this.busy = this.messageService.getCompanyCategoryMessages(this.id, page, 0, 0).subscribe(result => {
@@ -244,6 +252,20 @@ export class MessagesComponent implements OnInit{
     navigateToMap(id: number){
         console.log('odpalamy mape');
         this.router.navigate(['/pages/mapmodal', id]);
+    }
+
+    getMessagesWhenGeolocationDisabled(page :any) {
+          console.log('GEOLOCATION ERROR');
+            this.busy = this.messageService.getMessages(page, 0, 0).subscribe(result => {           
+            if(page === 1) {
+                this.messageList = result;
+            } else {
+                this.messageList.messages = this.messageList.messages.concat(result.messages);
+                this.messageList.isLastPage = result.isLastPage;
+                this.canScrool = true;
+            }
+            this.pageTopService.showLoadingBar(false);
+            });
     }
 
     goToSingle(id: number){
