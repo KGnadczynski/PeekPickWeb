@@ -221,8 +221,12 @@ export class AddMessageComponent implements OnInit {
     }
 
     ngOnInit(): void{  
+        if(localStorage.getItem('latitude') != null) {
         this.lat = JSON.parse(localStorage.getItem('latitude')).latitude;
-        this.lng = JSON.parse(localStorage.getItem('longitude')).longitude;
+        }
+        if(localStorage.getItem('longitude') != null) {
+            this.lng = JSON.parse(localStorage.getItem('longitude')).longitude;
+        }
         this.msgAddModel.startDate = moment().format("YYYY-MM-DD HH:mm:ss");
         this.msgAddModel.endDate = moment().format("YYYY-MM-DD HH:mm:ss");
         let user = JSON.parse(localStorage.getItem('user'));
