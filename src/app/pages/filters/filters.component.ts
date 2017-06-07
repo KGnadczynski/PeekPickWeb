@@ -127,8 +127,9 @@ export class FiltersComponent implements OnInit{
                 this.width = window.innerWidth;
                 if(this.width > 992){
                     this.isFiltryCollapse = false;
-                } else {
-                    this.isFiltryCollapse = true;
+                } 
+                else {
+                   this.isFiltryCollapse = true;
                 }
             });
         };

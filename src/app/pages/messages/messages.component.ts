@@ -4,6 +4,8 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { MessagesService } from './messages.service';
 import { MessageList } from './messageList.model';
 import { BaPageTopService} from '../../theme';
+import { ConfirmOptions, Position } from 'angular2-bootstrap-confirm';
+import { Positioning } from 'angular2-bootstrap-confirm/position';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -12,7 +14,7 @@ let moment = require('../../../../node_modules/moment/moment');
     encapsulation: ViewEncapsulation.None,
     styles: [require('./messages.scss')],
     template: require('./messages.component.html'),
-    providers: [MessagesService]
+    providers: [MessagesService, ConfirmOptions, {provide: Position, useClass: Positioning}]
 })
 
 export class MessagesComponent implements OnInit{
@@ -22,7 +24,7 @@ export class MessagesComponent implements OnInit{
 
     pageNumber: number = 1;
     messageList: MessageList;
-    canScrool: boolean = false;
+    canScrool: boolean = true;
     busy: Subscription;
     searchTerm: string;
     socialVisible: boolean = false;
@@ -30,7 +32,17 @@ export class MessagesComponent implements OnInit{
     longitude: number;
     name: string = "";
 
-    constructor(private messageService: MessagesService, private router: Router, private route: ActivatedRoute,private pageTopService: BaPageTopService){
+    public title: string = 'Czy jesteś pewny że chcesz usunąć tę wiadomość?';
+    public confirmClicked: boolean = false;
+    public cancelClicked: boolean = false;
+    public isOpen: boolean = false;
+
+    constructor(
+        private messageService: MessagesService, 
+        private router: Router, 
+        private route: ActivatedRoute,
+        private pageTopService: BaPageTopService
+    ){
         let moment = require('../../../../node_modules/moment/moment.js');
         moment.locale('pl');
     }
@@ -387,6 +399,19 @@ export class MessagesComponent implements OnInit{
                 );
             });
         }
+    }
+
+    deleteMessage(id: number):void {
+        this.messageService.deleteMessage(id).subscribe(
+            result => {
+                this.messageList.messages = this.messageList.messages.filter((el) => {
+                    return el.id !== id
+                });
+            },
+            error => {
+                console.log('Cannoc delete message');
+            }
+        )
     }
 
 }

@@ -99,7 +99,7 @@ export class ProfileService{
         let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
         return this.http.delete(`${url}/companybranches/${id}`, {headers: headers})
         .map((response: Response) => response.json())
-        .catch((error: any) => Observable.throw(error.json()) || 'Server output');;
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
 
     getCompanyBranch(id: number): Observable<any> {

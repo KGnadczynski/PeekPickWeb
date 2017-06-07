@@ -102,7 +102,10 @@
 					<a href="#">przedłuż</a>
 				</div>
 				<div id="delete">
-					<a href="#">usuń</a>
+					<a mwlConfirm [title]="title" placement="left" (confirm)="deleteMessage(message.id)"
+      					(cancel)="cancelClicked = true" [(isOpen)]="isOpen">
+						usuń
+					</a>
 				</div>
 			</div>
 		</div>

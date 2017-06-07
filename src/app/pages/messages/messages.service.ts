@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Response } from '@angular/http';
+import { Http, URLSearchParams, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -15,6 +15,7 @@ export class MessagesService{
     urlNew: string;
     latitude:number;
     longitude: number;
+    public token: any;
 
     constructor(private http: Http){}
 
@@ -78,6 +79,16 @@ export class MessagesService{
             this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;
         
         return this.http.get(this.urlNew).map(this.mapMessages).catch(this.handleError);
+    }
+
+    deleteMessage(id: number) {
+        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        this.token = currentUser.token;
+        let headers = new Headers({ 'Authorization': 'Bearer '+ this.token.access_token, 'Content-Type': 'application/json;charset=UTF-8'  });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.delete(url + `/messages/${id}`, options).map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
 
     mapMessages(res: Response) {
