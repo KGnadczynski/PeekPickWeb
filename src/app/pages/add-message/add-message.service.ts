@@ -10,10 +10,7 @@ import { MessageAddModel } from './add-message-model';
 @Injectable()
 export class AddMessageService {
 
-
     constructor(private http: Http){}
-
-
 
      getUserCompanyBranchList(id: number) : Observable<any>{
         return this.http.get(`${url}/companybranches/companyId/${id}`).map((res:Response) => res.json()).catch((error: any) => Observable.throw(error.json().error) || 'Server output');
@@ -26,21 +23,22 @@ export class AddMessageService {
         }
 
         let headers = new Headers();
-        let autorizationHeader = 'Bearer '+token.access_token;
+        let autorizationHeader = 'Bearer ' + token.access_token;
         headers.append('Authorization', autorizationHeader);
         headers.append('Content-Type', 'application/json');
 
         return this.http.post(`${url}/messages`, JSON.stringify(messageModel),{ headers: headers })
-
-        .map(res => res.json())
-        .catch(this.handleError);
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
 
     }
 
     handleError(error: any) {
-    console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
-  }
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
+    }
+
+    
 
    addMessageImage(imageModel:ImageModel) {
     return Observable.fromPromise(new Promise((resolve, reject) => {

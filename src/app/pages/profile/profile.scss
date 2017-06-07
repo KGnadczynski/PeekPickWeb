@@ -2,6 +2,7 @@
 //@import '../../theme/sass/auth';
 
 $redColor: #A20E12;
+$blackColor: #263238;
 
 div#profile{
     margin: auto;
@@ -21,29 +22,17 @@ div#profile{
                 border-radius: 2500px;
                 
                 @media(max-width: 575px){
-                    div.start-date{
-                        color: red;
-                    }
+                    width: 60%;
                 }
                 @media (min-width: 576px) {
-                    div.start-date{
-                        color: orange;
-                    }
+                    width: 50%;
                 }
                 @media (min-width: 768px) {
-                    div.start-date{
-                        color: yellow;
-                    }
                 }
                 @media (min-width: 992px) {
-                    div.start-date{
-                        color: blue;
-                    }
+                    width: 35%;
                 }
                 @media (min-width: 1200px) {
-                    div.start-date{
-                        color: green;
-                    }
                 }
             }
         }
@@ -271,9 +260,11 @@ div#profile{
         }
         div.md-tab-label{
             background: white;
-            border: 2px solid black;
+            border: 2px dotted $blackColor;
             opacity: 1 !important;
             padding: 0 !important;
+            font-family: 'Open Sans', sans-serif;
+            color: $blackColor;
             &:focus{
                 border: none !important;
             }
@@ -379,6 +370,7 @@ select:-webkit-autofill:focus {
 @media (min-width: 992px) {
     div#profile{
         padding-top: 2%;
+        padding-bottom: 2%;
         div#editProfile{
             width: 40%;
         }

@@ -26,9 +26,12 @@
             </div>
             <p>Data zakończenia: </p>
             <div id="checkBoxDiv">
-                <input type="checkbox" [checked]="withEndDate" (change)="addprop()">
-                <label>bez daty zakończenia</label>
+                <!--<div class="checkbox">-->
+                    <input type="checkbox" [checked]="withEndDate" (change)="addprop()">
+                    <label>bez daty zakończenia</label>
+                <!--</div>-->
             </div>
+            
             
             <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
               <input daterangepicker [(ngModel)]="msgAddModel.endDate" (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" />
@@ -37,6 +40,9 @@
             <p>Treść komunikatu</p>
             <textarea rows="5" type="text" placeholder="..." [(ngModel)]="msgAddModel.content" #messageContent maxlength="200"></textarea>
             <p>Zostało: {{200 - messageContent.value.length}} znaków</p>
+            <div class="errorDiv" *ngIf="errorInfo">
+                <span>{{ errorInfo }}</span>
+            </div>
             <div id="odzialFirmy">
               <ss-multiselect-dropdown *ngIf="showMulitSelect"  [texts]="myTexts" [settings]="mySettings" defaultTitle="Wybierz oddział" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
             </div>
@@ -64,7 +70,7 @@
 
             <div id="buttons">
               <button (click)="addMessage()">{{submitButton}}</button>
-              <button>Anuluj</button>
+              <button (click)="closeModal()">Anuluj</button>
             </div>
 
         </div>

@@ -92,6 +92,7 @@ $redColor: #A20E12;
             padding: 7px;
             border: 1px solid $redColor;
             margin-left: 15px;
+            outline: 0;
         }
     }
 
@@ -153,7 +154,7 @@ $redColor: #A20E12;
 .completer-title {
     top: 10%;
 }
-
+/*
 @media(max-width: 575px){
     span{
         color: green !important;
@@ -178,4 +179,4 @@ $redColor: #A20E12;
     span{
         color: yellow !important;
     }
-}
+}*/

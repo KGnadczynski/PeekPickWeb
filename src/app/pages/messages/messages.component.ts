@@ -22,7 +22,7 @@ export class MessagesComponent implements OnInit{
 
     pageNumber: number = 1;
     messageList: MessageList;
-    canScrool: boolean = true;
+    canScrool: boolean = false;
     busy: Subscription;
     searchTerm: string;
     socialVisible: boolean = false;
@@ -56,6 +56,7 @@ export class MessagesComponent implements OnInit{
                 this.pageNumber += 1;
                 this.canScrool = false;
                 this.getMessages(this.pageNumber);
+                console.log('SCROLLLING BADDD');
             }
         }
     }
@@ -64,7 +65,7 @@ export class MessagesComponent implements OnInit{
         this.pageTopService.showLoadingBar(true);
         switch (this.dest) {
             case '':
-                console.log('switch: ');
+                console.log('switch: same messages');
                 if("geolocation"  in navigator){
                     navigator.geolocation.getCurrentPosition((position) => {
                         this.latitude = position.coords.latitude;
@@ -261,16 +262,11 @@ export class MessagesComponent implements OnInit{
         // console.log('data event: ');
         // console.dir(event);
         this.pageTopService.showLoadingBar(true);
-        let i = 0;
-        Object.keys(event).forEach((key)=>{
-            if(event[key]) i++;
-        });
         
         let params: string = "";
         event.messageTypeList = event.messageTypeList.substring(0, event.messageTypeList.length-1);
-        event.companyCategoryMainIdList = event.companyCategoryMainIdList.substring(0, event.companyCategoryMainIdList.length-1);
         event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
-
+        
         Object.keys(event).forEach((key) => {
             if(event[key])
                 params += key + "=" + event[key] + "&";
@@ -280,32 +276,13 @@ export class MessagesComponent implements OnInit{
         if(this.latitude !== undefined && this.longitude !== undefined)
             params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
 
-        //if(i === 1){
-           // this.getMessages(this.pageNumber);
-        //} else {
+        console.log('params: ' + params);
 
-            this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
-                this.messageList = result;
-                console.log('result: ');
-                console.dir(result);
-            });
-        //}
-
-        /*if(i === 1 && params === 'sortType=CREATE_DATE'){
-            console.log('jest tylko cerate date');
-        } else {
-            event.messageTypeList = event.messageTypeList.substring(0, event.messageTypeList.length-1);
-            event.companyCategoryMainIdList = event.companyCategoryMainIdList.substring(0, event.companyCategoryMainIdList.length-1);
-            event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
-
-            if(i > 1)
-                this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
-                    this.messageList = result;
-                    this.pageTopService.showLoadingBar(false);
-                });
-            else
-                this.getMessages(this.pageNumber);
-        }*/
+        this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
+            this.messageList = result;
+            console.log('result: ');
+            console.dir(result);
+        });
 
     }
 

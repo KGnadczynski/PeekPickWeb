@@ -84,21 +84,21 @@
         <h5 *ngIf="id === undefined">Branża</h5>
 
         <div id="companyCategories" *ngIf="id === undefined">
-            <div class="categoriesI" *ngFor="let category of categories; let i = index">
-                <button type="button" (click)="category.bol = !category.bol; setTrade(category.id)">{{ category.name }}</button>
-                <div [collapse]="category.bol">
-                    <div class="subcategories" [formGroup]="subtrades">
-                        <div class="checkbox" *ngFor="let subtrade of subtrades.controls['subtrade'+(i+1)].controls; let j = index">
-                            <input type="checkbox" [formControl]="subtrade" id="{{j}}">
-                            <label for="{{j}}"></label>
+            <div class="categoriesI" *ngFor="let category of categories">
+                <button type="button" (click)="category.bol = !category.bol">{{ category.name }}</button>
+                <div [collapse]="category.bol" *ngFor="let subcategory of category.subcategories">
+                    <div class="subcategories">
+                        <div class="checkbox" >
+                            <input type="checkbox" id="sub-{{ subcategory.id }}" (click)="setSubcategory(subcategory.id)">
+                            <label for="sub-{{ subcategory.id }}"></label>
                         </div>
-                    </div>
-                    <div class="subcategoriesValues">
-                        <label *ngFor="let subc of category.subcategories">{{subc.name}}</label>
+                        <span>{{ subcategory.name }}</span>
+                        
                     </div>
                 </div>
+                
             </div>
         </div>
-
+        
     </form>
 </div>

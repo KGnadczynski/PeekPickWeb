@@ -30,31 +30,10 @@ export class FiltersComponent implements OnInit{
     public longitude: number;
     public zoom: number;
     width: any;
+    subcategories: {id: number, checked: boolean}[]= [];
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
-
-    get trades(): FormArray{
-        return this.filterForm.get('trades') as FormArray;
-    }
-
-    get subtrades(): FormGroup{
-        return this.filterForm.get('subtrades') as FormGroup;
-    }
-
-    addTrade(){
-        this.trades.push(new FormControl(false));
-    }
-
-    addSubTrade(id: number) {
-        let name: string = 'subtrade' + id;
-        this.subtrades.addControl(name, new FormArray([]));
-    }
-
-    addSubSubTrade(id: number) {
-        let subSub = <FormArray>this.subtrades.get('subtrade' + id);
-        subSub.push(new FormControl(false));
-    }
 
     constructor(private fb: FormBuilder, private filtersService: FiltersService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone){
         this.filterForm = this.fb.group({
@@ -63,8 +42,7 @@ export class FiltersComponent implements OnInit{
             distance : [10],
             types: fb.array([false, false, false, false, false]),
             searchControl: '',
-            trades: this.fb.array([]),
-            subtrades: this.fb.group({})
+            subtrades: ''
         });
         
         let x = 0;
@@ -74,12 +52,11 @@ export class FiltersComponent implements OnInit{
             // console.log('data: ');
             // console.dir(data);
 
-            let params: {sortType: string, startBeforeDate: string, range: number, messageTypeList: string, companyCategoryMainIdList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
+            let params: {sortType: string, startBeforeDate: string, range: number, messageTypeList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
                 sortType: '',
                 startBeforeDate: '',
                 range: 0,
                 messageTypeList: "",
-                companyCategoryMainIdList: "",
                 latitude: 0,
                 longitude: 0,
                 companyCategoryIdList: ""
@@ -123,24 +100,16 @@ export class FiltersComponent implements OnInit{
             for(let i = 0; i < data.types.length; i++)
                 if(data.types[i])
                     params.messageTypeList += this.messageTypesOb[i].name + ";";
-                
-            for(let i = 0; i < data.trades.length; i++)
-                if(data.trades[i]){
-                    params.companyCategoryMainIdList += (i+1) + ";";
-                }
             
-            Object.keys(data.subtrades).forEach((key) =>{
-                data.subtrades[key].forEach((v, i) => {
-                    if(v) params.companyCategoryIdList += (i+1) + ';';
-                });
-            });
+            if(data.subtrades)
+                params.companyCategoryIdList = data.subtrades;
 
             let i = 0;
             Object.keys(params).forEach((key)=>{
                 if(params[key]) i++;
             });
 
-            // console.log('params length: ' + i);
+            console.log('params length: ' + i);
             
             if(i > 1){
                 x = 1;
@@ -166,11 +135,6 @@ export class FiltersComponent implements OnInit{
 
     }
 
-    setTrade(id: number){
-        let valueBool = this.trades.at(id-1);
-        let trades = this.trades.at(id-1).setValue(!valueBool.value);
-    }
-
     ngOnInit(): void {
 
         if(window.innerWidth > 992){
@@ -184,18 +148,26 @@ export class FiltersComponent implements OnInit{
         this.longitude = -98.5795;
 
         this.filtersService.getCompanyCategories().subscribe(resultCategories => {
-            resultCategories.forEach(()=>this.addTrade());
-            resultCategories.forEach((i) => this.addSubTrade(i.id));
+            //resultCategories.forEach(()=>this.addTrade());
+            
+            // console.log('i: ');
+            //resultCategories.forEach(
+              //  (i) => 
+                    //console.dir(i)
+                    //this.addSubTrade(i.id)
+            //);
+            // console.log('result categories:');
+            // console.dir(resultCategories);
             for(let categ in resultCategories){
                 this.filtersService.getCategorySubcategories(resultCategories[categ].id).subscribe(resultSub => {
                     this.categories.push({id: resultCategories[categ].id, name: resultCategories[categ].name, subcategories: resultSub, bol: true});
                     // resultSub.forEach(() => this.addSubSubTrade(resultCategories[categ].id));
                     // console.log('ID:::: ' + this.categories[categ].id);
-                    for(let x in this.categories)
+                    /*for(let x in this.categories)
                         if(this.categories[x].id === resultCategories[categ].id)
                             this.categories[x].subcategories.forEach(() => {
                                 this.addSubSubTrade(this.categories[x].id);
-                            });
+                            });*/
                 });
             }
             
@@ -220,6 +192,40 @@ export class FiltersComponent implements OnInit{
 
     logText(mdCheckbox: any){
         console.log('md checkbox: ' + mdCheckbox.value);
+    }
+
+    setSubcategory(id: number): void {
+
+        let o = {id: 0, checked:false};
+
+        let checkIfIdExists = this.subcategories.findIndex(s => s.id === id) !== -1;
+        let checkIfCheckedAndExists = this.subcategories.findIndex(s => s.id === id && s.checked) !== -1;
+
+        if(checkIfIdExists){
+            if(checkIfCheckedAndExists){
+                this.subcategories[this.subcategories.findIndex(s => s.id === id)].checked = false;
+            } 
+             else{
+                this.subcategories[this.subcategories.findIndex(s => s.id === id)].checked = true;
+             }
+        } else {
+            o ={
+                id: id,
+                checked: true
+            }
+            this.subcategories.push(o);
+        }
+
+        let ids: string = "";
+        for(let i = 0; i < this.subcategories.length; i++){
+            if(this.subcategories[i].checked){
+                ids += this.subcategories[i].id + ';';
+            }
+        }
+
+        let subtrades = this.filterForm.get('subtrades');
+        subtrades.reset(ids);
+
     }
     
 }

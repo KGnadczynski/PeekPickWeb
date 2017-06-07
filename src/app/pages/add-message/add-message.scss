@@ -1,6 +1,49 @@
 $colorRed: #A20E12;
 $colorBlack: #263238;
 
+@mixin checkboxMixin {
+    div.checkbox{
+          width: 25px;
+          margin-bottom: 10px;
+          margin-top: 10px;
+          position: relative;
+          float: left;
+          clear: both;
+          label{
+              cursor: pointer;
+              position: absolute;
+              width: 25px;
+              height: 25px;
+              top: 0;
+              left: 0;
+              background: white;
+              border: 2px dotted $colorRed;
+              margin: 0;
+              &:after{
+                  opacity: 0;
+                  content: '';
+                  position: absolute;
+                  width: 9px;
+                  height: 5px;
+                  background: transparent;
+                  top: 6px;
+                  left: 7px;
+                  border: 3px solid #333;
+                  border-top: none;
+                  border-right: none;
+
+                  transform: rotate(-45deg);
+              }
+              &:hover::after{
+                  opacity: 0;
+              }
+          }
+          input[type=checkbox]:checked + label:after{
+              opacity: 1;
+          }
+      }
+}
+
 div.modal-content{
     color: gray;
     div#addForm{
@@ -83,6 +126,8 @@ div.modal-content{
                 outline: 0;
             }
         }
+
+        //@include checkboxMixin;        
         div#checkBoxDiv{
             text-align: center;
             margin: 3% 0;
@@ -111,6 +156,21 @@ div.modal-content{
                         display: block;
                     }
                 }
+            }
+        }
+        div.errorDiv{
+            clear: both;
+            margin-bottom: 2%;
+            span{
+                display: block;
+                width: 80%;
+                text-align: center;
+                font-size: 16px;
+                font-family: 'Open Sans', sans-serif;
+                padding: 15px;
+                border: 1px dotted $colorBlack;
+                color: $colorRed;
+                margin: auto;
             }
         }
     }
@@ -153,7 +213,6 @@ div#addPhoto{
         width: 80%;
         display: block;
         margin: auto;
-        margin-top: 30%;
     }
 }
 
@@ -171,3 +230,9 @@ div#mapa{
             height: 200px;
         }
     }
+
+.modal-dialog{
+    @media (min-width: 544px){
+        // margin: 10px;
+    }
+}

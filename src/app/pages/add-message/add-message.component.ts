@@ -2,17 +2,17 @@ import { Component, OnInit, ViewEncapsulation, ViewChild, Input } from '@angular
 import { Location } from '@angular/common';
 import { AddMessageService } from './add-message.service';
 import { CommunicationService } from '../komunikat/communicationservice.component';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
 import { MessageType } from '../../globals/enums/message-type.enum';
 import { MessageAddModel } from './add-message-model';
 import { NgUploaderOptions } from 'ngx-uploader';
 import { AgmMap } from '@agm/core';
 import { MapsAPILoader } from '@agm/core'
-import {ImageModel} from "./imagemodel";
+import { ImageModel } from "./imagemodel";
 import { MessagesService } from '../messages/messages.service';
-import { ObjectList} from '../messages/message';
-import {CompanyBranchList} from "./add-message-model";
+import { ObjectList } from '../messages/message';
+import { CompanyBranchList } from "./add-message-model";
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { DaterangepickerConfig } from 'ng2-daterangepicker';
@@ -55,7 +55,8 @@ export class AddMessageComponent implements OnInit {
     };
     @Input() disVal:string = "false";
     ifTextAreaDisabled: boolean = false;
-    
+    errorInfo: string;
+
     zoom: number = 8;   
     lat: number;
     lng: number;
@@ -69,7 +70,7 @@ export class AddMessageComponent implements OnInit {
     companyBranchListSelectedFinal: CompanyBranchList[] =[];
 
     showMulitSelect:boolean = false;
-    // Settings configuration
+
     mySettings: IMultiSelectSettings = {
         checkedStyle: 'glyphicon',
         dynamicTitleMaxItems: 3,
@@ -78,7 +79,6 @@ export class AddMessageComponent implements OnInit {
         displayAllSelectedText: true
     };
 
-// Text configuration
     myTexts: IMultiSelectTexts = {
         checkAll: 'Wybierz wszystkie',
         uncheckAll: 'Wyczyść',
@@ -209,7 +209,8 @@ export class AddMessageComponent implements OnInit {
         private communicationservice: CommunicationService,
         private mapsApiLoader: MapsAPILoader,
         private messageService: MessagesService,
-        private daterange: DaterangepickerConfig
+        private daterange: DaterangepickerConfig,
+        private router: Router
     ){
         this.mapsApiLoader.load().then(() => {
         console.log('google script loaded');
@@ -356,28 +357,22 @@ export class AddMessageComponent implements OnInit {
     addMessage(): void{
         
         this.messageAddModel = new MessageAddModel(this.locationChanged);
-        //content
         this.messageAddModel.content = this.msgAddModel.content;
 
         if(this.msgAddModel.id != null) {
             this.messageAddModel.id = this.msgAddModel.id;
         }
-        
-        //startDate
+
         this.messageAddModel.startDate =  moment(new Date(this.msgAddModel.startDate)).format("YYYY-MM-DDTHH:mm:ssZZ");
 
-        //endDate
         if(this.msgAddModel.endDate != null) {
           this.messageAddModel.endDate = moment(new Date(this.msgAddModel.endDate)).format("YYYY-MM-DDTHH:mm:ssZZ");
         }
-        //type
+
         this.messageAddModel.type = this.messageTypeName;
 
-        //status
         this.messageAddModel.status = "NEW";
 
-
-        //companyBranchList
         console.log('showMulitSelect '+this.showMulitSelect);
         if(this.showMulitSelect) {
             if(this.companyBranchListSelectedFinal.length>=1) {
@@ -390,10 +385,9 @@ export class AddMessageComponent implements OnInit {
         } else {
         this.messageAddModel.companyBranchList = this.companyBranchList;
         }
-        //companyBranchCount
+
         this.messageAddModel.companyBranchCount = this.messageAddModel.companyBranchList.length;
 
-        //location
         console.log('LOCATION CHANGED '+this.locationChanged);
         if(this.locationChanged) {
             this.messageAddModel.location.address=this.localization;
@@ -427,7 +421,9 @@ export class AddMessageComponent implements OnInit {
                 }
             },
         error => {
-            
+            console.log('error post:');
+            console.dir(error);
+            this.errorInfo = 'Musisz wpisać treść postu przed stworzeniem';
         }
       );
     }
@@ -445,6 +441,10 @@ export class AddMessageComponent implements OnInit {
             }
         
         }
+    }
+
+    closeModal(){
+        this.router.navigateByUrl('/pages/komunikat');
     }
 
 }
