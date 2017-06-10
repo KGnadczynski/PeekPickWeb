@@ -51,6 +51,9 @@ export class BaPageTop implements OnInit{
       this.profileService.getUser().subscribe(
         result => {
             this.name = result.company.name;
+        }, 
+        error => {
+            this.isLogged = false;
         }
       );
       if(value === -1)

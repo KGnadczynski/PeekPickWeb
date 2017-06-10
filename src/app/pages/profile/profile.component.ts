@@ -12,13 +12,15 @@ import { ImageModel } from '../add-message/imagemodel';
 import { BaMenuService, BaPageTopService} from '../../theme';
 import { Routes } from '@angular/router';
 import { PAGES_MENU } from '../pages.menu';
+import { ConfirmOptions, Position } from 'angular2-bootstrap-confirm';
+import { Positioning } from 'angular2-bootstrap-confirm/position';
 
 @Component({
   selector: 'profile',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./profile.scss')],
   template: require('./profile.html'),
-  providers: [ProfileService]
+  providers: [ProfileService, ConfirmOptions, {provide: Position, useClass: Positioning}]
 })
 export class ProfileComponent implements OnInit {
 
@@ -37,13 +39,17 @@ export class ProfileComponent implements OnInit {
         picture: 'assets/img/theme/add-icon.png'
     };
     isCollapse:boolean = true;
-    error: any;
+    error: string="";
     public uploaderOptions:NgUploaderOptions = {
         url: '',
     };
     @ViewChild('fileUpload') public fileUpload:any;
     @ViewChild('msgs') messagesCom: MessagesComponent;
     name: string = '';
+    public title: string = 'Czy jesteś pewny że chcesz usunąć ten oddział?';
+    public confirmClicked: boolean = false;
+    public cancelClicked: boolean = false;
+    public isOpen: boolean = false;
 
     constructor(private menuService: BaMenuService, private profileService: ProfileService, private _http: Http, private router: Router, private fb: FormBuilder){
         this.passwordForm = fb.group({
@@ -75,10 +81,10 @@ export class ProfileComponent implements OnInit {
         });
 
         this.branchForm = fb.group({
-            'name': '',
-            'city': '',
-            'street': '',
-            'streetNo': '',
+            'name': [null, Validators.required],
+            'city': [null, Validators.required],
+            'street': [null, Validators.required],
+            'streetNo': [null, Validators.required],
             'website': '',
             'phoneNumber': '',
             'openingHours': '',
@@ -261,18 +267,20 @@ export class ProfileComponent implements OnInit {
     }
 
     deleteBranch(id: number): void{
-        this.profileService.deleteBranch(id).subscribe(result => {
-            this.companyBranches = this.companyBranches.filter((el) => {
-                return el.id !== id
-            });
-        });
-
-        this.profileService.deleteBranch(id).map(res => res.json()).subscribe(
-            (data) => this.companyBranches = this.companyBranches.filter((el) => {
-                return el.id !== id
-            }),
-            (err) => this.error = err
-        );
+        console.log('deleteing');
+        this.profileService.deleteBranch(id).subscribe(
+            result => {
+                this.companyBranches = this.companyBranches.filter((el) => {
+                    return el.id !== id
+                });
+            },
+            error => {
+                this.error = "Nie można usunąć głównego oddziału";
+                console.log('error from deleting: ');
+                console.dir(error);
+            }
+        )
+        
     }
 
     addNewBranch(value): void{
@@ -318,7 +326,12 @@ export class ProfileComponent implements OnInit {
 
                     console.log('result adding: ');
                     console.dir(result);
-                });
+                },
+                error => {
+                    console.log('error post');
+                    console.dir(error);
+                }
+                );
             });
         });
     }

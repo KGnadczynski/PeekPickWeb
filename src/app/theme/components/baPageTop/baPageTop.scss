@@ -23,7 +23,7 @@ $redColor: #A20E12;
         outline: none !important;
         
         @media(max-width: 575px){
-            margin-left: 20%;
+            margin-left: 13%;
         }
         @media (min-width: 576px){
             margin-left: 25%;
@@ -91,7 +91,6 @@ $redColor: #A20E12;
             border-radius: 1px;
             padding: 7px;
             border: 1px solid $redColor;
-            margin-left: 15px;
             outline: 0;
         }
     }

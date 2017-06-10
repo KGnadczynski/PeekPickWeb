@@ -8,6 +8,7 @@ import { MessagesModule } from '../messages/messages.module';
 import { NgaModule } from '../../theme/nga.module';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { Ng2TabModule } from 'ng2-tab';
+import {ConfirmModule} from 'angular2-bootstrap-confirm';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { Ng2TabModule } from 'ng2-tab';
     Ng2TabModule,
     NgaModule,
     ReactiveFormsModule,
-    CollapseModule
+    CollapseModule,
+    ConfirmModule
   ],
   declarations: [
     ProfileComponent

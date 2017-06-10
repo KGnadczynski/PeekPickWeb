@@ -202,6 +202,22 @@ div.messages{
                 a{
                     color: $message_color;
                     font-size: 16px;
+                    cursor: pointer;
+                }
+            }
+            div.popover{
+                border: 1px solid $message_color;
+            }
+            h3.popover-title{
+                background: white;
+                border-bottom-color: $message_color;
+                color: $message_color;
+            }
+            div.popover-content{
+                button.btn-success{
+                    color: $redColor;
+                    border: 2px dotted $redColor;
+                    background: white;
                 }
             }
            

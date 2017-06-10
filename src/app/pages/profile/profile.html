@@ -14,7 +14,7 @@
             <md-tab-group>
                 <md-tab>
                     <template md-tab-label>
-                        <p class="hidden-sm-down">Moje posty</p>
+                        <p class="hidden-md-down">Moje posty</p>
                     </template>
                     <template md-tab-content>
                         <div id="activeAndEndedPosts">
@@ -39,11 +39,14 @@
 
                 <md-tab>
                     <template md-tab-label>
-                        <p class="hidden-sm-down">Edytuj profil</p>
+                        <p class="hidden-md-down">Edytuj profil</p>
                     </template>
                     <template md-tab-content>
                         <div id="daneFirmy">
-                            <h3>zmień hasło/email</h3>
+                            <div id="header">
+                                <h3>zmień hasło</h3>
+                            </div>
+                            
                             <form id="changeEP" [formGroup]="passwordForm" (ngSubmit)="udpatePassword(passwordForm.value)">
                                 <div [ngClass]="{'has-error':!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched}">
                                     <input type="password" id="oldPassword" placeholder="stare hasło" [formControl]="passwordForm.controls['oldPassword']">
@@ -68,12 +71,15 @@
 
                 <md-tab>
                     <template md-tab-label>
-                        <p class="hidden-sm-down">Edytuj Dane Firmy</p>
+                        <p class="hidden-md-down">Edytuj Dane Firmy</p>
                     </template>
 
                     <template md-tab-content>
                         <div id="editProfile">
-                        <h3>edytuj profil</h3>
+                            <div id="editH">
+                                <h3>edytuj profil</h3>
+                            </div>
+
                             <form id="changeCI" [formGroup]="companyForm" (ngSubmit)="udpateCompanyName(companyForm.value)">
                                 <div class="image-upload">
                                     <ba-picture-uploader #fileUpload (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
@@ -95,7 +101,7 @@
                                     </div>
                                     <div id="streetNo">
                                         <label for="numer">nr ulicy</label>
-                                        <input type="text" id="numer" formControlName="streetNo">
+                                        <input type="number" id="numer" formControlName="streetNo">
                                     </div>
                                 </div>
                                 <button type="submit">Zapisz</button>
@@ -106,7 +112,7 @@
 
                 <md-tab>
                     <template md-tab-label>
-                        <p class="hidden-sm-down">Dodatkowe Informacje</p>
+                        <p class="hidden-md-down">Dodatkowe Informacje</p>
                     </template>
                     <template md-tab-content>
                         <div id="additionalInfo">
@@ -140,7 +146,7 @@
                 </md-tab>
                 <md-tab>
                 <template md-tab-label>
-                    <p class="hidden-sm-down">Oddziały</p>
+                    <p class="hidden-md-down">Oddziały</p>
                 </template>
                 <template md-tab-content>
                     <div id="branches">
@@ -201,7 +207,7 @@
                                     Musisz wpisać opis
                                 </div>
 
-                                <input type="submit" value="Stwórz oddział">
+                                <input type="submit" [disabled]="!branchForm.valid"  value="Stwórz oddział">
                                 <!--<input type="submit" [disabled]="!branchForm.valid" value="Stwórz oddział">-->
                             </form>
                         </div>
@@ -220,14 +226,15 @@
                             </p>
                             <p class="buttons">
                                 <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>
-                                <button class="deleteBranch" (click)="deleteBranch(branch.id)">Usuń oddział</button>
+                                <!--<button class="deleteBranch" (click)="deleteBranch(branch.id)">Usuń oddział</button>-->
+                                <button class="deleteBranch" mwlConfirm [title]="title" placement="left" (confirm)="deleteBranch(branch.id)"
+      					(cancel)="cancelClicked = true" [(isOpen)]="isOpen">Usuń oddział</button>
                                 <button *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
                             </p>
                             <p *ngIf="branch.main">
                                 <span *ngIf="error" class="error">Nie można usunąć głównego oddziału</span>
                             </p>
                             <div class="editBranch" [collapse]="branch.collapse">
-                                <h4>Edytuj oddział</h4>
                                 <form [formGroup]="branchForm" (ngSubmit) = "editBranch(branchForm.value, branch.id)">
                                     <label>Nazwa</label>
                                     <input type="text" id="name" formControlName="name">
@@ -284,7 +291,7 @@
                                     </div>
 
                                     <!--<input type="submit" [disabled]="!branchForm.valid" value="Stwórz oddział">-->
-                                    <input type="submit" value="Stwórz oddział">
+                                    <input type="submit" value="Edytuj oddział">
                                 </form>
                             </div>
                         </div>

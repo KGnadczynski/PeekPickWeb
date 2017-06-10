@@ -5,7 +5,13 @@ $redColor: #A20E12;
 $blackColor: #263238;
 
 div#profile{
+
+    @media (min-width: 1201px) and (max-width: 1500px){
+        width: 80%;
+        float: right;
+    }
     margin: auto;
+    padding-top: 2%;
 
     div.errorDiv{
         color: $redColor;
@@ -50,36 +56,75 @@ div#profile{
         text-align: center;
         text-transform: capitalize;
         font-family: 'Open Sans', sans-serif;
+        color: $blackColor;
     }
 
     div#daneFirmy{
-        h3{
+        div#header{
             text-align: center;
-            margin: 3% 0;
-            font-size: 17px;
+            h3{
+                margin: 3% 0;
+                font-size: 20px;
+                font-family: 'Sanchez', serif;
+                color: $redColor;
+                display: inline-block;
+                width: auto;
+                font-weight: normal;
+                border: 2px dotted $redColor;
+                padding: 10px;
+            }
         }
+        
         form#changeEP{
             input{
                 display: block;
                 margin: auto;
                 padding: 2%;
-                text-align: center;
                 margin-bottom: 2%;
+                outline: 0;
+                border : 0;
+                border-bottom: 1px solid $blackColor;
+                width: 60%;
+                &::placeholder{
+                    color: $blackColor;
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 17px;
+                }
             }
             button{
                 display: block;
                 padding: 2%;
                 background: white;
                 margin: auto;
+                font-family: 'Sanchez', serif;
+                font-size: 20px;
+                border: 2px dotted $redColor;
+                color: $redColor;
             }
         }
     }
     div#editProfile{
         margin: auto;
-        h3{
+        margin-bottom: 2%;
+        @media (max-width: 575px){
+            padding: 0 3%;
+        }
+        div#editH{
             text-align: center;
             margin: 3% 0;
+            h3{
+                margin: 3% 0;
+                font-size: 20px;
+                font-family: 'Sanchez', serif;
+                color: $redColor;
+                display: inline-block;
+                width: auto;
+                font-weight: normal;
+                border: 2px dotted $redColor;
+                padding: 10px;
+            }
         }
+        
         
         form#changeCI{
             div.picture-group{
@@ -87,8 +132,19 @@ div#profile{
                 width: auto;
                 height: auto;
             }
-            input[type=text], input[type=password], input[type=email]{
+            input[type=text], input[type=password], input[type=email], input[type=number]{
                 width: 100%;
+                outline: 0;
+                border : 0;
+                border-bottom: 1px solid $blackColor;
+                // padding: 2%;
+                font-size: 17px;
+                color: $blackColor;
+                &::placeholder{
+                    color: $blackColor;
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 17px;
+                }
             }
             div.image-upload{
                 width: 40%;
@@ -106,6 +162,7 @@ div#profile{
             div#name{
                 margin: 0;
                 float: right;
+                width: 60%;
             }
             div#address{
                 clear: both;
@@ -113,26 +170,34 @@ div#profile{
                 margin: 4% 0;
                 overflow: hidden;
                 width: 100%;
-                
+                display: flex;
+                justify-content: space-around;
                 div#town, div#street{
-                    width: 40%;
-                    float: left;
-                    padding-right: 1%;
+                    width: 39%;
                 }
                 div#streetNo{
                     width: 20%;
-                    float: left;
                 }
             }
             
-
             button{
                 clear: both;
                 display: block;
-                margin: auto;
+                padding: 2%;
                 background: white;
-                padding: 1%;
+                margin: auto;
+                font-family: 'Sanchez', serif;
+                font-size: 20px;
+                border: 2px dotted $redColor;
+                color: $redColor;
             }
+
+            label {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 17px;
+                color: $blackColor;
+            }
+
         }
         
     }
@@ -149,9 +214,25 @@ div#profile{
         width: 100%;
         margin: auto;
         padding: 2% 0;
+
+        @media(max-width: 575px){
+            padding: 3%;
+        }
         form{
             input[type=text], input[type=password], input[type=email]{
                 width: 100%;
+                outline: 0;
+                border : 0;
+                border-bottom: 1px solid $blackColor;
+                // padding: 2%;
+                font-size: 17px;
+                font-family: 'Open Sans', sans-serif;
+                color: $blackColor;
+                &::placeholder{
+                    color: $blackColor;
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 17px;
+                }
             }
             div#contact{
                 clear: both;
@@ -162,18 +243,24 @@ div#profile{
                     width: 50%;
                     float: left;
                     padding-right: 2%;
-                    margin-top: 2%;
+                    margin: 2% 0;
+                    @media(max-width: 575px){
+                        width: 100%;
+                    }
                 }
                 div#openingHours{
                     width: 50%;
                     float: right;
-                    label{
-                        display: block;
-                        text-align: right;
+                    margin-top: 2%;
+                    @media(max-width: 575px){
+                        width: 100%;
                     }
+                    
                     textarea{
                         float: right;
                         width: 100%;
+                        font-family: 'Open Sans', sans-serif;
+                        outline: 0;
                     }
                 }
                 div#description{
@@ -186,28 +273,50 @@ div#profile{
                     }
                     textarea{
                         width: 100%;
+                        font-family: 'Open Sans', sans-serif;
+                        outline: 0;
                     }
                 }
             }
+
+            label{
+                display: block;
+                
+                font-family: 'Open Sans', sans-serif;
+                font-size: 17px;
+                color: $blackColor;
+                @media(max-width: 575px){
+                    text-align: left;
+                }
+            }
+
             button{
                 clear: both;
                 display: block;
-                margin: auto;
+                padding: 2%;
                 background: white;
-                border: 1px solid gray;
-                padding: 1%;
+                margin: auto;
+                font-family: 'Sanchez', serif;
+                font-size: 20px;
+                border: 2px dotted $redColor;
+                color: $redColor;
             }
         }
     }
     div#branches{
+        position: relative;
         div.branch{
             clear: both;
             h2{
-                margin-top: 4%;
-                margin-bottom: 2%;
+                margin: 2% 0;
+                font-family: 'Sanchez', serif;
+                color: $blackColor;
             }
             p{
                 margin: 2% 0;
+                font-family: 'Open Sans', sans-serif;
+                color: $blackColor;
+                font-size: 16px;
             }
             span.error{
                 color: #A20E12;
@@ -218,38 +327,57 @@ div#profile{
         }
         i.fa-plus-circle{
             cursor: pointer;
-            float: right;
-            margin-bottom: 2%;
+            color: $redColor;
+            position: absolute;
+            right: 0;
+            top: 0;
         }
         div#addCollapseDiv{
             clear: both;
+            padding-top: 1%;
+            
         }
         p.buttons{
             button{
+                color: $redColor;
+                font-family: 'Sanchez', serif;
                 padding: 8px;
                 background: white;
-                border: 1px solid black;
-                border-radius: 2px;
+                border: 2px dotted $redColor;
                 margin-bottom: 10px;
                 outline: none;
             }
         }
-        form{
+        
+        form {
             width: 100%;
             display: flex;
             flex-direction: column;
-            margin-top: 4%;
-            margin-bottom: 4%;
-            padding: 2%;
-            border-radius: 2px;
+            margin: 4% 0;
+            align-items: center;
+            label{
+                margin: 2% 0;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 16px;
+                color: $blackColor;
+                text-transform: lowercase;
+            }
+            input {
+                border: 0;
+                border-bottom: 1px solid $blackColor;
+                color: $blackColor;
+                outline: 0;
+                width: 50%;
+            }
             input[type=submit]{
-                width: 40%;
-                margin: auto;
-                margin-top: 3%;
-                margin-bottom: 3%;
+                font-family: 'Sanchez', serif;
+                font-size: 20px;
+                color: $redColor;
+                width: auto;
+                border: 2px dotted $redColor;
+                padding: 2%;
+                margin-top: 2%;
                 background: white;
-                border: 1px solid gray;
-                padding: 5px;
             }
         }
     }
@@ -257,6 +385,7 @@ div#profile{
         div.md-tab-header{
             justify-content: space-around;
             border: none !important;
+            margin-bottom: 5%;
         }
         div.md-tab-label{
             background: white;
@@ -270,53 +399,21 @@ div#profile{
             }
             &.md-tab-active{
                 opacity: 1 !important;
+                background: $blackColor;
             }
         }
         md-ink-bar{
             color: white !important;
-            background-color:black !important;
+            background-color: $blackColor !important;
         }
     }
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus
-input:-webkit-autofill, 
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  border: 1px solid gray;
-  -webkit-text-fill-color: gray;
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
-  transition: background-color 5000s ease-in-out 0s;
 }
 
 @media(max-width: 575px){
-    div#profile{
-        display: block;
-        padding: 3%;
-        div#editProfile{
-            margin-bottom: 5%;
-             div.image-upload{
-                 width: 50%;
-             }
-             div#name{
-                 width: 50%;
-                 padding-left: 2%;
-                 margin: 0;
-             }
-        }
-        div#messages{
-            width: 100%;
-        }
-    }
+    
     md-tab-group{
         div.md-tab-header{
-            margin-bottom: 10%;
+            
         }
         div.md-tab-label{
             border: 2px solid black;
@@ -331,109 +428,32 @@ select:-webkit-autofill:focus {
         }
     }
 }
-@media (min-width: 576px) {
-    div#profile{
-        padding-top: 3%;
-        div#editProfile{
-            width: 100%;
+@media (min-width: 576px) and (max-width: 992px){
+   md-tab-group{
+        div.md-tab-header{
             
-            div#name{
-                width: 100%;
-                margin: 3% 0;
-                input{
-                    width: 100%;
-                }
+        }
+        div.md-tab-label{
+            border: 2px solid black;
+            min-width: 30px !important;
+            height: 30px !important;
+            &:focus{
+                background-color: black !important;
+            }
+            &.md-tab-active{
+                background: black;
             }
         }
-        div#messages{
-            width: 100%;
-        }
     }
-    
-    
 }
 @media (min-width: 768px) {
-    div#profile{
-        
-        padding-top: 3%;
-        div#editProfile{
-            width: 40%;
-            div#name{
-                width: 100%;
-            }
-        }
-        div#messages{
-            width: 60%;
-        }
-    }
+    
 }
 @media (min-width: 992px) {
-    div#profile{
-        padding-top: 2%;
-        padding-bottom: 2%;
-        div#editProfile{
-            width: 40%;
-        }
-        div#messages{
-            width: 60%;
-        }
-    }
+    
 }
 @media (min-width: 1200px) {
-    div#profile{
-        h2{
-            margin: 3% 0;
-        }
-        div#daneFirmy{
-            form#changeEP{
-                input[type=text], input[type=password]{
-                    padding: 1%;
-                    margin-bottom: 1%;
-                    width: 60%;
-                }
-                button{
-                    width: 20%;
-                    padding: 1%;
-                }
-            }
-        }
-        div#editProfile{
-            width: 70%;
-            form#changeCI{
-                margin-bottom: 3%;
-                div.image-upload{
-                    width: 50%;
-                    float: left;
-                }
-                div#name{
-                    width: 40%;
-                }
-                div#address{
-                    div#town, div#street{
-                        width: 40%;
-                    }
-                    div#streetNo{
-                        width: 20%;
-                    }
-                }
-                div#contact{
-                    
-                    div#website, div#phoneNumber, div#email{
-                        width: 50%;
-                    }
-                    div#openingHours{
-                        width: 50%;
-                    }
-                    div#description{
-                        width: 100%;
-                    }
-                }
-            }
-        }
-        div#messages{
-            width: 70%;
-        }
-    }       
+       
 }
 
 div#activeAndEndedPosts{
@@ -460,3 +480,18 @@ div#activeAndEndedPosts{
     }
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid gray;
+  -webkit-text-fill-color: gray;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
