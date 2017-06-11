@@ -3,26 +3,27 @@ $redColor: #A20E12;
 
 div.company-image{
     margin-top: 3%;
-    ng2-letter-avatar{
-        img{
-            width: 40%;
-            border-radius: 2500px;
-        }
-    }
+
     img{
         display: block;
         margin: auto;
+        border-radius: 2500px;
         // border-radius: 2500px;
         @media(max-width: 575px){
             width: 80%;
         }
         @media (min-width: 576px) {
-            width: 70%;
-        }
-        @media (min-width: 768px) {
             width: 50%;
         }
-        
+        @media (min-width: 768px) {
+            width: 40%;
+        }
+        @media (min-width: 992px)  {
+            width: 30%;
+        }
+        @media (min-width: 1200px) {
+            width: 20%;
+        }
     }
 }
 div.company-name{
@@ -30,7 +31,7 @@ div.company-name{
         font-family: 'Open Sans', sans-serif;
         text-align: center;
         text-transform: capitalize;
-        color: gray;
+        color: $blackColor;
         font-size: 20px;
         padding: 2% 0;
         border-bottom: 2px solid $blackColor;
@@ -49,9 +50,50 @@ div#mapaFirmy{
 md-tab-group{
     width: 100%;
     padding: 3% 0;
+    
+    @media(max-width: 565px){
+        align-items: center;
+    }
+    @media(min-width: 565px){
+        align-items: center;
+    }
+    @media(min-width: 768px){
+        align-items: flex-end;
+    }
+    @media(min-width: 992px){
+        align-items: center;
+    }
+    
     div.md-tab-header{
         border: none !important;
         justify-content: center;
+        
+        @media(min-width: 992px){
+            width: 60%;
+        }
+        @media(min-width: 768px){
+            width: 75%;
+        }
+        @media(min-width: 565px){
+            width: 75%;
+        }
+        @media(max-width: 565px){
+            width: 80%;
+        }
+    }
+    div.md-tab-body-wrapper{
+        @media(min-width: 992px){
+            width: 60%;
+        }
+        @media(min-width: 768px){
+            width: 75%;
+        }
+        @media(min-width: 565px){
+            width: 80%;
+        }
+        @media(max-width: 565px){
+            width: 80%;
+        }
     }
     div.md-tab-label{
         background: white;
@@ -80,22 +122,16 @@ div#companyMain{
     overflow: hidden;
     font-family: 'Open Sans', sans-serif;
     color: $blackColor;
+    
     h4{
         float: left;
-        margin: 6px 0;
-        margin-left: 6px;
+        margin: 3px 0 0 6px;
         text-align: left;
         width: auto;
         font-size: 20px;
         font-weight: normal;
         text-transform: lowercase;
-    }
-    p{
-        clear: both;
-        text-align: left;
-        text-align: center;
-        line-height: 20px;
-        font-size: 16px;
+        font-family: 'Open Sans', sans-serif;
     }
     i{
         float: left;
@@ -114,6 +150,15 @@ div#companyMain{
             clear: both;
             float: left;
         }
+        p {
+            margin: 4% 0;
+            float: left;
+            clear: both;
+            line-height: 20px;
+            font-size: 16px;
+            color: $blackColor;
+            text-align: center;
+        }
     }
 }
 
@@ -121,7 +166,35 @@ div#messages{
     padding-top: 5%;
 }
 
-@media(max-width: 575px){
+
+@media (max-width: 575px) {
+    md-tab-group{
+        div.md-tab-header{
+            justify-content: space-around;
+        }
+        div.md-tab-label{
+            border: 2px solid black;
+            min-width: 30px !important;
+            height: 30px !important;
+            opacity: 1 !important;
+            padding: 0 !important;
+            &:focus{
+                background-color: black !important;
+                border: none !important;
+            }
+            &.md-tab-active{
+                background: black;
+                opacity: 1 !important;
+            }
+        }
+        md-ink-bar{
+            color: white !important;
+            background-color:black !important;
+        }
+    }
+}
+
+@media (min-width: 575px) and (max-width: 992px){
     md-tab-group{
         div.md-tab-header{
             justify-content: space-around;
