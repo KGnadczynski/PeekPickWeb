@@ -68,18 +68,29 @@ $redColor: #A20E12;
         }
         div.dropdown-menu{
           left: -194px;
-          padding: 10px;
+          padding: 0 10px;
           top: 70px;
           min-width: 240px;
-          a{
-              display: block;
-              color: gray;
-              font-size: 15px;
-              line-height: 22px;
-              padding: 10px 0;
-              border-bottom: 1px solid #A20E12;
-              text-align: center;
-          }
+          border: 0;
+            div{
+                display: flex;
+                justify-content: flex-end;
+                a{
+                    display: block;
+                    color: $redColor;
+                    font-size: 20px;
+                    line-height: 22px;
+                    padding: 10px 0;
+                    text-align: right;
+                    font-family: 'Sanchez', serif;
+                    text-transform: lowercase;
+                }
+                i{
+                    margin-top: 10px;
+                    margin-left: 5px;
+                }
+            }
+          
         }
         i#dropdownMenuButton{
             padding-top: 20px;

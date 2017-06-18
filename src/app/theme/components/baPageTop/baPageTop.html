@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
 <div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled}">
    <ng2-slim-loading-bar [height]="'5px'"></ng2-slim-loading-bar>
   <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
@@ -15,7 +16,15 @@
   <div class="dropdown" *ngIf="isLogged">
       <i class="fa fa-plus-circle fa-2x dropdown-toggle" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a *ngFor="let messageType of messageTypesOb" [routerLink]="['/pages/add_message/', messageType.value]">{{ messageType.value }} </a>
+            <div *ngFor="let messageType of messageTypesOb">
+                <a [routerLink]="['/pages/add_message/', messageType.value]">{{ messageType.value }} </a>
+                <i *ngIf="messageType.name === 'EVENT'" class="material-icons">event</i>
+                <i *ngIf="messageType.name === 'WORK'" class="material-icons">work</i>
+                <i *ngIf="messageType.name === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
+                <i *ngIf="messageType.name === 'WORTH_SEEING'" class="material-icons">visibility</i>
+                <i *ngIf="messageType.name === 'PROMOTION'" class="material-icons">loyalty</i>
+            </div>
+            
       </div>
   </div>
 

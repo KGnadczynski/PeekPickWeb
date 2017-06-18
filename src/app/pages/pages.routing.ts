@@ -11,6 +11,7 @@ export const routes: Routes = [
     component: Pages,
     children: [
       { path: '', redirectTo: 'komunikat', pathMatch: 'full' },
+      { path: 'home', loadChildren: 'app/pages/home/home.module#HomeModule' },
       { path: 'komunikat', loadChildren: 'app/pages/komunikat/komunikat.module#KomunikatModule' },
       { path: 'kulturairozrywka/:id', loadChildren: 'app/pages/trade/trade.module#TradeModule' },
       { path: 'gastronomiaizycienocne/:id', loadChildren: 'app/pages/trade/trade.module#TradeModule' },

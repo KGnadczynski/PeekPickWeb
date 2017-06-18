@@ -31,6 +31,7 @@ export class FiltersComponent implements OnInit{
     public zoom: number;
     width: any;
     subcategories: {id: number, checked: boolean}[]= [];
+    types: {name: string, checked: boolean}[] = [];
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -40,7 +41,7 @@ export class FiltersComponent implements OnInit{
             filterBy: 'CREATE_DATE',
             startBeforeDate: false,
             distance : [10],
-            types: fb.array([false, false, false, false, false]),
+            types: '',
             searchControl: '',
             subtrades: ''
         });
@@ -49,8 +50,8 @@ export class FiltersComponent implements OnInit{
 
         this.filterForm.valueChanges.subscribe(data => {
 
-            // console.log('data: ');
-            // console.dir(data);
+            console.log('data: ');
+            console.dir(data);
 
             let params: {sortType: string, startBeforeDate: string, range: number, messageTypeList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
                 sortType: '',
@@ -96,11 +97,10 @@ export class FiltersComponent implements OnInit{
                 date = moment().format("YYYY-MM-DD HH:mm");
                 params.startBeforeDate = date;
             }
-                
-            for(let i = 0; i < data.types.length; i++)
-                if(data.types[i])
-                    params.messageTypeList += this.messageTypesOb[i].name + ";";
-            
+
+            if(data.types)
+                params.messageTypeList = data.types;
+
             if(data.subtrades)
                 params.companyCategoryIdList = data.subtrades;
 
@@ -149,30 +149,11 @@ export class FiltersComponent implements OnInit{
         this.longitude = -98.5795;
 
         this.filtersService.getCompanyCategories().subscribe(resultCategories => {
-            //resultCategories.forEach(()=>this.addTrade());
-            
-            // console.log('i: ');
-            //resultCategories.forEach(
-              //  (i) => 
-                    //console.dir(i)
-                    //this.addSubTrade(i.id)
-            //);
-            // console.log('result categories:');
-            // console.dir(resultCategories);
             for(let categ in resultCategories){
                 this.filtersService.getCategorySubcategories(resultCategories[categ].id).subscribe(resultSub => {
                     this.categories.push({id: resultCategories[categ].id, name: resultCategories[categ].name, subcategories: resultSub, bol: true});
-                    // resultSub.forEach(() => this.addSubSubTrade(resultCategories[categ].id));
-                    // console.log('ID:::: ' + this.categories[categ].id);
-                    /*for(let x in this.categories)
-                        if(this.categories[x].id === resultCategories[categ].id)
-                            this.categories[x].subcategories.forEach(() => {
-                                this.addSubSubTrade(this.categories[x].id);
-                            });*/
                 });
             }
-            
-            // this.categories.forEach((c) => this.addSubSubTrade(c.id));
         });
         
         for(let i = this.messageTypes.length-1; i >= 0; i--)
@@ -189,10 +170,6 @@ export class FiltersComponent implements OnInit{
                 this.zoom = 12;
             })
         }
-    }
-
-    logText(mdCheckbox: any){
-        console.log('md checkbox: ' + mdCheckbox.value);
     }
 
     setSubcategory(id: number): void {
@@ -226,6 +203,42 @@ export class FiltersComponent implements OnInit{
 
         let subtrades = this.filterForm.get('subtrades');
         subtrades.reset(ids);
+
+    }
+
+    setType(name: string){
+        
+        let o = {name: '', checked: false};
+
+        let checkIfNameExists = this.types.findIndex(t => t.name === name) !== -1;
+        let checkIfCheckedAndExists = this.types.findIndex(t => t.name === name && t.checked) !== -1;
+
+        if(checkIfNameExists){
+            if(checkIfCheckedAndExists){
+                this.types[this.types.findIndex(t => t.name === name)].checked = false;
+            } else {
+                this.types[this.types.findIndex(t => t.name === name)].checked = true;
+            }
+        } else {
+            o = {
+                name: name,
+                checked: true
+            };
+            this.types.push(o);
+        }
+
+        this.types.map((el) => {
+            if(el.checked)
+                return el.name;
+        }).join(";");
+
+        let x = this.types.filter(t => {
+            return t.checked
+        });
+        
+        let types = this.filterForm.get('types');
+        types.reset(x.map((el) => {return el.name}).join(';'));
+        
 
     }
     

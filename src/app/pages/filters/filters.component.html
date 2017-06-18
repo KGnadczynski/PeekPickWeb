@@ -1,10 +1,10 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-<div id="head">
+<div id="head" class="hidden-lg-up">
     <h4 (click)="isFiltryCollapse = !isFiltryCollapse"  *ngIf="isFiltryCollapse">
         filtry
     </h4>
     <h4 *ngIf="!isFiltryCollapse">filtry</h4>
-    <i class="fa fa-window-close fa-2x hidden-lg-up" *ngIf="!isFiltryCollapse" (click)="isFiltryCollapse = !isFiltryCollapse"></i>
+    <i class="fa fa-window-close fa-2x" *ngIf="!isFiltryCollapse" (click)="isFiltryCollapse = !isFiltryCollapse"></i>
     <div class="line">
         <div></div>
     </div>
@@ -22,7 +22,7 @@
                 <input type="checkbox" id="ifActiveCheckbox" formControlName="startBeforeDate">
                 <label for="ifActiveCheckbox"></label>
             </div>
-            <span>Dostępne dziś</span>
+            <span>dostępne dziś</span>
         </div>
 
         <div class="blacklineF">
@@ -32,14 +32,17 @@
         <h5>Sortuj po:</h5>
         
         <div class="filterBy">
-            <div>
+            <div class="checkbox">
                 <input type="radio" id="distance" name="filterBy" value="DISTANCE" formControlName="filterBy"> 
-                <label for="distance"><span></span></label>lokalizacja
+                <label for="distance"></label>
+                <span>lokalizacja</span>
             </div>
             
-            <div>
+            
+            <div class="checkbox">
                 <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy" checked>
-                <label for="create_day"><span></span></label>data dodania
+                <label for="create_day"></label>
+                <span>data dodania</span>
             </div>
 
         </div>
@@ -66,26 +69,33 @@
         <h5>Typ wiadomości</h5>
 
         <div id="checkboxDiv">
-            <div id="checkboxes">
-                <div class="checkbox" *ngFor="let control of filterForm.controls['types'].controls; let i = index">
-                    <input type="checkbox" [formControl]="control" id="{{i}}">
-                    <label for="{{i}}"></label>
-                </div>
-            </div>
             <div id="checkboxesValues">
-                <label *ngFor="let messageType of messageTypesOb">{{messageType.value}}</label>
+                <div class="c" *ngFor="let messageType of messageTypesOb">
+                    <div class="checkbox">
+                        <input type="checkbox" id="types-{{messageType.name}}" (click)="setType(messageType.name)">
+                        <label for="types-{{messageType.name}}"></label>
+                    </div>
+                    <span>{{ messageType.value }}</span>
+                    <i *ngIf="messageType.name === 'EVENT'" class="material-icons">event</i>
+                    <i *ngIf="messageType.name === 'WORK'" class="material-icons">work</i>
+                    <i *ngIf="messageType.name === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
+                    <i *ngIf="messageType.name === 'WORTH_SEEING'" class="material-icons">visibility</i>
+                    <i *ngIf="messageType.name === 'PROMOTION'" class="material-icons">loyalty</i>
+                </div>
             </div>
         </div>
         
-        <div class="blacklineF">
-            <div></div>
-        </div>
+        
 
         <h5 *ngIf="id === undefined">Branża</h5>
 
         <div id="companyCategories" *ngIf="id === undefined">
             <div class="categoriesI" *ngFor="let category of categories">
+                <div class="blacklineF">
+                    <div></div>
+                </div>
                 <button type="button" (click)="category.bol = !category.bol">{{ category.name }}</button>
+                
                 <div [collapse]="category.bol" *ngFor="let subcategory of category.subcategories">
                     <div class="subcategories">
                         <div class="checkbox" >
@@ -99,6 +109,8 @@
                 
             </div>
         </div>
-        
+        <div class="blacklineF">
+            <div></div>
+        </div>
     </form>
 </div>

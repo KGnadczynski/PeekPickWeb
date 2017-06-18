@@ -298,7 +298,6 @@ export class MessagesComponent implements OnInit{
         this.pageTopService.showLoadingBar(true);
         
         let params: string = "";
-        event.messageTypeList = event.messageTypeList.substring(0, event.messageTypeList.length-1);
         event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
         
         Object.keys(event).forEach((key) => {

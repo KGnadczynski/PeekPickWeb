@@ -46,26 +46,8 @@ export class BaPageTop implements OnInit{
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
-    this.pageTopService.loggedChange.subscribe((value) => { 
-      this.isLogged = true;
-      this.profileService.getUser().subscribe(
-        result => {
-            this.name = result.company.name;
-        }, 
-        error => {
-            this.isLogged = false;
-        }
-      );
-      if(value === -1)
-        this.isLogged = false;
-        console.log('value: ' + value);
-      this.profileService.getUserImages(value).subscribe((value)=> {
-        this.userLogo = value.imageUrl;
-        
-
-      }) ;
-      
-    });
+    
+    
 
       this.pageTopService.showLoading.subscribe((value) => { 
       if(value) {
@@ -82,6 +64,27 @@ export class BaPageTop implements OnInit{
   }
 
   ngOnInit(): void {
+
+    this.pageTopService.loggedChange.subscribe((value) => {
+        
+        this.profileService.getUser().subscribe(
+            result => {
+                this.name = result.company.name;
+                this.isLogged = true;
+            }, 
+            error => {
+                this.isLogged = false;
+            }
+        );
+      
+        if(value === -1)
+            this.isLogged = false;
+        
+        console.log('value: ' + value);
+        this.profileService.getUserImages(value).subscribe((value)=> {
+            this.userLogo = value.imageUrl;
+        }) ;
+    });
     
     let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
 

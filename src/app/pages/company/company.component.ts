@@ -20,6 +20,8 @@ export class CompanyComponent implements OnInit {
   private otherOneCompany: Company;
   private companyImages: any;
   name: string = '';
+  lat: number;
+  lng: number;
 
   constructor(private route: ActivatedRoute, private _companyService: CompanyService) {}
 
@@ -32,6 +34,8 @@ export class CompanyComponent implements OnInit {
           receivedCompany => {
               this.otherOneCompany = receivedCompany;
               this.name = receivedCompany.company.name;
+              this.lat = receivedCompany.latitude;
+              this.lng = receivedCompany.longitude;
               console.log('this.name : ' + this.name);
               console.log('this other company:');
               console.dir(this.otherOneCompany);
@@ -50,7 +54,6 @@ export class CompanyComponent implements OnInit {
           companyError => {}
         );
     });
-    
 
   }
 

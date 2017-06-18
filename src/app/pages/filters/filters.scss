@@ -2,50 +2,59 @@
 $redColor: #A20E12;
 $blackColor: #263238;
 
-@mixin checkboxMixin {
+@mixin checkboxMixin($checkOrRadio) {
     div.checkbox{
-          width: 25px;
-          margin-bottom: 10px;
-          margin-top: 10px;
-          position: relative;
-          float: left;
-          clear: both;
-          label{
-              cursor: pointer;
-              position: absolute;
-              width: 25px;
-              height: 25px;
-              top: 0;
-              left: 0;
-              background: white;
-              border: 2px dotted $redColor;
-              margin: 0;
-              &:after{
-                  opacity: 0;
-                  content: '';
-                  position: absolute;
-                  width: 9px;
-                  height: 5px;
-                  background: transparent;
-                  top: 6px;
-                  left: 7px;
-                  border: 3px solid #333;
-                  border-top: none;
-                  border-right: none;
+        @if $checkOrRadio == "radio"{
+            width: 120px;
+        } @else {
+            width: 25px;
+        }
+        margin-bottom: 10px;
+        margin-top: 10px;
+        position: relative;
+        float: left;
+        clear: both;
+        label{
+            cursor: pointer;
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            background: white;
+            border: 2px dotted $redColor;
+            margin: 0;
+            &:after{
+                opacity: 0;
+                content: '';
+                position: absolute;
+                width: 9px;
+                height: 5px;
+                background: transparent;
+                top: 6px;
+                left: 7px;
+                border: 3px solid #333;
+                border-top: none;
+                border-right: none;
 
-                  transform: rotate(-45deg);
-              }
-              &:hover::after{
-                  opacity: 0;
-              }
-          }
-          input[type=checkbox]:checked + label:after{
-              opacity: 1;
-          }
+                transform: rotate(-45deg);
+            }
+            &:hover::after{
+                opacity: 0;
+            }
+        }
+        input[type=#{$checkOrRadio}]:checked + label:after{
+            opacity: 1;
+        }
+        @if $checkOrRadio == "radio"{
+            span {
+                position: absolute;
+                left: 30px;
+                top: 5px;
+            }
+        }
       }
 }
-
-@mixin radioButton {}
 
 div#head{
     overflow: hidden;
@@ -93,7 +102,8 @@ form#mainForm{
     div.ifActive{
       overflow: hidden;
       text-align: center;
-      @include checkboxMixin;
+    padding-left: 4%;
+      @include checkboxMixin(checkbox);
       span{
           float: left;
           margin-top: 15px;
@@ -104,48 +114,11 @@ form#mainForm{
 
     div.filterBy{
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       color: $blackColor;
 
-      div{
-
-          margin:0 0 0.75em 0;
-          width: 50%;
-          text-align: center;
-          input[type="radio"] {
-                display:none;
-            }
-            input[type="radio"] + label {
-                color: $blackColor;
-                font-family:Arial, sans-serif;
-                font-size:14px;
-            }
-            input[type="radio"] + label span {
-                display:inline-block;
-                width:19px;
-                height:19px;
-                margin:-1px 4px 0 0;
-                vertical-align:middle;
-                cursor:pointer;
-                
-            }
-
-            input[type="radio"] + label span {
-                background-color:$blackColor;
-            }
-
-            input[type="radio"]:checked + label span{
-                background-color:$redColor;
-            }
-
-            input[type="radio"] + label span,
-            input[type="radio"]:checked + label span {
-            -webkit-transition:background-color 0.4s linear;
-            -o-transition:background-color 0.4s linear;
-            -moz-transition:background-color 0.4s linear;
-            transition:background-color 0.4s linear;
-            }
-      }
+      @include checkboxMixin(radio);
+      
     }
 
     div#nouisliderDiv{
@@ -156,6 +129,29 @@ form#mainForm{
           margin-top: 6%;
           margin-bottom: 6%;
         }
+        .noUi-target{
+            background: white !important;
+            border-radius: 0 !important;
+            border: 1px solid $blackColor !important;
+        }
+        .noUi-horizontal{
+            height: 1px !important;
+        }
+        .noUi-horizontal .noUi-handle{
+            width: 20px !important;
+            height: 20px !important;
+            top: -10px !important;
+
+        }
+        .noUi-handle{
+            border-radius: 2500px !important;
+            background: white !important;
+            box-shadow: none !important;
+            border: 1px solid $blackColor !important;
+            &::before, &::after{
+                display: none;
+            }
+        }
     }
 
     input#searchLocation{
@@ -164,15 +160,16 @@ form#mainForm{
         margin: auto;
         padding: 8px;
         text-align: center;
-        border: 5px dotted $redColor;
+        border: 2px dotted $redColor;
         border-radius: 2px;
         outline: 0;
         color: $blackColor;
+        &::placeholder{
+            color: $blackColor;
+        }
     }
 
     div#checkboxDiv{
-        display: flex;
-        justify-content: space-around;
         div#checkboxes{
           width: 5%;
           @media(max-width: 575px){
@@ -181,12 +178,27 @@ form#mainForm{
           @media (min-width: 992px){
             width: 10%;
           }
-          @include checkboxMixin;
+          @include checkboxMixin(checkbox);
         }
 
         div#checkboxesValues{
           width: 95%;
           margin-top: 10px;
+          div.c{
+              overflow: hidden;
+              span{
+                float: left;
+                margin-top: 15px;
+                margin-left: 5px;
+                text-transform: lowercase;
+              }
+              i{
+                color: $redColor;
+                margin-left: 5px;
+                margin-top: 10px;
+              }
+          }
+          @include checkboxMixin(checkbox);
           @media(max-width: 575px){
               width: 90%;
           }
@@ -221,6 +233,10 @@ form#mainForm{
           display: flex;
           flex-direction: column;
           float: left;
+          .blacklineF{
+            margin-top: 1%;
+            margin-bottom: 1%;
+          }
           button{
             padding: 1.5vw;
             color: $blackColor;
@@ -230,7 +246,8 @@ form#mainForm{
             margin-top: 6px;
             margin-bottom: 6px;
             background: white;
-            border: 3px dotted $redColor;
+            text-transform: lowercase;
+            //border: 3px dotted $redColor;
           }
         }
         div{
@@ -240,9 +257,10 @@ form#mainForm{
             float: left;
             width: 100%;
             clear: both;
-            @include checkboxMixin;
+            @include checkboxMixin(checkbox);
             span{
                 margin: 15px;
+                text-transform: lowercase;
             }
           }
           

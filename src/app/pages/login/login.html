@@ -14,11 +14,12 @@
         <div *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="alert alert-danger">Wpisz hasło.</div>
       </div>
       <div class="actionButtons">
-        <button id="login" [disabled]="!form.valid" type="submit">Zaloguj</button>
+        <a id="forgotPassword" routerLink="/login">zapomniałem hasła</a>
+        <button id="login" [disabled]="!form.valid" type="submit">zaloguj</button>
         <div *ngIf="error" class="alert alert-danger">
           {{error.error_description}}
         </div>
-        <a id="forgotPassword" routerLink="/login">zapomniałem hasła</a>
+        
         <a id="register" routerLink="/pages/register">utwórz konto</a>
       </div>
       
