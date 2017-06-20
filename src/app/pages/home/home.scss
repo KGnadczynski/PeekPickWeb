@@ -1,84 +1,171 @@
 $redColor: #A20E12;
 $blackColor: #263238;
-$image: "../../meta/Rectangle 3375.png";
+$darkerBlackColor: #2B2E34;
 
-img#icon{
-    display: block;
-    margin: auto;
-    width: 30%;
-    margin-bottom: 5%;
-}
-
-h2{
-    color: $redColor;
-    text-align: center;
-    font-size: 40px;
-    font-family: 'Sanchez', serif;
-    margin-bottom: 3%;
-
-}
-
-div.messangerShape{
-    width: 70%;
-    margin: auto;
-    background: $redColor;
-    position: relative;
-    padding: 30px;
-    border-radius: 2500px;
-
-    &::after{
-        content:"";
-        position: absolute;
-        left: 100%;
-        top: 26px;
-        width: 0;
-        height: 0;
-        border-top: 13px solid transparent;
-        border-left: 26px solid $redColor;
-        border-bottom: 13px solid transparent;
+div#home{
+    overflow: hidden;
+    
+    display: flex;
+    flex-wrap: wrap;
+    @media(max-width: 575px){
+        flex-direction: column;
     }
-    p {
-        font-size: 16px;
-        font-family: 'Open Sans', sans-serif;
-        color: white;
-        line-height: 22px;
+    @media(min-width: 576px){
+        flex-direction: row;
     }
-}
+    div.hello{
+        @media(max-width: 575px){
+            width: 100%;
+        }
+        @media(min-width: 576px){
+            width: 100%;
+        }
+        @media(min-width: 992px){
+            width: (100%/3);
+            order: 2;
+        }
+        img#icon{
+            display: block;
+            margin: auto;
+            width: 30%;
+            margin-bottom: 5%;
+        }
 
-div.router{
-    text-align: center;
-    margin: 8% 0;
-    a{
-        font-family: 'Sanchez', serif;
-        font-size: 20px;
-        padding: 10px;
-        color: $redColor;
-        border: 2px dotted $redColor;
-    }
+        h2{
+            color: $redColor;
+            text-align: center;
+            font-size: 40px;
+            font-family: 'Sanchez', serif;
+            margin-bottom: 5%;
+        }
 
-}
+        div.messangerShape{
+            width: 70%;
+            margin: auto;
+            background: $redColor;
+            position: relative;
+            padding: 30px;
+            border-radius: 2500px;
 
-div.photo{
-    // position: relative;
-    background-image: url("../../meta/Rectangle 3375.png");
-    background-size: image-height($image);
-    // img#main {
-    //     position: absolute;
-    //     width: 100%;
-    // }
-    div.inside{
-        // position: absolute;
-        // top: 725px;
-        // left: 145px;
-        p{
-            font-size: 14px;
-            font-family: 'Open Sans', sans-serif;
-            color: $blackColor;
-            span{
-                font-size: 14px;
+            &::after{
+                content:"";
+                position: absolute;
+                left: 100%;
+                top: 26px;
+                width: 0;
+                height: 0;
+                border-top: 13px solid transparent;
+                border-left: 26px solid $redColor;
+                border-bottom: 13px solid transparent;
+            }
+            p {
+                font-size: 16px;
+                font-family: 'Open Sans', sans-serif;
+                color: white;
+                line-height: 22px;
+            }
+        }
+
+        div.router{
+            text-align: center;
+            margin: 15% 0;
+            @media(min-width: 566px){
+                margin: 8% 0;
+            }
+            a{
                 font-family: 'Sanchez', serif;
+                font-size: 20px;
+                padding: 10px;
                 color: $redColor;
+                border: 2px dotted $redColor;
+            }
+
+        }
+    }
+    div.photo{
+        position: relative;
+        overflow: hidden;        
+        @media(max-width: 575px){
+            width: 100%;
+        }
+        @media(min-width: 576px){
+            width: 50%;
+            order: 3;
+        }
+        @media(min-width: 992px){
+            width: (100%/3);
+        }
+        img#main {
+            position: relative;
+            width: 100%;
+        }
+        div.inside{
+            position: absolute;
+            top: 70%;
+            left: 17%;
+            p{
+                font-size: 14px;
+                font-family: 'Open Sans', sans-serif;
+                color: $blackColor;
+                margin: 6px 0;
+                span{
+                    font-size: 14px;
+                    font-family: 'Sanchez', serif;
+                    color: $redColor;
+                }
             }
         }
     }
+
+    div.sign{
+        @media(max-width: 575px){
+            width: 100%;
+        }
+        @media(min-width: 576px){
+            width: 50%;
+            order: 1;
+        }
+        @media(min-width: 992px){
+            width: (100%/3);
+        }
+        margin-top: 60px;
+        overflow: hidden;
+        padding: 0 8%;
+        position: relative;
+        
+        img#main{
+            width: 100%;
+            position: relative;
+        }
+
+        div.inside{
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            h3 {
+                color: $redColor;
+                font-size: 24px;
+                font-family: 'Sanchez', serif;
+                text-align: center;
+                margin-bottom: 5%;
+            }
+            div.ih{
+                overflow: hidden;
+                img{
+                    float: left;
+                    margin-right: 3%;
+                }
+                h4{
+                    color: $darkerBlackColor;
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 18px;
+                    float: left;
+                    width: auto;
+                }
+            }
+        }
+
+        
+    }
+
 }

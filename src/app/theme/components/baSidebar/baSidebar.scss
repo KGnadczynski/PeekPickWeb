@@ -45,9 +45,11 @@ $angle-right: "\f101";
   position: relative;
   float: none;
   padding: 0;
+  text-transform: lowercase;
+  font-family: 'Sanchez', serif;
 
   a.al-sidebar-list-link{
-      color: $blackColor;
+      color: $redColor;
       &:hover {
           color: $redColor;
       }
@@ -104,9 +106,10 @@ a.al-sidebar-list-link {
     }
   }
   i {
-    margin-right: 18px;
+    margin-right: 10px;
     width: 16px;
     display: inline-block;
+    font-size: 22px;
   }
   b {
     display: block;
@@ -318,7 +321,7 @@ a.al-sidebar-list-link {
 }
 
 .al-sidebar{
-    width: 210px;
+    width: 215px;
 
     .sidebar-hover-elem{
       left: 207px !important;

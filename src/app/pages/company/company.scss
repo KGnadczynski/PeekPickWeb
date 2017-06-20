@@ -7,23 +7,8 @@ div.company-image{
     img{
         display: block;
         margin: auto;
-        border-radius: 2500px;
-        // border-radius: 2500px;
-        @media(max-width: 575px){
-            width: 65%;
-        }
-        @media (min-width: 576px) {
-            width: 50%;
-        }
-        @media (min-width: 768px) {
-            width: 40%;
-        }
-        @media (min-width: 992px)  {
-            width: 30%;
-        }
-        @media (min-width: 1200px) {
-            width: 20%;
-        }
+        width: 140px;
+        height: 140px;
     }
 }
 div.company-name{
@@ -42,6 +27,7 @@ div.company-name{
 }
 
 div#mapaFirmy{
+    margin-top: 5%;
     agm-map{
         height: 300px;
     }

@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 import { BaMenuService } from '../theme';
 import { PAGES_MENU } from './pages.menu';
 import { PAGES_MENU_LOGGED } from './pageslogged.menu';
-import { tokenNotExpired } from 'angular2-jwt';
 
 @Component({
   selector: 'pages',

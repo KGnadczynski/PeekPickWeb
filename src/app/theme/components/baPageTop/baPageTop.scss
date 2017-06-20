@@ -67,7 +67,10 @@ $redColor: #A20E12;
             color: $redColor;
         }
         div.dropdown-menu{
-          left: -194px;
+            @media(max-width: 575px){
+                left: -194px;
+            }
+          
           padding: 0 10px;
           top: 70px;
           min-width: 240px;
