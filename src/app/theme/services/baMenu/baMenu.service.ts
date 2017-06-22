@@ -3,14 +3,21 @@ import {Router, Routes} from '@angular/router';
 import * as _ from 'lodash';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class BaMenuService {
+  
   menuItems = new BehaviorSubject<any[]>([]);
+  loggedChange: Subject<number> = new Subject<number>();
 
   protected _currentMenuItem = {};
 
   constructor(private _router:Router) { }
+
+  changedLoggedFlag(companyId:number):void {
+      this.loggedChange.next(companyId)
+  }
 
   /**
    * Updates the routes in the menu

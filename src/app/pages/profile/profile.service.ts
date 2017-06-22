@@ -17,11 +17,15 @@ export class ProfileService{
 
     getUser(){
             var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
-            this.token = currentUser.token;
-            let headers = new Headers(
-                { 'Authorization': 'Bearer '+ this.token.access_token}
-            );
-            let options = new RequestOptions({ headers: headers });
+            let options;
+            let headers;
+            if(currentUser != null){
+                this.token = currentUser.token;
+                headers = new Headers(
+                    { 'Authorization': 'Bearer '+ this.token.access_token}
+                );
+                options = new RequestOptions({ headers: headers });
+            }
 
             return this.http.get(`${url}/users/business/me`, options)
             .map((response: Response) => response.json())

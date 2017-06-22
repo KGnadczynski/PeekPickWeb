@@ -6,8 +6,8 @@ export const PAGES_MENU = [
         path: 'komunikat',  // path for our page
         data: { // custom menu declaration
           menu: {
-            title: 'Strona Głowna', // menu title
-            icon: 'ion-android-home', // menu icon
+            title: 'Strona Główna', // menu title
+            icon: 'strona_glowna', // menu icon
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,
@@ -20,7 +20,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Kultura i rozrywka',
-            icon: 'ion-android-home',
+            icon: 'kultura_i_rozrywka',
             pathMatch: 'prefix',
             selected: false,
             expanded: false,
@@ -34,7 +34,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Gastronomia i życie nocne',
-            icon: 'ion-android-home',
+            icon: 'gastronomia_i_nocne_zycie',
             pathMatch: 'prefix',
             selected: false,
             expanded: false,
@@ -48,7 +48,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Zakupy małe',
-            icon: 'ion-android-home',
+            icon: 'zakupy_male',
             pathMatch: 'prefix',
             selected: false,
             expanded: false,
@@ -62,7 +62,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Zakupy duże',
-            icon: 'ion-android-home',
+            icon: 'zakupy_duze',
             pathMatch: 'prefix',
             selected: false,
             expanded: false,
@@ -76,7 +76,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Usługi dla ciała',
-            icon: 'ion-android-home',
+            icon: 'uslugi_dla_ciala',
             pathMatch: 'prefix',
             selected: false,
             expanded: false,
@@ -90,7 +90,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Usługi inne',
-            icon: 'ion-android-home',
+            icon: 'uslugi_inne',
             pathMatch: 'prefix',
             selected: false,
             expanded: false,
@@ -104,7 +104,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Sport i turystyka',
-            icon: 'ion-android-home',
+            icon: 'sport_i_turystyka',
             pathMatch: 'prefix',
             selected: false,
             expanded: false,
@@ -113,7 +113,7 @@ export const PAGES_MENU = [
           }
         }
       },
-      {
+      /*{
         path: 'login',  // path for our page
         data: { // custom menu declaration
           menu: {
@@ -152,7 +152,7 @@ export const PAGES_MENU = [
             order: 0
           }
         }
-      }
+      }*/
     ]
   }
 ];

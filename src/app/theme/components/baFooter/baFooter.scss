@@ -79,18 +79,24 @@ div#footer{
                     margin-right: 10px;
                 }
                 &:nth-child(2){
-                    margin-right: 5px;
+                    
+                    @media(max-width:565px){
+                        margin-right: 0;
+                    }
+                    @media(min-width:565px){
+                        margin-right: 5px;
+                    }
                 }
             }
             div.text{
                 font-family: 'Open Sans', sans-serif;
                 p{
                     color: $blackColor;
-                    font-size: 14px;
+                    font-size: 100%;
                 }
                 a{
                     color: $redColor;
-                    font-size: 15px;
+                    font-size: 100%;
                 }
             }
         }

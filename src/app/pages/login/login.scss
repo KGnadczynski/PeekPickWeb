@@ -16,6 +16,7 @@ div.alert-danger{
 div#loginFormMain{
     border: 2px solid $colorBlack;
     margin: auto;
+    padding: 20px 0;
     
     div#loginFormBlock{
         h1{
@@ -47,6 +48,9 @@ div#loginFormMain{
                     text-transform: lowercase;
                     color: $colorBlack;
                     font-family: 'Open Sans', sans-serif;
+                    &::placeholder{
+                        color: $colorBlack;
+                    }
                 }
                 
             }
@@ -58,7 +62,7 @@ div#loginFormMain{
                 
                 button#login, a#register{
                     padding: 3%;
-                    margin-bottom: 2%;
+                    margin: 4% 0;
                     background: white;
                     color: $colorRed;
                     border: 1px dotted $colorRed;
@@ -66,7 +70,7 @@ div#loginFormMain{
                     font-family: 'Sanchez', serif;
                 }
                 a#forgotPassword{
-                    margin-bottom: 3%;
+                    margin: 4% 0;
                     color: $colorBlack;
                     font-size: 15px;
                     color: $colorBlack;

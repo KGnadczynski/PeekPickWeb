@@ -1,18 +1,19 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-
 import { BaMenuService } from '../../services';
 import { GlobalState } from '../../../global.state';
-
 import 'style-loader!./baMenu.scss';
+import { ProfileService } from '../../../pages/profile/profile.service';
+import { BaPageTopService } from '../../services';
 
 @Component({
   selector: 'ba-menu',
-  templateUrl: './baMenu.html'
+  templateUrl: './baMenu.html',
+  providers: [ ProfileService ]
 })
 
-export class BaMenu {
+export class BaMenu implements OnInit {
 
   @Input() sidebarCollapsed: boolean = false;
   @Input() menuHeight: number;
@@ -25,8 +26,40 @@ export class BaMenu {
   public hoverElemTop: number;
   protected _onRouteChange: Subscription;
   public outOfArea: number = -200;
+  public imageUrl: string;
+  public name: string;
+  public companyName: string;
+  public email: string;
+  public isLoggedIn: boolean = false;
 
-  constructor(private _router: Router, private _service: BaMenuService, private _state: GlobalState) {
+  constructor(
+      private _router: Router,
+      private _service: BaMenuService,
+      private _state: GlobalState,
+      private profileService: ProfileService,
+      private pageTopService: BaPageTopService
+  ) {
+    this._service.loggedChange.subscribe((value) => {
+        console.log('changed log in menu service with value: ' + value);
+        this.profileService.getUser().subscribe(
+          user => {
+              this.isLoggedIn = true;
+              this.companyName = user.company.name;
+              this.email = user.email;
+              this.profileService.getUserImages(value).subscribe(
+                  images => {
+                      this.imageUrl = images.imageUrl;
+                  },
+                  error => {
+                      this.name = user.company.name;
+                  }
+              );
+          },
+          error => {
+              this.isLoggedIn = false;
+          }
+        )
+    });
   }
 
   public updateMenu(newMenuItems) {
@@ -41,7 +74,48 @@ export class BaMenu {
     }
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
+
+    /*this.pageTopService.loggedChange.subscribe(
+        (result) => {
+
+              if(result === -1){
+                  this.isLoggedIn = false;
+              } else {
+                  this.isLoggedIn = true;
+              }
+
+              this.profileService.getUserImages(result).subscribe((value)=> {
+              this.imageUrl = value.imageUrl;
+          });
+        }
+    );*/
+
+    this.profileService.getUser().subscribe(
+        user => {
+            console.log('logged in: ');
+            console.dir(user);
+            this.companyName = user.company.name;
+            this.email = user.email;
+            this.isLoggedIn = true;
+            this.profileService.getUserImages(user.company.id).subscribe(
+                images => {
+                    this.imageUrl = images.imageUrl;
+                    console.log('images:');
+                    console.dir(images);
+                },
+                error => {
+                    this.name = user.company.name;
+                }
+            )
+        },
+        error => {
+            console.log('not logged in: ');
+            console.dir(error);
+            this.isLoggedIn = false;
+        }
+    )
+
     this._onRouteChange = this._router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) {
@@ -83,5 +157,18 @@ export class BaMenu {
     }
 
     return false;
+  }
+
+  logout(): void {
+      console.log('logging out');
+      localStorage.removeItem('currentUserToken');
+      localStorage.removeItem('user');
+      localStorage.removeItem('isTokenFCMRegister'); 
+      localStorage.removeItem('latitude');
+      localStorage.removeItem('longitude');
+      this._service.changedLoggedFlag(-1);
+      this.pageTopService.changedLoggedFlag(-1);
+      this.pageTopService.showLoadingBar(false);
+      this._router.navigate(['/komunikat']);
   }
 }

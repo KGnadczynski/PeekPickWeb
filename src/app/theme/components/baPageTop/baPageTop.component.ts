@@ -22,8 +22,8 @@ export class BaPageTop implements OnInit{
   messageTypes: string[] = Object.keys(MessageType);
   messageTypesOb: {name: string, value: string}[] = [];
   isLogged: boolean;
-  userLogo: string;
-  name: string = '';
+  // userLogo: string;
+  // name: string = '';
 
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
@@ -51,7 +51,7 @@ export class BaPageTop implements OnInit{
         
         this.profileService.getUser().subscribe(
             result => {
-                this.name = result.company.name;
+                // this.name = result.company.name;
                 this.isLogged = true;
             }, 
             error => {
@@ -63,9 +63,9 @@ export class BaPageTop implements OnInit{
             this.isLogged = false;
         
         console.log('value from constructor: ' + value);
-        this.profileService.getUserImages(value).subscribe((value)=> {
+        /*this.profileService.getUserImages(value).subscribe((value)=> {
             this.userLogo = value.imageUrl;
-        }) ;
+        });*/
     });
 
       this.pageTopService.showLoading.subscribe((value) => { 
@@ -74,17 +74,24 @@ export class BaPageTop implements OnInit{
       } else {
         this.completeLoading();
       }
-  
  
     });
-
-    
 
   }
 
   ngOnInit(): void {
     
-    let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+    this.profileService.getUser().subscribe(
+        result => {
+            // this.name = result.company.name;
+            this.isLogged = true;
+        }, 
+        error => {
+            this.isLogged = false;
+        }
+    );
+
+    /*let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
 
     let user = JSON.parse(localStorage.getItem('user'));
    
@@ -98,15 +105,15 @@ export class BaPageTop implements OnInit{
               console.dir(user);
           }
         );
-    }
+    }*/
 
-     if(user != null) {
+     /*if(user != null) {
      this.profileService.getUserImages(user.user.company.id).subscribe((value)=> {
         this.userLogo = value.imageUrl;
         console.log('user logo: ' + this.userLogo);
       });
       
-    }
+     }*/
 
     for(let i = this.messageTypes.length-1; i >= 0; i--){
       if(i%2 !== 0)
@@ -129,21 +136,21 @@ export class BaPageTop implements OnInit{
     this.communicationservice.szukajKomunikat(term);
   }
 
-  public profileClick() {
+  /*public profileClick() {
        console.log("Profile clicked");
-  }
+  }*/
 
-   public settingsClick() {
+   /*public settingsClick() {
        console.log("Settings clicked");
-  }
+   }*/
 
    public signoutClick() {
        console.log("Signout clicked");
        localStorage.removeItem('currentUserToken');
        localStorage.removeItem('user');
        localStorage.removeItem('isTokenFCMRegister'); 
-       //localStorage.removeItem('latitude');
-       //localStorage.removeItem('longitude');
+       localStorage.removeItem('latitude');
+       localStorage.removeItem('longitude');
   }
 
    startLoading() {

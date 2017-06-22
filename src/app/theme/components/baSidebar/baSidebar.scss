@@ -28,6 +28,97 @@ $angle-right: "\f101";
   overflow: hidden;
   padding: 18px 0 0 0;
   list-style: none;
+  
+  div.companyMenu {
+    overflow: hidden;
+    padding: 0 15px;
+
+    div#login{
+        text-align: center;
+        margin: 3% 0;
+        overflow: hidden;
+        a{
+            color: $redColor;
+            padding: 10px 25px;
+            border: 2px dotted $redColor;
+            font-family: 'Sanchez', serif;
+            font-size: 16px;
+            display: inline-block;
+        }
+    }
+
+    div.mLine{
+        margin: 20px 0;
+        height: 2px;
+        background: $redColor;
+    }
+
+    ng2-letter-avatar{
+        img{
+          width: 77px;
+          height: 77px;
+          float: left;
+        }
+    }
+
+    img#main{
+        width: 77px;
+        height: 77px;
+        float: left;
+    }
+
+    p{
+        float: right;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+        margin-bottom: 5px;
+        text-transform: capitalize;
+        color: $blackColor;
+    }
+
+    span {
+        float: right;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        color: $blackColor;
+    }
+
+    ul {
+        clear: both;
+        float: left;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        list-style-type: none;
+        margin-top: 20px;
+        li{
+          margin-bottom: 10px;
+          a {
+            cursor: pointer;
+              img{
+                  width: 32px;
+              }
+              span {
+                  float: none;
+                  font-size: 15px;
+                  font-family: 'Sanchez', serif;
+                  color: $redColor;
+              }
+          }
+          &#logout{
+              img{
+                -webkit-transform: rotate(180deg);
+                -moz-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+                transform: rotate(180deg);
+              }
+          }
+        }
+    }
+
+  }
 }
 
 .al-sidebar-sublist .subitem-submenu-list {
@@ -49,7 +140,6 @@ $angle-right: "\f101";
   font-family: 'Sanchez', serif;
 
   a.al-sidebar-list-link{
-      color: $redColor;
       &:hover {
           color: $redColor;
       }
@@ -89,27 +179,25 @@ $angle-right: "\f101";
 
 a.al-sidebar-list-link {
   display: block;
-  height: 42px;
   padding-left: 18px;
-  text-shadow: none;
-  font-size: 13px;
   text-decoration: none;
-  color: $sidebar-text;
   line-height: 42px;
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
+  color: $redColor;
   &:hover {
     color: $primary;
     b {
       color: $primary;
     }
   }
-  i {
-    margin-right: 10px;
-    width: 16px;
-    display: inline-block;
-    font-size: 22px;
+  img{
+      width: 32px;
+  }
+  span{
+      margin-left: 5px;
+      font-size: 15px;
   }
   b {
     display: block;
@@ -321,9 +409,9 @@ a.al-sidebar-list-link {
 }
 
 .al-sidebar{
-    width: 215px;
+    width: 250px;
 
     .sidebar-hover-elem{
-      left: 207px !important;
+      left: 247px !important;
     }
 }
