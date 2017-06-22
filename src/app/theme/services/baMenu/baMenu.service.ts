@@ -10,6 +10,7 @@ export class BaMenuService {
   
   menuItems = new BehaviorSubject<any[]>([]);
   loggedChange: Subject<number> = new Subject<number>();
+  imageChange: Subject<string> = new Subject<string>();
 
   protected _currentMenuItem = {};
 
@@ -17,6 +18,10 @@ export class BaMenuService {
 
   changedLoggedFlag(companyId:number):void {
       this.loggedChange.next(companyId)
+  }
+
+  changeImage(imageUrl: string){
+      this.imageChange.next(imageUrl);
   }
 
   /**

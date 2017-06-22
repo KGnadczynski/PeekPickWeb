@@ -1,34 +1,37 @@
 <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
 <div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled}">
-   <ng2-slim-loading-bar [height]="'5px'"></ng2-slim-loading-bar>
-  <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
+    <ng2-slim-loading-bar [height]="'5px'"></ng2-slim-loading-bar>
+    
+    <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
 
-  <a routerLink="/pages/komunikat" class="al-logo clearfix">
-      <img src="../../../meta/ikona.png" alt="">
-  </a>
+    <a routerLink="/pages/komunikat" class="al-logo clearfix">
+        <img src="../../../meta/ikona.png" alt="">
+    </a>
 
-  <span>peekpick</span>
+    <span>peekpick</span>
 
-  <div class="dropdown hidden-xs-down">
-      <ng2-completer [(ngModel)]="searchStr" [dataService]="dataService" [minSearchLength]="0" (selected)="onSelected($event)" [textNoResults]="'Brak wyników'" [textSearching]="'Proszę czekać...'"></ng2-completer>
-  </div>
+    <!--<div class="dropdown hidden-xs-down">
+    <ng2-completer [(ngModel)]="searchStr" [dataService]="dataService" [minSearchLength]="0" (selected)="onSelected($event)" [textNoResults]="'Brak wyników'" [textSearching]="'Proszę czekać...'"></ng2-completer>
+    </div>-->
 
-  <div class="dropdown" *ngIf="isLogged">
-      <i class="fa fa-plus-circle fa-2x dropdown-toggle" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown" *ngIf="isLogged">
+        <i class="fa fa-plus-circle fa-2x dropdown-toggle" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+        
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <div *ngFor="let messageType of messageTypesOb">
-                <a [routerLink]="['/pages/add_message/', messageType.value]">{{ messageType.value }} </a>
+                <a [routerLink]="['/pages/add_message/', messageType.value]">{{ messageType.value }}</a>
                 <i *ngIf="messageType.name === 'EVENT'" class="material-icons">event</i>
                 <i *ngIf="messageType.name === 'WORK'" class="material-icons">work</i>
                 <i *ngIf="messageType.name === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
                 <i *ngIf="messageType.name === 'WORTH_SEEING'" class="material-icons">visibility</i>
                 <i *ngIf="messageType.name === 'PROMOTION'" class="material-icons">loyalty</i>
             </div>
-            
-      </div>
-  </div>
+        </div>
+    </div>
 
-  <!--<div class="user-profile clearfix" *ngIf="isLogged">
+    <i id="searchIcon" class="fa fa-search fa-2x" aria-hidden="true"></i>
+
+    <!--<div class="user-profile clearfix" *ngIf="isLogged">
       <div class="dropdown al-user-profile">
           <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
               <img *ngIf="userLogo" src="{{userLogo}}">
@@ -48,5 +51,4 @@
         <div></div>
     </div>
 
-  </div>
-  
+</div>

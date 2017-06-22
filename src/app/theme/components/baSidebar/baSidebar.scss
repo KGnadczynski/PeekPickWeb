@@ -33,7 +33,7 @@ $angle-right: "\f101";
     overflow: hidden;
     padding: 0 15px;
 
-    div#login{
+    div.login{
         text-align: center;
         margin: 3% 0;
         overflow: hidden;
@@ -44,6 +44,7 @@ $angle-right: "\f101";
             font-family: 'Sanchez', serif;
             font-size: 16px;
             display: inline-block;
+            width: 60%;
         }
     }
 

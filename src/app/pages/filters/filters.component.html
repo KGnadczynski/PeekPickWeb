@@ -38,13 +38,16 @@
                 <span>lokalizacja</span>
             </div>
             
-            
             <div class="checkbox">
                 <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy" checked>
                 <label for="create_day"></label>
                 <span>data dodania</span>
             </div>
 
+        </div>
+
+        <div class="blacklineF">
+            <div></div>
         </div>
 
         <h5>Lokalizacja</h5>
@@ -84,8 +87,6 @@
                 </div>
             </div>
         </div>
-        
-        
 
         <h5 *ngIf="id === undefined">Branża</h5>
 
@@ -94,7 +95,16 @@
                 <div class="blacklineF">
                     <div></div>
                 </div>
-                <button type="button" (click)="category.bol = !category.bol">{{ category.name }}</button>
+                <button type="button" (click)="category.bol = !category.bol" [ngSwitch]="category.id">
+                    <img *ngSwitchCase="1" src="../../meta/menu_icons/kultura_i_rozrywka.png" alt="">
+                    <img *ngSwitchCase="2" src="../../meta/menu_icons/gastronomia_i_nocne_zycie.png" alt="">
+                    <img *ngSwitchCase="3" src="../../meta/menu_icons/zakupy_male.png" alt="">
+                    <img *ngSwitchCase="4" src="../../meta/menu_icons/zakupy_duze.png" alt="">
+                    <img *ngSwitchCase="5" src="../../meta/menu_icons/uslugi_dla_ciala.png" alt="">
+                    <img *ngSwitchCase="6" src="../../meta/menu_icons/uslugi_inne.png" alt="">
+                    <img *ngSwitchCase="7" src="../../meta/menu_icons/sport_i_turystyka.png" alt="">
+                    {{ category.name }}
+                </button>
                 
                 <div [collapse]="category.bol" *ngFor="let subcategory of category.subcategories">
                     <div class="subcategories">
@@ -109,8 +119,6 @@
                 
             </div>
         </div>
-        <div class="blacklineF">
-            <div></div>
-        </div>
+
     </form>
 </div>

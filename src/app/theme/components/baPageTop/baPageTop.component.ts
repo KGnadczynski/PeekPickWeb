@@ -19,141 +19,96 @@ import { Router, NavigationExtras } from '@angular/router';
 
 export class BaPageTop implements OnInit{
 
-  messageTypes: string[] = Object.keys(MessageType);
-  messageTypesOb: {name: string, value: string}[] = [];
-  isLogged: boolean;
-  // userLogo: string;
-  // name: string = '';
+    messageTypes: string[] = Object.keys(MessageType);
+    messageTypesOb: {name: string, value: string}[] = [];
+    isLogged: boolean;
 
-  public isScrolled:boolean = false;
-  public isMenuCollapsed:boolean = false;
+    isScrolled:boolean = false;
+    isMenuCollapsed:boolean = false;
 
-  protected searchStr: string;
-  protected dataService: RemoteData;
-  protected searchData = [
-    { color: 'red', value: '#f00' },
-    { color: 'green', value: '#0f0' },
-    { color: 'blue', value: '#00f' },
-    { color: 'cyan', value: '#0ff' },
-    { color: 'magenta', value: '#f0f' },
-    { color: 'yellow', value: '#ff0' },
-    { color: 'black', value: '#000' }
-  ];
+    protected searchStr: string;
+    protected dataService: RemoteData;
+    protected searchData = [
+        { color: 'red', value: '#f00' },
+        { color: 'green', value: '#0f0' },
+        { color: 'blue', value: '#00f' },
+        { color: 'cyan', value: '#0ff' },
+        { color: 'magenta', value: '#f0f' },
+        { color: 'yellow', value: '#ff0' },
+        { color: 'black', value: '#000' }
+    ];
 
-  constructor(private _state:GlobalState,private communicationservice: CommunicationService,private pageTopService: BaPageTopService,private profileService: ProfileService,private completerService: CompleterService,private slimLoadingBarService: SlimLoadingBarService, private router: Router) {
-    this.dataService =  completerService.remote(url+ '/messages/page/1?searchTerm=','user.name,content','user.name,content').imageField("user.company.mainImageUrl");
-    this.dataService.dataField('objectList');
-    this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
-      this.isMenuCollapsed = isCollapsed;
-    });
+    constructor(
+        private _state: GlobalState,
+        private communicationservice: CommunicationService,
+        private pageTopService: BaPageTopService,
+        private profileService: ProfileService,
+        private completerService: CompleterService,
+        private slimLoadingBarService: SlimLoadingBarService, 
+        private router: Router
+    ){
+        this.dataService =  completerService.remote(url+ '/messages/page/1?searchTerm=','user.name,content','user.name,content')
+        .imageField("user.company.mainImageUrl");
+        this.dataService.dataField('objectList');
+        this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
+            this.isMenuCollapsed = isCollapsed;
+        });
     
-    this.pageTopService.loggedChange.subscribe((value) => {
+        this.pageTopService.loggedChange.subscribe((value) => {
+        
+            this.profileService.getUser().subscribe(
+                result => {
+                    this.isLogged = true;
+                }, 
+                error => {
+                    this.isLogged = false;
+                }
+            );
+      
+            if(value === -1)
+                this.isLogged = false;
+        
+        });
+
+        this.pageTopService.showLoading.subscribe((value) => { 
+            if(value) this.startLoading();
+            else this.completeLoading();
+        });
+    }
+
+    ngOnInit(): void {
         
         this.profileService.getUser().subscribe(
             result => {
-                // this.name = result.company.name;
                 this.isLogged = true;
             }, 
             error => {
                 this.isLogged = false;
             }
         );
-      
-        if(value === -1)
-            this.isLogged = false;
+
+        for(let i = this.messageTypes.length-1; i >= 0; i--)
+            if(i%2 !== 0)
+                this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
         
-        console.log('value from constructor: ' + value);
-        /*this.profileService.getUserImages(value).subscribe((value)=> {
-            this.userLogo = value.imageUrl;
-        });*/
-    });
+    }
 
-      this.pageTopService.showLoading.subscribe((value) => { 
-      if(value) {
-        this.startLoading();
-      } else {
-        this.completeLoading();
-      }
- 
-    });
-
-  }
-
-  ngOnInit(): void {
+    toggleMenu() {
+        this.isMenuCollapsed = !this.isMenuCollapsed;
+        this._state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
     
-    this.profileService.getUser().subscribe(
-        result => {
-            // this.name = result.company.name;
-            this.isLogged = true;
-        }, 
-        error => {
-            this.isLogged = false;
-        }
-    );
+        return false;
+    }
 
-    /*let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+    scrolledChanged(isScrolled) {
+        this.isScrolled = isScrolled;
+    }
 
-    let user = JSON.parse(localStorage.getItem('user'));
-   
-    if(currentUser != null) {
-      console.log('curent user not null');
-        this.isLogged = true;
-        this.profileService.getUser().subscribe(
-          user => {
-              this.name = user.company.name;
-              console.log('name: ' + this.name);
-              console.dir(user);
-          }
-        );
+    /*public search(term:string) {
+        this.communicationservice.szukajKomunikat(term);
     }*/
 
-     /*if(user != null) {
-     this.profileService.getUserImages(user.user.company.id).subscribe((value)=> {
-        this.userLogo = value.imageUrl;
-        console.log('user logo: ' + this.userLogo);
-      });
-      
-     }*/
-
-    for(let i = this.messageTypes.length-1; i >= 0; i--){
-      if(i%2 !== 0)
-        this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
-    }
-    
-  }
-
-  public toggleMenu() {
-    this.isMenuCollapsed = !this.isMenuCollapsed;
-    this._state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
-    return false;
-  }
-
-  public scrolledChanged(isScrolled) {
-    this.isScrolled = isScrolled;
-  }
-
-  public search(term:string) {
-    this.communicationservice.szukajKomunikat(term);
-  }
-
-  /*public profileClick() {
-       console.log("Profile clicked");
-  }*/
-
-   /*public settingsClick() {
-       console.log("Settings clicked");
-   }*/
-
-   public signoutClick() {
-       console.log("Signout clicked");
-       localStorage.removeItem('currentUserToken');
-       localStorage.removeItem('user');
-       localStorage.removeItem('isTokenFCMRegister'); 
-       localStorage.removeItem('latitude');
-       localStorage.removeItem('longitude');
-  }
-
-   startLoading() {
+    startLoading() {
         this.slimLoadingBarService.start(() => {
             console.log('Loading complete');
         });

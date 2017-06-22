@@ -15,16 +15,16 @@ div.messages{
             float: left;
             overflow: hidden;
             img{
-                // width: 72px;
-                // height: 72px;
-                @media(max-width: 575px){
+                width: 72px;
+                height: 72px;
+                /*@media(max-width: 575px){
                     width: 100%;
                     // height: 70px;
                 }
                 @media (min-width: 576px){
                     width: 100%;
                     // height: 140px;
-                }
+                }*/
             }
         }
         div.message-text-block{

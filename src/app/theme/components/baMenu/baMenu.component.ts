@@ -60,6 +60,10 @@ export class BaMenu implements OnInit {
           }
         )
     });
+
+    this._service.imageChange.subscribe((url) => {
+        this.imageUrl = url;
+    });
   }
 
   public updateMenu(newMenuItems) {
