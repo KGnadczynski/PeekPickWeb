@@ -1,28 +1,42 @@
 $blackColor: #263238;
 $redColor: #A20E12;
 
-div.company-image{
-    margin-top: 3%;
-
-    img{
-        display: block;
-        margin: auto;
-        width: 140px;
-        height: 140px;
+div#companyWhole{
+    @media(max-width: 565px){
+        padding: 0 3%;
+    }
+    @media(min-width: 566px){
+        padding: 0 10%;
     }
 }
-div.company-name{
-    h4{
-        font-family: 'Open Sans', sans-serif;
-        text-align: center;
-        text-transform: capitalize;
-        color: $blackColor;
-        font-size: 20px;
-        padding: 2% 0;
-        border-bottom: 2px solid $blackColor;
-        float: none;
-        margin: auto;
-        width: 70%;
+
+div#topCompany{
+    div.company-image{
+        margin-top: 3%;
+
+        img{
+            display: block;
+            margin: auto;
+            width: 140px;
+            height: 140px;
+        }
+    }
+    div.company-name{
+        h4{
+            font-family: 'Open Sans', sans-serif;
+            text-align: center;
+            text-transform: capitalize;
+            color: $blackColor;
+            font-size: 20px;
+            padding: 2% 0;
+            border-bottom: 2px solid $blackColor;
+            float: none;
+            margin: auto;
+            width: 70%;
+            @media(min-width: 992px){
+                font-size: 40px;
+            }
+        }
     }
 }
 
@@ -37,7 +51,7 @@ md-tab-group{
     width: 100%;
     padding: 3% 0;
     
-    @media(max-width: 565px){
+    /*@media(max-width: 565px){
         align-items: center;
     }
     @media(min-width: 565px){
@@ -51,14 +65,14 @@ md-tab-group{
     }
     @media(min-width: 1420px){
         align-items: center;
-    }
+    }*/
 
     
     div.md-tab-header{
         border: none !important;
         justify-content: center;
         
-        @media(min-width: 992px){
+        /*@media(min-width: 992px){
             width: 60%;
         }
         @media(min-width: 768px){
@@ -69,10 +83,10 @@ md-tab-group{
         }
         @media(max-width: 565px){
             width: 80%;
-        }
+        }*/
     }
     div.md-tab-body-wrapper{
-        @media(min-width: 992px){
+        /*@media(min-width: 992px){
             width: 60%;
         }
         @media(min-width: 768px){
@@ -83,7 +97,7 @@ md-tab-group{
         }
         @media(max-width: 565px){
             width: 100%;
-        }
+        }*/
     }
     div.md-tab-label{
         background: white;
@@ -112,7 +126,24 @@ div#companyMain{
     overflow: hidden;
     font-family: 'Open Sans', sans-serif;
     color: $blackColor;
-    
+    @media(min-width: 992px){
+        padding: 2% 10%;
+    }
+
+    div.cLine{
+        div{
+            width: 80%;
+            margin: auto;
+            height: 2px;
+            background: $blackColor;
+        }
+        width: 100%;
+        float: left;
+        clear: both;
+        margin-top: 2%;
+        margin-bottom: 5%;
+    }
+
     h4{
         float: left;
         margin: 3px 0 0 6px;
@@ -127,16 +158,27 @@ div#companyMain{
         float: left;
         color: $redColor;
     }
-    div.compDiv{
+    div.compDiv, div.compDivD{
+        margin: 10px 0;
+        overflow: hidden;
         clear: both;
-        margin-bottom: 3%;
-        float: left;
+        @media(min-width: 566px){
+            width: 95%;
+        }
+        @media(min-width: 768px){
+            width: 70%;
+        }
+        @media(min-width: 992px){
+            width: 50%;
+        }
+
         a{
             display: block;
             clear: both;
             float: left;
-            margin-top: 3%;
+            margin: 10px 0;
             font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
         }
         div{
             margin: 5% 0;
@@ -145,14 +187,37 @@ div#companyMain{
         }
         p {
             font-family: 'Open Sans', sans-serif;
-            margin: 4% 0;
+            margin: 16px 0 0 0;
             float: left;
             clear: both;
             line-height: 20px;
             font-size: 16px;
             color: $blackColor;
             text-align: center;
+            &.desc{
+                float: none;
+            }
         }
+    }
+    div.compDivD{
+        width: 100%;
+    }
+    div#contactDiv, div#adressDiv{
+        overflow: hidden;
+        float: left;
+        
+        display: flex;
+        flex-direction: column;
+        
+        @media(max-width: 565px){
+            width: 100%;
+            align-items: flex-start;
+        }
+        @media(min-width: 566px){
+            width: 50%;
+            align-items: center;
+        }
+        
     }
 }
 

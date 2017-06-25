@@ -4,68 +4,97 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div id="addForm">
-            <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-
             <!--<h3 [ngSwitch]="paramValue">
               <span *ngSwitchCase="'message_id'">Edytuj komunikat</span>
               <span *ngSwitchCase="'message_type'">Dodaj komunikat</span>
             </h3>-->
             
-            <p [ngSwitch]="paramValue">
-              <span *ngSwitchCase="'message_type'">{{ messageTypeValue }}</span>
+            <h3>
+              {{ messageTypeValue }}
+              <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </h3>
+
+            <!--<p [ngSwitch]="paramValue">-->
+              <!--<span *ngSwitchCase="'message_type'"></span>-->
               <!--<span *ngSwitchCase="'message_id'">Typ: {{ messageTypeValue }}</span>-->
-            </p>
+            <!--</p>-->
 
             <!--data picker-->
-            <p>Data rozpoczęcia: </p>
-            <input  daterangepicker #datePickerStart [(ngModel)]="msgAddModel.startDate" (selected)="selectStartDate($event)" [options]="pickerOptionsStart" type="submit"/>
-            <div class="blackline">
-              <div></div>
-            </div>
-            <p>Data zakończenia: </p>
-            <div id="checkBoxDiv">
-                <!--<div class="checkbox">-->
-                    <input type="checkbox" [checked]="withEndDate" (change)="addprop()">
-                    <label>bez daty zakończenia</label>
-                <!--</div>-->
+            <div class="date">
+                <img src="../../meta/calendar.png" alt="">
+                <div class="text">
+                    <p>Data rozpoczęcia: </p>
+                    <input  daterangepicker #datePickerStart [(ngModel)]="msgAddModel.startDate" (selected)="selectStartDate($event)" [options]="pickerOptionsStart" type="submit"/>
+                </div>
             </div>
             
-            
-            <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
-              <input daterangepicker [(ngModel)]="msgAddModel.endDate" (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" />
+            <div class="blackline hidden-lg-up">
+                <div></div>
             </div>
 
-            <p>Treść komunikatu</p>
-            <textarea rows="5" type="text" placeholder="..." [(ngModel)]="msgAddModel.content" #messageContent maxlength="200"></textarea>
-            <p>Zostało: {{200 - messageContent.value.length}} znaków</p>
-            <div class="errorDiv" *ngIf="errorInfo">
-                <span>{{ errorInfo }}</span>
+            <div class="date">
+                <img src="../../meta/calendar.png" alt="">
+                <div class="text">
+                    <p>Data zakończenia: </p>
+                    <div class="checkBoxDiv">
+                        <div class="checkbox">
+                            <input type="checkbox" name="checkboxAdd" id="checkboxAdd" [checked]="withEndDate" (change)="addprop()">
+                            <label for="checkboxAdd"></label>
+                        </div>
+                        <span>bez daty zakończenia</span>
+                    </div>
+                    
+                    <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
+                      <input daterangepicker [(ngModel)]="msgAddModel.endDate" (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" />
+                    </div>
+                </div>
+
             </div>
-            <div id="odzialFirmy">
+
+            <div class="blackline">
+                <div></div>
+            </div>
+            
+            <div class="content">
+                <h4>Treść komunikatu</h4>
+                <textarea rows="5" type="text" placeholder="..." [(ngModel)]="msgAddModel.content" #messageContent maxlength="200"></textarea>
+                <p>Zostało: {{200 - messageContent.value.length}} znaków</p>
+                <div class="errorDiv" *ngIf="errorInfo">
+                    <span>{{ errorInfo }}</span>
+                </div>
+            </div>
+
+            <div class="blackline hidden-lg-up">
+                <div></div>
+            </div>
+            
+            <div class="odzialFirmy">
               <ss-multiselect-dropdown *ngIf="showMulitSelect"  [texts]="myTexts" [settings]="mySettings" defaultTitle="Wybierz oddział" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
             </div>
+
             <div class="blackline">
-              <div></div>
+                <div></div>
             </div>
+
             <div id="addPhoto">
+                <img class="icon" src="../../meta/camera.png" alt="">
                 <ba-picture-uploader #fileUpload  (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
             </div>
             
             <div id="addLocalization">
-              <div id="mapa">
-                    <agm-map [latitude]="lat" [longitude]="lng"
-                    (mapClick)="mapClicked($event)" [zoom]="zoom"
-                    [disableDefaultUI]="false"
-                     [zoomControl]="true">
-                      <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
-                      <agm-info-window>
-                           <strong>InfoWindow content</strong>
-                       </agm-info-window>
-                    </agm-map>
-                    <p>{{localization}}</p>
-              </div>
+              <img class="icon" src="../../meta/map-marker.png" alt="">
+                  <agm-map [latitude]="lat" [longitude]="lng"
+                  (mapClick)="mapClicked($event)" [zoom]="zoom"
+                  [disableDefaultUI]="false"
+                    [zoomControl]="true">
+                    <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
+                    <agm-info-window>
+                          <strong>InfoWindow content</strong>
+                      </agm-info-window>
+                  </agm-map>
+                  <p>{{localization}}</p>
             </div>
 
             <div id="buttons">

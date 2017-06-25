@@ -70,6 +70,9 @@ $redColor: #A20E12;
             @media(max-width: 575px){
                 left: -194px;
             }
+            @media(min-width: 566px){
+                left: -200px;
+            }
           
           padding: 0 10px;
           top: 70px;

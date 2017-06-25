@@ -4,11 +4,8 @@ $colorBlack: #263238;
 @mixin checkboxMixin {
     div.checkbox{
           width: 25px;
-          margin-bottom: 10px;
-          margin-top: 10px;
           position: relative;
           float: left;
-          clear: both;
           label{
               cursor: pointer;
               position: absolute;
@@ -49,76 +46,140 @@ div.modal-content{
     div#addForm{
         padding: 4%;
         overflow: hidden;
-        p{
-            margin-bottom: 7%;
+        h3{
             text-align: center;
-            color: $colorBlack;
-            font-size: 16px;
-            font-family: 'Open Sans', sans-serif;
-            clear: both;
-            width: 100%;
-            float: left;
-            span{
-                font-weight: normal;
-                text-transform: lowercase;
-                font-family: 'Sanchez', serif;
-                font-size: 25px;
-                display: block;
-                color: $colorRed;
+            color: $colorRed;
+            font-size: 25px;
+            font-weight: normal;
+            text-transform: lowercase;
+            font-family: 'Sanchez', serif;
+            button{
+                outline: 0;
+                opacity: 1;
+                span{
+                    font-size: 2rem;
+                    color: $colorBlack;
+                }
             }
         }
+        
+        div.date{
+            overflow: hidden;
+            margin-top: 35px;
+            float: left;
+            @media(max-width: 991px){
+                width: 100%;
+            }
+            @media (min-width: 992px){
+                width: 50%;
+            }
+            img{
+                float: left;
+                width: 73px;
+                height: 73px;
+            }
+            div.text{
+                float: left;
+                overflow: hidden;
+                margin-left: 15px;
+                p{
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 16px;
+                    color: $colorBlack;
+                    float: left;
+                }
+                input[type=text], input[type=submit]{
+                    float: left;
+                    clear: both;
+                    margin-top: 5px;
+                    padding: 10px;
+                    background: white;
+                    border: 1px solid gray;
+                    border-radius: 2px;
+                    color: $colorBlack;
+                    border: 5px dotted $colorRed;
+                    outline: 0;
+                    font-family: 'Open Sans', sans-serif;
+                }
+                div.checkBoxDiv{
+                    float: left;
+                    margin-left: 15px;
+                    @include checkboxMixin;
+                    span{
+                        color: $colorBlack;
+                        margin-left: 5px;
+                        float: left;
+                        margin-top: 5px;
+                    }
+                }
+            }
+            
+        }
+
+        div.content{
+            margin-top: 40px;
+            width: 100%;
+            float: left;
+            @media(min-width: 992px){
+                width: 50%;
+            }
+            h4{
+                // font-weight: normal;
+                font-family: 'Open Sans', sans-serif;
+                text-align: center;
+                margin-bottom: 15px;
+                color: $colorBlack;
+            }
+            p{
+                font-family: 'Open Sans', sans-serif;
+                text-align: right;
+                color: $colorBlack;
+                margin-right: 20px;
+            }
+            textarea{
+                margin: auto;
+                display: block;
+                width: 80%;
+                text-align: center;
+                padding-top: 2%;
+                margin-bottom: 4%;
+                color: $colorBlack;
+                border: 5px dotted $colorRed;
+                outline: 0;
+                font-family: 'Open Sans', sans-serif;
+            }
+        }
+
         i{
             display: block;
             text-align: center;
             margin-bottom: 5%;
         }
-        input[type=text], input[type=submit]{
-            display: block;
-            margin: auto;
-            padding: 3%;
-            background: white;
-            border: 1px solid gray;
-            border-radius: 2px;
-            margin-bottom: 5%;
-            color: $colorBlack;
-            border: 5px dotted $colorRed;
-            outline: 0;
-            font-family: 'Open Sans', sans-serif;
-        }
+        
         div.blackline{
-            clear: both;
             width: 100%;
             float: left;
+            clear: both;
             div{
                 width: 80%;
                 height: 2px;
                 background: black;
                 margin: auto;
             }
-            margin-top: 2%;
-            margin-bottom: 5%;
+            
+            margin-top: 40px;
+            margin-bottom: 40px;
         }
-        textarea{
-            margin: auto;
-            display: block;
-            width: 80%;
-            text-align: center;
-            padding-top: 2%;
-            margin-bottom: 4%;
-            color: $colorBlack;
-            border: 5px dotted $colorRed;
-            outline: 0;
-            font-family: 'Open Sans', sans-serif;
-        }
+        
         div#buttons{
-            width: 80%;
-            margin: auto;
+            width: 100%;
             clear: both;
             text-align: center;
             float: left;
             font-family: 'Sanchez', sans-serif;
             button {
-                padding: 5%;
+                padding: 15px;
+                width: 30%;
                 background: white;
                 border: 2px dotted $colorRed;
                 color: $colorRed;
@@ -126,19 +187,23 @@ div.modal-content{
                 outline: 0;
             }
         }
-
-        //@include checkboxMixin;        
-        div#checkBoxDiv{
-            text-align: center;
-            margin: 3% 0;
-            
-            label{
-                color: $colorBlack;
+        
+        div.odzialFirmy{
+            float: left;
+            width: 100%;
+            @media(min-width: 992px){
+                width: 50%;
             }
-        }
-        div#odzialFirmy{
             div.dropdown{
                 text-align: center;
+                @media(min-width: 992px){
+                    margin-top: 100px;
+                }
+                button{
+                    border: 2px dotted $colorRed;
+                    border-radius: 0;
+                    padding: 10px;
+                }
             }
             ul {
                 min-width: 240px;
@@ -181,14 +246,20 @@ div.daterangepicker {
     left: 5% !important;
     right: 2% !important;
     width: 90% !important;
+    @media(min-width: 992px){
+        left: 45% !important;
+        width: 30% !important;
+    }
+    
     button.btn-success, button.btn-default {
-        background-color: white;
-        border: 1px solid gray;
-        color: gray;
+        background: white !important;
+        border: 1px solid $colorBlack !important;
+        color: $colorBlack;
+        border-radius: 0;
     }
 }
 
-div#addPhoto{
+div#addPhoto, div#addLocalization{
     float: left;
     width: 50%;
     .picture-group{
@@ -210,29 +281,32 @@ div#addPhoto{
         display: none !important;
     }
     img{
-        width: 80%;
+        width: 150px;
         display: block;
         margin: auto;
+        &.icon{
+            width: 63px;
+            height: 63px;
+            margin-bottom: 20px;
+        }
     }
-}
-
-div#addLocalization{
-    float: right;
-    width: 50%;
     p {
         font-family: 'Open Sans', sans-serif;
         line-height: 25px;
+        color: $colorBlack;
+        margin: 15px 0;
+        font-size: 15px;
+        text-align: center;
+    }
+    .sebm-google-map-container {
+        height: 200px;
     }
 }
 
-div#mapa{
-        .sebm-google-map-container {
-            height: 200px;
-        }
-    }
 
 .modal-dialog{
-    @media (min-width: 544px){
-        // margin: 10px;
+    @media (max-width: 565px){
+        margin: 10px;
     }
+    
 }
