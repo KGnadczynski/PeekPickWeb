@@ -328,21 +328,31 @@ export class MessagesComponent implements OnInit{
     }
 
     getSearchMessages(searchTerm: string) {
+         
          this.pageTopService.showLoadingBar(true);
-        if("geolocation"  in navigator){
+
+         if("geolocation"  in navigator){
             navigator.geolocation.getCurrentPosition((position) => {
                 this.latitude = position.coords.latitude;
                 this.longitude = position.coords.longitude;
+                this.searchTerm += "&latitude="+this.latitude+"&longitude="+this.longitude;
+                console.log('search term in messages component: ' + searchTerm);
                 this.messageService.searchMessages(searchTerm, this.pageNumber, this.latitude, this.longitude).subscribe(result => {
                     this.messageList = result;
                     this.pageTopService.showLoadingBar(false);
+                    console.log('search msgs:')
+                    console.dir(result);
                 });
-            });
-        }
-        this.messageService.searchMessages(searchTerm, this.pageNumber, 0, 0).subscribe(result => {
-            this.messageList = result;
-            this.pageTopService.showLoadingBar(false);
-        });
+            }); 
+         } else {
+                this.messageService.searchMessages(searchTerm, this.pageNumber, 0, 0).subscribe(result => {
+                    this.messageList = result;
+                    this.pageTopService.showLoadingBar(false);
+                    console.log('search msgs:')
+                    console.dir(result);
+                });
+         }
+        
     }
 
     showSocialShare() {

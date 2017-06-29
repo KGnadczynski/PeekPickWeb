@@ -56,7 +56,7 @@ export class MessagesService{
 
     searchMessages(searchTerm:string, page:number, latitude: number, longitude: number): Observable<MessageList>{
 
-        this.urlNew = url + '/messages/page/' + page + '?searchTerm=' + searchTerm;
+        this.urlNew = url + '/messages/page/' + page + '?' + searchTerm;
         if(!(latitude === 0 && longitude === 0))
             this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;
 
