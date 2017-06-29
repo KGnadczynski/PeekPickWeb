@@ -3,9 +3,7 @@ import { CommonModule }  from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 import { KomunikatComponent } from './komunikat.component.ts';
 import { routing } from './komunikat.routing.ts';
-
-
-import {BusyModule} from 'angular2-busy';
+import { BusyModule } from 'angular2-busy';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { ModalModule } from 'angular2-modal';
 //import { DodajKomunikatModal } from './dialogs/dodajkomunikat-modal';
@@ -14,12 +12,9 @@ import { ImageUploadModule } from 'ng2-imageupload';
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { MomentModule } from 'angular2-moment';
 import { RouterModule } from '@angular/router';
-
 import { MessagesModule } from '../messages/messages.module';
 import { FiltersModule } from '../filters/filters.module';
-
-
-
+import { SearchModule } from '../search/search.module';
 
 @NgModule({
   imports: [
@@ -34,7 +29,8 @@ import { FiltersModule } from '../filters/filters.module';
     routing,
     MomentModule,
     FiltersModule,
-    MessagesModule
+    MessagesModule,
+    SearchModule
   ],
   declarations: [
     KomunikatComponent,

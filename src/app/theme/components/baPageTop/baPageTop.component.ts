@@ -76,6 +76,18 @@ export class BaPageTop implements OnInit{
         });
     }
 
+    sendMessage():void {
+        this.profileService.getUser().subscribe(
+            result => {
+                this.pageTopService.sendMessage('Message from page top component to app component');
+            }, error => {
+                console.log('eerroooroo');
+                this.pageTopService.sendMessage('Message from page top component to app component');
+            }
+        );
+        
+    }
+
     ngOnInit(): void {
         
         this.profileService.getUser().subscribe(

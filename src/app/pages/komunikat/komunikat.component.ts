@@ -15,6 +15,7 @@ import { BaMenuService, BaPageTopService} from '../../theme';
 import { Routes } from '@angular/router';
 import { PAGES_MENU } from '../pages.menu';
 import { ProfileService } from '../profile/profile.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'komunikatcomponent',
@@ -27,6 +28,9 @@ export class KomunikatComponent implements OnInit {
 
   logged = false;
   searchTerm: string;
+  subscription: Subscription;
+  showSearch: boolean = false;
+  showFilters: boolean = true;
 
   @ViewChild('msgs') messageChild: MessagesComponent;
 
@@ -39,7 +43,13 @@ export class KomunikatComponent implements OnInit {
     private menuService: BaMenuService,
     private profileService: ProfileService,
     private topService: BaPageTopService
-  ){}
+  ){
+      this.subscription = this.topService.getMessage().subscribe(message => {
+          console.log('message: ' + message.text);
+          this.showSearch = !this.showSearch;
+          this.showFilters = !this.showFilters;
+      });
+  }
 
   ngOnInit() {
         var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));

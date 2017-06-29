@@ -50,8 +50,8 @@ export class FiltersComponent implements OnInit{
 
         this.filterForm.valueChanges.subscribe(data => {
 
-            console.log('data: ');
-            console.dir(data);
+            // console.log('data: ');
+            // console.dir(data);
 
             let params: {sortType: string, startBeforeDate: string, range: number, messageTypeList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
                 sortType: '',
@@ -109,7 +109,7 @@ export class FiltersComponent implements OnInit{
                 if(params[key]) i++;
             });
 
-            console.log('params length: ' + i);
+            // console.log('params length: ' + i);
             
             if(i > 1){
                 x = 1;
