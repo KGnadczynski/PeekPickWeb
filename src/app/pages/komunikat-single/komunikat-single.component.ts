@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { ObjectList } from '../komunikat/komunikat';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'komunikat-single',
@@ -20,12 +21,16 @@ export class KomunikatSingleComponent implements OnInit {
     private id: number;
     private message: ObjectList;
     private imgs: any;
+    socialVisible: boolean = false;
+    name: string = '';
+
     @ViewChild('childModal') public childModal: ModalDirective;
 
     constructor(
       private route: ActivatedRoute, 
       private komunikatSingleService: KomunikatServiceComponent,
-      private _location: Location
+      private _location: Location,
+      private router: Router
     ){
       let moment = require('../../../../node_modules/moment/moment.js');
       moment.locale('pl');
@@ -39,9 +44,16 @@ export class KomunikatSingleComponent implements OnInit {
 
       this.komunikatSingleService.getKomunikat(this.id).subscribe(komunikat => {
         this.message = komunikat;
-        this.komunikatSingleService.getUserImages(this.message.companyBranchList[0].company.id).subscribe(images => {
-          this.imgs = images;
-        });
+        console.log('single kom: ');
+        console.dir(komunikat);
+        this.komunikatSingleService.getUserImages(this.message.companyBranchList[0].company.id).subscribe(
+            images => {
+                this.imgs = images;
+            },
+            error => {
+                this.name = komunikat.companyBranchList[0].company.name;
+            }
+        );
       });
 
     }
@@ -59,4 +71,41 @@ export class KomunikatSingleComponent implements OnInit {
       this._location.back();
     }
 
+    checkIfFavourite(id: number){
+        if(JSON.parse(localStorage.getItem("favs"))){
+            if(JSON.parse(localStorage.getItem("favs")).indexOf(id) > -1) return true;
+            else return false;
+        }
+    }
+
+    addToFavourites(id: number){
+
+        if(localStorage.getItem("favs") === null){
+            let storedArray = [];
+            storedArray.push(id);
+            localStorage.setItem("favs", JSON.stringify(storedArray));
+        } else {
+            let storedParse = JSON.parse(localStorage.getItem("favs"));
+
+            if(storedParse.indexOf(id) === -1){
+                storedParse.push(id);
+            } else{
+                storedParse.splice(storedParse.indexOf(id), 1);
+            }
+            
+            localStorage.setItem("favs", JSON.stringify(storedParse));
+            console.dir(localStorage);
+            
+        }
+
+    }
+
+    navigateToMap(id: number){
+        console.log('odpalamy mape');
+        this.router.navigate(['/pages/mapmodal', id]);
+    }
+
+    showSocialShare() {
+        this.socialVisible =  !this.socialVisible;
+    }
 }

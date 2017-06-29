@@ -8,21 +8,14 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class KomunikatServiceComponent{
 
-    public token: any;
-
     constructor(private http: Http){}
 
-    private extractData(res: Response) {
-        let body = res.json();
-        return body|| { };
-    }
-
     getKomunikat(id: number): Observable<ObjectList> {
-        return this.http.get(`${url}/messages/${id}`).map(this.extractData);
+        return this.http.get(`${url}/messages/${id}`).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json() || 'Server output'));
     }
 
     getUserImages(id: number) : Observable<ObjectList>{
-        return this.http.get(`${url}/companyimages/companyId/${id}`).map(this.extractData);
+        return this.http.get(`${url}/companyimages/companyId/${id}`).map((response: Response) => response.json()).catch((error: any) => Observable.throw(error.json() || 'Server output'));
     }
 
 }

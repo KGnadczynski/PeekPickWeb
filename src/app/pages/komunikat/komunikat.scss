@@ -1,23 +1,23 @@
-div#addIcon{
+/*div#addIcon{
   margin-bottom: 3%;
   overflow: hidden;
     i{
       float: right;
       cursor: pointer;
     }
-}
+}*/
 
 div#filterMessages{
-    padding: 1vw 3vw;
+    padding: 4vw 3vw;
     @media (max-width: 576px){
-        padding: 1vw 3vw;
+        padding: 4vw 3vw;
     }
     @media (min-width: 577px) and (max-width: 992px){
-        padding: 1vw 12vw;
+        padding: 2vw 12vw;
     }
     
 }
-
+/*
 div#googleForm{
   input{
     display: block;
@@ -78,7 +78,7 @@ form#messageTypeForm{
 div#mdSlider{
   width: 60%;
   margin: auto;
-}
+}*/
 
 div#messagesDiv{
     padding-top: 3vw;

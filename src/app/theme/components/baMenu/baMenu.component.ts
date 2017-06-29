@@ -63,6 +63,7 @@ export class BaMenu implements OnInit {
 
     this._service.imageChange.subscribe((url) => {
         this.imageUrl = url;
+        this.name = null;
     });
   }
 
@@ -79,21 +80,6 @@ export class BaMenu implements OnInit {
   }
 
   ngOnInit(): void {
-
-    /*this.pageTopService.loggedChange.subscribe(
-        (result) => {
-
-              if(result === -1){
-                  this.isLoggedIn = false;
-              } else {
-                  this.isLoggedIn = true;
-              }
-
-              this.profileService.getUserImages(result).subscribe((value)=> {
-              this.imageUrl = value.imageUrl;
-          });
-        }
-    );*/
 
     this.profileService.getUser().subscribe(
         user => {

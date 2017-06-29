@@ -30,7 +30,7 @@ div#footer{
             @media(max-width: 565px){
                 width: 100%;
             }
-            @media(min-width: 565px){
+            @media(min-width: 768px){
                 width: 50%;
             }
             @media(min-width: 992px){
@@ -62,7 +62,10 @@ div#footer{
                 width: 80%;
                 margin-top: 15px;
             }
-            @media(min-width: 565px){
+            @media(min-width: 566px){
+                margin-top: 15px;
+            }
+            @media(min-width: 768x){
                 width: 50%;
                 margin-top: 15px;
             }

@@ -306,7 +306,7 @@ export class MessagesComponent implements OnInit{
         });
         params = params.substring(0, params.length-1);
         
-        if(this.latitude !== undefined && this.longitude !== undefined)
+        if(this.latitude !== undefined && this.longitude !== undefined && !event.latitude && !event.longitude)
             params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
 
         console.log('params: ' + params);

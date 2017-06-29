@@ -1,4 +1,4 @@
-import { Component,OnInit ,ViewEncapsulation, ViewChild, Output, EventEmitter, NgZone } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { ObjectList } from './user';
 import { Http, Headers, RequestOptions } from '@angular/http';
@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit {
     otherUser: User;
     otherObject: ObjectList;
     otherImgs: any;
+    imageUrl: string = "";
     companyBranches: any[];
     idCompany: number;
     passwordForm: FormGroup;
@@ -375,19 +376,13 @@ export class ProfileComponent implements OnInit {
             this.profileService.getUser().subscribe(user => {
                 this.profileService.addCompanyImage(new ImageModel(user.company.id, this.fileUpload.file)).subscribe(
                     data => {
-                        this.otherImgs.imageUrl = data.imageUrl;
+                        this.imageUrl = data.imageUrl;
+                        this.name = null;
                         this.menuService.changeImage(data.imageUrl);
                     },
-                    error => {
-                        console.log('image add error: ');
-                        console.dir(error);
-                    }
+                    error => {}
                 )
             });
-            
-        }
-        else {
-            console.log('nic nie uploadowano');
         }
     }
 }

@@ -89,7 +89,7 @@ export class FiltersComponent implements OnInit{
             if(data.filterBy)
                 params.sortType = data.filterBy;
             
-            if(data.distance)
+            if(data.distance < 101)
                 params.range = data.distance;
             
             if(data.startBeforeDate){

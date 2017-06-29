@@ -61,7 +61,7 @@ export class Register implements OnInit {
       if(currentUser != null){
             this.profileService.getUser().subscribe(
             result => {
-                //this.router.navigateByUrl('/pages/komunikat');
+                this.router.navigateByUrl('/pages/komunikat');
             },
             err => {
                 /*this.router.navigateByUrl('/pages/komunikat');

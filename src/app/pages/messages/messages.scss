@@ -11,49 +11,37 @@ div.messages{
         background: #FAFAFA;
         margin-bottom: 4%;
         div.message-icon{
-            width: 27%;
             float: left;
             overflow: hidden;
             img{
                 width: 72px;
                 height: 72px;
-                /*@media(max-width: 575px){
-                    width: 100%;
-                    // height: 70px;
-                }
-                @media (min-width: 576px){
-                    width: 100%;
-                    // height: 140px;
-                }*/
             }
         }
         div.message-text-block{
-            width: 50%;
             float: left;
             padding-left: 5px;
             font-family: 'Open Sans', sans-serif;
-            div.message-header{
-                a{
-                    color: $message_color;
-                    text-transform: capitalize;
-                    font-size: 20px;
-                    font-family: 'Open Sans', sans-serif;
-                }
+            display: flex;
+            flex-direction: column;
+            a{
+                color: $message_color;
+                text-transform: capitalize;
+                font-size: 20px;
+                font-family: 'Open Sans', sans-serif;
+                margin: 6px 0;
             }
-            div.message-category, div.message-address{
-                margin: 2% 0;
-                p{
-                    text-align: left;
-                    color: $message_color;
-                    font-size: 12px;
-                    margin: 0;
-                }
+        
+            p{
+                text-align: left;
+                color: $message_color;
+                font-size: 13px;
+                margin: 3px 0;
             }
         }
 
         div.message-distance-message-icon-work{
-            width: 23%;
-            float: left;
+            float: right;
             p{
                 float: right;
                 color: $message_color;
@@ -123,32 +111,33 @@ div.messages{
             }
         }
         div.message-icons{
-            clear: both;
             float: left;
+            clear: both;
             width: 100%;
-            img{
-                display: block;
-                margin: auto;
-                width: 65%;
-            }
             display: flex;
             justify-content: space-between;
-            width: 100%;
-            margin: 1% 0px;
-            
-            div.favourite, div.google, div.dots{
-                cursor: pointer;
-                /*:hover {
-                    background-color: #FF0000;
-                    color: white;
-                }*/
+            align-items: center;
+
+            div.icons{
+                display: flex;
+                align-items: center;
+                
+                img{
+                    width: 30%;
+                    margin-right: 40px;
+                    cursor: pointer;
+                    &.icons8-Star-Filled, &.icons8-Marker-Filled{
+                        width: 35px;
+                    }
+                }
             }
+            
             div.time{
-                text-align: right;
-                padding-right: 2%;
-                padding-top: 1%;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 12px;
+                p{
+                    text-align: right;
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 14px;
+                }
             }
         }
         div#odzialFirmy{
@@ -240,29 +229,3 @@ div.blackline{
         width: 100%;
     }
 }
-/*
-@media(max-width: 575px){
-    div.start-date{
-        color: red;
-    }
-}
-@media (min-width: 576px) {
-    div.start-date{
-        color: orange;
-    }
-}
-@media (min-width: 768px) {
-    div.start-date{
-        color: yellow;
-    }
-}
-@media (min-width: 992px) {
-    div.start-date{
-        color: blue;
-    }
-}
-@media (min-width: 1200px) {
-    div.start-date{
-        color: green;
-    }
-}*/

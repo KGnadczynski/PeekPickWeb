@@ -5,6 +5,17 @@ $siderbarTopColour: white;
 $redColor: #A20E12;
 
 .page-top {
+
+    div.baPageTop{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        div.logo, div.icons{
+            display: flex;
+            align-items: center;
+        }
+    }
+
     background-color: $siderbarTopColour;
     position: fixed;
     z-index: 904;
@@ -17,18 +28,10 @@ $redColor: #A20E12;
     }
 
     a.al-logo {
-        float: left;
         display: block;
         white-space: nowrap;
         outline: none !important;
         
-        @media(max-width: 575px){
-            margin-left: 13%;
-        }
-        @media (min-width: 576px){
-            margin-left: 25%;
-        }
-        margin-top: 10px;
         img{
             width: 50px;
         }
@@ -42,26 +45,15 @@ $redColor: #A20E12;
         line-height: 42px;
         color: $redColor;
         padding: 0;
-        float: left;
-        @media(max-width: 575px){
-          margin-top: 13px;
-        }
-        @media (min-width: 576px){
-          margin-top: 13px;
-        }
     }
 
     span{
         font-size: 20px;
         color: $redColor;
-        float: left;
-        margin-top: 35px;
     }
 
     div.dropdown{
-        float: right;
         cursor: pointer;
-        margin-right: 10px;
         
         i{
             color: $redColor;
@@ -74,7 +66,7 @@ $redColor: #A20E12;
                 left: -200px;
             }
           
-          padding: 0 10px;
+          padding: 0 20px;
           top: 70px;
           min-width: 240px;
           border: 0;
@@ -99,7 +91,6 @@ $redColor: #A20E12;
           
         }
         i#dropdownMenuButton{
-            padding-top: 20px;
             outline: 0;
         }
 
@@ -114,12 +105,10 @@ $redColor: #A20E12;
 
     i#searchIcon{
         color: $redColor;
-        float: right;
         cursor: pointer;
         text-align: right;
-        padding-top: 20px;
         outline: 0;
-        margin-right: 8px;
+        margin-right: 10px;
     }
 
     /*.user-profile {
@@ -170,29 +159,3 @@ $redColor: #A20E12;
 .completer-title {
     top: 10%;
 }
-/*
-@media(max-width: 575px){
-    span{
-        color: green !important;
-    }
-}
-@media (min-width: 576px) {
-    span{
-        color: red !important;
-    }
-}
-@media (min-width: 768px) {
-    span{
-        color: orange !important;
-    }
-}
-@media (min-width: 992px) {
-    span{
-        color: blue !important;
-    }
-}
-@media (min-width: 1200px) {
-    span{
-        color: yellow !important;
-    }
-}*/
