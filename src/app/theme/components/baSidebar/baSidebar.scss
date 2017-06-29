@@ -225,14 +225,25 @@ a.al-sidebar-list-link {
 }
 
 @mixin layout-collapsed() {
-  /*.al-main {
-    margin-left: 50px;
+ /* .al-main {
+    margin-left: 200px;
   }*/
 
   .al-footer {
     padding-left: 83px
   }
 }
+
+@mixin layout-expanded() {
+  .al-main {
+    margin-left: 200px;
+  }
+
+  .al-footer {
+    padding-left: 83px
+  }
+}
+
 
 @mixin default-sublist() {
   padding: 0;
@@ -377,11 +388,21 @@ a.al-sidebar-list-link {
   }
 }
 
+.menu-expanded {
+  .slimScrollBar, .slimScrollRail {
+    display: none!important;
+  }
+}
+
 @media (min-width: 1200px) {
   .menu-collapsed {
     @include layout-collapsed();
   }
+  .menu-expanded {
+    @include layout-expanded();
+  }
 }
+
 
 @media (min-width: $resXS + 1) {
   .menu-collapsed {
@@ -391,6 +412,7 @@ a.al-sidebar-list-link {
 
 @media (max-width: 1200px) and (min-width: $resXS) {
  @include layout-collapsed();
+ @include layout-expanded();
 }
 
 @media (max-width: 1200px) {

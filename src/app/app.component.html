@@ -1,4 +1,4 @@
-<main [ngClass]="{'menu-collapsed': isMenuCollapsed}" baThemeRun>
+<main [ngClass]="(isMenuCollapsed==true)?'menu-collapsed':'menu-expanded'" baThemeRun> 
     <div class="additional-bg"></div>
     <router-outlet></router-outlet>
 </main>
