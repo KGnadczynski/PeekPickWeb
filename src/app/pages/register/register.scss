@@ -110,6 +110,9 @@ div#registerFormMain{
         div#address{
             display: flex;
             justify-content: space-around;
+            clear: both;
+            width: 100%;
+
             input#city{
               width: 40%;
             }

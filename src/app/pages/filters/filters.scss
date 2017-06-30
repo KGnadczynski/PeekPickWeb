@@ -260,7 +260,7 @@ form#mainForm{
           width: 100%;
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
+          align-items: center;
           float: left;
           .blacklineF{
             margin-top: 1%;
@@ -271,6 +271,9 @@ form#mainForm{
           }
           button{
             padding: 1.5vw;
+            @media(min-width: 1200px){
+                padding: 0.3vw;
+            }
             color: $blackColor;
             border: 0;
             border-radius: 1px;
@@ -308,7 +311,7 @@ div.blacklineF{
     div{
         width: 80%;
         margin: auto;
-        height: 2px;
+        height: 1px;
         background: black;  
     }
     

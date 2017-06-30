@@ -1,84 +1,16 @@
-/*div#addIcon{
-  margin-bottom: 3%;
-  overflow: hidden;
-    i{
-      float: right;
-      cursor: pointer;
-    }
-}*/
-
 div#filterMessages{
-    padding: 4vw 3vw;
+    padding: 0vw 3vw;
     @media (max-width: 576px){
-        padding: 4vw 3vw;
+        padding: 2vw 3vw;
     }
     @media (min-width: 577px) and (max-width: 992px){
-        padding: 2vw 12vw;
+        padding: 1vw 12vw;
+    }
+    @media(min-width: 1200px){
+        padding: 0;
     }
     
 }
-/*
-div#googleForm{
-  input{
-    display: block;
-    margin: auto;
-    text-align: center;
-    padding: 3px 0;
-  }
-  
-}
-p{
-    margin: 3% 0;
-    text-align: center;
-    color: #95989A;
-}
-
-md-slider{
-  width: 100%;
-  display: block !important;
-  margin: auto;
-}
-
-form#messageTypeForm{
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 80%;
-  margin: auto;
-      div{
-        color: #95989A;
-        font-size: 16px;
-        
-        md-checkbox{
-          label.md-checkbox-layout{
-            span.md-checkbox-label{
-              text-transform: lowercase;
-            }
-          }
-        }
-      }
-}
-
-
-
-.md-slider-thumb::after{
-      background-color: white !important;
-      border: 1px solid gray !important;
-}
-
-.md-slider-track-fill{
-      background-color: gray !important;
-}
-
-div#mdSlider{
-  width: 60%;
-  margin: auto;
-}*/
 
 div#messagesDiv{
     padding-top: 3vw;

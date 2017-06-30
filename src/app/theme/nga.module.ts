@@ -6,6 +6,8 @@ import { NgUploaderModule } from 'ngx-uploader';
 import { Ng2LetterAvatar } from "ng2letteravatar/ng2letteravatar";
 import { Ng2CompleterModule } from "ng2-completer";
 import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
+import { NouisliderModule } from 'ng2-nouislider';
+import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {
   BaThemeConfig
@@ -30,7 +32,8 @@ import {
   BaPageTop,
   BaPictureUploader,
   BaSidebar,
-  BaFooter
+  BaFooter,
+  BaSearch
 } from './components';
 
 import { BaCardBlur } from './components/baCard/baCardBlur.directive';
@@ -75,7 +78,8 @@ const NGA_COMPONENTS = [
   BaPageTop,
   BaPictureUploader,
   BaSidebar,
-  BaFooter
+  BaFooter,
+  BaSearch
 ];
 
 const NGA_DIRECTIVES = [
@@ -118,7 +122,9 @@ const NGA_VALIDATORS = [
     FormsModule,
     ReactiveFormsModule,
     NgUploaderModule,
-    SlimLoadingBarModule.forRoot()
+    SlimLoadingBarModule.forRoot(),
+    NouisliderModule,
+    CollapseModule
   ],
   exports: [
     ...NGA_PIPES,

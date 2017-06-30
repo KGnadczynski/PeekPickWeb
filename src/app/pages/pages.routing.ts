@@ -29,7 +29,7 @@ export const routes: Routes = [
       { path: 'add_message/:message_type', loadChildren: 'app/pages/add-message/add-message.module#AddMessageModule'},
       { path: 'edit_message/:message_id', loadChildren: 'app/pages/add-message/add-message.module#AddMessageModule'},
       { path: 'favourites', loadChildren: 'app/pages/favourites/favourites.module#FavouritesModule'},
-      { path: 'search', loadChildren: 'app/pages/search/search.module#SearchModule'},
+      // { path: 'search', loadChildren: 'app/pages/search/search.module#SearchModule'},
        { path: 'powiadomienia', loadChildren: 'app/pages/powiadomienia/powiadomienia.module#PowiadomieniaModule'}
     ]
   }

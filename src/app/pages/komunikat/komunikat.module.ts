@@ -14,7 +14,6 @@ import { MomentModule } from 'angular2-moment';
 import { RouterModule } from '@angular/router';
 import { MessagesModule } from '../messages/messages.module';
 import { FiltersModule } from '../filters/filters.module';
-import { SearchModule } from '../search/search.module';
 
 @NgModule({
   imports: [
@@ -30,7 +29,6 @@ import { SearchModule } from '../search/search.module';
     MomentModule,
     FiltersModule,
     MessagesModule,
-    SearchModule
   ],
   declarations: [
     KomunikatComponent,

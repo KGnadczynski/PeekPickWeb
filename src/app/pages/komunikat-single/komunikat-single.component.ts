@@ -6,6 +6,7 @@ import { ObjectList } from '../komunikat/komunikat';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { HaversineService, GeoCoord } from 'ng2-haversine';
 
 @Component({
   selector: 'komunikat-single',
@@ -23,6 +24,8 @@ export class KomunikatSingleComponent implements OnInit {
     private imgs: any;
     socialVisible: boolean = false;
     name: string = '';
+    latitude: number;
+    longitude: number;
 
     @ViewChild('childModal') public childModal: ModalDirective;
 
@@ -30,7 +33,8 @@ export class KomunikatSingleComponent implements OnInit {
       private route: ActivatedRoute, 
       private komunikatSingleService: KomunikatServiceComponent,
       private _location: Location,
-      private router: Router
+      private router: Router,
+      private haversineService: HaversineService
     ){
       let moment = require('../../../../node_modules/moment/moment.js');
       moment.locale('pl');
@@ -43,9 +47,29 @@ export class KomunikatSingleComponent implements OnInit {
       });
 
       this.komunikatSingleService.getKomunikat(this.id).subscribe(komunikat => {
+        
+        let kilometers;
+        if("geolocation" in navigator){
+            navigator.geolocation.getCurrentPosition((position)=>{
+
+                let browserCoordinates: GeoCoord = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+
+                let otherCoordinates: GeoCoord = {
+                    latitude: komunikat.location.latitude,
+                    longitude: komunikat.location.longitude
+                };
+                
+                kilometers = this.haversineService.getDistanceInKilometers(browserCoordinates, otherCoordinates);
+                komunikat.distance = kilometers;
+
+            });
+        }
+        
         this.message = komunikat;
-        console.log('single kom: ');
-        console.dir(komunikat);
+        
         this.komunikatSingleService.getUserImages(this.message.companyBranchList[0].company.id).subscribe(
             images => {
                 this.imgs = images;

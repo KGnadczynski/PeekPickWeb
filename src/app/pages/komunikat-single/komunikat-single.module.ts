@@ -8,6 +8,7 @@ import { ModalModule } from 'ng2-bootstrap';
 import { MomentModule } from 'angular2-moment';
 import { MessagesModule } from '../messages/messages.module';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
+import { HaversineService } from 'ng2-haversine';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { ShareButtonsModule } from 'ngx-sharebuttons';
     ShareButtonsModule.forRoot(),
     MessagesModule
   ],
-  providers: [],
+  providers: [HaversineService],
   declarations: [KomunikatSingleComponent]
 })
 

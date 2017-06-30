@@ -138,6 +138,40 @@ a {
 .al-content {
   //height: 100%;
   //padding: 8px 32px 8px 40px;
+  position: relative;
+  ba-search{
+      z-index: 2;
+      @media(max-width: 565px){
+          width: 100%;
+      }
+      @media(min-width: 566px){
+          width: 100%;
+      }
+      @media(min-width: 768px){
+          width: 500px;
+          position: absolute;
+      }
+      @media(min-width: 992px){
+          width: 400px;
+          position: absolute;
+      }
+      @media(min-width: 1200px){
+          width: 400px;
+          position: absolute;
+      }
+      @media(min-width: 1400px){
+          width: 500px;
+          position: absolute;
+      }
+      @media(min-width: 1600px){
+          width: 600px;
+          position: absolute;
+      }
+      
+      top: 0;
+      right: 0;
+      background: white;
+  }
 }
 
 @media screen and (max-width: $resXS) {
