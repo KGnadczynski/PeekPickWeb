@@ -48,30 +48,30 @@ div#home{
             margin: 0 10%;
             padding: 30px;
             border-radius: 275px;
-            // background-image: url('../../meta/bubbleTail.png');
-            /*&::before{
+
+            &::before{
                 content: "";
                 position: absolute;
-                bottom: 0px;
-                right: -19px;
-                height: 28px;
-                border-left: 61px solid #A20E12;
+                bottom: -30px;
+                right: 6%;
+                height: 30px;
+                border-left: 60px solid #A20E12;
                 background: #A20E12;
-                border-bottom-left-radius: 91px 56px;
-                transform: translate(0, -2px);
+                border-bottom-left-radius: 80px 50px;
+                transform: translate(0, 0px);
             }
 
             &::after{
                 content: "";
                 position: absolute;
-                bottom: 0;
-                right: -84px;
-                width: 60px;
+                bottom: -30px;
+                right: -6px;
+                width: 30px;
                 height: 30px;
                 background: white;
-                border-bottom-left-radius: 39px 37px;
-                transform: translate(-29px, -2px);
-            }*/
+                border-bottom-left-radius: 40px 50px;
+                transform: translate(-30px, 0px);
+            }
 
             p {
                 font-size: 16px;

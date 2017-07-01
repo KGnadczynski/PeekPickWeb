@@ -136,11 +136,12 @@ a {
 }
 
 .al-content {
-  //height: 100%;
+  
   //padding: 8px 32px 8px 40px;
   position: relative;
   ba-search{
       z-index: 2;
+      height: 100%;
       @media(max-width: 565px){
           width: 100%;
       }

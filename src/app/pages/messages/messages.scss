@@ -59,13 +59,39 @@ div.messages{
             clear: both;
             float: left;
             width: 100%;
-            margin-top: 3%;
+            margin: 20px 0;
             font-family: 'Open Sans', sans-serif;
+            position: relative;
+            background-color: $redColor;
+            border-radius: 160px / 150px;
+            padding: 20px 35px;
             p{
                 text-align: left;
-                color: $message_color;
+                color: white;
                 font-size: 16px;
                 line-height: 24px;
+            }
+            &:before{
+                content: "";
+                position: absolute;
+                top: -16px;
+                left: 13px;
+                height: 30px;
+                border-left: 60px solid #A20E12;
+                background: #A20E12;
+                border-bottom-left-radius: 90px 295px;
+                transform: translate(0px, 0px);
+            }
+            &:after{
+                content: "";
+                position: absolute;
+                top: -20px;
+                left: -8px;
+                height: 20px;
+                width: 65px;
+                background: #FAFAFA;
+                border-bottom-left-radius: 89px 50px;
+                transform: translate(21px, 0px);
             }
         }
         div.message-time{

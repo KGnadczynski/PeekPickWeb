@@ -241,5 +241,11 @@ export class FiltersComponent implements OnInit{
         
 
     }
+
+    clearFilters(){
+        this.filterForm.reset();
+        console.log('value: ' + this.filterForm.value);
+        console.dir(this.filterForm.value);
+    }
     
 }
