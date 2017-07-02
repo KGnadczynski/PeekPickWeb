@@ -70,12 +70,15 @@ h3{
 
 input.inputSearch{
     outline: 0;
-    display: block;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    padding: 5px;
     border: 2px dotted $blackColor;
+    padding-left: 10px;
+}
+
+div.inputs{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 div.searchError{
@@ -106,9 +109,6 @@ input[type=submit].searchSubmit{
     background: 0;
     padding: 10px;
     border: 2px dotted;
-    display: block;
-    margin: auto;
-    width: 60%;
     outline: 0;
     &.disabled{
         color: $blackColor;

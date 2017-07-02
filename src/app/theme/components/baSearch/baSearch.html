@@ -7,8 +7,10 @@
     
     <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
 
-        <input class="inputSearch" type="text" formControlName="searchTerm">
-        <input class="searchSubmit" type="submit" value="szukaj" [disabled]="!searchForm.valid" [ngClass]="{disabled: !searchForm.valid}">
+        <div class="inputs">
+            <input class="inputSearch" type="text" formControlName="searchTerm">
+            <input class="searchSubmit" type="submit" value="szukaj" [disabled]="!searchForm.valid" [ngClass]="{disabled: !searchForm.valid}">
+        </div>
         <div class="searchError" *ngIf="searchForm.controls['searchTerm'].hasError('required') && searchForm.controls['searchTerm'].touched">Wpisz szukaną frazę</div>
 
         <p class="distance">Odległość</p>
