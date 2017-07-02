@@ -30,6 +30,7 @@ div.messages{
                 font-size: 20px;
                 font-family: 'Open Sans', sans-serif;
                 margin: 6px 0;
+                font-weight: bold;
             }
         
             p{
@@ -58,13 +59,13 @@ div.messages{
         div.message-content{
             clear: both;
             float: left;
-            width: 100%;
-            margin: 20px 0;
+            // width: 80%;
+            margin: 20px 0 20px 20px;
             font-family: 'Open Sans', sans-serif;
             position: relative;
             background-color: $redColor;
             border-radius: 160px / 150px;
-            padding: 20px 35px;
+            padding: 10px 35px;
             p{
                 text-align: left;
                 color: white;
@@ -107,6 +108,7 @@ div.messages{
                 font-weight: bold;
                 margin-bottom: 6%;
                 color: $message_color;
+                font-size: 13px;
                 @media(max-width: 575px){
                     font-size: 14px;
                     line-height: 0;
@@ -114,6 +116,7 @@ div.messages{
             }
             p{
                 margin: 3% 0;
+                font-size: 13px;
             }
             div.start-date{
                 font-weight: normal;
@@ -149,11 +152,11 @@ div.messages{
                 align-items: center;
                 
                 img{
-                    width: 30%;
+                    width: 10%;
                     margin-right: 40px;
                     cursor: pointer;
                     &.icons8-Star-Filled, &.icons8-Marker-Filled{
-                        width: 35px;
+                        width: 25px;
                     }
                 }
             }

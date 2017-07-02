@@ -467,6 +467,9 @@ div#activeAndEndedPosts{
         @media(max-width: 565px){
             margin: 4%;
         }
+        @media(min-width: 992px){
+            margin: 20px 14%;
+        }
     }
 }
 
