@@ -9,16 +9,7 @@
 function onLoginButtonClick() {
     console.log('Digits login started.');
 
-  Digits.init({ consumerKey: "ZzsVNIxtpghaF2Lroz0cZC9q9"})
-    .done(function() {
-      console.log('Digits initialized.');
-    })
-    .fail(function() {
-      console.log('Digits failed to initialize.');
-    });
 
-  // Set a click event listener on the Digits button.
-  $('.digits-button').click(onLoginButtonClick);
 
     Digits.logIn({
        phoneNumber: '+48'
