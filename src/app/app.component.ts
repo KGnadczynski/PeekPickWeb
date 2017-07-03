@@ -22,7 +22,7 @@ export class App {
               private _spinner: BaThemeSpinner,
               private viewContainerRef: ViewContainerRef,
               private themeConfig: BaThemeConfig
-              ) 
+              )
   {
       themeConfig.config();
 

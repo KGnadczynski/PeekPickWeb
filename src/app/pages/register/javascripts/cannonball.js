@@ -10,7 +10,7 @@ function onLoginButtonClick() {
     console.log('Digits login started.');
 
   $('.digits-button').click(onLoginButtonClick);
-  
+
     Digits.logIn({
        phoneNumber: '+48'
     })
