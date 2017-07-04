@@ -39,7 +39,7 @@
             </div>
             
             <div class="checkbox">
-                <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy" checked>
+                <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy">
                 <label for="create_day"></label>
                 <span>data dodania</span>
             </div>
@@ -79,7 +79,7 @@
             <div id="checkboxesValues">
                 <div class="c" *ngFor="let messageType of messageTypesOb">
                     <div class="checkbox">
-                        <input type="checkbox" id="types-{{messageType.name}}" (click)="setType(messageType.name)">
+                        <input type="checkbox" class="checkboxInput" id="types-{{messageType.name}}" (click)="setType(messageType.name)">
                         <label for="types-{{messageType.name}}"></label>
                     </div>
                     <span>{{ messageType.value }}</span>
@@ -113,7 +113,7 @@
                 <div [collapse]="category.bol" *ngFor="let subcategory of category.subcategories">
                     <div class="subcategories">
                         <div class="checkbox" >
-                            <input type="checkbox" id="sub-{{ subcategory.id }}" (click)="setSubcategory(subcategory.id)">
+                            <input type="checkbox" class="checkboxInput" id="sub-{{ subcategory.id }}" (click)="setSubcategory(subcategory.id)">
                             <label for="sub-{{ subcategory.id }}"></label>
                         </div>
                         <span>{{ subcategory.name }}</span>

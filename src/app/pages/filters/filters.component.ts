@@ -243,9 +243,28 @@ export class FiltersComponent implements OnInit{
     }
 
     clearFilters(){
-        this.filterForm.reset();
-        console.log('value: ' + this.filterForm.value);
-        console.dir(this.filterForm.value);
+
+        let distance = this.filterForm.get('distance');
+        distance.reset();
+        let searchControl = this.filterForm.get('searchControl');
+        searchControl.reset();
+        let subtrades = this.filterForm.get('subtrades');
+        subtrades.reset();
+        let types = this.filterForm.get('types');
+        types.reset();
+        let startBeforeDate = this.filterForm.get('startBeforeDate');
+        startBeforeDate.reset();
+
+        let checkboxesValues = document.getElementById('checkboxesValues').getElementsByTagName('input');
+        let companyCategories = document.getElementById('companyCategories').getElementsByTagName('input');
+        
+        for(let i = 0; i < checkboxesValues.length; i++){
+            checkboxesValues[i].checked = false;
+        }
+
+        for(let i = 0; i < companyCategories.length; i++){
+            companyCategories[i].checked = false;
+        }
     }
     
 }
