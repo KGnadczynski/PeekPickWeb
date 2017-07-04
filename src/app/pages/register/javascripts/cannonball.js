@@ -8,6 +8,9 @@
 
 function onLoginButtonClick() {
     console.log('Digits login started.');
+
+  $('.digits-button').click(onLoginButtonClick);
+
     Digits.logIn({
        phoneNumber: '+48'
     })
@@ -48,25 +51,6 @@ function onDigitsSuccess(response) {
 function onLoadDigits() {
     console.log('Digits phone number retrieved.')
     setDigitsNumber(response.phoneNumber);
-  }
+}
 
 
-
-(function () {
-  /**
-   * Initialize Digits for Web as soon as the JavaScript SDK is loaded.
-   */
-  $('#digits-sdk').load(function () {
-    // Initialize Digits using the API key.
-    Digits.init({ consumerKey: "ZzsVNIxtpghaF2Lroz0cZC9q9"})
-      .done(function() {
-        console.log('Digits initialized.');
-      })
-      .fail(function() {
-        console.log('Digits failed to initialize.');
-      });
-
-    // Set a click event listener on the Digits button.
-    $('.digits-button').click(onLoginButtonClick);
-  });
-})();
