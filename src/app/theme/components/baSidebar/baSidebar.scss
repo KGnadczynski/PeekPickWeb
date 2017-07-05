@@ -235,9 +235,9 @@ a.al-sidebar-list-link {
 }
 
 @mixin layout-expanded() {
-  .al-main {
-    margin-left: 200px;
-  }
+  // .al-main {
+  //   margin-left: 200px;
+  // }
 
   .al-footer {
     padding-left: 83px

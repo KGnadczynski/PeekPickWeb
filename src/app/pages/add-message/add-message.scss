@@ -11,25 +11,20 @@ $colorBlack: #263238;
               position: absolute;
               width: 25px;
               height: 25px;
-              top: 0;
+              top: -2px;
               left: 0;
-              background: white;
-              border: 2px dotted $colorRed;
+                background-image: url('../../meta/selection.png');
+                background-size: 25px;
               margin: 0;
               &:after{
-                  opacity: 0;
-                  content: '';
-                  position: absolute;
-                  width: 9px;
-                  height: 5px;
-                  background: transparent;
-                  top: 6px;
-                  left: 7px;
-                  border: 3px solid #333;
-                  border-top: none;
-                  border-right: none;
-
-                  transform: rotate(-45deg);
+                    opacity: 0;
+                    content: '';
+                    background-image: url(../../meta/checkbox-blank.png);
+                    width: 28px;
+                    height: 28px;
+                    position: absolute;
+                    top: -5px;
+                    left: -5px;
               }
               &:hover::after{
                   opacity: 0;
@@ -38,35 +33,74 @@ $colorBlack: #263238;
           input[type=checkbox]:checked + label:after{
               opacity: 1;
           }
+          input[type=checkbox]{
+              opacity: 0;
+          }
       }
 }
 
+div.checkBoxDiv{
+    margin-top: 15px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    @include checkboxMixin;
+    span{
+        color: $colorBlack;
+        margin-left: 5px;
+        float: left;
+        margin-top: 5px;
+    }
+}
+
 div.modal-content{
-    color: gray;
     div#addForm{
         padding: 4%;
         overflow: hidden;
-        h3{
-            text-align: center;
-            color: $colorRed;
-            font-size: 25px;
-            font-weight: normal;
-            text-transform: lowercase;
-            font-family: 'Sanchez', serif;
-            button{
+        div.header{
+            display: flex;
+            @media(max-width: 565px){
+                margin-top: 10px;
+            }
+            div{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 90%;
+                i{
+                    font-size: 30px;
+                    color: $colorRed;
+                }
+                h3{
+                    width: auto;
+                    color: $colorRed;
+                    font-size: 25px;
+                    font-weight: normal;
+                    text-transform: lowercase;
+                    font-family: 'Sanchez', serif;
+                    margin-right: 10px;
+                }
+            }
+            
+            button.header-button{
+                width: 10%;
                 outline: 0;
                 opacity: 1;
-                span{
-                    font-size: 2rem;
-                    color: $colorBlack;
+                background: white;
+                border: none;
+                text-align: right;
+                img{
+                    width: 30px;
+                    height: 30px;
                 }
             }
         }
         
         div.date{
-            overflow: hidden;
             margin-top: 35px;
             float: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             @media(max-width: 991px){
                 width: 100%;
             }
@@ -74,44 +108,36 @@ div.modal-content{
                 width: 50%;
             }
             img{
-                float: left;
-                width: 73px;
-                height: 73px;
+                @media(max-width:565px){
+                    width: 73px;
+                    height: 73px;
+                }
+                @media(min-width: 566px){
+                    width: 98px;
+                    height: 98px;
+                }
             }
             div.text{
-                float: left;
-                overflow: hidden;
-                margin-left: 15px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 p{
                     font-family: 'Open Sans', sans-serif;
                     font-size: 16px;
                     color: $colorBlack;
                     float: left;
+                    margin: 10px 0;
                 }
-                input[type=text], input[type=submit]{
-                    float: left;
-                    clear: both;
-                    margin-top: 5px;
-                    padding: 10px;
-                    background: white;
-                    border: 1px solid gray;
-                    border-radius: 2px;
-                    color: $colorBlack;
-                    border: 5px dotted $colorRed;
+                input[type=submit]{
+                    border: 0;
+                    border-radius: 0;
                     outline: 0;
+                    background: white;
+                    font-size: 16px;
                     font-family: 'Open Sans', sans-serif;
+                    margin: 10px 0;
                 }
-                div.checkBoxDiv{
-                    float: left;
-                    margin-left: 15px;
-                    @include checkboxMixin;
-                    span{
-                        color: $colorBlack;
-                        margin-left: 5px;
-                        float: left;
-                        margin-top: 5px;
-                    }
-                }
+                
             }
             
         }
@@ -119,41 +145,35 @@ div.modal-content{
         div.content{
             margin-top: 40px;
             width: 100%;
-            float: left;
-            @media(min-width: 992px){
-                width: 50%;
-            }
+            
             h4{
-                // font-weight: normal;
+                text-transform: lowercase;
                 font-family: 'Open Sans', sans-serif;
                 text-align: center;
                 margin-bottom: 15px;
                 color: $colorBlack;
+                font-size: 20px;
             }
             p{
                 font-family: 'Open Sans', sans-serif;
                 text-align: right;
                 color: $colorBlack;
-                margin-right: 20px;
+                margin-right: 10%;
+                font-size: 16px;
+                text-transform: lowercase;
             }
             textarea{
                 margin: auto;
                 display: block;
                 width: 80%;
                 text-align: center;
-                padding-top: 2%;
-                margin-bottom: 4%;
                 color: $colorBlack;
-                border: 5px dotted $colorRed;
                 outline: 0;
                 font-family: 'Open Sans', sans-serif;
+                cursor: text;
+                min-height: 200px;
+                border: 0;
             }
-        }
-
-        i{
-            display: block;
-            text-align: center;
-            margin-bottom: 5%;
         }
         
         div.blackline{
@@ -163,12 +183,12 @@ div.modal-content{
             div{
                 width: 80%;
                 height: 2px;
-                background: black;
+                background: $colorBlack;
                 margin: auto;
             }
             
-            margin-top: 40px;
-            margin-bottom: 40px;
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
         
         div#buttons{
@@ -176,33 +196,34 @@ div.modal-content{
             clear: both;
             text-align: center;
             float: left;
-            font-family: 'Sanchez', sans-serif;
+            margin-top: 20px;
+
             button {
-                padding: 15px;
-                width: 30%;
-                background: white;
-                border: 2px dotted $colorRed;
                 color: $colorRed;
-                margin-right: 2%;
                 outline: 0;
+                font-family: 'Sanchez', sans-serif;
+                width: 108px;
+                height: 47px;
+                background-image: url('../../meta/przycisk.png');
+                background-size: 108px 47px;
+                border: 0;
+                font-size: 18px;
+                text-transform: lowercase;
             }
         }
         
         div.odzialFirmy{
-            float: left;
             width: 100%;
-            @media(min-width: 992px){
-                width: 50%;
-            }
             div.dropdown{
                 text-align: center;
                 @media(min-width: 992px){
                     margin-top: 100px;
                 }
                 button{
-                    border: 2px dotted $colorRed;
+                    border: 0;
                     border-radius: 0;
                     padding: 10px;
+                    
                 }
             }
             ul {
@@ -281,14 +302,18 @@ div#addPhoto, div#addLocalization{
         display: none !important;
     }
     img{
-        width: 150px;
+        width: 85px;
         display: block;
         margin: auto;
-        &.icon{
-            width: 63px;
-            height: 63px;
-            margin-bottom: 20px;
+        @media(max-width: 565px){
+            width: 66px;
+            height: 66px;
         }
+        @media(min-width: 566px){
+            width: 84px;
+            height: 84px;
+        }
+        
     }
     p {
         font-family: 'Open Sans', sans-serif;
@@ -300,6 +325,10 @@ div#addPhoto, div#addLocalization{
     }
     .sebm-google-map-container {
         height: 200px;
+    }
+    div.checkBoxDiv{
+        display: flex;
+        justify-content: center;
     }
 }
 

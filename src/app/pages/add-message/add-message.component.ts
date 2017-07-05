@@ -38,15 +38,16 @@ export class AddMessageComponent implements OnInit {
     addedMessage: any;
     image:File;
     isCollapsed:boolean = false;
+    isLocationCollapsed: boolean = true;
     withEndDate:boolean = false;
     triggerResize:boolean = true;
     id: number;
     paramValue: any;
     messageEdit: ObjectList;
     submitButton: string = "Utwórz";
-    public defaultPicture = 'assets/img/theme/add-iconczerwony.png';
+    public defaultPicture = 'assets/img/theme/camera.png';
     public profile:any = {
-        picture: 'assets/img/theme/add-iconczerwony.png'
+        picture: 'assets/img/theme/camera.png'
     };
      @ViewChild(AgmMap) sebmGoogleMap: any;
     public uploaderOptions:NgUploaderOptions = {
@@ -338,6 +339,10 @@ export class AddMessageComponent implements OnInit {
     addprop():void {
         this.isCollapsed = !this.isCollapsed;
        this.msgAddModel.endDate = null;
+    }
+
+    addprop2(): void{
+        this.isLocationCollapsed = !this.isLocationCollapsed;
     }
 
      withoutEndDate():void {

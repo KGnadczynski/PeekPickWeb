@@ -4,24 +4,21 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div id="addForm">
-            <!--<h3 [ngSwitch]="paramValue">
-              <span *ngSwitchCase="'message_id'">Edytuj komunikat</span>
-              <span *ngSwitchCase="'message_type'">Dodaj komunikat</span>
-            </h3>-->
             
-            <h3>
-              {{ messageTypeValue }}
-              <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </h3>
+            <div class="header">
+                <div>
+                    <h3>{{ messageTypeValue }}</h3>
+                    <i *ngIf="messageTypeName === 'EVENT'" class="material-icons">event</i>
+                    <i *ngIf="messageTypeName === 'WORK'" class="material-icons">work</i>
+                    <i *ngIf="messageTypeName === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
+                    <i *ngIf="messageTypeName === 'WORTH_SEEING'" class="material-icons">visibility</i>
+                    <i *ngIf="messageTypeName === 'PROMOTION'" class="material-icons">loyalty</i>
+                </div>
+                <button type="button" class="header-button" aria-label="Close" (click)="hideChildModal()">
+                    <img src="../../meta/close-circle-outline.png" alt="">
+                </button>
+            </div>
 
-            <!--<p [ngSwitch]="paramValue">-->
-              <!--<span *ngSwitchCase="'message_type'"></span>-->
-              <!--<span *ngSwitchCase="'message_id'">Typ: {{ messageTypeValue }}</span>-->
-            <!--</p>-->
-
-            <!--data picker-->
             <div class="date">
                 <img src="../../meta/calendar.png" alt="">
                 <div class="text">
@@ -38,16 +35,17 @@
                 <img src="../../meta/calendar.png" alt="">
                 <div class="text">
                     <p>Data zakończenia: </p>
+                    
+                    
+                    <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
+                      <input daterangepicker [(ngModel)]="msgAddModel.endDate" (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" />
+                    </div>
                     <div class="checkBoxDiv">
                         <div class="checkbox">
                             <input type="checkbox" name="checkboxAdd" id="checkboxAdd" [checked]="withEndDate" (change)="addprop()">
                             <label for="checkboxAdd"></label>
                         </div>
                         <span>bez daty zakończenia</span>
-                    </div>
-                    
-                    <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
-                      <input daterangepicker [(ngModel)]="msgAddModel.endDate" (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" />
                     </div>
                 </div>
 
@@ -58,15 +56,15 @@
             </div>
             
             <div class="content">
-                <h4>Treść komunikatu</h4>
-                <textarea rows="5" type="text" placeholder="..." [(ngModel)]="msgAddModel.content" #messageContent maxlength="200"></textarea>
+                <h4>Opis</h4>
+                <textarea rows="3" type="text" placeholder="..." [(ngModel)]="msgAddModel.content" #messageContent maxlength="200"></textarea>
                 <p>Zostało: {{200 - messageContent.value.length}} znaków</p>
                 <div class="errorDiv" *ngIf="errorInfo">
                     <span>{{ errorInfo }}</span>
                 </div>
             </div>
 
-            <div class="blackline hidden-lg-up">
+            <div class="blackline">
                 <div></div>
             </div>
             
@@ -79,22 +77,29 @@
             </div>
 
             <div id="addPhoto">
-                <img class="icon" src="../../meta/camera.png" alt="">
                 <ba-picture-uploader #fileUpload  (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
             </div>
-            
+
             <div id="addLocalization">
               <img class="icon" src="../../meta/map-marker.png" alt="">
-                  <agm-map [latitude]="lat" [longitude]="lng"
-                  (mapClick)="mapClicked($event)" [zoom]="zoom"
-                  [disableDefaultUI]="false"
-                    [zoomControl]="true">
-                    <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
-                    <agm-info-window>
-                          <strong>InfoWindow content</strong>
-                      </agm-info-window>
-                  </agm-map>
-                  <p>{{localization}}</p>
+                    <div class="checkBoxDiv">
+                        <div class="checkbox">
+                            <input type="checkbox" name="checkboxAdd2" id="checkboxAdd2" [checked]="isLocationCollapsed" (change)="addprop2()">
+                            <label for="checkboxAdd2"></label>
+                        </div>
+                        <span>użyj lokalizacji</span>
+                    </div>
+                    <div [collapse]="isLocationCollapsed">
+                        <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="mapClicked($event)" [zoom]="zoom"
+                        [disableDefaultUI]="false"
+                            [zoomControl]="true">
+                            <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
+                            <agm-info-window>
+                                <strong>InfoWindow content</strong>
+                            </agm-info-window>
+                        </agm-map>
+                        <p>{{localization}}</p>
+                    </div>
             </div>
 
             <div id="buttons">
