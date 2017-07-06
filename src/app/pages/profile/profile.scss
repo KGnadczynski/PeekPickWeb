@@ -4,31 +4,55 @@
 $redColor: #A20E12;
 $blackColor: #263238;
 
-@mixin button(){
+@mixin button($url){
     button, input[type=submit]{
-        display: block;
-        padding: 12px;
         background: white;
-        margin: auto;
+        border: 0;
+        background-image: url('../../meta/#{$url}');
         font-family: 'Sanchez', serif;
-        font-size: 20px;
-        border: 2px dotted $redColor;
+        font-size: 14px;
         color: $redColor;
         text-transform: lowercase;
         margin-top: 15px;
         margin-bottom: 15px;
         clear: both;
+        
         outline: 0;
-        width: auto;
+        @if($url == 'przycisk.png'){
+            width: 108px;
+            height: 41px;
+            background-size: 110px 47px;
+            margin: auto;
+            display: block;
+        } @else {
+            width: 200px;
+            height: 57px;
+            background-size: 200px 57px;
+            float: none;
+        }
+        
     }
 }
 
 div#profile{
 
-    @media (min-width: 1201px) and (max-width: 1500px){
-        width: 80%;
-        float: right;
+    div.headProfile{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+        @media(max-width: 565px){
+            flex-direction: column;
+        }
+        @media(min-width: 566px){
+            flex-direction: row;
+        }
+
+        h2{
+            width: auto;
+            margin-left: 20px;
+        }
     }
+
     margin: auto;
     padding-top: 40px;
 
@@ -38,22 +62,12 @@ div#profile{
         padding: 2% 0;
     }
 
-    div#headAvatar{
-        ng2-letter-avatar{
-            img{
-                width: 125px;
-                height: 125px;
-                display: block;
-                margin: auto;
-            }
-        }
-    }
-
     img.companyImg{
         width: 125px;
         height: 125px;
-        display: block;
-        margin: auto;
+        @media(max-width: 565px){
+            margin: auto;
+        }
     }
     h2{
         margin: 4% 0;
@@ -93,7 +107,7 @@ div#profile{
                     font-size: 17px;
                 }
             }
-            @include button;
+            @include button('przycisk.png');
         }
     }
     div#editProfile{
@@ -201,7 +215,7 @@ div#profile{
                 }
             }
             
-            @include button;
+            @include button('przycisk.png');
 
             label {
                 font-family: 'Open Sans', sans-serif;
@@ -301,11 +315,11 @@ div#profile{
                 }
             }
 
-            @include button;
+            @include button('przycisk.png');
         }
     }
     div#branches{
-        position: relative;
+        // position: relative;
         div.branch{
             clear: both;
             h2{
@@ -315,6 +329,7 @@ div#profile{
                 @media(max-width: 565px){
                     margin: 15px 0;
                 }
+                text-align: left;
             }
             p{
                 margin: 2% 0;
@@ -324,6 +339,7 @@ div#profile{
                 @media(max-width: 565px){
                     margin: 10px 0;
                 }
+                text-align: left;
             }
             span.error{
                 color: #A20E12;
@@ -335,9 +351,12 @@ div#profile{
         i.fa-plus-circle{
             cursor: pointer;
             color: $redColor;
-            position: absolute;
-            right: 10px;
-            top: 0;
+            // position: absolute;
+            // right: 10px;
+            // top: 0;
+            text-align: center;
+            margin: auto;
+            display: block;
         }
         div#addCollapseDiv{
             clear: both;
@@ -348,7 +367,7 @@ div#profile{
             @media(max-width: 565px){
                 margin: 20px 0;
             }
-            @include button;
+            @include button('przycisk2.png');
         }
         
         form {
@@ -371,18 +390,30 @@ div#profile{
                 outline: 0;
                 width: 50%;
             }
-            @include button;
+            @include button('przycisk.png');
         }
     }
     md-tab-group{
         div.md-tab-header{
-            justify-content: space-around;
+            
             border: none !important;
             margin-bottom: 5%;
+            @media(max-width: 565px){
+                justify-content: space-around;
+            }
+            @media(min-width: 566px){
+                justify-content: space-around;
+            }
+            @media(min-width: 992px){
+                justify-content: center;
+            }
         }
         div.md-tab-label{
+            img{
+                width: 40px;
+                margin-top: 10px;
+            }
             background: white;
-            border: 2px dotted $blackColor;
             opacity: 1 !important;
             padding: 0 !important;
             font-family: 'Open Sans', sans-serif;
@@ -392,15 +423,16 @@ div#profile{
             }
             &.md-tab-active{
                 opacity: 1 !important;
-                background: $blackColor;
+                background: white;
                 p{
-                    color: white;
+                    color: $blackColor;
                 }
             }
         }
         md-ink-bar{
+            top: 0;
             color: white !important;
-            background-color: $blackColor !important;
+            background-color: $redColor !important;
         }
     }
 }
@@ -408,36 +440,22 @@ div#profile{
 @media(max-width: 575px){
     
     md-tab-group{
-        div.md-tab-header{
-            
-        }
         div.md-tab-label{
-            border: 2px solid black;
             min-width: 30px !important;
-            height: 30px !important;
+            height: 50px !important;
             &:focus{
-                background-color: black !important;
-            }
-            &.md-tab-active{
-                background: black;
+                background-color: white !important;
             }
         }
     }
 }
 @media (min-width: 576px) and (max-width: 992px){
    md-tab-group{
-        div.md-tab-header{
-            
-        }
         div.md-tab-label{
-            border: 2px solid black;
             min-width: 30px !important;
-            height: 30px !important;
+            height: 50px !important;
             &:focus{
-                background-color: black !important;
-            }
-            &.md-tab-active{
-                background: black;
+                background-color: white !important;
             }
         }
     }

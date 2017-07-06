@@ -3,19 +3,19 @@
 <div class="container">
     <div class="row">
         <div id="profile">
-
-            <img *ngIf="otherImgs?.imageUrl" src="{{otherImgs?.imageUrl}}" alt="" class="companyImg">
-            <img *ngIf="imageUrl" src="{{ imageUrl }}" alt="" class="companyImg">
-            <div id="headAvatar">
-                <ng2-letter-avatar *ngIf="name && !otherImgs?.imageUrl" avatar-data='{{name}}' ></ng2-letter-avatar>
+            <div class="headProfile">
+                <img *ngIf="otherImgs?.imageUrl" src="{{otherImgs?.imageUrl}}" alt="" class="companyImg">
+                <img *ngIf="imageUrl" src="{{ imageUrl }}" alt="" class="companyImg">
+                    <ng2-letter-avatar *ngIf="name && !otherImgs?.imageUrl" avatar-data='{{name}}' ></ng2-letter-avatar>
+                
+                <h2>{{otherUser?.company.name}}</h2>
             </div>
             
-            <h2>{{otherUser?.company.name}}</h2>
 
             <md-tab-group>
                 <md-tab>
                     <template md-tab-label>
-                        <p class="hidden-md-down">Moje posty</p>
+                        <img src="../../meta/ic_comment_red_500_48dp.png" alt="">
                     </template>
                     <template md-tab-content>
                         <div id="activeAndEndedPosts">
@@ -40,10 +40,12 @@
 
                 <md-tab>
                     <template md-tab-label>
-                        <p class="hidden-md-down">Edytuj profil</p>
+                        <!--<p class="hidden-md-down">Edytuj profil</p>-->
+                        <img src="../../meta/account-card-details.png" alt="">
                     </template>
                     <template md-tab-content>
                         <div id="daneFirmy">
+
                             <div id="header">
                                 <h3>zmień hasło</h3>
                             </div>
@@ -67,15 +69,7 @@
                             </form>
                             <span *ngIf="messageAfter">Pomyślnie zmieniono hasło</span>
                         </div>
-                    </template>
-                </md-tab>
 
-                <md-tab>
-                    <template md-tab-label>
-                        <p class="hidden-md-down">Edytuj Dane Firmy</p>
-                    </template>
-
-                    <template md-tab-content>
                         <div id="editProfile">
                             <div id="editH">
                                 <h3>edytuj profil</h3>
@@ -113,7 +107,7 @@
 
                 <md-tab>
                     <template md-tab-label>
-                        <p class="hidden-md-down">Dodatkowe Informacje</p>
+                        <img src="../../meta/ic_extension_grey_500_48dp.png" alt="">
                     </template>
                     <template md-tab-content>
                         <div id="additionalInfo">
@@ -147,11 +141,11 @@
                 </md-tab>
                 <md-tab>
                 <template md-tab-label>
-                    <p class="hidden-md-down">Oddziały</p>
+                    <img src="../../meta/oddzialy.png" alt="">
                 </template>
                 <template md-tab-content>
                     <div id="branches">
-                        <i class="fa fa-plus-circle fa-3x" aria-hidden="true" (click)="isCollapse = !isCollapse"></i>
+                        
                         <div [collapse]="isCollapse" id="addCollapseDiv">
                             <form [formGroup]="branchForm" (ngSubmit) = "addNewBranch(branchForm.value)">
                                 <label>Nazwa</label>
@@ -209,7 +203,6 @@
                                 </div>
 
                                 <input type="submit" [disabled]="!branchForm.valid"  value="Stwórz oddział">
-                                <!--<input type="submit" [disabled]="!branchForm.valid" value="Stwórz oddział">-->
                             </form>
                         </div>
                         
@@ -227,7 +220,6 @@
                             </p>
                             <p class="buttons">
                                 <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>
-                                <!--<button class="deleteBranch" (click)="deleteBranch(branch.id)">Usuń oddział</button>-->
                                 <button class="deleteBranch" mwlConfirm [title]="title" placement="left" (confirm)="deleteBranch(branch.id)"
       					(cancel)="cancelClicked = true" [(isOpen)]="isOpen">Usuń oddział</button>
                                 <button *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
@@ -291,12 +283,11 @@
                                         Musisz wpisać opis
                                     </div>
 
-                                    <!--<input type="submit" [disabled]="!branchForm.valid" value="Stwórz oddział">-->
                                     <input type="submit" value="Edytuj oddział">
                                 </form>
                             </div>
                         </div>
-                        
+                        <i class="fa fa-plus-circle fa-3x" aria-hidden="true" (click)="isCollapse = !isCollapse"></i>
                     </div>
 
                 </template>
