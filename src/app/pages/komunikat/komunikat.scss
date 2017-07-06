@@ -1,5 +1,5 @@
 div#filterMessages{
-    padding: 0vw 3vw;
+    /*padding: 0vw 3vw;
     @media (max-width: 576px){
         padding: 2vw 3vw;
     }
@@ -8,7 +8,7 @@ div#filterMessages{
     }
     @media(min-width: 1200px){
         padding: 0;
-    }
+    }*/
     
 }
 
@@ -18,11 +18,11 @@ div#messagesDiv{
 
 div#mainPage{
     display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
 }
 
 @media(max-width: 575px){
@@ -30,12 +30,15 @@ div#mainPage{
     flex-direction: column;
     div#blankDiv{
       order: 3;
+      width: 100%;
     }
     div#messagesDiv{
       order: 2;
+      width: 100%;
     }
     div#filterMessages{
       order: 1;
+      width: 100%;
     }
   }
 }
@@ -44,12 +47,15 @@ div#mainPage{
     flex-direction: column;
     div#blankDiv{
       order: 3;
+      width: 100%;
     }
     div#messagesDiv{
       order: 2;
+      width: 100%;
     }
     div#filterMessages{
       order: 1;
+      width: 100%;
     }
   }
 }
@@ -64,14 +70,18 @@ div#mainPage{
 @media (min-width: 992px) {
   div#mainPage{
     flex-direction: row;
+    width: 100%;
     div#blankDiv{
       order: 1;
+      width: (100%/3);
     }
     div#messagesDiv{
       order: 2;
+      width: (100%/3);
     }
     div#filterMessages{
       order: 3;
+      width: (100%/3);
     }
   }
 }

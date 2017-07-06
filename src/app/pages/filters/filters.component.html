@@ -1,130 +1,134 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-<div id="head" class="hidden-lg-up">
-    <h4 (click)="isFiltryCollapse = !isFiltryCollapse"  *ngIf="isFiltryCollapse">
-        filtry
-    </h4>
-    <h4 *ngIf="!isFiltryCollapse">filtry</h4>
-    <i class="fa fa-window-close fa-2x" *ngIf="!isFiltryCollapse" (click)="isFiltryCollapse = !isFiltryCollapse"></i>
-    <div class="line">
-        <div></div>
+
+<div id="filterInside">
+    <div id="head" class="hidden-lg-up">
+        <h4 (click)="isFiltryCollapse = !isFiltryCollapse"  *ngIf="isFiltryCollapse">
+            filtry
+        </h4>
+        <h4 *ngIf="!isFiltryCollapse">filtry</h4>
+        <img src="../../meta/close-circle-outline.png" *ngIf="!isFiltryCollapse" (click)="isFiltryCollapse = !isFiltryCollapse" alt="">
+        <div class="line">
+            <div></div>
+        </div>
+    </div>
+
+
+    <div [collapse]="isFiltryCollapse">
+
+        <form [formGroup]="filterForm" novalidate id="mainForm">
+
+            <h5>Dostępność</h5>
+
+            <div class="ifActive">
+                <div class="checkbox">
+                    <input type="checkbox" id="ifActiveCheckbox" formControlName="startBeforeDate">
+                    <label for="ifActiveCheckbox"></label>
+                </div>
+                <span>dostępne dziś</span>
+            </div>
+
+            <div class="blacklineF">
+                <div></div>
+            </div>
+
+            <h5>Sortuj po:</h5>
+            
+            <div class="filterBy">
+                <div class="checkbox">
+                    <input type="radio" id="distance" name="filterBy" value="DISTANCE" formControlName="filterBy"> 
+                    <label for="distance"></label>
+                    <span>lokalizacja</span>
+                </div>
+                
+                <div class="checkbox">
+                    <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy">
+                    <label for="create_day"></label>
+                    <span>data dodania</span>
+                </div>
+
+            </div>
+
+            <div class="blacklineF">
+                <div></div>
+            </div>
+
+            <h5>Lokalizacja</h5>
+
+            <input id="searchLocation" placeholder="miasto" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="searchControl">
+            
+            <!--<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+            </agm-map>-->
+            
+            <h5>Odległość</h5>
+            <div id="nouisliderDiv">
+                <nouislider [min]="0" [max]="101" [step]="1" [(ngModel)]="someValue" formControlName = "distance"></nouislider>
+            </div>
+            
+            <p id="distance">
+                Odległośc - 
+                <span *ngIf="someValue !== 101">{{ someValue }}</span>
+                <span *ngIf="someValue === 101">brak ograniczeń</span>
+            </p>
+
+            <div class="blacklineF">
+                <div></div>
+            </div>
+
+            <h5>Typ wiadomości</h5>
+
+            <div id="checkboxDiv">
+                <div id="checkboxesValues">
+                    <div class="c" *ngFor="let messageType of messageTypesOb">
+                        <div class="checkbox">
+                            <input type="checkbox" class="checkboxInput" id="types-{{messageType.name}}" (click)="setType(messageType.name)">
+                            <label for="types-{{messageType.name}}"></label>
+                        </div>
+                        <span>{{ messageType.value }}</span>
+                        <i *ngIf="messageType.name === 'EVENT'" class="material-icons">event</i>
+                        <i *ngIf="messageType.name === 'WORK'" class="material-icons">work</i>
+                        <i *ngIf="messageType.name === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
+                        <i *ngIf="messageType.name === 'WORTH_SEEING'" class="material-icons">visibility</i>
+                        <i *ngIf="messageType.name === 'PROMOTION'" class="material-icons">loyalty</i>
+                    </div>
+                </div>
+            </div>
+
+            <h5 *ngIf="id === undefined">Branża</h5>
+
+            <div id="companyCategories" *ngIf="id === undefined">
+                <div class="categoriesI" *ngFor="let category of categories">
+                    <div class="blacklineF">
+                        <div></div>
+                    </div>
+                    <button type="button" (click)="category.bol = !category.bol" [ngSwitch]="category.id">
+                        <img *ngSwitchCase="1" src="../../meta/menu_icons/kultura_i_rozrywka.png" alt="">
+                        <img *ngSwitchCase="2" src="../../meta/menu_icons/gastronomia_i_nocne_zycie.png" alt="">
+                        <img *ngSwitchCase="3" src="../../meta/menu_icons/zakupy_male.png" alt="">
+                        <img *ngSwitchCase="4" src="../../meta/menu_icons/zakupy_duze.png" alt="">
+                        <img *ngSwitchCase="5" src="../../meta/menu_icons/uslugi_dla_ciala.png" alt="">
+                        <img *ngSwitchCase="6" src="../../meta/menu_icons/uslugi_inne.png" alt="">
+                        <img *ngSwitchCase="7" src="../../meta/menu_icons/sport_i_turystyka.png" alt="">
+                        {{ category.name }}
+                    </button>
+                    
+                    <div [collapse]="category.bol" *ngFor="let subcategory of category.subcategories">
+                        <div class="subcategories">
+                            <div class="checkbox" >
+                                <input type="checkbox" class="checkboxInput" id="sub-{{ subcategory.id }}" (click)="setSubcategory(subcategory.id)">
+                                <label for="sub-{{ subcategory.id }}"></label>
+                            </div>
+                            <span>{{ subcategory.name }}</span>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <button (click)="clearFilters()">wyczyść</button>
+
+        </form>
     </div>
 </div>
 
-
-<div [collapse]="isFiltryCollapse">
-
-    <form [formGroup]="filterForm" novalidate id="mainForm">
-
-        <h5>Dostępność</h5>
-
-        <div class="ifActive">
-            <div class="checkbox">
-                <input type="checkbox" id="ifActiveCheckbox" formControlName="startBeforeDate">
-                <label for="ifActiveCheckbox"></label>
-            </div>
-            <span>dostępne dziś</span>
-        </div>
-
-        <div class="blacklineF">
-            <div></div>
-        </div>
-
-        <h5>Sortuj po:</h5>
-        
-        <div class="filterBy">
-            <div class="checkbox">
-                <input type="radio" id="distance" name="filterBy" value="DISTANCE" formControlName="filterBy"> 
-                <label for="distance"></label>
-                <span>lokalizacja</span>
-            </div>
-            
-            <div class="checkbox">
-                <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy">
-                <label for="create_day"></label>
-                <span>data dodania</span>
-            </div>
-
-        </div>
-
-        <div class="blacklineF">
-            <div></div>
-        </div>
-
-        <h5>Lokalizacja</h5>
-
-        <input id="searchLocation" placeholder="miasto" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="searchControl">
-        
-        <!--<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
-            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-        </agm-map>-->
-        
-        <h5>Odległość</h5>
-        <div id="nouisliderDiv">
-            <nouislider [min]="0" [max]="101" [step]="1" [(ngModel)]="someValue" formControlName = "distance"></nouislider>
-        </div>
-        
-        <p id="distance">
-            Odległośc - 
-            <span *ngIf="someValue !== 101">{{ someValue }}</span>
-            <span *ngIf="someValue === 101">brak ograniczeń</span>
-        </p>
-
-        <div class="blacklineF">
-            <div></div>
-        </div>
-
-        <h5>Typ wiadomości</h5>
-
-        <div id="checkboxDiv">
-            <div id="checkboxesValues">
-                <div class="c" *ngFor="let messageType of messageTypesOb">
-                    <div class="checkbox">
-                        <input type="checkbox" class="checkboxInput" id="types-{{messageType.name}}" (click)="setType(messageType.name)">
-                        <label for="types-{{messageType.name}}"></label>
-                    </div>
-                    <span>{{ messageType.value }}</span>
-                    <i *ngIf="messageType.name === 'EVENT'" class="material-icons">event</i>
-                    <i *ngIf="messageType.name === 'WORK'" class="material-icons">work</i>
-                    <i *ngIf="messageType.name === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
-                    <i *ngIf="messageType.name === 'WORTH_SEEING'" class="material-icons">visibility</i>
-                    <i *ngIf="messageType.name === 'PROMOTION'" class="material-icons">loyalty</i>
-                </div>
-            </div>
-        </div>
-
-        <h5 *ngIf="id === undefined">Branża</h5>
-
-        <div id="companyCategories" *ngIf="id === undefined">
-            <div class="categoriesI" *ngFor="let category of categories">
-                <div class="blacklineF">
-                    <div></div>
-                </div>
-                <button type="button" (click)="category.bol = !category.bol" [ngSwitch]="category.id">
-                    <img *ngSwitchCase="1" src="../../meta/menu_icons/kultura_i_rozrywka.png" alt="">
-                    <img *ngSwitchCase="2" src="../../meta/menu_icons/gastronomia_i_nocne_zycie.png" alt="">
-                    <img *ngSwitchCase="3" src="../../meta/menu_icons/zakupy_male.png" alt="">
-                    <img *ngSwitchCase="4" src="../../meta/menu_icons/zakupy_duze.png" alt="">
-                    <img *ngSwitchCase="5" src="../../meta/menu_icons/uslugi_dla_ciala.png" alt="">
-                    <img *ngSwitchCase="6" src="../../meta/menu_icons/uslugi_inne.png" alt="">
-                    <img *ngSwitchCase="7" src="../../meta/menu_icons/sport_i_turystyka.png" alt="">
-                    {{ category.name }}
-                </button>
-                
-                <div [collapse]="category.bol" *ngFor="let subcategory of category.subcategories">
-                    <div class="subcategories">
-                        <div class="checkbox" >
-                            <input type="checkbox" class="checkboxInput" id="sub-{{ subcategory.id }}" (click)="setSubcategory(subcategory.id)">
-                            <label for="sub-{{ subcategory.id }}"></label>
-                        </div>
-                        <span>{{ subcategory.name }}</span>
-                        
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-
-        <button (click)="clearFilters()">wyczyść</button>
-
-    </form>
-</div>

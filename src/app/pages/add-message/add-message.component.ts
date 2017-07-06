@@ -86,7 +86,7 @@ export class AddMessageComponent implements OnInit {
         checked: 'item selected',
         checkedPlural: 'items selected',
         searchPlaceholder: 'Find',
-        defaultTitle: 'Wybierz oddział',
+        defaultTitle: '',
         allSelected: 'All selected',
     };
 

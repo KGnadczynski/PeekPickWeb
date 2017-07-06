@@ -52,6 +52,21 @@ div.checkBoxDiv{
     }
 }
 
+div.blackLineF{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: left;
+    clear: left;
+    width: 100%;
+    
+    div{
+        width: 80%;
+        height: 1px;
+        background: $colorBlack;
+        margin: auto;
+    }
+}
+
 div.modal-content{
     div#addForm{
         padding: 4%;
@@ -96,7 +111,7 @@ div.modal-content{
         }
         
         div.date{
-            margin-top: 35px;
+            margin-top: 20px;
             float: left;
             display: flex;
             flex-direction: column;
@@ -109,12 +124,12 @@ div.modal-content{
             }
             img{
                 @media(max-width:565px){
-                    width: 73px;
-                    height: 73px;
+                    width: 53px;
+                    height: 53px;
                 }
                 @media(min-width: 566px){
-                    width: 98px;
-                    height: 98px;
+                    width: 78px;
+                    height: 78px;
                 }
             }
             div.text{
@@ -126,7 +141,7 @@ div.modal-content{
                     font-size: 16px;
                     color: $colorBlack;
                     float: left;
-                    margin: 10px 0;
+                    margin: 5px 0;
                 }
                 input[type=submit]{
                     border: 0;
@@ -135,7 +150,7 @@ div.modal-content{
                     background: white;
                     font-size: 16px;
                     font-family: 'Open Sans', sans-serif;
-                    margin: 10px 0;
+                    margin: 5px 0;
                 }
                 
             }
@@ -159,7 +174,7 @@ div.modal-content{
                 text-align: right;
                 color: $colorBlack;
                 margin-right: 10%;
-                font-size: 16px;
+                font-size: 15px;
                 text-transform: lowercase;
             }
             textarea{
@@ -171,25 +186,12 @@ div.modal-content{
                 outline: 0;
                 font-family: 'Open Sans', sans-serif;
                 cursor: text;
-                min-height: 200px;
+                min-height: 150px;
                 border: 0;
             }
         }
         
-        div.blackline{
-            width: 100%;
-            float: left;
-            clear: both;
-            div{
-                width: 80%;
-                height: 2px;
-                background: $colorBlack;
-                margin: auto;
-            }
-            
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
+        
         
         div#buttons{
             width: 100%;
@@ -213,17 +215,27 @@ div.modal-content{
         }
         
         div.odzialFirmy{
-            width: 100%;
+            
             div.dropdown{
                 text-align: center;
-                @media(min-width: 992px){
-                    margin-top: 100px;
-                }
+                // @media(min-width: 992px){
+                //     margin-top: 100px;
+                // }
                 button{
                     border: 0;
                     border-radius: 0;
                     padding: 10px;
-                    
+                    background-image: url('../../meta/map-marker.png');
+                    width: 53px;
+                    height: 53px;
+                    background-size: 53px 53px;
+                    background-color: white !important;
+                    span{
+                        display: none;
+                    }
+                    &::after{
+                        display: none;
+                    }
                 }
             }
             ul {
@@ -280,9 +292,68 @@ div.daterangepicker {
     }
 }
 
-div#addPhoto, div#addLocalization{
+div#addPhoto{
+    @media(min-width: 566px){
+        padding-top: 10px;
+    }
+    @media(min-width: 992px){
+        padding-top: 0;
+    }
+}
+
+div#addPhoto, div#addLocalization div.iconAndP, div.odzialFirmy{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+div.iconAndP, div#addPhoto, div.odzialFirmy{
+    p{
+        font-weight: bold;
+        font-family: 'Open Sans', sans-serif;
+        color: $colorBlack;
+        font-size: 15px;
+    }
+}
+
+div.iconAndP, div.odzialFirmy{
+    img {
+        @media(max-width: 565px){
+            margin-left: 8px;
+        }
+        
+        cursor: pointer;
+    }
+    button{
+        @media(max-width: 565px){
+            margin-left: 18px;
+        }
+        
+    }
+}
+
+div.collapse{
+    clear: both;
+    
+    agm-map{
+        height: 200px;
+    }
+    p{
+        font-family: 'Open Sans', sans-serif;
+        margin-top: 10px;
+        text-align: center;
+    }
+}
+
+div#addPhoto, div#addLocalization, div.odzialFirmy{
     float: left;
-    width: 50%;
+    @media(max-width: 565px){
+        width: 100%;
+    }
+    @media(min-width: 566px){
+        width: (100%/3);
+    }
     .picture-group{
         border: 0;
         width: auto;
@@ -303,15 +374,13 @@ div#addPhoto, div#addLocalization{
     }
     img{
         width: 85px;
-        display: block;
-        margin: auto;
         @media(max-width: 565px){
-            width: 66px;
-            height: 66px;
+            width: 53px;
+            height: 53px;
         }
         @media(min-width: 566px){
-            width: 84px;
-            height: 84px;
+            width: 64px;
+            height: 64px;
         }
         
     }
@@ -323,9 +392,7 @@ div#addPhoto, div#addLocalization{
         font-size: 15px;
         text-align: center;
     }
-    .sebm-google-map-container {
-        height: 200px;
-    }
+    
     div.checkBoxDiv{
         display: flex;
         justify-content: center;
@@ -338,4 +405,23 @@ div#addPhoto, div#addLocalization{
         margin: 10px;
     }
     
+}
+
+
+
+.modal-lg{
+    // @media(min-width: 992)
+    /*max-width: 572px;
+
+    @media(min-width: 992px){
+        max-width: 50%;
+    }
+
+    @media(min-width: 1200px){
+        max-width: 50%;
+    }
+
+    @media(min-width: 1400px){
+        max-width: 40%;
+    }*/
 }

@@ -19,16 +19,16 @@
                 </button>
             </div>
 
+            <div class="blackLineF">
+                <div></div>
+            </div>
+
             <div class="date">
                 <img src="../../meta/calendar.png" alt="">
                 <div class="text">
                     <p>Data rozpoczęcia: </p>
                     <input  daterangepicker #datePickerStart [(ngModel)]="msgAddModel.startDate" (selected)="selectStartDate($event)" [options]="pickerOptionsStart" type="submit"/>
                 </div>
-            </div>
-            
-            <div class="blackline hidden-lg-up">
-                <div></div>
             </div>
 
             <div class="date">
@@ -50,56 +50,64 @@
                 </div>
 
             </div>
-
-            <div class="blackline">
+            
+            <div class="blackLineF">
                 <div></div>
             </div>
-            
+
             <div class="content">
-                <h4>Opis</h4>
-                <textarea rows="3" type="text" placeholder="..." [(ngModel)]="msgAddModel.content" #messageContent maxlength="200"></textarea>
+                <!--<h4>Opis</h4>-->
+                <textarea rows="3" type="text" placeholder="treść komunikatu" [(ngModel)]="msgAddModel.content" #messageContent maxlength="200"></textarea>
                 <p>Zostało: {{200 - messageContent.value.length}} znaków</p>
                 <div class="errorDiv" *ngIf="errorInfo">
                     <span>{{ errorInfo }}</span>
                 </div>
             </div>
 
-            <div class="blackline">
+            <div class="blackLineF">
                 <div></div>
             </div>
             
-            <div class="odzialFirmy">
-              <ss-multiselect-dropdown *ngIf="showMulitSelect"  [texts]="myTexts" [settings]="mySettings" defaultTitle="Wybierz oddział" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
-            </div>
-
-            <div class="blackline">
-                <div></div>
-            </div>
+            
 
             <div id="addPhoto">
                 <ba-picture-uploader #fileUpload  (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
+                <p>dodaj zdjęcie</p>
             </div>
 
             <div id="addLocalization">
-              <img class="icon" src="../../meta/map-marker.png" alt="">
-                    <div class="checkBoxDiv">
-                        <div class="checkbox">
-                            <input type="checkbox" name="checkboxAdd2" id="checkboxAdd2" [checked]="isLocationCollapsed" (change)="addprop2()">
-                            <label for="checkboxAdd2"></label>
-                        </div>
-                        <span>użyj lokalizacji</span>
+                <div class="iconAndP">
+                    <img class="icon" src="../../meta/map-marker.png" alt="" (click)="isLocationCollapsed = !isLocationCollapsed" (change)="addprop2()">
+                    <p>zmień lokalizację</p>
+                </div>
+
+                <!--<div class="checkBoxDiv">
+                    <div class="checkbox">
+                        <input type="checkbox" name="checkboxAdd2" id="checkboxAdd2">
+                        <label for="checkboxAdd2"></label>
                     </div>
-                    <div [collapse]="isLocationCollapsed">
-                        <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="mapClicked($event)" [zoom]="zoom"
-                        [disableDefaultUI]="false"
-                            [zoomControl]="true">
-                            <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
-                            <agm-info-window>
-                                <strong>InfoWindow content</strong>
-                            </agm-info-window>
-                        </agm-map>
-                        <p>{{localization}}</p>
-                    </div>
+                    <span>użyj lokalizacji</span>
+                </div>-->
+                
+            </div>
+
+            <div class="odzialFirmy">
+              <ss-multiselect-dropdown *ngIf="showMulitSelect"  [texts]="myTexts" [settings]="mySettings" defaultTitle="" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+              <p *ngIf="showMulitSelect">wybierz oddział firmy</p>
+              <p *ngIf="!showMulitSelect">firma nie ma oddziałów</p>
+              
+            </div>
+
+            <div [collapse]="isLocationCollapsed">
+                <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="mapClicked($event)" [zoom]="zoom"
+                [disableDefaultUI]="false"
+                    [zoomControl]="true">
+                    <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
+                    <agm-info-window>
+                        <strong>InfoWindow content</strong>
+                    </agm-info-window>
+                </agm-map>
+                <p>{{localization}}</p>
             </div>
 
             <div id="buttons">

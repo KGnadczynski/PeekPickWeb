@@ -56,6 +56,14 @@ $blackColor: #263238;
       }
 }
 
+div#filterInside{
+    @media(max-width: 565px){
+        width: 94%;
+    }
+    width: 375px;
+    margin: auto;
+}
+
 div#head{
     overflow: hidden;
     h4{
@@ -68,10 +76,11 @@ div#head{
       font-weight: normal;
       font-size: 20px;
     }
-    i{
-      width: 10%;
-      cursor: pointer;
-      float: right;
+    img{
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        float: right;
     }
     div.line{
         clear: both;
@@ -260,8 +269,7 @@ form#mainForm{
           width: 100%;
           display: flex;
           flex-direction: column;
-        //   align-items: center;
-          float: left;
+          align-items: flex-start;
           .blacklineF{
             margin-top: 1%;
             margin-bottom: 1%;
@@ -305,7 +313,7 @@ form#mainForm{
         }
       }
       button {
-        margin: auto;
+        // margin: auto;
         display: block;
         outline: 0;
         text-transform: lowercase;
