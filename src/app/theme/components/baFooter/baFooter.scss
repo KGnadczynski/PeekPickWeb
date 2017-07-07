@@ -14,23 +14,24 @@ div#footer{
     div#inside{
         display: flex;
         flex-wrap: wrap;
+        padding: 15px 0;
         @media(max-width: 565px){
             flex-direction: column;
         }
         @media(min-width: 992px){
-            width: 80%;
+            width: 90%;
             margin: auto;
         }
         div#a-router{
             width: 80%;
-            margin: auto;
+            // margin: auto;
             display: flex;
             justify-content: space-around;
 
             @media(max-width: 565px){
                 width: 100%;
             }
-            @media(min-width: 768px){
+            @media(min-width: 566px){
                 width: 50%;
             }
             @media(min-width: 992px){
@@ -42,32 +43,39 @@ div#footer{
                 font-family: 'Sanchez', serif;
                 font-size: 15px;
                 color: $redColor;
-                padding: 10px;
-                border: 2px dotted;
+                // padding: 10px;
+                // border: 2px dotted;
                 position: relative;
+                background-image: url('../../../../meta/przycisk.png');
+                background-size: 100% 100%;
+                width: 155px;
+                height: 51px;
+                padding-top: 16px;
+                text-align: center;
                 img{
                     position: absolute;
-                    top: 10px;
-                    left: -30px;
+                    top: 15px;
+                    left: -14px;
                 }
             }
                 
         }
 
         div#bottomDiv{
-            margin: auto;
+            // margin: auto;
             display: flex;
             align-items: center;
+            justify-content: center;
             @media(max-width: 565px){
-                width: 80%;
+                width: 94%;
                 margin-top: 15px;
             }
             @media(min-width: 566px){
-                margin-top: 15px;
+                // margin-top: 15px;
             }
             @media(min-width: 768x){
                 width: 50%;
-                margin-top: 15px;
+                // margin-top: 15px;
             }
             @media(min-width: 992px){
                 order: 3;
@@ -77,9 +85,13 @@ div#footer{
             
             img {
                 &:first-child{
-                    border: 2px dotted $redColor;
-                    width: 40%;
-                    margin-right: 10px;
+                    // border: 2px dotted $redColor;
+                    // margin-right: 10px;
+                    background-image: url('../../../../meta/przycisk.png');
+                    background-size: 100% 100%;
+                    width: 135px;
+                    height: 58px;
+                    padding: 5px;
                 }
                 &:nth-child(2){
                     
@@ -105,8 +117,8 @@ div#footer{
         }
         div.menu{
             width: 100%;
-            margin-top: 5%;
-            margin-bottom: 5%;
+            // margin-top: 5%;
+            // margin-bottom: 5%;
             @media(max-width: 565px){
                 width: 100%;
             }

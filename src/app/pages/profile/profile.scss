@@ -74,7 +74,6 @@ div#profile{
     h2{
         margin: 4% 0;
         text-align: center;
-        text-transform: capitalize;
         font-family: 'Open Sans', sans-serif;
         color: $blackColor;
     }
@@ -83,7 +82,7 @@ div#profile{
         div#header{
             text-align: center;
             h3{
-                margin: 25px 0;
+                margin: 5px 0;
                 font-size: 20px;
                 font-family: 'Sanchez', serif;
                 color: $redColor;
@@ -122,7 +121,7 @@ div#profile{
             text-align: center;
             margin: 3% 0;
             h3{
-                margin: 25px 0;
+                margin: 5px 0;
                 font-size: 20px;
                 font-family: 'Sanchez', serif;
                 color: $redColor;
@@ -192,6 +191,9 @@ div#profile{
                 display: flex;
                 justify-content: space-around;
                 @media(max-width: 565px){
+                    padding: 0 6%;
+                }
+                @media(max-width: 565px){
                     flex-direction: column;
                 }
                 @media(min-width: 566px){
@@ -240,7 +242,7 @@ div#profile{
     div#additionalInfo{
         width: 100%;
         margin: auto;
-        padding: 2% 0;
+        // padding: 2% 0;
 
         @media(max-width: 575px){
             padding: 3%;
@@ -322,6 +324,9 @@ div#profile{
     }
     div#branches{
         // position: relative;
+        // @media(min-width: 992px){
+        //     padding: 0 18%;
+        // }
         div.branch{
             clear: both;
             h2{
@@ -396,6 +401,11 @@ div#profile{
         }
     }
     md-tab-group{
+        div.md-tab-body{
+            @media(min-width: 992px){
+                padding: 0 18%;
+            }
+        }
         div.md-tab-header{
             
             border: none !important;
@@ -425,7 +435,7 @@ div#profile{
             }
             &.md-tab-active{
                 opacity: 1 !important;
-                background: white;
+                background: white !important;
                 p{
                     color: $blackColor;
                 }

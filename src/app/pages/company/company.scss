@@ -11,113 +11,42 @@ div#companyWhole{
 }
 
 div#topComp{
-    div.company-image{
-        margin-top: 3%;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    @media(max-width: 565px){
+        flex-direction: column;
+    }
+    @media(min-width: 566px){
+        flex-direction: row;
+    }
         img{
-            display: block;
-            margin: auto;
             width: 140px;
             height: 140px;
         }
-    }
-    div.company-name{
         h4{
+            width: auto;
             font-family: 'Open Sans', sans-serif;
             text-align: center;
-            text-transform: capitalize;
             color: $blackColor;
-            font-size: 20px;
-            padding: 2% 0;
-            border-bottom: 2px solid $blackColor;
-            float: none;
-            margin: auto;
-            width: 70%;
-            @media(min-width: 992px){
-                font-size: 40px;
+            font-size: 30px;
+            @media(max-width: 565px){
+                margin-left: 0;
+                margin-top: 10px;
             }
+            @media(min-width: 566px){
+                margin-left: 20px;
+                margin-top: 0;
+            }
+            
         }
-    }
 }
 
 div#mapaFirmy{
     margin-top: 5%;
     agm-map{
         height: 300px;
-    }
-}
-
-md-tab-group{
-    width: 100%;
-    padding: 3% 0;
-    
-    /*@media(max-width: 565px){
-        align-items: center;
-    }
-    @media(min-width: 565px){
-        align-items: center;
-    }
-    @media(min-width: 768px){
-        align-items: flex-end;
-    }
-    @media(min-width: 992px){
-        align-items: flex-end;
-    }
-    @media(min-width: 1420px){
-        align-items: center;
-    }*/
-
-    
-    div.md-tab-header{
-        border: none !important;
-        justify-content: center;
-        
-        /*@media(min-width: 992px){
-            width: 60%;
-        }
-        @media(min-width: 768px){
-            width: 75%;
-        }
-        @media(min-width: 565px){
-            width: 75%;
-        }
-        @media(max-width: 565px){
-            width: 80%;
-        }*/
-    }
-    div.md-tab-body-wrapper{
-        /*@media(min-width: 992px){
-            width: 60%;
-        }
-        @media(min-width: 768px){
-            width: 75%;
-        }
-        @media(min-width: 565px){
-            width: 80%;
-        }
-        @media(max-width: 565px){
-            width: 100%;
-        }*/
-    }
-    div.md-tab-label{
-        background: white;
-        opacity: 1 !important;
-        &:focus{
-            background-color: $blackColor !important;
-            border: none !important;
-        }
-        &.md-tab-active{
-            background: $blackColor;
-            opacity: 1 !important;
-            color: white !important;
-            p{
-                color: white;
-            }
-        }
-    }
-    md-ink-bar{
-        color: white !important;
-        background-color:$blackColor !important;
     }
 }
 
@@ -141,7 +70,7 @@ div#companyMain{
         float: left;
         clear: both;
         margin-top: 2%;
-        margin-bottom: 5%;
+        margin-bottom: 2%;
     }
 
     h4{
@@ -225,57 +154,78 @@ div#messages{
     padding: 5% 0 0 0;
 }
 
-
-@media (max-width: 575px) {
-    md-tab-group{
+md-tab-group{
+        div.md-tab-body{
+            
+            @media(min-width: 992px){
+                padding: 0 4%;
+            }
+            @media(min-width: 1200px){
+                padding: 0 18%;
+            }
+        }
         div.md-tab-header{
-            justify-content: space-around;
+            
+            border: none !important;
+            @media(max-width: 565px){
+                justify-content: space-around;
+            }
+            @media(min-width: 566px){
+                justify-content: space-around;
+            }
+            @media(min-width: 992px){
+                justify-content: center;
+            }
         }
         div.md-tab-label{
-            border: 2px solid black;
-            min-width: 30px !important;
-            height: 30px !important;
+            img{
+                width: 40px;
+                margin-top: 10px;
+            }
+            background: white !important;
             opacity: 1 !important;
             padding: 0 !important;
+            font-family: 'Open Sans', sans-serif;
+            color: $blackColor;
             &:focus{
-                background-color: black !important;
                 border: none !important;
             }
             &.md-tab-active{
-                background: black;
                 opacity: 1 !important;
+                background: white !important;
+                p{
+                    color: $blackColor;
+                }
             }
         }
         md-ink-bar{
+            top: 0;
             color: white !important;
-            background-color:black !important;
+            background-color: $redColor !important;
+        }
+    }
+
+    
+@media(max-width: 575px){
+    
+    md-tab-group{
+        div.md-tab-label{
+            min-width: 30px !important;
+            height: 50px !important;
+            &:focus{
+                background-color: white !important;
+            }
         }
     }
 }
-
-@media (min-width: 575px) and (max-width: 992px){
-    md-tab-group{
-        div.md-tab-header{
-            justify-content: space-around;
-        }
+@media (min-width: 576px) and (max-width: 992px){
+   md-tab-group{
         div.md-tab-label{
-            border: 2px solid black;
             min-width: 30px !important;
-            height: 30px !important;
-            opacity: 1 !important;
-            padding: 0 !important;
+            height: 50px !important;
             &:focus{
-                background-color: black !important;
-                border: none !important;
+                background-color: white !important;
             }
-            &.md-tab-active{
-                background: black;
-                opacity: 1 !important;
-            }
-        }
-        md-ink-bar{
-            color: white !important;
-            background-color:black !important;
         }
     }
 }

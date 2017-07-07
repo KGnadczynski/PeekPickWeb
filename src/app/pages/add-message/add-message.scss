@@ -72,7 +72,8 @@ div.modal-content{
         padding: 2%;
         overflow: hidden;
         div.header{
-            display: flex;
+            // display: flex;
+            position: relative;
             @media(max-width: 565px){
                 margin-top: 10px;
             }
@@ -80,7 +81,7 @@ div.modal-content{
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 90%;
+                // width: 90%;
                 i{
                     font-size: 30px;
                     color: $colorRed;
@@ -97,7 +98,10 @@ div.modal-content{
             }
             
             button.header-button{
-                width: 10%;
+                // width: 10%;
+                position: absolute;
+                top: 0;
+                right: 0;
                 outline: 0;
                 opacity: 1;
                 background: white;

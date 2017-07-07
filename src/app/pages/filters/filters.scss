@@ -19,25 +19,38 @@ $blackColor: #263238;
             position: absolute;
             width: 25px;
             height: 25px;
-            top: 0;
+            // top: 0;
+            // left: 0;
+            // background: white;
+            // border: 2px dotted $redColor;
+            // margin: 0;
+            top: -2px;
             left: 0;
-            background: white;
-            border: 2px dotted $redColor;
+            background-image: url('../../meta/selection.png');
+            background-size: 25px;
             margin: 0;
             &:after{
                 opacity: 0;
-                content: '';
-                position: absolute;
-                width: 9px;
-                height: 5px;
-                background: transparent;
-                top: 6px;
-                left: 7px;
-                border: 3px solid #333;
-                border-top: none;
-                border-right: none;
+                    content: '';
+                    background-image: url(../../meta/checkbox-blank.png);
+                    width: 28px;
+                    height: 28px;
+                    position: absolute;
+                    top: -5px;
+                    left: -5px;
+                // opacity: 0;
+                // content: '';
+                // position: absolute;
+                // width: 9px;
+                // height: 5px;
+                // background: transparent;
+                // top: 6px;
+                // left: 7px;
+                // border: 3px solid #333;
+                // border-top: none;
+                // border-right: none;
 
-                transform: rotate(-45deg);
+                // transform: rotate(-45deg);
             }
             &:hover::after{
                 opacity: 0;
@@ -45,6 +58,9 @@ $blackColor: #263238;
         }
         input[type=#{$checkOrRadio}]:checked + label:after{
             opacity: 1;
+        }
+        input[type=checkbox], input[type=radio]{
+            opacity: 0;
         }
         @if $checkOrRadio == "radio"{
             span {

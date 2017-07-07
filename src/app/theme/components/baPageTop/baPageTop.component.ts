@@ -25,6 +25,7 @@ export class BaPageTop implements OnInit{
 
     isScrolled:boolean = false;
     isMenuCollapsed:boolean = false;
+    ifDarkened: boolean = false;
 
     protected searchStr: string;
     protected dataService: RemoteData;
@@ -146,5 +147,30 @@ export class BaPageTop implements OnInit{
         };
         this.router.navigate(['/pages/komunikat'], navigationExtras);
       }
+  }
+
+  darkenBody():void {
+        this.ifDarkened = !this.ifDarkened;
+        console.log('ifdarkened: ' + this.ifDarkened);
+
+        // $('main').css('height', 'initial');
+        // $('body').fadeTo('slow', 0.33);
+        // $('body').find('.dropdown-menu').stop().fadeTo('slow',1);
+        // $('body').children(":not(.dropdown-menu)").css('opacity', '0.6');
+        // $('body > *').children(":not(.dropdown-menu)").css('background-color', 'black');
+        // $('body > *').children(":not(.dropdown-menu)").css('z-index', '998');
+        // $('body > *').children('.dropdown-menu').css('z-index', '999');
+        /*$('body').find('.dropdown-menu').css('opacity', '0');
+        $('body').find('.dropdown-menu').css('z-index', '999');
+        $('body').find('*:not(.dropdown-menu)').each(function(){
+            // $(this).unbind('click');
+            $(this).css('opacity', '0.9');
+            $(this).css('background-color', 'black');
+            $(this).css('z-index', '998');
+
+            console.log($(this));
+        });*/
+        // $('body').not($('.dropdown-menu')).fadeOut('fast');
+        // $('body').find('*:not(.dropdown-menu)').fadeTo('fast', 0.4);
   }
 }
