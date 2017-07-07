@@ -28,10 +28,13 @@ $angle-right: "\f101";
   overflow: hidden;
   padding: 18px 0 0 0;
   list-style: none;
+  height: 100%;
+  overflow: scroll;
   
   div.companyMenu {
     overflow: hidden;
     padding: 0 15px;
+    height: 100%;
 
     div.login{
         text-align: center;
@@ -432,9 +435,14 @@ a.al-sidebar-list-link {
 }
 
 .al-sidebar{
-    width: 250px;
+    width: 270px;
 
     .sidebar-hover-elem{
-      left: 247px !important;
+      left: 259px !important;
     }
+}
+
+::-webkit-scrollbar {
+    width: 0.3em;
+    height: 0.2em;
 }

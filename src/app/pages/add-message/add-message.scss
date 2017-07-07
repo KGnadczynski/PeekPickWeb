@@ -69,7 +69,7 @@ div.blackLineF{
 
 div.modal-content{
     div#addForm{
-        padding: 4%;
+        padding: 2%;
         overflow: hidden;
         div.header{
             display: flex;
@@ -111,15 +111,15 @@ div.modal-content{
         }
         
         div.date{
-            margin-top: 20px;
+            margin-top: 5px;
             float: left;
             display: flex;
             flex-direction: column;
             align-items: center;
-            @media(max-width: 991px){
+            @media(max-width: 565px){
                 width: 100%;
             }
-            @media (min-width: 992px){
+            @media (min-width: 566px){
                 width: 50%;
             }
             img{
@@ -158,7 +158,7 @@ div.modal-content{
         }
 
         div.content{
-            margin-top: 40px;
+            // margin-top: 40px;
             width: 100%;
             
             h4{
@@ -186,7 +186,7 @@ div.modal-content{
                 outline: 0;
                 font-family: 'Open Sans', sans-serif;
                 cursor: text;
-                min-height: 150px;
+                min-height: 75px;
                 border: 0;
             }
         }
@@ -301,12 +301,16 @@ div.daterangepicker {
 }
 
 div#addPhoto, div#addLocalization{
-    @media(min-width: 566px){
-        padding-top: 10px;
-    }
-    @media(min-width: 992px){
+    @media(max-width: 565px){
         padding-top: 0;
     }
+    @media(min-width: 566px){
+        padding-top: 0;
+    }
+    @media(min-width: 992px){
+        padding-top: 10px;
+    }
+    
 }
 
 div#addPhoto, div#addLocalization div.iconAndP, div.odzialFirmy{
@@ -323,14 +327,14 @@ div#addPhoto, div#addLocalization div.iconAndP, div.odzialFirmy{
     width: 100%;
 }
 
-div.iconAndP, div#addPhoto, div.odzialFirmy{
-    p{
-        font-weight: bold;
-        font-family: 'Open Sans', sans-serif;
-        color: $colorBlack;
-        font-size: 15px;
-    }
-}
+// div.iconAndP, div#addPhoto, div.odzialFirmy{
+//     p{
+//         font-weight: bold;
+//         font-family: 'Open Sans', sans-serif;
+//         color: $colorBlack;
+//         font-size: 15px;
+//     }
+// }
 
 div.iconAndP, div.odzialFirmy{
     img {
@@ -422,7 +426,9 @@ div#addPhoto, div#addLocalization, div.odzialFirmy{
     
 }
 
-
+.modal-body{
+    padding: 0 !important;
+}
 
 .modal-lg{
     // @media(min-width: 992)

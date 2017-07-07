@@ -57,6 +57,19 @@ $blackColor: #263238;
       }
 }
 
+div.ba-search-div{
+    @media(max-width: 565px){
+        padding: 0 4%;
+    }
+    @media(min-width: 566px){
+        width: 50%;
+        margin: auto;
+    }
+    @media(min-width: 992px){
+        width: 100%;
+    }
+}
+
 form{
     padding-bottom: 20px;
 }
@@ -102,6 +115,7 @@ p.distance2{
     text-align: right;
     font-size: 15px;
     font-family: 'Open Sans', sans-serif;
+    margin-right: 35px;
 }
 
 input[type=submit].searchSubmit{

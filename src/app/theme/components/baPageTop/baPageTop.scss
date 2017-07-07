@@ -59,6 +59,8 @@ $redColor: #A20E12;
             color: $redColor;
         }
         div.dropdown-menu{
+            background: transparent;
+            
             @media(max-width: 575px){
                 left: -194px;
             }
@@ -67,24 +69,30 @@ $redColor: #A20E12;
             }
           
           padding: 0 20px;
-          top: 70px;
+          top: 45px;
           min-width: 240px;
           border: 0;
             div{
                 display: flex;
                 justify-content: flex-end;
+                align-items: center;
+                background: white;
+                border: 1px solid $redColor;
+                margin-bottom: 10px;
+                float: right;
+                clear: both;
+                padding: 5px 10px;
+                border-radius: 3px;
                 a{
                     display: block;
                     color: $redColor;
                     font-size: 20px;
                     line-height: 22px;
-                    padding: 10px 0;
                     text-align: right;
                     font-family: 'Sanchez', serif;
                     text-transform: lowercase;
                 }
                 i{
-                    margin-top: 10px;
                     margin-left: 5px;
                 }
             }
@@ -94,13 +102,6 @@ $redColor: #A20E12;
             outline: 0;
         }
 
-        /*input.completer-input{
-            margin-top: 20px;
-            border-radius: 1px;
-            padding: 7px;
-            border: 1px solid $redColor;
-            outline: 0;
-        }*/
     }
 
     i#searchIcon{
@@ -110,30 +111,6 @@ $redColor: #A20E12;
         outline: 0;
         margin-right: 10px;
     }
-
-    /*.user-profile {
-        float: right;
-        padding-top: 11px;
-        .al-user-profile {
-            float: right;
-            transition: all .15s ease-in-out;
-            padding: 0;
-            width: 36px;
-            height: 36px;
-            border: 0;
-            opacity: 1;
-            position: relative;
-            margin-right: 20px;
-            a {
-              display: block;
-            }
-            img {
-              width: 45px;
-              height: 45px;
-              border-radius: 50%;
-            }
-        }
-    }*/
 
     div.line{
         float: left;

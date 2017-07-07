@@ -183,12 +183,18 @@ form#mainForm{
 
     input#searchLocation{
         display: block;
-        width: 70%;
+        // width: 70%;
         margin: auto;
         padding: 8px;
         text-align: center;
-        border: 2px dotted $redColor;
-        border-radius: 2px;
+        // border: 2px dotted $redColor;
+        // border-radius: 2px;
+        border: 0;
+        background-color: white;
+        background-image: url('../../meta/przycisk2.png');
+        background-size: 260px 50px;
+        width: 260px;
+        height: 50px;
         outline: 0;
         color: $blackColor;
         &::placeholder{
@@ -321,6 +327,14 @@ form#mainForm{
         border: 2px dotted $redColor;
         padding: 10px;
         color: $redColor;
+        &.clearButton{
+            margin: auto;
+            border: 0;
+            background-image: url('../../meta/przycisk2.png');
+            background-size: 100% 100%;
+            width: 100px;
+            height: 50px;
+        }
       }
 }
 
