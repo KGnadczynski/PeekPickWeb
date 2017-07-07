@@ -10,11 +10,11 @@ $blackColor: #263238;
         border: 0;
         background-image: url('../../meta/#{$url}');
         font-family: 'Sanchez', serif;
-        font-size: 14px;
+        
         color: $redColor;
         text-transform: lowercase;
-        margin-top: 15px;
-        margin-bottom: 15px;
+        // margin-top: 15px;
+        // margin-bottom: 15px;
         clear: both;
         
         outline: 0;
@@ -24,11 +24,13 @@ $blackColor: #263238;
             background-size: 110px 47px;
             margin: auto;
             display: block;
+            font-size: 14px;
         } @else {
             width: 200px;
             height: 57px;
             background-size: 200px 57px;
             float: none;
+            font-size: 20px;
         }
         
     }
@@ -390,7 +392,7 @@ div#profile{
                 outline: 0;
                 width: 50%;
             }
-            @include button('przycisk.png');
+            @include button('przycisk2.png');
         }
     }
     md-tab-group{
