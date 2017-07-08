@@ -26,6 +26,9 @@ export class KomunikatSingleComponent implements OnInit {
     name: string = '';
     latitude: number;
     longitude: number;
+    lat: number;
+    lng: number;
+
 
     @ViewChild('childModal') public childModal: ModalDirective;
 
@@ -126,7 +129,16 @@ export class KomunikatSingleComponent implements OnInit {
 
     navigateToMap(id: number){
         console.log('odpalamy mape');
-        this.router.navigate(['/pages/mapmodal', id]);
+          console.log('odpalamy mape');
+            this.komunikatSingleService.getKomunikat(id).subscribe(komunikat => {
+                    this.message = komunikat;
+                    console.log('mapa lng '+JSON.stringify(this.message));
+                    this.lat =  this.message.companyBranchList[0].latitude;
+                    this.lng = this.message.companyBranchList[0].longitude;
+                    console.log('mapa lng '+this.lat);
+                    var URL =  "https://maps.google.com/maps?q="+this.lat+","+this.lng;
+                    var win = window.open(URL, "_blank");
+            });
     }
 
     showSocialShare() {

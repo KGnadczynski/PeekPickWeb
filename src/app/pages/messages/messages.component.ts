@@ -278,8 +278,8 @@ export class MessagesComponent implements OnInit{
         this.komunikatSingleService.getKomunikat(id).subscribe(komunikat => {
                 this.message = komunikat;
                  console.log('mapa lng '+JSON.stringify(this.message));
-                this.lat =  this.message.location.latitude;
-                this.lng = this.message.location.longitude;
+                this.lat =  this.message.companyBranchList[0].latitude;
+                this.lng = this.message.companyBranchList[0].longitude;
                 console.log('mapa lng '+this.lat);
                 var URL =  "https://maps.google.com/maps?q="+this.lat+","+this.lng;
                 var win = window.open(URL, "_blank");
