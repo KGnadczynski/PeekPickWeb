@@ -120,9 +120,10 @@ div#home{
         @media(min-width: 992px){
             width: (100%/3);
         }
-        img#main {
+        h1#main {
             position: relative;
-            width: 100%;
+            // width: 100%;
+            font-size: 100px;
         }
         div.inside{
             position: absolute;
@@ -153,20 +154,44 @@ div#home{
         @media(min-width: 992px){
             width: (100%/3);
         }
-        margin-top: 60px;
+        // margin-top: 60px;
         overflow: hidden;
         padding: 0 8%;
         position: relative;
         
-        img#main{
-            width: 100%;
+        h1#main{
+            // width: 100%;
             position: relative;
+            font-size: 460px;
+            @media(min-width: 566px){
+                font-size: 450px;
+            }
+            @media(min-width: 768px){
+                font-size: 500px;
+            }
+            @media(min-width: 992px){
+                font-size: 460px;
+            }
+            color: $redColor;
+            opacity: 0.3;
+            font-family: 'Sanchez', serif;
         }
 
         div.inside{
             position: absolute;
-            top: 15%;
-            left: 15%;
+            @media(max-width: 565px){
+                top: 31%;
+                left: 13%;
+            }
+            @media(min-width: 566px){
+                top: 31%;
+                left: 13%;
+            }
+            
+            @media(min-width: 992px){
+                top: 29%;
+                left: 28%;
+            }
             h3 {
                 color: $redColor;
                 font-size: 24px;

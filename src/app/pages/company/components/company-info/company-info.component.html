@@ -1,0 +1,64 @@
+<div id="companyMain">
+
+    <div class="compDivD">
+        <p class="desc" *ngIf="otherOneCompany?.description">{{ otherOneCompany?.description }}</p>
+    </div>
+
+    <div class="cLine">
+        <div></div>
+    </div>
+
+    <div id="adressDiv">
+        <div class="compDiv">
+            <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
+            <h4>Adres:</h4>
+            <p>
+                <span *ngIf="otherOneCompany?.city">{{  otherOneCompany?.city }}, </span>
+                <span *ngIf="otherOneCompany?.street">{{  otherOneCompany?.street }}, </span>
+                <span *ngIf="otherOneCompany?.streetNo">{{  otherOneCompany?.streetNo }} </span>
+            </p>
+        </div>
+        
+        <div class="compDiv">
+            <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+            <h4>Godziny otwarcia: </h4>
+            <p *ngIf="otherOneCompany?.openingHours">
+                <span> {{ otherOneCompany?.openingHours }} </span>
+            </p>
+        </div>
+
+    </div>
+    
+    <div id="contactDiv">
+        <div class="compDiv">
+            <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
+            <h4>Kontakt:</h4>
+        </div>
+        
+        <div *ngIf="otherOneCompany?.website" class="compDiv">
+            <i class="fa fa-desktop fa-2x" aria-hidden="true"></i>
+            <h4>Strona internetowa:</h4>
+            
+            <a href="{{ otherOneCompany?.website }}" _target="blank">{{ otherOneCompany?.website }}</a>
+        </div>
+        <div *ngIf="otherOneCompany?.phoneNumber" class="compDiv">
+            <i class="fa fa-mobile fa-2x" aria-hidden="true"></i>
+            <h4>Nr telefonu:</h4>
+            <p>
+                <span>
+                    {{ otherOneCompany?.phoneNumber }}
+                </span>
+            </p>
+        </div>
+        <div *ngIf="otherOneCompany?.email" class="compDiv">
+            <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+            <h4>Email:</h4>
+            <p>
+                <span>
+                    {{ otherOneCompany?.email }}
+                </span>
+            </p>
+        </div>
+    </div>
+    
+</div>

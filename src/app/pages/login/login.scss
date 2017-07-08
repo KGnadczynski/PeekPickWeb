@@ -5,18 +5,18 @@ $colorBlack: #263238;
 
 div.alert-danger{
     border: 0;
-    border-bottom: 1px dotted #A20E12;
     color: #A20E12;
     background: white;
     margin: 1% 0;
     border-radius: 0;
-    width: 45%;
 }
 
 div#loginFormMain{
     border: 2px solid $colorBlack;
     margin: auto;
     padding: 20px 0;
+    margin-top: 4%;
+    margin-bottom: 4%;
     
     div#loginFormBlock{
         
@@ -62,26 +62,23 @@ div#loginFormMain{
                 text-transform: lowercase;
                 
                 button#login, a#register{
-                    padding: 10px;
-                    margin: 4% 0;
-                    background: white;
                     color: $colorRed;
-                    border: 1px dotted $colorRed;
                     font-size: 20px;
                     font-family: 'Sanchez', serif;
                     text-align: center;
-                    @media(max-width: 565px){
-                        width: 60%;
-                    }
-                    @media(min-width: 566px){
-                        width: 45%;
-                    }
-                    
-                    
-                    @media(min-width: 992px){
-                        margin: 2% 0;
-                    }
+                    background-image: url('../../meta/przycisk.png');
+                    background-size: 100% 100%;
+                    width: 200px;
+                    height: 60px;
                 }
+                button#login{
+                    border: 0;
+                    padding-bottom: 7px;
+                }
+                a#register{
+                    padding-top: 20px;
+                }
+
                 a#forgotPassword{
                     margin: 4% 0;
                     color: $colorBlack;
@@ -119,7 +116,6 @@ select:-webkit-autofill:focus {
     div#loginFormMain{
         
         width: 90%;
-        padding-top: 10%;
         div#loginFormBlock{
             
             h1{
@@ -146,7 +142,6 @@ select:-webkit-autofill:focus {
 @media (min-width: 576px) {
     div#loginFormMain{
         width: 70%;
-        padding-top: 10%;
         div#loginFormBlock{
             
             h1{
@@ -161,7 +156,6 @@ select:-webkit-autofill:focus {
 @media (min-width: 768px) {
    div#loginFormMain{
         width: 60%;
-        padding-top: 10%;
         div#loginFormBlock{
             
             form{
@@ -172,8 +166,7 @@ select:-webkit-autofill:focus {
 }
 @media (min-width: 992px) {
     div#loginFormMain{
-        width: 60%;
-        padding: 6%;
+        width: 50%;
         div#loginFormBlock{
             
              form{
@@ -184,8 +177,7 @@ select:-webkit-autofill:focus {
 }
 @media (min-width: 1200px) {
     div#loginFormMain{
-        width: 50%;
-        padding: 8%;
+        width: 35%;
         div#loginFormBlock{
             
             form{
