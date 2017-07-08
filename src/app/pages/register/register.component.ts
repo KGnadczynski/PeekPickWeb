@@ -230,20 +230,25 @@ public onSubmitDigitsCallback(req: any): void {
                              this.router.navigate(['/komunikat']);
                             },
                              error => {
+                               this.pageTopService.showLoadingBar(false);
                                console.log('error in inside');
                            });                    
                     },
                     error => {
+                      this.pageTopService.showLoadingBar(false);
                       console.log('error inside');
                     });
                   },
                   error => {
+                    this.pageTopService.showLoadingBar(false);
                   });
             },
           error => {
+            this.pageTopService.showLoadingBar(false);
           }); 
         },
         error => {
+          this.pageTopService.showLoadingBar(false);
         });
   }
 

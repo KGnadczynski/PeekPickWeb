@@ -97,6 +97,7 @@ export class MessagesComponent implements OnInit{
                              this.pageTopService.showLoadingBar(false);
                         });
                     }, (error) => {
+                            this.pageTopService.showLoadingBar(false);
                            this.getMessagesWhenGeolocationDisabled(page);
                     });
                 } else {
@@ -140,6 +141,7 @@ export class MessagesComponent implements OnInit{
                              this.pageTopService.showLoadingBar(false);
                         });
                     }, (error) => {
+                            this.pageTopService.showLoadingBar(false);
                            this.getMessagesWhenGeolocationDisabled(page);
                     });
                 } else {
@@ -174,13 +176,14 @@ export class MessagesComponent implements OnInit{
                                  this.pageTopService.showLoadingBar(false);
                             });
                         }, (error) => {
+                            this.pageTopService.showLoadingBar(false);
                            this.getMessagesWhenGeolocationDisabled(page);
                     });
                     }
                 }
                 else
                     this.messageList = {messages: [], isLastPage: false};
-                
+                    this.pageTopService.showLoadingBar(false);
                 break;
 
                 case 'companyCategory':
@@ -203,6 +206,7 @@ export class MessagesComponent implements OnInit{
                                  this.pageTopService.showLoadingBar(false);
                             });
                         }, (error) => {
+                            this.pageTopService.showLoadingBar(false);
                            this.getMessagesWhenGeolocationDisabled(page);
                         });
                     } else {
@@ -231,6 +235,7 @@ export class MessagesComponent implements OnInit{
                 break;
 
             default:
+                this.pageTopService.showLoadingBar(false);
                 console.log('something else')
                 break;
         }
@@ -313,6 +318,7 @@ export class MessagesComponent implements OnInit{
 
         this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
             this.messageList = result;
+            this.pageTopService.showLoadingBar(false);
             console.log('result: ');
             console.dir(result);
         });
@@ -376,6 +382,7 @@ export class MessagesComponent implements OnInit{
                         // console.dir(result);
                     },
                     err => {
+                        this.pageTopService.showLoadingBar(false);
                         console.log('error from active posts:');
                         console.dir(err);
                     }
@@ -402,6 +409,7 @@ export class MessagesComponent implements OnInit{
                         // console.dir(result);
                     },
                     err => {
+                        this.pageTopService.showLoadingBar(false);
                         console.log('error from ended posts:');
                         console.dir(err);
                     }

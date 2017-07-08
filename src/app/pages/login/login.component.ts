@@ -103,15 +103,18 @@ export class Login implements OnInit{
                              this.router.navigate(['/komunikat']);
                             },
                              error => {
+                               this.pageTopService.showLoadingBar(false);
                                console.log('error in inside');
                            });                    
                     },
                     error => {
+                      this.pageTopService.showLoadingBar(false);
                       console.log('error inside');
                     });
                     this.error = null;
           },
           error => {
+            this.pageTopService.showLoadingBar(false);
             console.log('error outside');
             console.dir(error);
             this.error = error;
