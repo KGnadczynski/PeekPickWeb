@@ -1,11 +1,9 @@
 $redColor: #A20E12;
 $blackColor: #263238;
 
-@mixin checkboxMixin($checkOrRadio) {
+@mixin checkboxMixin() {
     div.checkbox{
-        
-        width: 120px;
-        
+        width: 25px;
         margin-bottom: 10px;
         margin-top: 10px;
         position: relative;
@@ -16,39 +14,36 @@ $blackColor: #263238;
             position: absolute;
             width: 25px;
             height: 25px;
-            top: 0;
+            top: -2px;
             left: 0;
-            background: white;
-            border: 2px dotted $redColor;
+            background-image: url('../../meta/selection.png');
+            background-size: 25px;
             margin: 0;
             &:after{
                 opacity: 0;
-                content: '';
-                position: absolute;
-                width: 9px;
-                height: 5px;
-                background: transparent;
-                top: 6px;
-                left: 7px;
-                border: 3px solid #333;
-                border-top: none;
-                border-right: none;
-
-                transform: rotate(-45deg);
+                    content: '';
+                    background-image: url(../../meta/checkbox-blank.png);
+                    width: 28px;
+                    height: 28px;
+                    position: absolute;
+                    top: -5px;
+                    left: -5px;
             }
             &:hover::after{
                 opacity: 0;
             }
         }
-        input[type=#{$checkOrRadio}]:checked + label:after{
+        input[type=radio]:checked + label:after{
             opacity: 1;
         }
-
+        input[type=radio]{
+            opacity: 0;
+        }
         span {
             position: absolute;
             left: 30px;
             top: 5px;
-            font-family: 'Open Sans', sans-serif;
+            width: 90px;
         }
         
       }
@@ -91,10 +86,28 @@ form {
     }
     
     div#filterBy{
-        @include checkboxMixin(radio);
+        @include checkboxMixin();
         display: flex;
         justify-content: space-around;
     }
 
     @include line($blackColor, 70%);
+}
+
+div.favourites{
+    @media(max-width: 565px){
+        padding: 0 4%;
+    }
+    @media(min-width: 566px){
+        padding: 0 8%;
+    }
+    @media(min-width: 768px){
+        padding: 0 12%;
+    }
+    @media(min-width: 992px){
+        padding: 0 16%;
+    }
+    @media(min-width: 1200px){
+        padding: 0 20%;
+    }
 }

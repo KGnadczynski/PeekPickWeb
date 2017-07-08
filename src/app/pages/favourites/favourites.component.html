@@ -1,30 +1,31 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
-<h4>
-    {{ name }}
-</h4>
+<div class="favourites">
+    <h4>
+        {{ name }}
+    </h4>
 
-<div class="lineF"></div>
+    <div class="lineF"></div>
 
-<form [formGroup]="filterForm" novalidate>
-    <h5>sortuj po:</h5>
-    <div id="filterBy">
-        <div class="checkbox">
-            <input type="radio" name="filterBy" id="location" value="DISTANCE" formControlName="filterBy">
-            <label for="location"></label>
-            <span>lokalizacja</span>
+    <form [formGroup]="filterForm" novalidate>
+        <h5>sortuj po:</h5>
+        <div id="filterBy">
+            <div class="checkbox">
+                <input type="radio" name="filterBy" id="location" value="DISTANCE" formControlName="filterBy">
+                <label for="location"></label>
+                <span>lokalizacja</span>
+            </div>
+            
+            <div class="checkbox">
+                <input type="radio" name="filterBy" id="create-date" value="CREATE_DATE" formControlName="filterBy">
+                <label for="create-date"></label>
+                <span>data dodania</span>
+            </div>
+            
         </div>
-        
-        <div class="checkbox">
-            <input type="radio" name="filterBy" id="create-date" value="CREATE_DATE" formControlName="filterBy">
-            <label for="create-date"></label>
-            <span>data dodania</span>
-        </div>
-        
-    </div>
-    <div class="lineF"></div>    
-</form>
+        <div class="lineF"></div>    
+    </form>
 
-<div class="container-fluid">
+
     <messages #messageComponent [dest]="'favourites'" [id] = 0></messages>
 </div>

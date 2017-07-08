@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
         this.profileService.getUser().subscribe(
             result => {
-              this.router.navigateByUrl('/pages/komunikat');
+              //this.router.navigateByUrl('/pages/komunikat');
             },
             err => {
                 
