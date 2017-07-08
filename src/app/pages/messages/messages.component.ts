@@ -283,6 +283,13 @@ export class MessagesComponent implements OnInit{
                 console.log('mapa lng '+this.lat);
                 var URL =  "https://maps.google.com/maps?q="+this.lat+","+this.lng;
                 var win = window.open(URL, "_blank");
+                if (win) {
+                //Browser has allowed it to be opened
+                    win.focus();
+                } else {
+                    //Browser has blocked it
+                    alert('Zezwól na wyskakujące okienka aby wyświetlić trasę');
+                }
         });
          
       //  this.router.navigate(['/pages/mapmodal', id]);
