@@ -24,7 +24,7 @@ import { ConfirmModule } from 'angular2-bootstrap-confirm';
     ReactiveFormsModule,
     CollapseModule,
     ConfirmModule,
-    ProfileEditModule
+    // ProfileEditModule
   ],
   declarations: [
     ProfileComponent

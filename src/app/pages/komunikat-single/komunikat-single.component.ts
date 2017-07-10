@@ -72,6 +72,8 @@ export class KomunikatSingleComponent implements OnInit {
         }
         
         this.message = komunikat;
+        console.log('single message:');
+        console.dir(komunikat);
         
         this.komunikatSingleService.getUserImages(this.message.companyBranchList[0].company.id).subscribe(
             images => {

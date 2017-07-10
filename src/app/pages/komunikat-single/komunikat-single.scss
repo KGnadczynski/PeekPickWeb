@@ -3,6 +3,11 @@ $colorBlack: #263238;
 
 div.modal-dialog{
     margin: 30px auto !important;
+    position: relative;
+    @media(min-width: 544px){
+        max-width: 500px;
+        margin: 20px auto !important;
+    }
 }
 
 .modal {
@@ -14,23 +19,34 @@ div.modal-content{
     padding: 20px;
     overflow: hidden;
     
-    button{
-        outline: 0;
-        opacity: 1;
-        span{
-            color: $colorBlack;
-        }
+    // button{
+    //     outline: 0;
+    //     opacity: 1;
+    //     span{
+    //         color: $colorBlack;
+    //     }
+    // }
+    img.close-img{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        cursor: pointer;
     }
 
     div.message-icon{
         float: left;
         img{
             width: 72px;
+            height: 72px;
         }
     }
     div.message-text-block{
         float: left;
         padding-left: 10px;
+        @media(max-width: 565px){
+            width: 40%;
+        }
         h4{
             font-family: 'Open Sans', sans-serif;
             font-size: 20px;
@@ -48,7 +64,7 @@ div.modal-content{
     div.message-icon-distance{
         float: right;
         text-align: right;
-        margin-right: 20px;
+        margin-right: 25px;
         i{
             font-size: 36px;
             color: $colorRed;
@@ -56,6 +72,7 @@ div.modal-content{
         p{
             font-size: 13px;
             font-family: 'Open Sans', sans-serif;
+            color: $colorBlack;
         }
     }
     div.message-content{
@@ -64,9 +81,37 @@ div.modal-content{
         width: 100%;
         margin-top: 20px;
         margin-bottom: 20px;
+        background-color: $colorRed;
+        border-radius: 160px / 150px;
+        padding: 20px 35px;
+        position: relative;
         p{
             font-size: 20px;
             font-family: 'Open Sans', sans-serif;
+            color: white;
+            margin: 0;
+        }
+        &:before{
+            content: "";
+            position: absolute;
+            top: -16px;
+            left: 13px;
+            height: 30px;
+            border-left: 60px solid $colorRed;
+            background: $colorRed;
+            border-bottom-left-radius: 90px 295px;
+            transform: translate(0px, 0px);
+        }
+        &:after{
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: -8px;
+            height: 20px;
+            width: 65px;
+            background: #FAFAFA;
+            border-bottom-left-radius: 89px 50px;
+            transform: translate(21px, 0px);
         }
     }
     div.message-time{
@@ -76,17 +121,23 @@ div.modal-content{
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         p{
+            margin-bottom: 5px;
             font-size: 15px;
             font-family: 'Open Sans', sans-serif;
-            font-weight: bold;
+            color: $colorBlack;
+        }
+        span{
+            font-family: 'Open Sans', sans-serif;
+            color: $colorBlack;
         }
     }
     div.message-photo{
         float: left;
         clear: both;
         width: 100%;
-        margin: 20px 0;
+        margin: 10px 0;
         img {
             width: 100%;
         }
@@ -104,9 +155,9 @@ div.modal-content{
             img{
                 cursor: pointer;
                 margin-right: 40px;
-                width: 40%;
+                width: 10%;
                 &.icons8-Star-Filled, &.icons8-Marker-Filled{
-                    width: 35px;
+                    width: 25px;
                 }
             }
         }
@@ -115,7 +166,9 @@ div.modal-content{
                 text-align: right;
                 font-family: 'Open Sans', sans-serif;
                 font-size: 14px;
+                color: $colorBlack;
             }
         }
     }
 }
+

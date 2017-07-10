@@ -1,22 +1,13 @@
-<!--<div class="container-fluid">-->
-    <div id="mainPage">
+<div class="mainPage">
 
-        <!--<div class="col-xlg-2 col-xl-2 col-lg-12 col-sm-12 col-xs-12" id="blankDiv"></div>-->
-        <div id="blankDiv"></div>
+    <div class="blankDiv"></div>
 
-        <!--<div class="col-xlg-6 col-xl-6 col-lg-12 col-sm-12 col-xs-12" id="messagesDiv">
-            <messages #msgs [dest] = "''" [id] = 0 ></messages>
-        </div>-->
-        <div id="messagesDiv">
-            <messages #msgs [dest] = "''" [id] = 0 ></messages>
-        </div>
-
-        <!--<div class="col-xlg-4 col-xl-4 col-lg-12 col-sm-12 col-xs-12" id="filterMessages">
-            <filters (myEvent) = "msgs.filter($event)"></filters>
-        </div>-->
-        <div id="filterMessages">
-            <filters (myEvent) = "msgs.filter($event)"></filters>
-        </div>
-
+    <div class="messagesDiv">
+        <messages #msgs [dest] = "''" [id] = 0 ></messages>
     </div>
-<!--</div>-->
+    
+    <div class="filterMessages">
+        <filters (myEvent) = "msgs.filter($event)"></filters>
+    </div>
+
+</div>

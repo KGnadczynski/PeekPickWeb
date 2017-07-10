@@ -1,4 +1,4 @@
-div#filterMessages{
+div.filterMessages{
     /*padding: 0vw 3vw;
     @media (max-width: 576px){
         padding: 2vw 3vw;
@@ -12,7 +12,7 @@ div#filterMessages{
     
 }
 
-div#messagesDiv{
+div.messagesDiv{
     padding-top: 3vw;
     @media(max-width: 565px){
         padding: 0 4vw;
@@ -29,7 +29,7 @@ div#messagesDiv{
 
 }
 
-div#mainPage{
+div.mainPage{
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -39,41 +39,41 @@ div#mainPage{
 }
 
 @media(max-width: 575px){
-  div#mainPage{
+  div.mainPage{
     flex-direction: column;
-    div#blankDiv{
+    div.blankDiv{
       order: 3;
       width: 100%;
     }
-    div#messagesDiv{
+    div.messagesDiv{
       order: 2;
       width: 100%;
     }
-    div#filterMessages{
+    div.filterMessages{
       order: 1;
       width: 100%;
     }
   }
 }
 @media (min-width: 576px) {
-  div#mainPage{
+  div.mainPage{
     flex-direction: column;
-    div#blankDiv{
+    div.blankDiv{
       order: 3;
       width: 100%;
     }
-    div#messagesDiv{
+    div.messagesDiv{
       order: 2;
       width: 100%;
     }
-    div#filterMessages{
+    div.filterMessages{
       order: 1;
       width: 100%;
     }
   }
 }
 @media (min-width: 768px) {
-  div#filterMessages{
+  div.filterMessages{
     h4{
       padding: 0;
       margin: 0;
@@ -81,18 +81,18 @@ div#mainPage{
   }
 }
 @media (min-width: 992px) {
-  div#mainPage{
+  div.mainPage{
     flex-direction: row;
     width: 100%;
-    div#blankDiv{
+    div.blankDiv{
       order: 1;
       width: (100%/3);
     }
-    div#messagesDiv{
+    div.messagesDiv{
       order: 2;
       width: (100%/3);
     }
-    div#filterMessages{
+    div.filterMessages{
       order: 3;
       width: (100%/3);
     }

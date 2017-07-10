@@ -104,12 +104,13 @@ div.modal-content{
                 right: 0;
                 outline: 0;
                 opacity: 1;
-                background: white;
+                background: transparent;
                 border: none;
                 text-align: right;
                 img{
                     width: 30px;
                     height: 30px;
+                    background: transparent;
                 }
             }
         }
@@ -437,7 +438,7 @@ div#addPhoto, div#addLocalization, div.odzialFirmy{
 
 .modal-lg{
     @media(min-width: 544px){
-        max-width: 400px;
+        max-width: 450px;
         margin: 12px auto;
     }
     // @media(min-width: 992px){

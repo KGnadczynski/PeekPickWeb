@@ -5,17 +5,25 @@
   role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" backdrop="false" keyboard="false">
   <div class="modal-dialog modal-lg">
       <div class="modal-content">
-          <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <!--<button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
               <span aria-hidden="true">&times;</span>
-          </button>
+          </button>-->
+          <img class="close-img" src="../../meta/close-circle-outline.png" (click)="hideChildModal()" alt="">
 
           <div class="message-icon">
-              <img *ngIf="imgs?.imageUrl" class="photo-icon" src="{{ imgs?.imageUrl  }}">
-              <ng2-letter-avatar *ngIf="name" avatar-data='{{message.user.company.name}}' ></ng2-letter-avatar>
+              <a *ngIf="imgs?.imageUrl" [routerLink]="['/pages/company',  message.user.company.id]">
+                <img *ngIf="imgs?.imageUrl" class="photo-icon" src="{{ imgs?.imageUrl  }}">
+              </a>
+              <a *ngIf="name" [routerLink]="['/pages/company', message.user.company.id]">
+                <ng2-letter-avatar *ngIf="name" avatar-data='{{message.user.company.name}}' ></ng2-letter-avatar>
+              </a>
           </div>
 
           <div class="message-text-block">
-              <h4>{{ message?.user.company.name }}</h4>
+              <a *ngIf="message?.user.company.id" [routerLink]="['/pages/company', message?.user.company.id]">
+                <h4>{{ message?.user.company.name }}</h4>
+              </a>
+                
               <p>{{ message?.user.company.category.name }}</p>
               <p>{{ message?.location?.address }}</p>
           </div>
@@ -26,7 +34,7 @@
               <i *ngIf="message?.type === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
               <i *ngIf="message?.type === 'WORTH_SEEING'" class="material-icons">visibility</i>
               <i *ngIf="message?.type === 'PROMOTION'" class="material-icons">loyalty</i>
-              <p>({{ message?.distance | number: '1.2-2'}} km)</p>
+              <p *ngIf="message?.distance">({{ message?.distance | number: '1.2-2'}} km)</p>
           </div>
 
           <div class="message-content">
@@ -43,8 +51,8 @@
               </div>
 
               <div class="end-date" *ngIf="message?.endDate">
-                  <span *ngIf="message?.endDate">Data zakończenia</span>
-                  <p>{{ message?.endDate | date: 'dd.MM.yyyy hh:mm' }}</p>
+                  <p *ngIf="message?.endDate">Data zakończenia</p>
+                  <span>{{ message?.endDate | date: 'dd.MM.yyyy hh:mm' }}</span>
               </div>
 
               <div class="no-date" *ngIf="!message?.endDate">
