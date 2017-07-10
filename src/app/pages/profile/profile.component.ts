@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
     imageUrl: string = "";
     companyBranches: any[];
     idCompany: number;
-    passwordForm: FormGroup;
+    // passwordForm: FormGroup;
     companyForm: FormGroup;
     additionalForm: FormGroup;
     branchForm: FormGroup;
@@ -53,13 +53,13 @@ export class ProfileComponent implements OnInit {
     public isOpen: boolean = false;
 
     constructor(private menuService: BaMenuService, private profileService: ProfileService, private _http: Http, private router: Router, private fb: FormBuilder){
-        this.passwordForm = fb.group({
-            'oldPassword': [null, Validators.required],
-            'passwords': fb.group({
-                'password': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
-                'repeatPassword': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
-            }, {validator: EqualPasswordsValidator.validate("password", "repeatPassword")})
-        });
+        // this.passwordForm = fb.group({
+        //     'oldPassword': [null, Validators.required],
+        //     'passwords': fb.group({
+        //         'password': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
+        //         'repeatPassword': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
+        //     }, {validator: EqualPasswordsValidator.validate("password", "repeatPassword")})
+        // });
         
         this.companyForm = fb.group({
             'name': '',
@@ -185,12 +185,12 @@ export class ProfileComponent implements OnInit {
         this.messagesCom.getActivePost();
     }
 
-    udpatePassword(values: any){
-        this.profileService.updateUserPassword(values.oldPassword, values.passwords.password).subscribe(result => {
-            this.passwordForm.reset();
-            this.messageAfter = true;
-        });
-    }
+    // udpatePassword(values: any){
+    //     this.profileService.updateUserPassword(values.oldPassword, values.passwords.password).subscribe(result => {
+    //         this.passwordForm.reset();
+    //         this.messageAfter = true;
+    //     });
+    // }
 
     udpateCompanyName(value: any){
 

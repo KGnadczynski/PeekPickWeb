@@ -19,7 +19,6 @@
                 <h2>{{otherUser?.company.name}}</h2>
             </div>
             
-
             <md-tab-group>
                 <md-tab>
                     <template md-tab-label>
@@ -52,64 +51,7 @@
                         <img src="../../meta/account-card-details.png" alt="">
                     </template>
                     <template md-tab-content>
-                        <div id="daneFirmy">
-
-                            <div id="header">
-                                <h3>zmień hasło</h3>
-                            </div>
-                            
-                            <form id="changeEP" [formGroup]="passwordForm" (ngSubmit)="udpatePassword(passwordForm.value)">
-                                <div [ngClass]="{'has-error': passwordForm.controls['oldPassword'].touched}">
-                                    <input type="password" id="oldPassword" placeholder="stare hasło" [formControl]="passwordForm.controls['oldPassword']">
-                                    <div class="errorDiv"
-                                        *ngIf="passwordForm.controls['oldPassword'].touched">
-                                        Musisz wpisać stare hasło
-                                    </div>
-                                </div>
-                                <div formGroupName="passwords">
-                                    <input type="password" id="password" placeholder="nowe hasło" formControlName="password">
-                                    <input type="password" id="passwordRepeat" placeholder="powtórz nowe hasło" formControlName="repeatPassword">
-                                    <div class="errorDiv" *ngIf="!passwordForm.controls['passwords'].valid && passwordForm.controls['passwords'].touched">
-                                        <span>Hasła nie są takie same</span>
-                                    </div>
-                                </div>
-                                <button type="submit" [disabled]="!passwordForm.valid">Zapisz</button>
-                            </form>
-                            <span *ngIf="messageAfter">Pomyślnie zmieniono hasło</span>
-                        </div>
-
-                        <div id="editProfile">
-                            <div id="editH">
-                                <h3>edytuj profil</h3>
-                            </div>
-
-                            <form id="changeCI" [formGroup]="companyForm" (ngSubmit)="udpateCompanyName(companyForm.value)">
-                                <div class="image-upload">
-                                    <ba-picture-uploader #fileUpload (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
-                                </div>
-
-                                <div id="name">
-                                    <label for="nazwa">nazwa firmy</label>
-                                    <input type="text" id="nazwa" formControlName="name">
-                                </div>
-                                
-                                <div id="address" formGroupName="address">
-                                    <div id="town">
-                                        <label for="miasto">miasto</label>
-                                        <input type="text" id="miasto" formControlName="city">
-                                    </div>
-                                    <div id="street">
-                                        <label for="ulica">ulica</label>
-                                        <input type="text" id="ulica" formControlName="street">
-                                    </div>
-                                    <div id="streetNo">
-                                        <label for="numer">nr ulicy</label>
-                                        <input type="number" id="numer" formControlName="streetNo">
-                                    </div>
-                                </div>
-                                <button type="submit">Zapisz</button>
-                            </form>
-                        </div>
+                        <profile-edit [otherUser]="otherUser"></profile-edit>
                     </template>
                 </md-tab>
 

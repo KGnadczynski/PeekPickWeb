@@ -164,7 +164,8 @@ div.modal-content{
         div.content{
             // margin-top: 40px;
             width: 100%;
-            
+            clear: both;
+
             h4{
                 text-transform: lowercase;
                 font-family: 'Open Sans', sans-serif;
@@ -435,18 +436,11 @@ div#addPhoto, div#addLocalization, div.odzialFirmy{
 }
 
 .modal-lg{
-    // @media(min-width: 992)
-    /*max-width: 572px;
-
-    @media(min-width: 992px){
-        max-width: 50%;
+    @media(min-width: 544px){
+        max-width: 400px;
+        margin: 12px auto;
     }
+    // @media(min-width: 992px){
 
-    @media(min-width: 1200px){
-        max-width: 50%;
-    }
-
-    @media(min-width: 1400px){
-        max-width: 40%;
-    }*/
+    // }
 }
