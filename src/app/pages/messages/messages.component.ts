@@ -6,6 +6,8 @@ import { MessageList } from './messageList.model';
 import { BaPageTopService} from '../../theme';
 import { ConfirmOptions, Position } from 'angular2-bootstrap-confirm';
 import { Positioning } from 'angular2-bootstrap-confirm/position';
+import { KomunikatServiceComponent } from '../komunikat-single/komunikat-single.service';
+import { ObjectList } from '../komunikat/komunikat';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -14,7 +16,7 @@ let moment = require('../../../../node_modules/moment/moment');
     encapsulation: ViewEncapsulation.None,
     styles: [require('./messages.scss')],
     template: require('./messages.component.html'),
-    providers: [MessagesService, ConfirmOptions, {provide: Position, useClass: Positioning}]
+    providers: [MessagesService, KomunikatServiceComponent, ConfirmOptions, {provide: Position, useClass: Positioning}]
 })
 
 export class MessagesComponent implements OnInit{
@@ -31,6 +33,9 @@ export class MessagesComponent implements OnInit{
     latitude: number;
     longitude: number;
     name: string = "";
+    message: ObjectList;
+    lat: number;
+    lng: number;
 
     public title: string = 'Czy jesteś pewny że chcesz usunąć tę wiadomość?';
     public confirmClicked: boolean = false;
@@ -41,7 +46,8 @@ export class MessagesComponent implements OnInit{
         private messageService: MessagesService, 
         private router: Router, 
         private route: ActivatedRoute,
-        private pageTopService: BaPageTopService
+        private pageTopService: BaPageTopService,
+        private komunikatSingleService: KomunikatServiceComponent
     ){
         let moment = require('../../../../node_modules/moment/moment.js');
         moment.locale('pl');
@@ -269,7 +275,24 @@ export class MessagesComponent implements OnInit{
 
     navigateToMap(id: number){
         console.log('odpalamy mape');
-        this.router.navigate(['/pages/mapmodal', id]);
+        this.komunikatSingleService.getKomunikat(id).subscribe(komunikat => {
+                this.message = komunikat;
+                 console.log('mapa lng '+JSON.stringify(this.message));
+                this.lat =  this.message.companyBranchList[0].latitude;
+                this.lng = this.message.companyBranchList[0].longitude;
+                console.log('mapa lng '+this.lat);
+                var URL =  "https://maps.google.com/maps?q="+this.lat+","+this.lng;
+                var win = window.open(URL, "_blank");
+                if (win) {
+                //Browser has allowed it to be opened
+                    win.focus();
+                } else {
+                    //Browser has blocked it
+                    alert('Zezwól na wyskakujące okienka aby wyświetlić trasę');
+                }
+        });
+         
+      //  this.router.navigate(['/pages/mapmodal', id]);
     }
 
     getMessagesWhenGeolocationDisabled(page :any) {
@@ -282,6 +305,8 @@ export class MessagesComponent implements OnInit{
                 this.messageList.isLastPage = result.isLastPage;
                 this.canScrool = true;
             }
+            this.pageTopService.showLoadingBar(false);
+        }, (error) => {
             this.pageTopService.showLoadingBar(false);
             });
     }
@@ -321,6 +346,8 @@ export class MessagesComponent implements OnInit{
             this.pageTopService.showLoadingBar(false);
             console.log('result: ');
             console.dir(result);
+        }, (error) => {
+            this.pageTopService.showLoadingBar(false);
         });
 
     }
