@@ -96,6 +96,12 @@ export class Login implements OnInit{
                            data => {
                              localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
                              this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
+                             if("geolocation"  in navigator){
+                                navigator.geolocation.getCurrentPosition((position) => {
+                                    localStorage.setItem('latitude', position.coords.latitude.toString());
+                                    localStorage.setItem('longitude', position.coords.longitude.toString());
+                                });
+                            }
                             //  this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);
                              this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);
                              this._menuService.changedLoggedFlag(this.userFromServer.company.id);

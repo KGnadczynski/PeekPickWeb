@@ -22,6 +22,7 @@ export class CompanyComponent implements OnInit {
   name: string = '';
   lat: number;
   lng: number;
+  companyBranches: any[];
 
   constructor(private route: ActivatedRoute, private _companyService: CompanyService) {}
 
@@ -36,9 +37,16 @@ export class CompanyComponent implements OnInit {
               this.name = receivedCompany.company.name;
               this.lat = receivedCompany.latitude;
               this.lng = receivedCompany.longitude;
+              
+              this._companyService.getCompanyBranches(receivedCompany.company.id).subscribe(
+                branches => {
+                    this.companyBranches = branches;
+                },
+                error => {}
+              )
               console.log('this.name : ' + this.name);
-              console.log('this other company:');
-              console.dir(this.otherOneCompany);
+              console.log('received company:');
+              console.dir(receivedCompany);
               this._companyService.getCompanyImages(this.id).subscribe(
                   receivedImgs => {
                       this.companyImages = receivedImgs;

@@ -97,10 +97,11 @@
 					<a href="#">przedłuż</a>
 				</div>
 				<div id="delete">
-					<a mwlConfirm [title]="title" placement="left" (confirm)="deleteMessage(message.id)"
+					<a mwlConfirmationPopover [title]="title" placement="top" (confirm)="deleteMessage(message.id)"
       					(cancel)="cancelClicked = true" [(isOpen)]="isOpen">
 						usuń
 					</a>
+					<!--<button class="deleteBranch" mwlConfirmationPopover [title]="title" placement="top" (confirm)="deleteBranch(branch.id)" (cancel)="cancelClicked = true">usuń oddział</button>-->
 				</div>
 			</div>
 		</div>

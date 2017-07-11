@@ -8,7 +8,7 @@ import { MessagesModule } from '../messages/messages.module';
 import { NgaModule } from '../../theme/nga.module';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { Ng2TabModule } from 'ng2-tab';
-import { ConfirmModule } from 'angular2-bootstrap-confirm';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 // import { ProfileEditModule } from './components/profile-edit/profile-edit.module';
 
@@ -23,8 +23,11 @@ import { ConfirmModule } from 'angular2-bootstrap-confirm';
     NgaModule,
     ReactiveFormsModule,
     CollapseModule,
-    ConfirmModule,
     // ProfileEditModule
+    ConfirmationPopoverModule.forRoot({
+      confirmText: 'usuń',
+      cancelText: 'anuluj'
+    })
   ],
   declarations: [
     ProfileComponent

@@ -6,10 +6,10 @@ import { MessagesComponent } from './messages.component';
 import { routing } from './messages.routing';
 import {ShareButtonsModule} from 'ngx-sharebuttons';
 import { NgaModule } from '../../theme/nga.module';
-import {ConfirmModule} from 'angular2-bootstrap-confirm';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 @NgModule({
-    imports:[CommonModule, InfiniteScrollModule, MomentModule, routing, ShareButtonsModule.forRoot(), NgaModule, ConfirmModule],
+    imports:[CommonModule, InfiniteScrollModule, MomentModule, routing, ShareButtonsModule.forRoot(), NgaModule, ConfirmationPopoverModule],
     declarations: [MessagesComponent],
     exports: [MessagesComponent]
 })

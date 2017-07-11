@@ -19,7 +19,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
         MultiselectDropdownModule,
         FormsModule,
         Daterangepicker,
-        AgmCoreModule,
+        AgmCoreModule.forRoot(),
         NgaModule,
         CollapseModule
     ],

@@ -24,7 +24,7 @@ let moment = require('../../../../node_modules/moment/moment');
     encapsulation: ViewEncapsulation.None,
     styles: [require('./add-message.scss')],
     template: require('./add-message.component.html'),
-    providers: [AddMessageService,MessagesService]
+    providers: [AddMessageService, MessagesService]
 })
 
 export class AddMessageComponent implements OnInit {
@@ -223,12 +223,15 @@ export class AddMessageComponent implements OnInit {
     }
 
     ngOnInit(): void{  
-        if(localStorage.getItem('latitude') != null) {
-        this.lat = JSON.parse(localStorage.getItem('latitude')).latitude;
+        if(localStorage.getItem('latitude') !== null) {
+            this.lat = JSON.parse(localStorage.getItem('latitude')).latitude;
+            console.log('this.lat: ' + typeof JSON.parse(localStorage.getItem('latitude')).latitude);
         }
-        if(localStorage.getItem('longitude') != null) {
+        if(localStorage.getItem('longitude') !== null) {
             this.lng = JSON.parse(localStorage.getItem('longitude')).longitude;
+            console.log('this.lng: ' + typeof JSON.parse(localStorage.getItem('longitude')).longitude);
         }
+
         this.msgAddModel.startDate = moment().format("YYYY-MM-DD HH:mm:ss");
         this.msgAddModel.endDate = moment().format("YYYY-MM-DD HH:mm:ss");
         let user = JSON.parse(localStorage.getItem('user'));

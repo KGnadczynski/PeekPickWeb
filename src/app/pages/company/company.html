@@ -31,9 +31,33 @@
                 </template>
                 <template md-tab-content>
                     <div id="mapaFirmy">
+                        <h1>lat {{ lat }}</h1>
+                        <h1>lng {{ lng }}</h1>
                         <agm-map [latitude]="lat" [longitude]="lng">
                             <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
                         </agm-map>
+                    </div>
+                </template>
+            </md-tab>
+            <md-tab>
+                <template md-tab-label>
+                    <img src="../../meta/oddzialy.png" alt="">
+                </template>
+                <template md-tab-content>
+                    <div class="branches">
+                        <div class="branch" *ngFor="let branch of companyBranches">
+                            <h2>
+                                {{ branch.name }}
+                                <i class="fa fa-home fa-1x" *ngIf="branch.main" aria-hidden="true"></i>
+                            </h2>
+                            <p>
+                                <span>
+                                    {{ branch.city }},
+                                    {{ branch.street }}
+                                    {{ branch.streetNo }}
+                                </span>
+                            </p>
+                        </div>
                     </div>
                 </template>
             </md-tab>

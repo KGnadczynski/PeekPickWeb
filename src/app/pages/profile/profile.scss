@@ -6,35 +6,61 @@ $blackColor: #263238;
 
 @mixin button($url){
     button, input[type=submit]{
-        background: white;
+        background: transparent;
         border: 0;
         background-image: url('../../meta/#{$url}');
         font-family: 'Sanchez', serif;
-        
+        background-size: 100% 100%;
         color: $redColor;
         text-transform: lowercase;
-        // margin-top: 15px;
-        // margin-bottom: 15px;
         clear: both;
-        
+        font-size: 16px;
         outline: 0;
         @if($url == 'przycisk.png'){
-            width: 108px;
-            height: 41px;
-            background-size: 110px 47px;
+            width: 160px;
+            height: 50px;
             margin: auto;
             display: block;
-            font-size: 14px;
+            
         } @else {
             width: 200px;
             height: 57px;
-            background-size: 200px 57px;
             float: none;
-            font-size: 20px;
         }
         
+        &.mainBranchButton{
+            height: 70px;
+        }
     }
 }
+
+div.popover{
+    border: 1px solid $blackColor;
+    border-radius: 0;
+    width: 234px !important;
+
+    h3.popover-title{
+        background: transparent;
+        border-bottom: 1px solid $blackColor;
+    }
+    @media(max-width: 565px){
+        // left: 39px !important;
+        // top: 213px !important;
+    }
+    @media(min-width: 566px){
+        // top: 113px !important;
+        // left: 290px !important;
+    }
+    div.popover-content{
+        padding: 0;
+        button{
+            width: 100px !important;
+            height: 60px !important;
+        }
+    }
+}
+
+
 
 div#profile{
 
@@ -324,10 +350,8 @@ div#profile{
         }
     }
     div#branches{
-        // position: relative;
-        // @media(min-width: 992px){
-        //     padding: 0 18%;
-        // }
+        width: 90%;
+        margin: auto;
         div.branch{
             clear: both;
             h2{
@@ -359,9 +383,6 @@ div#profile{
         i.fa-plus-circle{
             cursor: pointer;
             color: $redColor;
-            // position: absolute;
-            // right: 10px;
-            // top: 0;
             text-align: center;
             margin: auto;
             display: block;
@@ -371,10 +392,20 @@ div#profile{
             padding-top: 1%;
             
         }
-        p.buttons{
+        div.buttons{
+            display: flex;
+            align-items: center;
+
             @media(max-width: 565px){
                 margin: 20px 0;
+                flex-direction: column;
             }
+
+            @media(min-width: 565px){
+                flex-direction: row;
+                justify-content: flex-start;
+            }
+
             @include button('przycisk2.png');
         }
         

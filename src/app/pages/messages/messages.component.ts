@@ -446,6 +446,18 @@ export class MessagesComponent implements OnInit{
     }
 
     deleteMessage(id: number):void {
+
+        if(localStorage.getItem("favs") !== null){
+            let storedParse = JSON.parse(localStorage.getItem("favs"));
+            
+            var index = storedParse.indexOf(id);
+
+            if(index > -1){
+                storedParse.splice(index, 1);
+            }
+            localStorage.setItem("favs", JSON.stringify(storedParse));
+        }
+
         this.messageService.deleteMessage(id).subscribe(
             result => {
                 this.messageList.messages = this.messageList.messages.filter((el) => {
@@ -453,7 +465,7 @@ export class MessagesComponent implements OnInit{
                 });
             },
             error => {
-                console.log('Cannoc delete message');
+                console.log('Cannot delete message');
             }
         )
     }

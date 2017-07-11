@@ -70,6 +70,7 @@ div#loginFormMain{
                     background-size: 100% 100%;
                     width: 200px;
                     height: 60px;
+                    outline: 0;
                 }
                 button#login{
                     border: 0;
@@ -86,6 +87,7 @@ div#loginFormMain{
                     color: $colorBlack;
                     font-size: 15px;
                     font-family: 'Open Sans', sans-serif;
+                    outline: 0;
                     @media(min-width: 992px){
                         margin: 2% 0;
                     }

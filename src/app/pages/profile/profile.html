@@ -226,12 +226,13 @@
                                     {{ branch?.streetNo }}
                                 </span>
                             </p>
-                            <p class="buttons">
+                            <div class="buttons">
                                 <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>
-                                <button class="deleteBranch" mwlConfirm [title]="title" placement="left" (confirm)="deleteBranch(branch.id)"
-      					(cancel)="cancelClicked = true" [(isOpen)]="isOpen">Usuń oddział</button>
-                                <button *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
-                            </p>
+                                <!--<button class="deleteBranch" mwlConfirm [title]="title" placement="bottom" (confirm)="deleteBranch(branch.id)"-->
+      					<!--(cancel)="cancelClicked = true" [(isOpen)]="isOpen">Usuń oddział</button>-->
+         <button class="deleteBranch" mwlConfirmationPopover [title]="title" placement="top" (confirm)="deleteBranch(branch.id)" (cancel)="cancelClicked = true">usuń oddział</button>
+                                <button class="mainBranchButton" *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
+                            </div>
                             <p *ngIf="branch.main">
                                 <span *ngIf="error" class="error">Nie można usunąć głównego oddziału</span>
                             </p>

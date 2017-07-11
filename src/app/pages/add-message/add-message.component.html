@@ -90,7 +90,7 @@
             </div>
 
             <div class="odzialFirmy">
-              <ss-multiselect-dropdown *ngIf="showMulitSelect"  [texts]="myTexts" [settings]="mySettings" defaultTitle="" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+              <ss-multiselect-dropdown *ngIf="showMulitSelect" [texts]="myTexts" [settings]="mySettings" defaultTitle="" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
               <p *ngIf="showMulitSelect">wybierz oddział firmy</p>
               <p *ngIf="!showMulitSelect">firma nie ma oddziałów</p>
               

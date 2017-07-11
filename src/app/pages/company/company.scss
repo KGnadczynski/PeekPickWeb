@@ -81,6 +81,7 @@ div#companyMain{
         font-size: 20px;
         font-weight: normal;
         text-transform: lowercase;
+        color: $blackColor;
         font-family: 'Open Sans', sans-serif;
     }
     i{
@@ -125,6 +126,7 @@ div#companyMain{
             text-align: center;
             &.desc{
                 float: none;
+                line-height: 25px;
             }
         }
     }
@@ -225,6 +227,23 @@ md-tab-group{
             height: 50px !important;
             &:focus{
                 background-color: white !important;
+            }
+        }
+    }
+}
+
+div.branches{
+    margin: 20px 0;
+    div.branch{
+        margin: 20px 0;
+        h2{
+            font-family: 'Sanchez', serif;
+        }
+        p {
+            font-family: 'Open Sans', sans-serif;
+            
+            span{
+                font-size: 16px;
             }
         }
     }

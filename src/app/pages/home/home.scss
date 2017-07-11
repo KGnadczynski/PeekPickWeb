@@ -48,6 +48,23 @@ div#home{
             margin: 30px 9% 40px 9%;
             padding: 16px 25px;
             border-radius: 275px;
+            @media(max-width: 565px){
+                width: 90%;
+                margin: auto;
+            }
+            @media(min-width: 566px){
+                width: 60%;
+                margin: auto;
+            }
+            @media(min-width: 768px){
+                width: 50%;
+            }
+            @media(min-width: 992px){
+                width: 90%;
+            }
+            @media(min-width: 1400px){
+                width: 70%;
+            }
 
             &::before{
                 content: "";

@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
     imageUrl: string = "";
     companyBranches: any[];
     idCompany: number;
-    // passwordForm: FormGroup;
+    passwordForm: FormGroup;
     companyForm: FormGroup;
     additionalForm: FormGroup;
     branchForm: FormGroup;
@@ -53,13 +53,13 @@ export class ProfileComponent implements OnInit {
     public isOpen: boolean = false;
 
     constructor(private menuService: BaMenuService, private profileService: ProfileService, private _http: Http, private router: Router, private fb: FormBuilder){
-        // this.passwordForm = fb.group({
-        //     'oldPassword': [null, Validators.required],
-        //     'passwords': fb.group({
-        //         'password': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
-        //         'repeatPassword': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
-        //     }, {validator: EqualPasswordsValidator.validate("password", "repeatPassword")})
-        // });
+        this.passwordForm = fb.group({
+            'oldPassword': [null, Validators.required],
+            'passwords': fb.group({
+                'password': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
+                'repeatPassword': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
+            }, {validator: EqualPasswordsValidator.validate("password", "repeatPassword")})
+        });
         
         this.companyForm = fb.group({
             'name': '',
@@ -179,7 +179,12 @@ export class ProfileComponent implements OnInit {
         else
             this.router.navigateByUrl('/pages/komunikat');
 
-        }
+        let button = $('button.btn-success');
+        button.removeClass('btn-success');
+
+        console.log('button found:');
+        console.dir(button);
+    }
 
     showActive(): void {
         this.messagesCom.getActivePost();
@@ -269,6 +274,7 @@ export class ProfileComponent implements OnInit {
 
     deleteBranch(id: number): void{
         console.log('deleteing');
+
         this.profileService.deleteBranch(id).subscribe(
             result => {
                 this.companyBranches = this.companyBranches.filter((el) => {
