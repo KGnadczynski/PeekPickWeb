@@ -14,17 +14,26 @@ div#footer{
     div#inside{
         display: flex;
         flex-wrap: wrap;
-        padding: 15px 0;
+        padding: 0 0 10px 0;
         @media(max-width: 565px){
             flex-direction: column;
+            align-items: center;
         }
-        @media(min-width: 992px){
+        @media(min-width: 566px){
+            flex-direction: column;
+            align-items: center;
+        }
+        @media(min-width: 768px){
+            flex-direction: row;
             width: 90%;
             margin: auto;
         }
+        @media(min-width: 992px){
+            width: 100%;
+        }
         div#a-router{
             width: 80%;
-            // margin: auto;
+            margin: auto;
             display: flex;
             justify-content: space-around;
 
@@ -32,11 +41,14 @@ div#footer{
                 width: 100%;
             }
             @media(min-width: 566px){
+                width: 70%;
+            }
+            @media(min-width: 768px){
                 width: 50%;
             }
             @media(min-width: 992px){
                 order: 1;
-                width: (100%/3);
+                width: 30%;
             }
 
             a{
@@ -46,10 +58,10 @@ div#footer{
                 // padding: 10px;
                 // border: 2px dotted;
                 position: relative;
-                background-image: url('../../../../meta/przycisk.png');
+                background-image: url('../../../../meta/przycisk2.png');
                 background-size: 100% 100%;
-                width: 155px;
-                height: 51px;
+                width: 184px;
+                height: 47px;
                 padding-top: 16px;
                 text-align: center;
                 img{
@@ -57,40 +69,46 @@ div#footer{
                     top: 15px;
                     left: -14px;
                 }
+                &.buyPosts{
+                    font-size: 11px;
+                    width: 109px;
+                    background-image: url('../../../../meta/przycisk.png');
+                }
             }
                 
         }
 
         div#bottomDiv{
-            // margin: auto;
+            margin: auto;
             display: flex;
             align-items: center;
-            justify-content: center;
+            
             @media(max-width: 565px){
                 width: 94%;
                 margin-top: 15px;
+                justify-content: center;
             }
             @media(min-width: 566px){
-                // margin-top: 15px;
+                width: 70%;
+                justify-content: center;
+                margin-top: 8px;
             }
-            @media(min-width: 768x){
+            @media(min-width: 768px){
                 width: 50%;
-                // margin-top: 15px;
+                justify-content: center;
             }
             @media(min-width: 992px){
                 order: 3;
-                width: (100%/3);
+                width: 32%;
                 margin: 0;
             }
             
             img {
                 &:first-child{
-                    // border: 2px dotted $redColor;
-                    // margin-right: 10px;
                     background-image: url('../../../../meta/przycisk.png');
                     background-size: 100% 100%;
-                    width: 135px;
-                    height: 58px;
+                    width: 109px;
+                    height: 47px;
                     padding: 5px;
                 }
                 &:nth-child(2){
@@ -105,35 +123,38 @@ div#footer{
             }
             div.text{
                 font-family: 'Open Sans', sans-serif;
+                
+                text-align: center;
                 p{
                     color: $blackColor;
-                    font-size: 100%;
+                    font-size: 16px;
                 }
                 a{
                     color: $redColor;
-                    font-size: 100%;
+                    @media(min-width: 992px){
+
+                    }
                 }
             }
         }
         div.menu{
             width: 100%;
-            // margin-top: 5%;
-            // margin-bottom: 5%;
+            margin-top: 8px;
             @media(max-width: 565px){
                 width: 100%;
             }
             @media(min-width: 992px){
                 order: 2;
-                width: (100%/3);
+                width: 38%;
+                margin: 0;
             }
             ul{
                 list-style-type: none;
                 padding: 0;
-                width: 90%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin: auto;
+                margin: 0;
                 li{
                     border-left: 1px solid $blackColor;
                     padding: 6px;
@@ -142,6 +163,14 @@ div#footer{
                     }
                     a{
                         color: $blackColor;
+                        font-family: 'Open Sans', sans-serif;
+                        
+                        @media(max-width: 565px){
+                            font-size: 12px;
+                        }
+                        @media(min-width: 566px){
+                            font-size: 15px;
+                        }
                     }
                 }
             }
