@@ -14,15 +14,17 @@ div.alert-danger{
 div#loginFormMain{
     border: 2px solid $colorBlack;
     margin: auto;
-    padding: 20px 0;
-    margin-top: 4%;
-    margin-bottom: 4%;
-    
+    padding: 20px;
+    width: 343px;
+    height: 342px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
     div#loginFormBlock{
         
         h1{
             text-align: center;
-            margin: 3% 0;
+            
             text-transform: uppercase;
             color: $colorRed;
             font-size: 20px;
@@ -34,7 +36,10 @@ div#loginFormMain{
             div.inputForm{
                 display: flex;
                 flex-direction: column;
-                margin-bottom: 2%;
+                width: 80%;
+                margin: auto;
+                margin-top: 10px;
+                margin-bottom: 10px;
                 label{
                     font-size: 18px;
                     margin-right: 2%;
@@ -66,9 +71,9 @@ div#loginFormMain{
                     font-size: 20px;
                     font-family: 'Sanchez', serif;
                     text-align: center;
-                    background-image: url('../../meta/przycisk.png');
+                    background-image: url('../../meta/przycisk2.png');
                     background-size: 100% 100%;
-                    width: 200px;
+                    width: 184px;
                     height: 60px;
                     outline: 0;
                 }
@@ -81,16 +86,14 @@ div#loginFormMain{
                 }
 
                 a#forgotPassword{
-                    margin: 4% 0;
+                    margin: 20px 0;
                     color: $colorBlack;
                     font-size: 15px;
                     color: $colorBlack;
                     font-size: 15px;
                     font-family: 'Open Sans', sans-serif;
                     outline: 0;
-                    @media(min-width: 992px){
-                        margin: 2% 0;
-                    }
+                    
                 }
                 
             }
@@ -112,79 +115,4 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: gray;
   -webkit-box-shadow: 0 0 0px 1000px white inset;
   transition: background-color 5000s ease-in-out 0s;
-}
-
-@media(max-width: 575px){
-    div#loginFormMain{
-        
-        width: 90%;
-        div#loginFormBlock{
-            
-            h1{
-                font-size: 20px;
-                margin: 8% 0;
-            }
-            form{
-                width: 80%;
-                div.actionButtons{
-                    margin-top: 8%;
-                    a{
-                        margin: 2% 0;
-                        font-size: 14px;
-                    }
-                    p{
-                        font-size: 14px;
-                        margin: 5% 0;
-                    }
-                }
-            }
-        }
-    }
-}
-@media (min-width: 576px) {
-    div#loginFormMain{
-        width: 70%;
-        div#loginFormBlock{
-            
-            h1{
-                font-size: 26px;
-            }
-            form{
-                width: 80%;
-            }
-        }
-    }
-}
-@media (min-width: 768px) {
-   div#loginFormMain{
-        width: 60%;
-        div#loginFormBlock{
-            
-            form{
-                width: 70%;
-            }
-        }
-    }
-}
-@media (min-width: 992px) {
-    div#loginFormMain{
-        width: 50%;
-        div#loginFormBlock{
-            
-             form{
-                width: 70%;
-            }
-        }
-    }
-}
-@media (min-width: 1200px) {
-    div#loginFormMain{
-        width: 35%;
-        div#loginFormBlock{
-            
-            form{
-                width: 60%;
-            }
-        }
-    }
 }
