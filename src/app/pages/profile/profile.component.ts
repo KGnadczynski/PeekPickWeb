@@ -12,15 +12,17 @@ import { ImageModel } from '../add-message/imagemodel';
 import { BaMenuService, BaPageTopService} from '../../theme';
 import { Routes } from '@angular/router';
 import { PAGES_MENU } from '../pages.menu';
-import { ConfirmOptions, Position } from 'angular2-bootstrap-confirm';
-import { Positioning } from 'angular2-bootstrap-confirm/position';
+// import { ConfirmOptions, Position } from 'angular2-bootstrap-confirm';
+// import { Positioning } from 'angular2-bootstrap-confirm/position';
 
 @Component({
   selector: 'profile',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./profile.scss')],
   template: require('./profile.html'),
-  providers: [ProfileService, ConfirmOptions, {provide: Position, useClass: Positioning}]
+  providers: [ProfileService
+//   , ConfirmOptions, {provide: Position, useClass: Positioning}
+  ]
 })
 export class ProfileComponent implements OnInit {
 
