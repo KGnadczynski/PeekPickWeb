@@ -94,14 +94,16 @@ export class Login implements OnInit{
                       localStorage.setItem('user', JSON.stringify({ user: data}));    
                       this.loginService.getInfoForCompanyFromUser(this.userFromServer.company.id).subscribe(
                            data => {
-                             localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
+                             var companyBranchList = JSON.stringify({ companyBranchList: data});
+                             localStorage.setItem('companyBranchList', companyBranchList); 
                              this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
-                             if("geolocation"  in navigator){
+                             this.setLocationFromCompanyBranchList(companyBranchList);
+                           /*  if("geolocation"  in navigator){
                                 navigator.geolocation.getCurrentPosition((position) => {
                                     localStorage.setItem('latitude', position.coords.latitude.toString());
                                     localStorage.setItem('longitude', position.coords.longitude.toString());
                                 });
-                            }
+                            }*/
                             //  this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);
                              this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);
                              this._menuService.changedLoggedFlag(this.userFromServer.company.id);
@@ -127,6 +129,19 @@ export class Login implements OnInit{
             if(this.error.error_description === "Bad credentials")
               this.error.error_description = "Zły login lub hasło";
           });
+    }
+  }
+
+  public setLocationFromCompanyBranchList(companyBranchList:any) :void {
+    console.log('seting correct latitiude and longitude '+JSON.parse(companyBranchList));
+    var companyBranchListVar = JSON.parse(companyBranchList);
+    console.log('seting correct latitiude and longitude '+companyBranchListVar.companyBranchList);
+    for (let entry of companyBranchListVar.companyBranchList) {
+    console.log('Hello '+entry.main); // 1, "string", false
+      if(entry.main) {
+        localStorage.setItem('latitude', entry.latitude);
+        localStorage.setItem('longitude', entry.longitude);
+      }
     }
   }
 }
