@@ -301,15 +301,7 @@ export class AddMessageComponent implements OnInit {
     }
 
     ngAfterViewChecked(){
-        if(this.triggerResize){
-            setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
-                console.log('triggerResize');  
-                this.sebmGoogleMap._mapsWrapper.setCenter({lat: this.lat, lng: this.lng});
-                 this.changeAddress(this.callbackEdit);
-            }),300);
-            this.triggerResize = false;
-        }             
-        
+           
      }
 
 
@@ -345,8 +337,20 @@ export class AddMessageComponent implements OnInit {
     }
 
     addprop2(): void{
-        this.isLocationCollapsed = !this.isLocationCollapsed;
+        this.isLocationCollapsed = !this.isLocationCollapsed; 
     }
+
+    setLocationCallapsed(): void{
+        this.isLocationCollapsed = !this.isLocationCollapsed;
+         if(!this.isLocationCollapsed){
+            setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
+                console.log('triggerResize');  
+                this.sebmGoogleMap._mapsWrapper.setCenter({lat: this.lat, lng: this.lng});
+                this.changeAddress(this.callbackEdit);
+            }),300);
+        }             
+    }
+
 
      withoutEndDate():void {
       this.isCollapsed = false;
