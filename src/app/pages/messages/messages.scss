@@ -239,10 +239,15 @@ div.messages{
                 color: $message_color;
             }
             div.popover-content{
-                button.btn-success{
+                button{
                     color: $redColor;
-                    border: 2px dotted $redColor;
-                    background: white;
+                    // border: 2px dotted $redColor;
+                    background: transparent;
+                    background-image: url('../../meta/przycisk.png');
+                    background-size: 100% 100%;
+                    width: 140px;
+                    height: 50px;
+                    border: 0;
                 }
             }
            

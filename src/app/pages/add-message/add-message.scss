@@ -256,6 +256,13 @@ div.modal-content{
                 min-width: 240px;
                 border: 2px solid $colorBlack;
                 left: 20%;
+                @media(max-width: 565px){
+                    top: -230px;
+                }
+                @media(min-width: 566px){
+                    top: -230px;
+                    left: -150px;
+                }
                 li {
                     text-align: center;
                     &:hover{

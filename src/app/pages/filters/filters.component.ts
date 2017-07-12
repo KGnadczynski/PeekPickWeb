@@ -21,7 +21,7 @@ export class FiltersComponent implements OnInit{
     messageTypes: string[] = Object.keys(MessageType);
     messageTypesOb: {name: string, value: string}[] = [];
     categories: {id: number, name: string, subcategories: any[], bol: boolean}[] = [];
-    someValue: number = 0;
+    someValue: number = 101;
     google:any;
     @Output() myEvent: EventEmitter<any> = new EventEmitter<any>();
     @Input() id: number;

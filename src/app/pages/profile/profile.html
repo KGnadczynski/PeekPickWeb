@@ -230,8 +230,9 @@
                                 <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>
                                 <!--<button class="deleteBranch" mwlConfirm [title]="title" placement="bottom" (confirm)="deleteBranch(branch.id)"-->
       					<!--(cancel)="cancelClicked = true" [(isOpen)]="isOpen">Usuń oddział</button>-->
-         <button class="deleteBranch" mwlConfirmationPopover [title]="title" placement="top" (confirm)="deleteBranch(branch.id)" (cancel)="cancelClicked = true">usuń oddział</button>
-                                <button class="mainBranchButton" *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
+         <button class="deleteBranch hidden-sm-up" mwlConfirmationPopover [title]="title" placement="top" (confirm)="deleteBranch(branch.id)" (cancel)="cancelClicked = true">usuń oddział</button>
+         <button class="deleteBranch hidden-xs-down" mwlConfirmationPopover [title]="title" placement="right" (confirm)="deleteBranch(branch.id)" (cancel)="cancelClicked = true">usuń oddział</button>
+         <button class="mainBranchButton" *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
                             </div>
                             <p *ngIf="branch.main">
                                 <span *ngIf="error" class="error">Nie można usunąć głównego oddziału</span>

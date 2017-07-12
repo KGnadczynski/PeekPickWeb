@@ -152,8 +152,8 @@ export class BaPageTop implements OnInit{
   darkenBody():void {
         this.ifDarkened = !this.ifDarkened;
         console.log('ifdarkened: ' + this.ifDarkened);
-        
-        /*switch (this.ifDarkened) {
+        /*
+        switch (this.ifDarkened) {
             case true:
             
                 $('div.al-main').css({
@@ -196,13 +196,32 @@ export class BaPageTop implements OnInit{
                 break;
             default:
                 break;
-        }
+        }*/
 
         $('.dropdown.keep-open').on({
             "shown.bs.dropdown": function() { this.closable = false; },
             "click":             function() { this.closable = true; },
             "hide.bs.dropdown":  function() { return this.closable; }
-        });*/
+        });
 
   }
+
+    /*fixStyles(): void {
+        $('div.al-main').css({
+            "position": 'relative',
+            "width": "initial",
+            "height": "initial",
+            "background-color": "transparent",
+            "opacity": 1,
+            "z-index": 1,
+            "top": "auto",
+            "left": "auto",
+        });
+        $('#footer').css({
+            "position": 'relative',
+            "background-color": "transparent",
+            "opacity": 1,
+            "bottom": "auto",
+        });
+    }*/
 }

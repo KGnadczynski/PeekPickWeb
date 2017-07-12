@@ -12,7 +12,6 @@
         </div>
     </div>
 
-
     <div [collapse]="isFiltryCollapse">
 
         <form [formGroup]="filterForm" novalidate id="mainForm">
@@ -60,13 +59,13 @@
             
             <h5>Odległość</h5>
             <div id="nouisliderDiv">
-                <nouislider [min]="0" [max]="101" [step]="1" [(ngModel)]="someValue" formControlName = "distance"></nouislider>
+                <nouislider [min]="0" [max]="101" [step]="1" [(ngModel)]="someValue" formControlName="distance"></nouislider>
             </div>
             
             <p id="distance">
-                Odległośc - 
+                 Odległość - 
                 <span *ngIf="someValue !== 101">{{ someValue }}</span>
-                <span *ngIf="someValue === 101">brak ograniczeń</span>
+                <span *ngIf="someValue === 101">brak ograniczeń</span> 
             </p>
 
             <div class="blacklineF">
