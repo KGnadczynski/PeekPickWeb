@@ -51,7 +51,7 @@ export type StoreType = {
     FormsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
-         apiKey: 'AIzaSyAd-dXobrRyvVELcejXArzNvt694Y1r9Ho',
+         apiKey: 'AIzaSyCl3nsjOvS7zp4jpoIdGW0T2fSufwkz_pU',
         libraries: ["places"]
     }),
     NgaModule.forRoot(),
