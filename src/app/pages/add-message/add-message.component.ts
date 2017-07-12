@@ -224,11 +224,11 @@ export class AddMessageComponent implements OnInit {
 
     ngOnInit(): void{  
         if(localStorage.getItem('latitude') !== null) {
-            this.lat = JSON.parse(localStorage.getItem('latitude')).latitude;
-            console.log('this.lat: ' + typeof JSON.parse(localStorage.getItem('latitude')).latitude);
+            this.lat = JSON.parse(localStorage.getItem('latitude'));
+            console.log('this.lat: ' + this.lat);
         }
         if(localStorage.getItem('longitude') !== null) {
-            this.lng = JSON.parse(localStorage.getItem('longitude')).longitude;
+            this.lng = JSON.parse(localStorage.getItem('longitude'));
             console.log('this.lng: ' + typeof JSON.parse(localStorage.getItem('longitude')).longitude);
         }
 
@@ -345,6 +345,7 @@ export class AddMessageComponent implements OnInit {
          if(!this.isLocationCollapsed){
             setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
                 console.log('triggerResize');  
+                console.log('this.lat: ' + this.lat);
                 this.sebmGoogleMap._mapsWrapper.setCenter({lat: this.lat, lng: this.lng});
                 this.changeAddress(this.callbackEdit);
             }),300);
