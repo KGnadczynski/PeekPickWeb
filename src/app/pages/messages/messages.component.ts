@@ -486,4 +486,14 @@ export class MessagesComponent implements OnInit{
         return '';
     }
 
+    getDistance(message:any): string {
+        //	<p>({{ message.distance | number: '1.2-2'}} km)</p>
+         if("geolocation"  in navigator){
+             console.log('GEEEOOO');
+            return '('+message.distance.toFixed(2) +' km)'; 
+         } else {
+            return '';
+         }
+    }
+
 }

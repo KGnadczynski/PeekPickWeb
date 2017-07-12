@@ -17,7 +17,7 @@
 
 			<div class="message-text-block">
 				<a [routerLink]="['/pages/company', message.nearestCompanyBranch.company.id]" (click)='$event.stopPropagation()'>
-					{{ message.nearestCompanyBranch.name }}
+					{{ message.user.name }}
 				</a>
 				<p>{{ message.user.company.category.name }}</p>
 				<p>{{getLocation(message)}}</p>
@@ -29,7 +29,7 @@
 				<i *ngIf="message.type === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
 				<i *ngIf="message.type === 'WORTH_SEEING'" class="material-icons">visibility</i>
 				<i *ngIf="message.type === 'PROMOTION'" class="material-icons">loyalty</i>
-				<p>({{ message.distance | number: '1.2-2'}} km)</p>
+				<p>{{getDistance(message)}}</p>
 			</div>
 
 			<div class="message-content" (click)="goToSingle(message.id)">
