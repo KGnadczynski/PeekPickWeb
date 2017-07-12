@@ -164,7 +164,7 @@ export class BaPageTop implements OnInit{
                     "opacity": 0.6,
                     "z-index": 1,
                     "top": 0,
-                    "left": 0
+                    "left": 0,
                 });
                 $('#footer').css({
                     "position": 'fixed',
@@ -184,7 +184,7 @@ export class BaPageTop implements OnInit{
                     "opacity": 1,
                     "z-index": 0,
                     "top": "auto",
-                    "left": "auto"
+                    "left": "auto",
                 });
                 $('#footer').css({
                     "position": 'relative',
@@ -198,21 +198,11 @@ export class BaPageTop implements OnInit{
                 break;
         }
 
-        // $('div.al-main').css({
-        //     "position": 'fixed',
-        //     "width": "100%",
-        //     "height": "100%",
-        //     "background-color": "white",
-        //     "opacity": 0.6,
-        //     "z-index": 1,
-        //     "top": "66px",
-        //     "left": 0
-        // });
-        // $('#footer').css({
-        //     "position": 'fixed',
-        //     "background-color": "white",
-        //     "opacity": 0.6,
-        //     "bottom": "0",
-        // });
+        $('.dropdown.keep-open').on({
+            "shown.bs.dropdown": function() { this.closable = false; },
+            "click":             function() { this.closable = true; },
+            "hide.bs.dropdown":  function() { return this.closable; }
+        });
+
   }
 }
