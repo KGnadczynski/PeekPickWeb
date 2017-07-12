@@ -152,25 +152,67 @@ export class BaPageTop implements OnInit{
   darkenBody():void {
         this.ifDarkened = !this.ifDarkened;
         console.log('ifdarkened: ' + this.ifDarkened);
+        
+        switch (this.ifDarkened) {
+            case true:
+            
+                $('div.al-main').css({
+                    "position": 'fixed',
+                    "width": "100%",
+                    "height": "100%",
+                    "background-color": "white",
+                    "opacity": 0.6,
+                    "z-index": 1,
+                    "top": 0,
+                    "left": 0
+                });
+                $('#footer').css({
+                    "position": 'fixed',
+                    "background-color": "white",
+                    "opacity": 0.6,
+                    "bottom": "0",
+                });
 
-        // $('main').css('height', 'initial');
-        // $('body').fadeTo('slow', 0.33);
-        // $('body').find('.dropdown-menu').stop().fadeTo('slow',1);
-        // $('body').children(":not(.dropdown-menu)").css('opacity', '0.6');
-        // $('body > *').children(":not(.dropdown-menu)").css('background-color', 'black');
-        // $('body > *').children(":not(.dropdown-menu)").css('z-index', '998');
-        // $('body > *').children('.dropdown-menu').css('z-index', '999');
-        /*$('body').find('.dropdown-menu').css('opacity', '0');
-        $('body').find('.dropdown-menu').css('z-index', '999');
-        $('body').find('*:not(.dropdown-menu)').each(function(){
-            // $(this).unbind('click');
-            $(this).css('opacity', '0.9');
-            $(this).css('background-color', 'black');
-            $(this).css('z-index', '998');
+                break;
+            case false:
+            
+                $('div.al-main').css({
+                    "position": 'relative',
+                    "width": "initial",
+                    "height": "initial",
+                    "background-color": "transparent",
+                    "opacity": 1,
+                    "z-index": 0,
+                    "top": "auto",
+                    "left": "auto"
+                });
+                $('#footer').css({
+                    "position": 'relative',
+                    "background-color": "transparent",
+                    "opacity": 1,
+                    "bottom": "auto",
+                });
 
-            console.log($(this));
-        });*/
-        // $('body').not($('.dropdown-menu')).fadeOut('fast');
-        // $('body').find('*:not(.dropdown-menu)').fadeTo('fast', 0.4);
+                break;
+            default:
+                break;
+        }
+
+        // $('div.al-main').css({
+        //     "position": 'fixed',
+        //     "width": "100%",
+        //     "height": "100%",
+        //     "background-color": "white",
+        //     "opacity": 0.6,
+        //     "z-index": 1,
+        //     "top": "66px",
+        //     "left": 0
+        // });
+        // $('#footer').css({
+        //     "position": 'fixed',
+        //     "background-color": "white",
+        //     "opacity": 0.6,
+        //     "bottom": "0",
+        // });
   }
 }
