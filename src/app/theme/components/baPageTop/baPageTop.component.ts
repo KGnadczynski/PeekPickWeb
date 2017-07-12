@@ -153,7 +153,7 @@ export class BaPageTop implements OnInit{
         this.ifDarkened = !this.ifDarkened;
         console.log('ifdarkened: ' + this.ifDarkened);
         
-        switch (this.ifDarkened) {
+        /*switch (this.ifDarkened) {
             case true:
             
                 $('div.al-main').css({
@@ -202,7 +202,7 @@ export class BaPageTop implements OnInit{
             "shown.bs.dropdown": function() { this.closable = false; },
             "click":             function() { this.closable = true; },
             "hide.bs.dropdown":  function() { return this.closable; }
-        });
+        });*/
 
   }
 }
