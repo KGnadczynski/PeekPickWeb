@@ -112,22 +112,13 @@ div#footer{
             }
             
             img {
-                // &:first-child{
-                //     background-image: url('../../../../meta/przycisk.png');
-                //     background-size: 100% 100%;
-                //     width: 109px;
-                //     height: 47px;
-                //     padding: 5px;
-                // }
-                // &:nth-child(2){
-                    
-                    @media(max-width:565px){
-                        margin-right: 0;
-                    }
-                    @media(min-width:565px){
-                        margin-right: 5px;
-                    }
-                // }
+                @media(max-width:565px){
+                    margin-right: 0;
+                }
+                @media(min-width:565px){
+                    margin-right: 5px;
+                }
+
             }
             div.text{
                 font-family: 'Open Sans', sans-serif;
