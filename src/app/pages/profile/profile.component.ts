@@ -366,6 +366,10 @@ export class ProfileComponent implements OnInit {
 
     changeMainBranch(id: number): void{
         this.profileService.getCompanyBranch(id).subscribe(companyBranch => {
+            if(companyBranch.latitude != 0 && companyBranch.longitud) {
+                localStorage.setItem('latitude', companyBranch.latitude);
+                localStorage.setItem('longitude', companyBranch.longitude);
+            }
             companyBranch.main = true;
             this.companyBranches[this.companyBranches.findIndex(x => x.main)].main = false;
 
@@ -378,6 +382,19 @@ export class ProfileComponent implements OnInit {
             });
         });
     }
+
+    public setLocationFromCompanyBranchList(companyBranchList:any) :void {
+    console.log('seting correct latitiude and longitude '+JSON.parse(companyBranchList));
+    var companyBranchListVar = JSON.parse(companyBranchList);
+    console.log('seting correct latitiude and longitude '+companyBranchListVar.companyBranchList);
+    for (let entry of companyBranchListVar.companyBranchList) {
+    console.log('Hello '+entry.main); // 1, "string", false
+      if(entry.main) {
+        localStorage.setItem('latitude', entry.latitude);
+        localStorage.setItem('longitude', entry.longitude);
+      }
+    }
+  }
 
     addCompanyImage(): void {
         if(this.fileUpload.file != null){
