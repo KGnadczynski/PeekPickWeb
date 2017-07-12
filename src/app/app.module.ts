@@ -50,9 +50,9 @@ export type StoreType = {
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    AgmCoreModule.forRoot({
-         apiKey: 'AIzaSyCl3nsjOvS7zp4jpoIdGW0T2fSufwkz_pU',
-        libraries: ["places"]
+   AgmCoreModule.forRoot({
+        apiKey: 'AIzaSyAd-dXobrRyvVELcejXArzNvt694Y1r9Ho',
+       libraries: ["places"]
     }),
     NgaModule.forRoot(),
     PagesModule,
