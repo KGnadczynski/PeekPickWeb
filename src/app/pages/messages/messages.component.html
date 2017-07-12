@@ -20,7 +20,7 @@
 					{{ message.nearestCompanyBranch.name }}
 				</a>
 				<p>{{ message.user.company.category.name }}</p>
-				<p>{{message?.location?.address }}</p>
+				<p>{{getLocation(message)}}</p>
 			</div>
 
 			<div class="message-distance-message-icon-work">

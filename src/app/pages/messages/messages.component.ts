@@ -472,4 +472,18 @@ export class MessagesComponent implements OnInit{
         )
     }
 
+    getLocation(message:any): string {
+        if(message.location != null) {
+           return message.location.address;
+        } else if(message.companyBranchCount == 1) {
+           return message.nearestCompanyBranch.city +','+ message.nearestCompanyBranch.street+" "+ message.nearestCompanyBranch.streetNo;
+        }else if(message.companyBranchCount > 1 && message.companyBranchCount < 5) {
+           return message.companyBranchCount+" lokalizacje, Najbliższa: "+message.nearestCompanyBranch.city +','+ message.nearestCompanyBranch.street+" "+ message.nearestCompanyBranch.streetNo;
+        }
+        else if(message.companyBranchCount >= 5) {
+           return message.companyBranchCount+" lokalizacji, Najbliższa: "+message.nearestCompanyBranch.city +','+ message.nearestCompanyBranch.street+" "+ message.nearestCompanyBranch.streetNo;
+        }
+        return '';
+    }
+
 }
