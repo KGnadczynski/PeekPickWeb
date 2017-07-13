@@ -152,7 +152,7 @@ export class BaPageTop implements OnInit{
   darkenBody():void {
         this.ifDarkened = !this.ifDarkened;
         console.log('ifdarkened: ' + this.ifDarkened);
-        /*
+        
         switch (this.ifDarkened) {
             case true:
             
@@ -162,7 +162,7 @@ export class BaPageTop implements OnInit{
                     "height": "100%",
                     "background-color": "white",
                     "opacity": 0.6,
-                    "z-index": 1,
+                    // "z-index": 1000,
                     "top": 0,
                     "left": 0,
                 });
@@ -170,7 +170,7 @@ export class BaPageTop implements OnInit{
                     "position": 'fixed',
                     "background-color": "white",
                     "opacity": 0.6,
-                    "bottom": "0",
+                    "bottom": 0,
                 });
 
                 break;
@@ -182,7 +182,7 @@ export class BaPageTop implements OnInit{
                     "height": "initial",
                     "background-color": "transparent",
                     "opacity": 1,
-                    "z-index": 0,
+                    // "z-index": 0,
                     "top": "auto",
                     "left": "auto",
                 });
@@ -196,24 +196,25 @@ export class BaPageTop implements OnInit{
                 break;
             default:
                 break;
-        }*/
+        }
 
         $('.dropdown.keep-open').on({
             "shown.bs.dropdown": function() { this.closable = false; },
             "click":             function() { this.closable = true; },
             "hide.bs.dropdown":  function() { return this.closable; }
         });
+        
 
   }
 
-    /*fixStyles(): void {
+    fixStyles(): void {
         $('div.al-main').css({
             "position": 'relative',
             "width": "initial",
             "height": "initial",
             "background-color": "transparent",
             "opacity": 1,
-            "z-index": 1,
+            // "z-index": 0,
             "top": "auto",
             "left": "auto",
         });
@@ -223,5 +224,7 @@ export class BaPageTop implements OnInit{
             "opacity": 1,
             "bottom": "auto",
         });
-    }*/
+        this.ifDarkened = !this.ifDarkened;
+    }
+
 }
