@@ -1,36 +1,28 @@
-import { NgModule }      from '@angular/core';
-import { CommonModule }  from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { routing } from './profile.routing';
 import { MdTabsModule } from '@angular2-material/tabs';
-import { MessagesModule } from '../messages/messages.module';
 import { NgaModule } from '../../theme/nga.module';
-import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
-import { Ng2TabModule } from 'ng2-tab';
-import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
-
-// import { ProfileEditModule } from './components/profile-edit/profile-edit.module';
+import { ProfileEditModule } from './components/profile-edit/profile-edit.module';
+import { ProfileAdditionalModule } from './components/profile-additional/profile-additional.module';
+import { ProfileBranchesModule } from './components/profile-branches/profile-branches.module';
+import { ProfileMessagesModule } from './components/profile-messages/profile-messages.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    MdTabsModule,
     routing,
-    MessagesModule,
-    FormsModule,
-    Ng2TabModule,
+    MdTabsModule,
     NgaModule,
-    ReactiveFormsModule,
-    CollapseModule,
-    // ProfileEditModule
-    ConfirmationPopoverModule.forRoot({
-      confirmText: 'usuń',
-      cancelText: 'anuluj'
-    })
+    ProfileEditModule,
+    ProfileAdditionalModule,
+    ProfileBranchesModule,
+    ProfileMessagesModule
   ],
   declarations: [
     ProfileComponent
   ]
 })
-export  class ProfileModule {}
+
+export class ProfileModule {}

@@ -1,14 +1,14 @@
-<div id="daneFirmy">
+<div id="companyInfo">
 
     <div id="header">
         <h3>zmień hasło</h3>
     </div>
-    
+
     <form id="changeEP" [formGroup]="passwordForm" (ngSubmit)="udpatePassword(passwordForm.value)">
         <div [ngClass]="{'has-error': passwordForm.controls['oldPassword'].touched}">
             <input type="password" id="oldPassword" placeholder="stare hasło" [formControl]="passwordForm.controls['oldPassword']">
             <div class="errorDiv"
-                *ngIf="passwordForm.controls['oldPassword'].touched">
+                *ngIf="passwordForm.controls['oldPassword'].touched && !passwordForm.controls['oldPassword'].valid">
                 Musisz wpisać stare hasło
             </div>
         </div>
@@ -21,7 +21,10 @@
         </div>
         <button type="submit" [disabled]="!passwordForm.valid">Zapisz</button>
     </form>
-    <span *ngIf="messageAfter">Pomyślnie zmieniono hasło</span>
+    <div class="errorDiv">
+        <span *ngIf="messageAfter">Pomyślnie zmieniono hasło</span>
+    </div>
+
 </div>
 
 <div id="editProfile">
@@ -55,4 +58,7 @@
         </div>
         <button type="submit">Zapisz</button>
     </form>
+    <div class="errorDiv">
+        <span *ngIf="messageAfterUpdateCompany">Pomyślnie zaktualizowano profil</span>
+    </div>
 </div>

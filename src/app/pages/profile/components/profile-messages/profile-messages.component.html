@@ -1,0 +1,17 @@
+<div id="activeAndEndedPosts">
+    <ng2-tab selected="active" selected-index-class="selected" selected-contents-class="fadeIn animated">
+        <div class="tabs">
+            <div index="active">AKTYWNE</div>
+            <div index="ended">ZAKOŃCZONE</div>
+        </div>
+        <div class="tab-contents">
+            <div contents="active">
+                <messages #msgs [dest] = "'active'" *ngIf="idCompany" [id] = idCompany></messages>
+            </div>
+            <div contents="ended">
+                <messages #msgs [dest] = "'ended'" *ngIf="idCompany" [id] = idCompany></messages>
+            </div>
+        </div>
+    </ng2-tab>
+
+</div>

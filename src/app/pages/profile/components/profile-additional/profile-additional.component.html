@@ -1,0 +1,30 @@
+<div id="additionalInfo">
+    <form [formGroup]="additionalForm" (ngSubmit)="udpateCompanyAdditional(additionalForm.value)">
+        <div id="contact" formGroupName="contact">
+            <div id="website">
+                <label>www</label>
+                <input type="text" id="website" formControlName="website">
+            </div>
+            <div id="openingHours">
+                <label for="openingHours">godziny otwarcia</label>
+                <textarea name="openingHours" id="openingHours" cols="30" rows="10" formControlName="openingHours"></textarea>
+            </div>
+            <div id="phoneNumber">
+                <label for="phoneNumber">tel</label>
+                <input type="text" id="phoneNumber" formControlName="phoneNumber"> 
+            </div>
+            <div id="email">
+                <label for="email">e-mail</label>
+                <input type="email" id="email" formControlName="email">
+            </div>
+                <div id="description">
+                <label for="description">opis</label>
+                <textarea name="description" id="description" cols="30" rows="10" formControlName="description"></textarea>
+            </div>
+        </div>
+        <button type="submit">Zapisz</button>
+    </form>
+    <div class="errorDiv">
+        <span *ngIf="messageAfterUpdate">Pomyślnie zaktualizowano profil</span>
+    </div>
+</div>

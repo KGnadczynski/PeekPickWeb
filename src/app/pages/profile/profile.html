@@ -25,91 +25,16 @@
                         <img src="../../meta/ic_comment_red_500_48dp.png" alt="">
                     </template>
                     <template md-tab-content>
-                        <div id="activeAndEndedPosts">
-                            <ng2-tab selected="active" selected-index-class="selected" selected-contents-class="fadeIn animated">
-                                <div class="tabs">
-                                    <div index="active">AKTYWNE</div>
-                                    <div index="ended">ZAKOŃCZONE</div>
-                                </div>
-                                <div class="tab-contents">
-                                    <div contents="active">
-                                        <messages #msgs [dest] = "'active'" *ngIf="idCompany" [id] = idCompany></messages>
-                                    </div>
-                                    <div contents="ended">
-                                        <messages #msgs [dest] = "'ended'" *ngIf="idCompany" [id] = idCompany></messages>
-                                    </div>
-                                </div>
-                            </ng2-tab>
-
-                        </div>
+                        <profile-messages [idCompany]="idCompany"></profile-messages>
                     </template>
                 </md-tab>
 
                 <md-tab>
                     <template md-tab-label>
-                        <!--<p class="hidden-md-down">Edytuj profil</p>-->
                         <img src="../../meta/account-card-details.png" alt="">
                     </template>
                     <template md-tab-content>
-                        <!--<profile-edit [otherUser]="otherUser"></profile-edit>-->
-                        <div id="daneFirmy">
-
-                            <div id="header">
-                                <h3>zmień hasło</h3>
-                            </div>
-                            
-                            <form id="changeEP" [formGroup]="passwordForm" (ngSubmit)="udpatePassword(passwordForm.value)">
-                                <div [ngClass]="{'has-error': passwordForm.controls['oldPassword'].touched}">
-                                    <input type="password" id="oldPassword" placeholder="stare hasło" [formControl]="passwordForm.controls['oldPassword']">
-                                    <div class="errorDiv"
-                                        *ngIf="passwordForm.controls['oldPassword'].touched">
-                                        Musisz wpisać stare hasło
-                                    </div>
-                                </div>
-                                <div formGroupName="passwords">
-                                    <input type="password" id="password" placeholder="nowe hasło" formControlName="password">
-                                    <input type="password" id="passwordRepeat" placeholder="powtórz nowe hasło" formControlName="repeatPassword">
-                                    <div class="errorDiv" *ngIf="!passwordForm.controls['passwords'].valid && passwordForm.controls['passwords'].touched">
-                                        <span>Hasła nie są takie same</span>
-                                    </div>
-                                </div>
-                                <button type="submit" [disabled]="!passwordForm.valid">Zapisz</button>
-                            </form>
-                            <span *ngIf="messageAfter">Pomyślnie zmieniono hasło</span>
-                        </div>
-
-                        <div id="editProfile">
-                            <div id="editH">
-                                <h3>edytuj profil</h3>
-                            </div>
-
-                            <form id="changeCI" [formGroup]="companyForm" (ngSubmit)="udpateCompanyName(companyForm.value)">
-                                <div class="image-upload">
-                                    <ba-picture-uploader #fileUpload (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
-                                </div>
-
-                                <div id="name">
-                                    <label for="nazwa">nazwa firmy</label>
-                                    <input type="text" id="nazwa" formControlName="name">
-                                </div>
-                                
-                                <div id="address" formGroupName="address">
-                                    <div id="town">
-                                        <label for="miasto">miasto</label>
-                                        <input type="text" id="miasto" formControlName="city">
-                                    </div>
-                                    <div id="street">
-                                        <label for="ulica">ulica</label>
-                                        <input type="text" id="ulica" formControlName="street">
-                                    </div>
-                                    <div id="streetNo">
-                                        <label for="numer">nr ulicy</label>
-                                        <input type="number" id="numer" formControlName="streetNo">
-                                    </div>
-                                </div>
-                                <button type="submit">Zapisz</button>
-                            </form>
-                        </div>
+                        <profile-edit [otherUser]="otherUser"></profile-edit>
                     </template>
                 </md-tab>
 
@@ -118,190 +43,19 @@
                         <img src="../../meta/ic_extension_grey_500_48dp.png" alt="">
                     </template>
                     <template md-tab-content>
-                        <div id="additionalInfo">
-                            <form [formGroup]="additionalForm" (ngSubmit)="udpateCompanyAdditional(additionalForm.value)">
-                                <div id="contact" formGroupName="contact">
-                                    <div id="website">
-                                        <label>www</label>
-                                        <input type="text" id="website" formControlName="website">
-                                    </div>
-                                    <div id="openingHours">
-                                        <label for="openingHours">godziny otwarcia</label>
-                                        <textarea name="openingHours" id="openingHours" cols="30" rows="10" formControlName="openingHours"></textarea>
-                                    </div>
-                                    <div id="phoneNumber">
-                                        <label for="phoneNumber">tel</label>
-                                        <input type="text" id="phoneNumber" formControlName="phoneNumber"> 
-                                    </div>
-                                    <div id="email">
-                                        <label for="email">e-mail</label>
-                                        <input type="email" id="email" formControlName="email">
-                                    </div>
-                                        <div id="description">
-                                        <label for="description">opis</label>
-                                        <textarea name="description" id="description" cols="30" rows="10" formControlName="description"></textarea>
-                                    </div>
-                                </div>
-                                <button type="submit">Zapisz</button>
-                            </form>
-                        </div>
+                        <profile-additional [otherUser] = "otherUser"></profile-additional>
                     </template>
                 </md-tab>
+
                 <md-tab>
-                <template md-tab-label>
-                    <img src="../../meta/oddzialy.png" alt="">
-                </template>
-                <template md-tab-content>
-                    <div id="branches">
-                        
-                        <div [collapse]="isCollapse" id="addCollapseDiv">
-                            <form [formGroup]="branchForm" (ngSubmit) = "addNewBranch(branchForm.value)">
-                                <label>Nazwa</label>
-                                <input type="text" id="name" formControlName="name">
-                                <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
-                                    Musisz wpisać nazwę
-                                </div>
-
-                                <label>Miasto</label>
-                                <input type="text" id="city" formControlName="city">
-                                <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched">
-                                    Musisz wpisać miasto
-                                </div>
-
-                                <label>Ulica</label>
-                                <input type="text" id="street" formControlName="street">
-                                <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched">
-                                    Musisz wpisać ulicę
-                                </div>
-
-                                <label>Nr ulicy</label>
-                                <input type="number" id="streetNo" formControlName="streetNo">
-                                <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched">
-                                    Musisz wpisać nr ulicy
-                                </div>
-
-                                <label>Strona internetowa</label>
-                                <input type="text" id="website" formControlName="website">
-                                <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched">
-                                    Musisz wpisać stronę internetową
-                                </div>
-
-                                <label>Numer telefonu</label>
-                                <input type="text" id="phoneNumber" formControlName="phoneNumber">
-                                <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched">
-                                    Musisz wpisać numer telefonu
-                                </div>
-
-                                <label>Godziny otwarcia</label>
-                                <input type="text" id="openingHours" formControlName="openingHours">
-                                <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched">
-                                    Musisz wpisać godziny otwarcia
-                                </div>
-
-                                <label>E-mail</label>
-                                <input type="email" id="email" formControlName="email">
-                                <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched">
-                                    Musisz wpisać e mail
-                                </div>
-
-                                <label>Opis</label>
-                                <input type="text" id="description" formControlName="description">
-                                <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched">
-                                    Musisz wpisać opis
-                                </div>
-
-                                <input type="submit" [disabled]="!branchForm.valid"  value="Stwórz oddział">
-                            </form>
-                        </div>
-                        
-                        <div class="branch" *ngFor="let branch of companyBranches">
-                            <h2>
-                                {{ branch?.name }}
-                                <i class="fa fa-home fa-1x" *ngIf="branch.main" aria-hidden="true"></i>
-                            </h2>
-                            <p>
-                                <span>
-                                    {{ branch?.city }},
-                                    {{ branch?.street }}
-                                    {{ branch?.streetNo }}
-                                </span>
-                            </p>
-                            <div class="buttons">
-                                <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>
-                                <!--<button class="deleteBranch" mwlConfirm [title]="title" placement="bottom" (confirm)="deleteBranch(branch.id)"-->
-      					<!--(cancel)="cancelClicked = true" [(isOpen)]="isOpen">Usuń oddział</button>-->
-         <button class="deleteBranch hidden-sm-up" mwlConfirmationPopover [title]="title" placement="top" (confirm)="deleteBranch(branch.id)" (cancel)="cancelClicked = true">usuń oddział</button>
-         <button class="deleteBranch hidden-xs-down" mwlConfirmationPopover [title]="title" placement="right" (confirm)="deleteBranch(branch.id)" (cancel)="cancelClicked = true">usuń oddział</button>
-         <button class="mainBranchButton" *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
-                            </div>
-                            <p *ngIf="branch.main">
-                                <span *ngIf="error" class="error">Nie można usunąć głównego oddziału</span>
-                            </p>
-                            <div class="editBranch" [collapse]="branch.collapse">
-                                <form [formGroup]="branchForm" (ngSubmit) = "editBranch(branchForm.value, branch.id)">
-                                    <label>Nazwa</label>
-                                    <input type="text" id="name" formControlName="name">
-                                    <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
-                                        Musisz wpisać nazwę
-                                    </div>
-
-                                    <label>Miasto</label>
-                                    <input type="text" id="city" formControlName="city">
-                                    <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched">
-                                        Musisz wpisać miasto
-                                    </div>
-
-                                    <label>Ulica</label>
-                                    <input type="text" id="street" formControlName="street">
-                                    <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched">
-                                        Musisz wpisać ulicę
-                                    </div>
-
-                                    <label>Nr ulicy</label>
-                                    <input type="number" id="streetNo" formControlName="streetNo">
-                                    <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched">
-                                        Musisz wpisać nr ulicy
-                                    </div>
-
-                                    <label>Strona internetowa</label>
-                                    <input type="text" id="website" formControlName="website">
-                                    <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched">
-                                        Musisz wpisać stronę internetową
-                                    </div>
-
-                                    <label>Numer telefonu</label>
-                                    <input type="text" id="phoneNumber" formControlName="phoneNumber">
-                                    <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched">
-                                        Musisz wpisać numer telefonu
-                                    </div>
-
-                                    <label>Godziny otwarcia</label>
-                                    <input type="text" id="openingHours" formControlName="openingHours">
-                                    <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched">
-                                        Musisz wpisać godziny otwarcia
-                                    </div>
-
-                                    <label>E-mail</label>
-                                    <input type="text" id="email" formControlName="email">
-                                    <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched">
-                                        Musisz wpisać e mail
-                                    </div>
-
-                                    <label>Opis</label>
-                                    <input type="text" id="description" formControlName="description">
-                                    <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched">
-                                        Musisz wpisać opis
-                                    </div>
-
-                                    <input type="submit" value="Edytuj oddział">
-                                </form>
-                            </div>
-                        </div>
-                        <i class="fa fa-plus-circle fa-3x" aria-hidden="true" (click)="isCollapse = !isCollapse"></i>
-                    </div>
-
-                </template>
+                    <template md-tab-label>
+                        <img src="../../meta/oddzialy.png" alt="">
+                    </template>
+                    <template md-tab-content>
+                        <profile-branches></profile-branches>
+                    </template>
                 </md-tab>
+
             </md-tab-group>
         </div>
     </div>

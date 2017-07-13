@@ -3,10 +3,10 @@ import { CommonModule }  from '@angular/common';
 import { routing } from './profile-edit.routing';
 import { ProfileEditComponent } from './profile-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgaModule } from '../../../theme/nga.module';
+import { NgaModule } from '../../../../theme/nga.module';
 
 @NgModule({
-    imports: [ routing, FormsModule, ReactiveFormsModule, CommonModule ],
+    imports: [ routing, FormsModule, ReactiveFormsModule, CommonModule, NgaModule ],
     declarations: [ ProfileEditComponent ],
     exports: [ProfileEditComponent ]
 })

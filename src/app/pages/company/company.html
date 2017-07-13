@@ -31,8 +31,6 @@
                 </template>
                 <template md-tab-content>
                     <div id="mapaFirmy">
-                        <h1>lat {{ lat }}</h1>
-                        <h1>lng {{ lng }}</h1>
                         <agm-map [latitude]="lat" [longitude]="lng">
                             <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
                         </agm-map>

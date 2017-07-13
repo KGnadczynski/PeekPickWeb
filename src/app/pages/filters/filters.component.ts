@@ -104,14 +104,17 @@ export class FiltersComponent implements OnInit{
             if(data.subtrades)
                 params.companyCategoryIdList = data.subtrades;
 
-            let i = 0;
+            let i = 0, j = 0;
             Object.keys(params).forEach((key)=>{
                 if(params[key]) i++;
+                if(params[key] === 'DISTANCE'){
+                    j++;
+                }
             });
 
-            // console.log('params length: ' + i);
+            // console.log('j: ' + j);
             
-            if(i > 1){
+            if(i > 1 || j > 0){
                 x = 1;
                 // console.log('params: ');
                 // console.dir(params);

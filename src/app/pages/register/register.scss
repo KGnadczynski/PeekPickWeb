@@ -43,7 +43,13 @@ div#registerFormMain{
         margin: auto;
         
         input{
-            width: 50%;
+            @media(max-width: 565px){
+                width: 90%;
+            }
+            @media(min-width: 566px){
+                width: 50%;
+            }
+            
             padding: 2% 0;
             outline: 0;
             color: $colorBlack !important;
@@ -115,18 +121,40 @@ div#registerFormMain{
 
         div#address{
             display: flex;
-            justify-content: space-around;
+            
             clear: both;
             width: 100%;
+            @media(max-width: 565px){
+                flex-wrap: wrap;
+            }
+            @media(min-width: 566px){
+                justify-content: space-around;
+            }
 
             input#city{
-              width: 38%;
+              @media(max-width: 565px){
+                  width: 100%;
+              }
+              @media(min-width: 566px){
+                  width: 38%;
+              }
             }
             input#street{
-              width: 38%;
+                @media(max-width: 565px){
+                    width: 79%;
+                }
+                @media(min-width: 566px){
+                    width: 38%;
+                }
             }
             input#streetNo{
-              width: 15%;
+              @media(max-width: 565px){
+                  width: 19%;
+              }
+              @media(min-width: 566px){
+                  width: 15%;
+              }
+              
             }
         }
         
