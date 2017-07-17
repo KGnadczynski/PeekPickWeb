@@ -1,150 +1,36 @@
 <div id="branches">
+    <div class="branch" *ngFor="let branch of companyBranches">
+        <h2>
+            {{ branch?.name }}
+            <i class="fa fa-home fa-1x" *ngIf="branch.main" aria-hidden="true"></i>
+        </h2>
+        <p>
+            <span>
+                {{ branch?.city }},
+                {{ branch?.street }}
+                {{ branch?.streetNo }}
+            </span>
+        </p>
 
-        <div class="branch" *ngFor="let branch of companyBranches">
-            <h2>
-                {{ branch?.name }}
-                <i class="fa fa-home fa-1x" *ngIf="branch.main" aria-hidden="true"></i>
-            </h2>
-            <p>
-                <span>
-                    {{ branch?.city }},
-                    {{ branch?.street }}
-                    {{ branch?.streetNo }}
-                </span>
-            </p>
+        <div class="buttons">
+            <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>
+            <button class="deleteBranch hidden-sm-up" mwlConfirmationPopover [title]="title" placement="top" (confirm)="deleteBranch(branch.id)" (cancel)="cancelClicked = true">usuń oddział</button>
+            <button class="deleteBranch hidden-xs-down" mwlConfirmationPopover [title]="title" placement="right" (confirm)="deleteBranch(branch.id)" (cancel)="cancelClicked = true">usuń oddział</button>
+            <button class="mainBranchButton" *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
+        </div>
+        <p *ngIf="branch.main">
+            <span *ngIf="error" class="error">Nie można usunąć głównego oddziału</span>
+        </p>
+        <div class="editBranch" [collapse]="branch.collapse">
+            <profile-form [type] = "'edytuj'" [branch]="branch" (callParentMethod)="editBranch($event, branch.id)"></profile-form>
+        </div>
+        
+    </div>
 
-            <div class="buttons">
-                <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>
-                <button class="deleteBranch hidden-sm-up" mwlConfirmationPopover [title]="title" placement="top" (confirm)="deleteBranch(branch.id)" (cancel)="cancelClicked = true">usuń oddział</button>
-                <button class="deleteBranch hidden-xs-down" mwlConfirmationPopover [title]="title" placement="right" (confirm)="deleteBranch(branch.id)" (cancel)="cancelClicked = true">usuń oddział</button>
-                <button class="mainBranchButton" *ngIf="!branch.main" (click)="changeMainBranch(branch.id)">Zmień na główny oddział</button>
-            </div>
-            <p *ngIf="branch.main">
-                <span *ngIf="error" class="error">Nie można usunąć głównego oddziału</span>
-            </p>
-            <div class="editBranch" [collapse]="branch.collapse">
-                <form [formGroup]="branchForm" (ngSubmit) = "editBranch(branchForm.value, branch.id)">
-                    <label>Nazwa</label>
-                    <input type="text" id="name" formControlName="name">
-                    <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
-                        Musisz wpisać nazwę
-                    </div>
+    <i class="fa fa-plus-circle fa-3x" aria-hidden="true" (click)="isCollapse = !isCollapse"></i>
 
-                    <label>Miasto</label>
-                    <input type="text" id="city" formControlName="city">
-                    <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched">
-                        Musisz wpisać miasto
-                    </div>
-
-                    <label>Ulica</label>
-                    <input type="text" id="street" formControlName="street">
-                    <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched">
-                        Musisz wpisać ulicę
-                    </div>
-
-                    <label>Nr ulicy</label>
-                    <input type="number" id="streetNo" formControlName="streetNo">
-                    <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched">
-                        Musisz wpisać nr ulicy
-                    </div>
-
-                    <label>Strona internetowa</label>
-                    <input type="text" id="website" formControlName="website">
-                    <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched">
-                        Musisz wpisać stronę internetową
-                    </div>
-
-                    <label>Numer telefonu</label>
-                    <input type="text" id="phoneNumber" formControlName="phoneNumber">
-                    <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched">
-                        Musisz wpisać numer telefonu
-                    </div>
-
-                    <label>Godziny otwarcia</label>
-                    <input type="text" id="openingHours" formControlName="openingHours">
-                    <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched">
-                        Musisz wpisać godziny otwarcia
-                    </div>
-
-                    <label>E-mail</label>
-                    <input type="text" id="email" formControlName="email">
-                    <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched">
-                        Musisz wpisać e mail
-                    </div>
-
-                    <label>Opis</label>
-                    <input type="text" id="description" formControlName="description">
-                    <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched">
-                        Musisz wpisać opis
-                    </div>
-
-                    <input type="submit" value="Edytuj oddział">
-                </form>
-            </div>
-            
-                
-            </div>
-
-            <i class="fa fa-plus-circle fa-3x" aria-hidden="true" (click)="isCollapse = !isCollapse"></i>
-
-            <div [collapse]="isCollapse" id="addCollapseDiv">
-                <form [formGroup]="branchForm" (ngSubmit) = "addNewBranch(branchForm.value)">
-                    <label>Nazwa</label>
-                    <input type="text" id="name" formControlName="name">
-                    <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
-                        Musisz wpisać nazwę
-                    </div>
-
-                    <label>Miasto</label>
-                    <input type="text" id="city" formControlName="city">
-                    <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched">
-                        Musisz wpisać miasto
-                    </div>
-
-                    <label>Ulica</label>
-                    <input type="text" id="street" formControlName="street">
-                    <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched">
-                        Musisz wpisać ulicę
-                    </div>
-
-                    <label>Nr ulicy</label>
-                    <input type="number" id="streetNo" formControlName="streetNo">
-                    <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched">
-                        Musisz wpisać nr ulicy
-                    </div>
-
-                    <label>Strona internetowa</label>
-                    <input type="text" id="website" formControlName="website">
-                    <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched">
-                        Musisz wpisać stronę internetową
-                    </div>
-
-                    <label>Numer telefonu</label>
-                    <input type="text" id="phoneNumber" formControlName="phoneNumber">
-                    <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched">
-                        Musisz wpisać numer telefonu
-                    </div>
-
-                    <label>Godziny otwarcia</label>
-                    <input type="text" id="openingHours" formControlName="openingHours">
-                    <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched">
-                        Musisz wpisać godziny otwarcia
-                    </div>
-
-                    <label>E-mail</label>
-                    <input type="email" id="email" formControlName="email">
-                    <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched">
-                        Musisz wpisać e mail
-                    </div>
-
-                    <label>Opis</label>
-                    <input type="text" id="description" formControlName="description">
-                    <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched">
-                        Musisz wpisać opis
-                    </div>
-
-                    <input type="submit" [disabled]="!branchForm.valid"  value="Stwórz oddział">
-                </form>
-            </div>
+    <div [collapse]="isCollapse" id="addCollapseDiv">
+        <profile-form [type] = "'dodaj'" (callParentMethod)="addNewBranch($event)"></profile-form>
+    </div>
 
 </div>

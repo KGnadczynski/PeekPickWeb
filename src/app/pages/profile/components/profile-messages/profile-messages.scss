@@ -1,0 +1,29 @@
+div#activeAndEndedPosts{
+    div.tabs{
+        margin-top: 2%;
+        display: flex;
+        justify-content: space-around;
+        font-family: 'Open Sans', sans-serif;
+        div{
+            border: 0 !important;
+            font-size: 20px;
+            background: white !important;
+            cursor: pointer;
+        }
+        div.selected{
+            border-bottom: 5px solid #A20E12 !important;
+            border-top: 0 !important;
+        }
+    }
+
+    div.tab-contents{
+        border: 0 !important;
+        margin-top: 3%;
+        @media(max-width: 565px){
+            margin: 4%;
+        }
+        @media(min-width: 992px){
+            margin: 20px 14%;
+        }
+    }
+}

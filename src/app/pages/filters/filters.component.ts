@@ -32,6 +32,7 @@ export class FiltersComponent implements OnInit{
     width: any;
     subcategories: {id: number, checked: boolean}[]= [];
     types: {name: string, checked: boolean}[] = [];
+    ifGeolocation: boolean = true;
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -140,6 +141,15 @@ export class FiltersComponent implements OnInit{
     }
 
     ngOnInit(): void {
+
+        navigator.geolocation.getCurrentPosition(
+            position => {},
+            error => {
+                if(error.code === error.PERMISSION_DENIED)
+                    console.log('you denied me');
+                this.ifGeolocation = false;
+            }
+        );
 
         if(window.innerWidth > 992){
             this.isFiltryCollapse = false;

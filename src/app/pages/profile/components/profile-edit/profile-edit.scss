@@ -1,3 +1,154 @@
-div{
+@import "../../profile.scss";
+
+div#companyInfo{
+    div#header{
+        text-align: center;
+        h3{
+            margin: 5px 0;
+            font-size: 20px;
+            font-family: 'Sanchez', serif;
+            color: $redColor;
+            display: inline-block;
+            width: auto;
+            font-weight: normal;
+        }
+    }
+    
+    form#changeEP{
+        input{
+            display: block;
+            margin: auto;
+            padding: 2%;
+            margin-bottom: 2%;
+            outline: 0;
+            border : 0;
+            border-bottom: 1px solid $blackColor;
+            width: 60%;
+            &::placeholder{
+                color: $blackColor;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 17px;
+            }
+        }
+        @include button('przycisk.png');
+    }
+}
+div#editProfile{
+    margin: auto;
+    margin-bottom: 2%;
+    @media (max-width: 575px){
+        padding: 0 3%;
+    }
+    div#editH{
+        text-align: center;
+        margin: 3% 0;
+        h3{
+            margin: 5px 0;
+            font-size: 20px;
+            font-family: 'Sanchez', serif;
+            color: $redColor;
+            display: inline-block;
+            width: auto;
+            font-weight: normal;
+        }
+    }
+    
+    
+    form#changeCI{
+        div.picture-group{
+            border: none;
+            width: auto;
+            height: auto;
+        }
+        input[type=text], input[type=password], input[type=email], input[type=number]{
+            width: 100%;
+            outline: 0;
+            border : 0;
+            border-bottom: 1px solid $blackColor;
+            font-size: 17px;
+            color: $blackColor;
+            &::placeholder{
+                color: $blackColor;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 17px;
+            }
+        }
+        div.image-upload{
+            width: 40%;
+            cursor: pointer;
+            border-radius: 1px;
+            float: left;
+
+            div.picture-wrapper{
+                width: 100%;
+                height: auto;
+                img{
+                    @media(max-width: 565px){
+                        width: 100px;
+                    }
+                    @media(min-width: 566px){
+                        width: 150px;
+                    }
+                    @media(min-width: 566px){
+                        width: 200px;
+                    }
+                }
+            }
+            a.change-picture, i.ion-ios-close-outline{
+                display: none;
+            }
+        }
+        div#name{
+            margin: 0;
+            float: right;
+            width: 60%;
+            padding-left: 5px;
+        }
+        div#address{
+            clear: both;
+            float: left;
+            margin: 4% 0;
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            @media(max-width: 565px){
+                padding: 0 6%;
+            }
+            @media(max-width: 565px){
+                flex-direction: column;
+            }
+            @media(min-width: 566px){
+                flex-direction: row;
+            }
+            div#town, div#street{
+                @media(max-width: 565px){
+                    width: 100%;
+                    margin-bottom: 30px;
+                }
+                @media(min-width: 566px){
+                    width: 39%;
+                }
+            }
+            div#streetNo{
+                @media(max-width: 565px){
+                    width: 100%;
+                    margin-bottom: 30px;
+                }
+                @media(min-width: 566px){
+                    width: 20%;
+                }
+            }
+        }
+        
+        @include button('przycisk.png');
+
+        label {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 17px;
+            color: $blackColor;
+        }
+
+    }
     
 }

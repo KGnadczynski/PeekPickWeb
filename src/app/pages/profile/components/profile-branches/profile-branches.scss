@@ -1,0 +1,85 @@
+@import "../../profile.scss";
+
+div#branches{
+    width: 90%;
+    margin: auto;
+    div.branch{
+        clear: both;
+        h2{
+            margin: 2% 0;
+            font-family: 'Open Sans', sans-serif;
+            color: $blackColor;
+            @media(max-width: 565px){
+                margin: 15px 0;
+            }
+            text-align: left;
+        }
+        p{
+            margin: 2% 0;
+            font-family: 'Open Sans', sans-serif;
+            color: $blackColor;
+            font-size: 16px;
+            @media(max-width: 565px){
+                margin: 10px 0;
+            }
+            text-align: left;
+        }
+        span.error{
+            color: #A20E12;
+        }
+    }
+    p{
+        text-align: center;
+    }
+    i.fa-plus-circle{
+        cursor: pointer;
+        color: $redColor;
+        text-align: center;
+        margin: auto;
+        display: block;
+    }
+    div#addCollapseDiv{
+        clear: both;
+        padding-top: 1%;
+        
+    }
+    div.buttons{
+        display: flex;
+        align-items: center;
+
+        @media(max-width: 565px){
+            margin: 20px 0;
+            flex-direction: column;
+        }
+
+        @media(min-width: 565px){
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        @include button('przycisk2.png');
+    }
+    
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 4% 0;
+        align-items: center;
+        label{
+            margin: 2% 0;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            color: $blackColor;
+            text-transform: lowercase;
+        }
+        input {
+            border: 0;
+            border-bottom: 1px solid $blackColor;
+            color: $blackColor;
+            outline: 0;
+            width: 50%;
+        }
+        @include button('przycisk2.png');
+    }
+}

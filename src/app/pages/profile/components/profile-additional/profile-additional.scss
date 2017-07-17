@@ -1,0 +1,83 @@
+@import "../../profile.scss";
+
+div#additionalInfo{
+    width: 100%;
+    margin: auto;
+
+    @media(max-width: 575px){
+        padding: 3%;
+    }
+    form{
+        input[type=text], input[type=password], input[type=email]{
+            width: 100%;
+            outline: 0;
+            border : 0;
+            border-bottom: 1px solid $blackColor;
+            font-size: 17px;
+            font-family: 'Open Sans', sans-serif;
+            color: $blackColor;
+            &::placeholder{
+                color: $blackColor;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 17px;
+            }
+        }
+        div#contact{
+            clear: both;
+            float: left;
+            margin: 1% 0 2% 0;
+            width: 100%;
+            div#website, div#phoneNumber, div#email{
+                width: 50%;
+                float: left;
+                padding-right: 2%;
+                margin: 2% 0;
+                @media(max-width: 575px){
+                    width: 100%;
+                }
+            }
+            div#openingHours{
+                width: 50%;
+                float: right;
+                margin-top: 2%;
+                @media(max-width: 575px){
+                    width: 100%;
+                }
+                
+                textarea{
+                    float: right;
+                    width: 100%;
+                    font-family: 'Open Sans', sans-serif;
+                    outline: 0;
+                }
+            }
+            div#description{
+                float: left;
+                clear: both;
+                width: 100%;
+                margin: 1% 0;
+                label{
+                    display: block;
+                }
+                textarea{
+                    width: 100%;
+                    font-family: 'Open Sans', sans-serif;
+                    outline: 0;
+                }
+            }
+        }
+
+        label{
+            display: block;
+            
+            font-family: 'Open Sans', sans-serif;
+            font-size: 17px;
+            color: $blackColor;
+            @media(max-width: 575px){
+                text-align: left;
+            }
+        }
+
+        @include button('przycisk.png');
+    }
+}

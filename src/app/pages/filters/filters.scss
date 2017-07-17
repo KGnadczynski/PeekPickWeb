@@ -56,11 +56,15 @@ $blackColor: #263238;
 }
 
 div#filterInside{
-    @media(max-width: 565px){
-        width: 94%;
-    }
     width: 375px;
     margin: auto;
+    @media(max-width: 565px){
+        padding: 0 3%;
+    }
+    @media(min-width: 992px){
+        width: 300px;
+    }
+    
 }
 
 div#head{

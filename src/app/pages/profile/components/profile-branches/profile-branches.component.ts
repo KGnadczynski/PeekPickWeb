@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'profile-branches',
     encapsulation: ViewEncapsulation.None,
+    styles: [require('./profile-branches.scss')],
     template: require('./profile-branches.component.html'),
     providers: [ProfileService]
 })
@@ -13,7 +14,6 @@ import { Router } from '@angular/router';
 export class ProfileBranchesComponent implements OnInit {
 
 	companyBranches: any[];
-	branchForm: FormGroup;
 	isCollapse:boolean = true;
 	error: string = "";
 
@@ -22,19 +22,7 @@ export class ProfileBranchesComponent implements OnInit {
     cancelClicked: boolean = false;
     isOpen: boolean = false;
 
-    constructor(private profileService: ProfileService, private fb: FormBuilder){
-		this.branchForm = fb.group({
-            'name': [null, Validators.required],
-            'city': [null, Validators.required],
-            'street': [null, Validators.required],
-            'streetNo': [null, Validators.required],
-            'website': '',
-            'phoneNumber': '',
-            'openingHours': '',
-            'description': '',
-            'email': ''
-        });
-	}
+    constructor(private profileService: ProfileService, private fb: FormBuilder){}
 
     ngOnInit(): void {
 
@@ -50,7 +38,12 @@ export class ProfileBranchesComponent implements OnInit {
                 );
             }
         );
-	}
+    }
+    
+    addOrEdit(event: any){
+        console.log('emmitiing is working');
+        console.dir(event);
+    }
 	
 	editBranch(value:any, id: number){
         
@@ -64,15 +57,14 @@ export class ProfileBranchesComponent implements OnInit {
             this.profileService.editBranch(companyBranch, companyBranch.id).subscribe(editedBranch => {
                 let objIndex = this.companyBranches.findIndex((obj => obj.id === companyBranch.id));
                 this.companyBranches[objIndex] = editedBranch;
-                this.branchForm.reset();
+                this.companyBranches[objIndex].collapse = !this.companyBranches[objIndex].collapse;
             });
-
         });
 
 	}
 	
 	addNewBranch(value): void{
-        
+
         this.profileService.getUser().subscribe(user => {
             this.profileService.getCompanyBranches(user.company.id).subscribe(branches => {
                 let size = branches.length;
@@ -105,8 +97,7 @@ export class ProfileBranchesComponent implements OnInit {
                 
                 this.profileService.addNewBranch(body).subscribe(result => {
                     this.companyBranches.push(result);
-                    this.branchForm.reset();
-
+                    
                     this.companyBranches.forEach((obj) =>{
                         obj.collapse = true;
                     });
@@ -122,7 +113,7 @@ export class ProfileBranchesComponent implements OnInit {
                 );
             });
         });
-	}
+    }
 	
 	deleteBranch(id: number): void{
         console.log('deleteing');

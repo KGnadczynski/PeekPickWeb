@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder} from '@angular/forms';
 @Component({
     selector: 'profile-additional',
     encapsulation: ViewEncapsulation.None,
+    styles: [require('./profile-additional.scss')],
     template: require('./profile-additional.component.html'),
     providers: [ProfileService]
 })

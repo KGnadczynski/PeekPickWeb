@@ -31,7 +31,8 @@
             <h5>Sortuj po:</h5>
             
             <div class="filterBy">
-                <div class="checkbox">
+                
+                <div class="checkbox" *ngIf="ifGeolocation">
                     <input type="radio" id="distance" name="filterBy" value="DISTANCE" formControlName="filterBy"> 
                     <label for="distance"></label>
                     <span>lokalizacja</span>
@@ -44,6 +45,8 @@
                 </div>
 
             </div>
+
+
 
             <div class="blacklineF">
                 <div></div>

@@ -1,17 +1,3 @@
-div.filterMessages{
-    /*padding: 0vw 3vw;
-    @media (max-width: 576px){
-        padding: 2vw 3vw;
-    }
-    @media (min-width: 577px) and (max-width: 992px){
-        padding: 1vw 12vw;
-    }
-    @media(min-width: 1200px){
-        padding: 0;
-    }*/
-    
-}
-
 div.messagesDiv{
     padding-top: 3vw;
     @media(max-width: 565px){
@@ -26,7 +12,6 @@ div.messagesDiv{
     @media(min-width: 992px){
         padding: 0;
     }
-
 }
 
 div.mainPage{
@@ -83,6 +68,7 @@ div.mainPage{
 @media (min-width: 992px) {
   div.mainPage{
     flex-direction: row;
+    justify-content: space-between;
     width: 100%;
     div.blankDiv{
       order: 1;
@@ -90,15 +76,15 @@ div.mainPage{
     }
     div.messagesDiv{
       order: 2;
-      width: (100%/3);
+      width: 80%;
     }
     div.filterMessages{
       order: 3;
-      width: (100%/3);
+      // width: (100%/3);
+      width: auto;
+      padding-left: 20px;
     }
   }
-}
-@media (min-width: 1200px) {
 }
 
 /*! nouislider - 9.2.0 - 2017-01-11 10:35:35 */

@@ -4,8 +4,6 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { MessagesService } from './messages.service';
 import { MessageList } from './messageList.model';
 import { BaPageTopService} from '../../theme';
-// import { ConfirmOptions, Position } from 'angular2-bootstrap-confirm';
-// import { Positioning } from 'angular2-bootstrap-confirm/position';
 import { KomunikatServiceComponent } from '../komunikat-single/komunikat-single.service';
 import { ObjectList } from '../komunikat/komunikat';
 
@@ -16,9 +14,7 @@ let moment = require('../../../../node_modules/moment/moment');
     encapsulation: ViewEncapsulation.None,
     styles: [require('./messages.scss')],
     template: require('./messages.component.html'),
-    providers: [MessagesService, KomunikatServiceComponent
-    // , ConfirmOptions, {provide: Position, useClass: Positioning}
-    ]
+    providers: [ MessagesService, KomunikatServiceComponent ]
 })
 
 export class MessagesComponent implements OnInit{

@@ -4,6 +4,7 @@ import { MessagesComponent } from '../../../messages/messages.component';
 @Component({
   selector: 'profile-messages',
   encapsulation: ViewEncapsulation.None,
+  styles: [require('./profile-messages.scss')],
   template: require('./profile-messages.component.html'),
 })
 
