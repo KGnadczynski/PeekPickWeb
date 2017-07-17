@@ -13,6 +13,7 @@ export class BaMenuService {
   imageChange: Subject<string> = new Subject<string>();
 
   protected _currentMenuItem = {};
+  protected _previousMenuItem = {};
 
   constructor(private _router:Router) { }
 
@@ -43,12 +44,22 @@ export class BaMenuService {
     return this._currentMenuItem;
   }
 
+  public getPreviousItem():any {
+    return this._previousMenuItem;
+  }
+
   public selectMenuItem(menuItems:any[]):any[] {
     let items = [];
+    menuItems.forEach((item) => {
+      if(item.selected) {
+         item.icon=item.icon_unselected;
+      }
+    });
     menuItems.forEach((item) => {
       this._selectItem(item);
 
       if (item.selected) {
+         item.icon=item.icon_selected;
         this._currentMenuItem = item;
       }
 
