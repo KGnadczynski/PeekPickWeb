@@ -15,6 +15,7 @@ import { BaMenuService, BaPageTopService} from '../../theme';
 import { Routes } from '@angular/router';
 import { PAGES_MENU } from '../pages.menu';
 import { ProfileService } from '../profile/profile.service';
+import {GlobalState} from '../../global.state'
 
 @Component({
   selector: 'komunikatcomponent',
@@ -38,10 +39,12 @@ export class KomunikatComponent implements OnInit {
     @Inject(FirebaseApp) private _firebaseApp: firebase.app.App,
     private menuService: BaMenuService,
     private profileService: ProfileService,
-    private topService: BaPageTopService
+    private topService: BaPageTopService,
+    private _state:GlobalState
   ){}
 
   ngOnInit() {
+        this._state.notifyDataChanged('menu.isCollapsed',false);  
         var currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
 
         if(currentUser != null) {

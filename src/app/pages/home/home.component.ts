@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ProfileService } from '../profile/profile.service';
 import { Router } from "@angular/router";
+import {GlobalState} from '../../global.state'
 
 @Component({
     selector: 'home',
@@ -12,7 +13,9 @@ import { Router } from "@angular/router";
 
 export class HomeComponent implements OnInit {
 
-    constructor(private profileService: ProfileService, private router: Router){}
+    constructor(private profileService: ProfileService, private router: Router, private _state:GlobalState){
+        this._state.notifyDataChanged('menu.isCollapsed',true);
+    }
 
     ngOnInit():void {
 
