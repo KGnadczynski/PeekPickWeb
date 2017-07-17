@@ -14,7 +14,7 @@ import { MessagesService } from '../messages/messages.service';
 import { ObjectList } from '../messages/message';
 import { CompanyBranchList } from "./add-message-model";
 import { Daterangepicker } from 'ng2-daterangepicker';
-import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
+import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings, MultiselectDropdown } from 'angular-2-dropdown-multiselect';
 import { DaterangepickerConfig } from 'ng2-daterangepicker';
 
 let moment = require('../../../../node_modules/moment/moment');
@@ -74,20 +74,21 @@ export class AddMessageComponent implements OnInit {
 
     mySettings: IMultiSelectSettings = {
         checkedStyle: 'glyphicon',
-        dynamicTitleMaxItems: 3,
+        // dynamicTitleMaxItems: 3,
         showCheckAll: true,
 		showUncheckAll: true,
-        displayAllSelectedText: true
+        // displayAllSelectedText: fa/lse,
+        buttonClasses: '',
     };
 
     myTexts: IMultiSelectTexts = {
-        checkAll: 'Wybierz wszystkie',
-        uncheckAll: 'Wyczyść',
-        checked: 'item selected',
-        checkedPlural: 'items selected',
-        searchPlaceholder: 'Find',
+        checkAll: 'wybierz wszystkie',
+        uncheckAll: 'wyczyść',
+        checked: 'wybrany oddział',
+        checkedPlural: 'wybrane oddziały',
+        searchPlaceholder: 'szukaj',
         defaultTitle: '',
-        allSelected: 'All selected',
+        allSelected: 'wszystkie wybrane',
     };
 
     callback = (address: string) : void => {
@@ -191,17 +192,23 @@ export class AddMessageComponent implements OnInit {
     };
 
     selectStartDate(message) {
+
         this.msgAddModel.startDate = moment(new Date(message.start._d)).format("YYYY-MM-DD HH:mm:ss");
+        console.log('this.msgAddModel.startDate: ' + this.msgAddModel.startDate);
         this.pickerOptionsEnd['minDate'] = '04/01/2017';
+
     }
 
     selectEndDate(message) {
         this.msgAddModel.endDate = moment(new Date(message.end._d)).format("YYYY-MM-DD HH:mm:ss");
+        console.log('this.msgAddModel.endDate: ' + this.msgAddModel.endDate);
     }
 
     @ViewChild('childModal') public childModal: ModalDirective;
     @ViewChild('fileUpload') public fileUpload:any;
     @ViewChild('datePickerStart') public datePickerStart:Daterangepicker;
+    @ViewChild('datePickerEnd') public datePickerEnd: Daterangepicker;
+    @ViewChild('multiSelectDropdown') public multiSelectDropdown: MultiselectDropdown;
 
     constructor(
         private route: ActivatedRoute,

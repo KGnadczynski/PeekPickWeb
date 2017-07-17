@@ -24,21 +24,27 @@
             </div>
 
             <div class="date">
-                <img src="../../meta/calendar.png" alt="">
+                <div daterangepicker #datePickerStart [options]="pickerOptionsStart" (selected)="selectStartDate($event)">
+                    <img src="../../meta/calendar.png" alt="">
+                </div>
                 <div class="text">
                     <p>Data rozpoczęcia: </p>
-                    <input  daterangepicker #datePickerStart [(ngModel)]="msgAddModel.startDate" (selected)="selectStartDate($event)" [options]="pickerOptionsStart" type="submit"/>
+                        <!-- <input daterangepicker #datePickerStart [(ngModel)]="msgAddModel.startDate" (selected)="selectStartDate($event)" [options]="pickerOptionsStart" type="submit"/>   -->
+                    <p>{{ msgAddModel.startDate }}</p>
                 </div>
             </div>
 
             <div class="date">
-                <img src="../../meta/calendar.png" alt="">
+                <div daterangepicker #datePickerEnd (selected)="selectEndDate($event)" [options]="pickerOptionsEnd">
+                    <img src="../../meta/calendar.png" alt="">
+                </div>
+                
                 <div class="text">
                     <p>Data zakończenia: </p>
-                    
-                    
+                    <p>{{ msgAddModel.endDate }}</p>
+
                     <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
-                      <input daterangepicker [(ngModel)]="msgAddModel.endDate" (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" />
+                      <!-- <input daterangepicker [(ngModel)]="msgAddModel.endDate" (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" /> -->
                     </div>
                     <div class="checkBoxDiv">
                         <div class="checkbox">
@@ -90,10 +96,16 @@
             </div>
 
             <div class="odzialFirmy">
-              <ss-multiselect-dropdown *ngIf="showMulitSelect" [texts]="myTexts" [settings]="mySettings" defaultTitle="" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
-              <p *ngIf="showMulitSelect">wybierz oddział firmy</p>
-              <p *ngIf="!showMulitSelect">firma nie ma oddziałów</p>
+            <ss-multiselect-dropdown *ngIf="showMulitSelect" [texts]="myTexts" [settings]="mySettings" defaultTitle="" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown> 
               
+                <p *ngIf="showMulitSelect">wybierz oddział firmy</p>
+                <p *ngIf="!showMulitSelect">firma nie ma oddziałów</p>
+				<div *ngIf="companyBranchListSelectedFinal.length > 0" class="chosenBranches">
+					<span>Wybrałeś oddziały</span>
+					<p *ngFor="let option of companyBranchListSelectedFinal">
+						{{ option.name }}
+					</p>
+				</div>
             </div>
 
             <div [collapse]="isLocationCollapsed">

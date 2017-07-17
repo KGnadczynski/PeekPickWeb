@@ -128,14 +128,9 @@ div.modal-content{
                 width: 50%;
             }
             img{
-                // @media(max-width:565px){
-                    width: 53px;
-                    height: 53px;
-                // }
-                // @media(min-width: 566px){
-                //     width: 78px;
-                //     height: 78px;
-                // }
+                cursor: pointer;
+                width: 53px;
+                height: 53px;
             }
             div.text{
                 display: flex;
@@ -221,6 +216,12 @@ div.modal-content{
         }
         
         div.odzialFirmy{
+
+            div.chosenBranches{
+                span{
+                    color: $colorRed;
+                }
+            }
             
             div.dropdown{
                 text-align: center;
@@ -229,7 +230,9 @@ div.modal-content{
                 // }
                 button{
                     border: 0;
+                    outline: 0;
                     border-radius: 0;
+                    text-indent: -9999em;
                     // padding: 10px;
                     @media(max-width: 565px){
                         margin-left: 18px !important;
@@ -239,7 +242,8 @@ div.modal-content{
                     }
                     padding: 0 !important;
                     
-                    background-image: url('../../meta/map-marker.png');
+                    background-image: url('../../meta/oddzialy.png');
+                    
                     width: 53px;
                     height: 53px;
                     background-size: 53px 53px;
@@ -254,7 +258,8 @@ div.modal-content{
             }
             ul {
                 min-width: 240px;
-                border: 2px solid $colorBlack;
+                border: 1px solid $colorBlack;
+                border-radius: 0;
                 left: 20%;
                 @media(max-width: 565px){
                     top: -230px;
@@ -271,7 +276,7 @@ div.modal-content{
                     a {
                         color: $colorBlack;
                         font-size: 16px;
-                        padding: 13px 0;
+                        padding: 5px 0;
                         display: block;
                     }
                 }
@@ -323,6 +328,9 @@ div#addPhoto, div#addLocalization{
     }
     @media(min-width: 992px){
         padding-top: 10px;
+    }
+    @media(min-width: 1200px){
+        padding-top: 0px;
     }
     
 }
