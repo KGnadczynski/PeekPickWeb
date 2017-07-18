@@ -22,7 +22,7 @@ let moment = require('../../../../node_modules/moment/moment');
 @Component({
     selector: 'add-message',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./add-message.scss')],
+    styles: [require('./add-message.scss'), require('../../../../node_modules/ng2-daterangepicker/daterangepicker.component.css')],
     template: require('./add-message.component.html'),
     providers: [AddMessageService, MessagesService]
 })

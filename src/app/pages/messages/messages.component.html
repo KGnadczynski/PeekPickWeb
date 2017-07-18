@@ -42,7 +42,7 @@
 						Data rozpoczęcia
 					</span>
 					<p>
-						{{ message.startDate | date: 'dd.MM.yyyy hh:mm' }}
+						 {{ message.startDate | date: 'dd.MM.yyyy HH:mm' }} 
 					</p>
 				</div>
 				<div class="no-date" *ngIf="!message.startDate">
@@ -54,7 +54,7 @@
 						Data zakończenia
 					</span>
 					<p>
-						{{ message.endDate | date: 'dd.MM.yyyy hh:mm' }}
+						{{ message.endDate | date: 'dd.MM.yyyy HH:mm' }}
 					</p>
 				</div>
 

@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { NgUploaderModule } from 'ngx-uploader';
 import { Ng2LetterAvatar } from "ng2letteravatar/ng2letteravatar";
 import { Ng2CompleterModule } from "ng2-completer";
-import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
+import { SlimLoadingBarModule} from 'ng2-slim-loading-bar';
 import { NouisliderModule } from 'ng2-nouislider';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 

@@ -1,3 +1,5 @@
+// @import "~ng2-daterangepicker/daterangepicker.component.css";
+
 $colorRed: #A20E12;
 $colorBlack: #263238;
 
@@ -319,7 +321,7 @@ div.daterangepicker {
     }
 }
 
-div#addPhoto, div#addLocalization{
+/*div#addPhoto, div#addLocalization{
     @media(max-width: 565px){
         padding-top: 0;
     }
@@ -333,7 +335,7 @@ div#addPhoto, div#addLocalization{
         padding-top: 0px;
     }
     
-}
+}*/
 
 div#addPhoto, div#addLocalization div.iconAndP, div.odzialFirmy{
     display: flex;

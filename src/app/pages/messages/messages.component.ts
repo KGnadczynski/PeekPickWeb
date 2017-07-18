@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output, LOCALE_ID } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router,ActivatedRoute } from '@angular/router';
 import { MessagesService } from './messages.service';
@@ -14,7 +14,7 @@ let moment = require('../../../../node_modules/moment/moment');
     encapsulation: ViewEncapsulation.None,
     styles: [require('./messages.scss')],
     template: require('./messages.component.html'),
-    providers: [ MessagesService, KomunikatServiceComponent ]
+    providers: [ MessagesService, KomunikatServiceComponent, {provide: LOCALE_ID, useValue: "pl"} ]
 })
 
 export class MessagesComponent implements OnInit{

@@ -1,6 +1,6 @@
-import {Component, ViewEncapsulation, OnInit, NgModule} from '@angular/core';
-import {GlobalState} from '../../../global.state';
-import {CommunicationService} from '../../../pages/komunikat/communicationservice.component';
+import { Component, ViewEncapsulation, OnInit, NgModule} from '@angular/core';
+import { GlobalState } from '../../../global.state';
+import { CommunicationService } from '../../../pages/komunikat/communicationservice.component';
 import { MessageType } from '../../../globals/enums/message-type.enum';
 import { BaPageTopService } from '../../services';
 import { url } from '../../../globals/url';
@@ -100,9 +100,8 @@ export class BaPageTop implements OnInit{
             }
         );
 
-        for(let i = this.messageTypes.length-1; i >= 0; i--)
-            if(i%2 !== 0)
-                this.messageTypesOb.push({name: this.messageTypes[i-1], value: this.messageTypes[i]});
+        for(let i = 0; i < this.messageTypes.length; i = i+2)
+            this.messageTypesOb.push({name: this.messageTypes[i], value: this.messageTypes[i+1]});
         
     }
 
@@ -116,10 +115,6 @@ export class BaPageTop implements OnInit{
     scrolledChanged(isScrolled) {
         this.isScrolled = isScrolled;
     }
-
-    /*public search(term:string) {
-        this.communicationservice.szukajKomunikat(term);
-    }*/
 
     startLoading() {
         this.slimLoadingBarService.start(() => {
@@ -162,15 +157,15 @@ export class BaPageTop implements OnInit{
                     "height": "100%",
                     "background-color": "white",
                     "opacity": 0.6,
-                    // "z-index": 1000,
                     "top": 0,
                     "left": 0,
                 });
                 $('#footer').css({
-                    "position": 'fixed',
+                    "display": "none"
+                    /*"position": 'fixed',
                     "background-color": "white",
                     "opacity": 0.6,
-                    "bottom": 0,
+                    "bottom": 0,*/
                 });
 
                 break;
@@ -182,15 +177,15 @@ export class BaPageTop implements OnInit{
                     "height": "initial",
                     "background-color": "transparent",
                     "opacity": 1,
-                    // "z-index": 0,
                     "top": "auto",
                     "left": "auto",
                 });
                 $('#footer').css({
-                    "position": 'relative',
+                    "display": "block"
+                    /*"position": 'relative',
                     "background-color": "transparent",
                     "opacity": 1,
-                    "bottom": "auto",
+                    "bottom": "auto",*/
                 });
 
                 break;
@@ -214,15 +209,15 @@ export class BaPageTop implements OnInit{
             "height": "initial",
             "background-color": "transparent",
             "opacity": 1,
-            // "z-index": 0,
             "top": "auto",
             "left": "auto",
         });
         $('#footer').css({
-            "position": 'relative',
+            "display": "block"
+            /*"position": 'relative',
             "background-color": "transparent",
             "opacity": 1,
-            "bottom": "auto",
+            "bottom": "auto",*/
         });
         this.ifDarkened = !this.ifDarkened;
     }
