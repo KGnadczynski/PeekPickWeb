@@ -146,7 +146,6 @@ export class BaPageTop implements OnInit{
 
   darkenBody():void {
         this.ifDarkened = !this.ifDarkened;
-        console.log('ifdarkened: ' + this.ifDarkened);
         
         switch (this.ifDarkened) {
             case true:

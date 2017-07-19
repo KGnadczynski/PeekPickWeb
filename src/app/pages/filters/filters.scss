@@ -114,6 +114,21 @@ form#mainForm{
         padding: 0;
     }
 
+    div.geolocationError{
+        p{
+            font-family: 'Open Sans', sans-serif;
+            margin: 20px 0;
+            text-align: center;
+            color: $blackColor;
+            font-size: 16px;
+            line-height: 20px;
+            span{
+                font-family: 'Open Sans', sans-serif;
+                color: $redColor;
+            }
+        }
+    }
+
     h5{
       font-family: 'Open Sans', sans-serif;
       margin: 4% 0;

@@ -27,33 +27,18 @@ export class ProfileFormComponent implements OnInit {
             'phoneNumber': '',
             'openingHours': '',
             'description': '',
-            'email': ''
+            'email': [null, Validators.required]
         });
     }
 
     ngOnInit(): void {
-
         if(this.branch !== undefined)
             this.branchForm.patchValue(this.branch);
-        
     }
 
     action(value: any): void{
-
-        switch (this.type) {
-            case 'edytuj':
-                this.callParentMethod.emit(value);
-                this.branchForm.reset();
-
-                break;
-        
-            case 'dodaj':
-                this.callParentMethod.emit(value);
-                this.branchForm.reset();
-                
-            default:
-                break;
-        }
+        this.callParentMethod.emit(value);
+        this.branchForm.reset();
     }
 
 }

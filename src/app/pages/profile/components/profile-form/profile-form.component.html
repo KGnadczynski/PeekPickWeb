@@ -1,57 +1,61 @@
-<form [formGroup]="branchForm" (ngSubmit)="action(branchForm.value)">
+<form id="profile-form" [formGroup]="branchForm" (ngSubmit)="action(branchForm.value)">
     <label>Nazwa</label>
     <input type="text" id="name" formControlName="name">
-    <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched">
+    <div *ngIf="!branchForm.controls['name'].valid && branchForm.controls['name'].touched" class="error">
         Musisz wpisać nazwę
     </div>
 
     <label>Miasto</label>
     <input type="text" id="city" formControlName="city">
-    <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched">
+    <div *ngIf="!branchForm.controls['city'].valid && branchForm.controls['city'].touched" class="error">
         Musisz wpisać miasto
     </div>
 
     <label>Ulica</label>
     <input type="text" id="street" formControlName="street">
-    <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched">
+    <div *ngIf="!branchForm.controls['street'].valid && branchForm.controls['street'].touched" class="error">
         Musisz wpisać ulicę
     </div>
 
     <label>Nr ulicy</label>
     <input type="number" id="streetNo" formControlName="streetNo">
-    <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched">
+    <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched" class="error">
         Musisz wpisać nr ulicy
     </div>
 
     <label>Strona internetowa</label>
     <input type="text" id="website" formControlName="website">
-    <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched">
+    <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched" class="error">
         Musisz wpisać stronę internetową
     </div>
 
     <label>Numer telefonu</label>
     <input type="text" id="phoneNumber" formControlName="phoneNumber">
-    <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched">
+    <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched" class="error">
         Musisz wpisać numer telefonu
     </div>
 
     <label>Godziny otwarcia</label>
     <input type="text" id="openingHours" formControlName="openingHours">
-    <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched">
+    <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched" class="error">
         Musisz wpisać godziny otwarcia
     </div>
 
     <label>E-mail</label>
-    <input type="text" id="email" formControlName="email">
-    <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched">
+    <input type="text" id="email" formControlName="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+    <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched" class="error">
         Musisz wpisać e mail
+        <!-- <div *ngIf="branchForm.controls['email'].hasError('email')">
+            Niepoprawny email
+        </div> -->
     </div>
+    
 
     <label>Opis</label>
     <input type="text" id="description" formControlName="description">
-    <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched">
+    <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched" class="error">
         Musisz wpisać opis
     </div>
 
-    <input type="submit" value="{{ type }} oddział">
+    <input type="submit" [disabled]="!branchForm.valid" value="{{ type }} oddział" [ngClass]="{disabled: !branchForm.valid}">
 </form>

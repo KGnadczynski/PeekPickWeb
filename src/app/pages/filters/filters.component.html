@@ -35,7 +35,7 @@
                 <div class="checkbox" *ngIf="ifGeolocation">
                     <input type="radio" id="distance" name="filterBy" value="DISTANCE" formControlName="filterBy"> 
                     <label for="distance"></label>
-                    <span>lokalizacja</span>
+                    <span>najbliższe</span>
                 </div>
                 
                 <div class="checkbox">
@@ -44,6 +44,10 @@
                     <span>data dodania</span>
                 </div>
 
+            </div>
+
+            <div *ngIf="!ifGeolocation" class="geolocationError">
+                <p>jeśli chcesz sortować po <span>najbliższych</span> pozwól na dostęp do lokalizacji</p>
             </div>
 
             <div class="blacklineF">
@@ -60,7 +64,11 @@
             
             <h5>Odległość</h5>
             <div id="nouisliderDiv">
-                <nouislider [min]="0.5" [max]="101" [step]="1" [(ngModel)]="someValue" formControlName="distance"></nouislider>
+                <nouislider #nouislider [min]="0.5" [max]="101" [step]="1" [(ngModel)]="someValue" formControlName="distance"></nouislider>
+            </div>
+
+            <div *ngIf="!ifGeolocation && nouislider.disabled" class="geolocationError">
+                <p>Jeśli chcesz uaktywnić suwak wpisz miasto</p>
             </div>
             
             <p id="distance">

@@ -29,7 +29,7 @@
 				<i *ngIf="message.type === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
 				<i *ngIf="message.type === 'WORTH_SEEING'" class="material-icons">visibility</i>
 				<i *ngIf="message.type === 'PROMOTION'" class="material-icons">loyalty</i>
-				<p>{{getDistance(message)}}</p>
+				<p *ngIf="ifGeolocation">{{getDistance(message)}}</p>
 			</div>
 
 			<div class="message-content" (click)="goToSingle(message.id)">

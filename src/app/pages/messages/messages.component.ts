@@ -34,6 +34,7 @@ export class MessagesComponent implements OnInit{
     message: ObjectList;
     lat: number;
     lng: number;
+    ifGeolocation: boolean = true;
 
     public title: string = 'Czy jesteś pewny że chcesz usunąć tę wiadomość?';
     public confirmClicked: boolean = false;
@@ -52,6 +53,15 @@ export class MessagesComponent implements OnInit{
     }
 
     ngOnInit():void{
+
+        navigator.geolocation.getCurrentPosition(
+            position => {},
+            error => {
+                if(error.code === error.PERMISSION_DENIED)
+                    console.log('you denied me');
+                this.ifGeolocation = false;
+            }
+        );
 
         this.route.queryParams.subscribe(params => {
             this.searchTerm = params["searchTerm"];
@@ -321,9 +331,9 @@ export class MessagesComponent implements OnInit{
     }
 
     filter(event: any){
-        // console.log('data event: ');
-        // console.dir(event);
-        this.pageTopService.showLoadingBar(true);
+        console.log('data event: ');
+        console.dir(event);
+        /*this.pageTopService.showLoadingBar(true);
         
         let params: string = "";
         event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
@@ -334,7 +344,7 @@ export class MessagesComponent implements OnInit{
         });
         params = params.substring(0, params.length-1);
         
-        if(this.latitude !== undefined && this.longitude !== undefined && !event.latitude && !event.longitude)
+        if((this.latitude !== undefined && this.longitude !== undefined) || (!event.latitude && !event.longitude))
             params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
 
         console.log('params: ' + params);
@@ -346,7 +356,7 @@ export class MessagesComponent implements OnInit{
             console.dir(result);
         }, (error) => {
             this.pageTopService.showLoadingBar(false);
-        });
+        });*/
 
     }
 

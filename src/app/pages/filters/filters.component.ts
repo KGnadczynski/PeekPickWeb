@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { MessageType } from '../../globals/enums/message-type.enum';
 import { FiltersService } from './filters.service';
 import { MapsAPILoader } from '@agm/core';
+import { NouisliderComponent } from 'ng2-nouislider';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -33,9 +34,18 @@ export class FiltersComponent implements OnInit{
     subcategories: {id: number, checked: boolean}[]= [];
     types: {name: string, checked: boolean}[] = [];
     ifGeolocation: boolean = true;
+    params: {sortType: string, startBeforeDate: string, range: number, messageTypeList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
+        sortType: '',
+        startBeforeDate: '',
+        range: 0,
+        messageTypeList: "",
+        latitude: 0,
+        longitude: 0,
+        companyCategoryIdList: ""
+    };
 
-    @ViewChild("search")
-    public searchElementRef: ElementRef;
+    @ViewChild("search") public searchElementRef: ElementRef;
+    @ViewChild("nouislider") nouislider: NouisliderComponent;
 
     constructor(private fb: FormBuilder, private filtersService: FiltersService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone){
         this.filterForm = this.fb.group({
@@ -51,18 +61,11 @@ export class FiltersComponent implements OnInit{
 
         this.filterForm.valueChanges.subscribe(data => {
 
-            // console.log('data: ');
-            // console.dir(data);
-
-            let params: {sortType: string, startBeforeDate: string, range: number, messageTypeList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
-                sortType: '',
-                startBeforeDate: '',
-                range: 0,
-                messageTypeList: "",
-                latitude: 0,
-                longitude: 0,
-                companyCategoryIdList: ""
-            };
+            if(data.searchControl){
+                this.nouislider.disabled = false;
+            } else {
+                this.nouislider.disabled = true;
+            }
 
             this.mapsAPILoader.load().then(() => {
                 let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
@@ -77,10 +80,11 @@ export class FiltersComponent implements OnInit{
 
                         this.latitude = place.geometry.location.lat();
                         this.longitude = place.geometry.location.lng();
-                        params.latitude = this.latitude;
-                        params.longitude = this.longitude;
+                        this.params.latitude = this.latitude;
+                        this.params.longitude = this.longitude;
                         
-                        this.myEvent.emit(params);
+                        this.myEvent.emit(this.params);
+                        this.nouislider.disabled = false;
                         
                         this.zoom = 12;
                     })
@@ -88,27 +92,27 @@ export class FiltersComponent implements OnInit{
             });
 
             if(data.filterBy)
-                params.sortType = data.filterBy;
+                this.params.sortType = data.filterBy;
             
             if(data.distance < 101)
-                params.range = data.distance;
+                this.params.range = data.distance;
             
             if(data.startBeforeDate){
                 let date: any = Date.now();
                 date = moment().format("YYYY-MM-DD HH:mm");
-                params.startBeforeDate = date;
+                this.params.startBeforeDate = date;
             }
 
             if(data.types)
-                params.messageTypeList = data.types;
+                this.params.messageTypeList = data.types;
 
             if(data.subtrades)
-                params.companyCategoryIdList = data.subtrades;
+                this.params.companyCategoryIdList = data.subtrades;
 
             let i = 0, j = 0;
-            Object.keys(params).forEach((key)=>{
-                if(params[key]) i++;
-                if(params[key] === 'DISTANCE'){
+            Object.keys(this.params).forEach((key)=>{
+                if(this.params[key]) i++;
+                if(this.params[key] === 'DISTANCE'){
                     j++;
                 }
             });
@@ -119,9 +123,9 @@ export class FiltersComponent implements OnInit{
                 x = 1;
                 // console.log('params: ');
                 // console.dir(params);
-                this.myEvent.emit(params);
+                this.myEvent.emit(this.params);
             } else if(i === 1 && x === 1){
-                this.myEvent.emit(params);
+                this.myEvent.emit(this.params);
             }
 
         });
@@ -148,6 +152,7 @@ export class FiltersComponent implements OnInit{
                 if(error.code === error.PERMISSION_DENIED)
                     console.log('you denied me');
                 this.ifGeolocation = false;
+                this.nouislider.disabled = true;
             }
         );
 

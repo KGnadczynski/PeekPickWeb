@@ -157,7 +157,17 @@ a {
       right: 0;
       background: white;
   }
+
+  
 }
+
+// ba-footer{
+// @media(min-width: 768px){
+// 	position: absolute;
+// 	bottom: 0;
+// 	width: 100%;
+// }
+// }
 
 @media screen and (max-width: $resXS) {
   /*.al-content {
