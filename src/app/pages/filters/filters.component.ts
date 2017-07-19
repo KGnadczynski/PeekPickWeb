@@ -39,8 +39,8 @@ export class FiltersComponent implements OnInit{
         startBeforeDate: '',
         range: 0,
         messageTypeList: "",
-        latitude: 0,
-        longitude: 0,
+        latitude: null,
+        longitude: null,
         companyCategoryIdList: ""
     };
 
@@ -65,6 +65,9 @@ export class FiltersComponent implements OnInit{
                 this.nouislider.disabled = false;
             } else {
                 this.nouislider.disabled = true;
+                this.params.latitude = null;
+                this.params.longitude = null;
+                this.ifGeolocation = false;
             }
 
             this.mapsAPILoader.load().then(() => {
@@ -85,6 +88,7 @@ export class FiltersComponent implements OnInit{
                         
                         this.myEvent.emit(this.params);
                         this.nouislider.disabled = false;
+                        this.ifGeolocation = true;
                         
                         this.zoom = 12;
                     })
@@ -101,13 +105,19 @@ export class FiltersComponent implements OnInit{
                 let date: any = Date.now();
                 date = moment().format("YYYY-MM-DD HH:mm");
                 this.params.startBeforeDate = date;
+            } else {
+                this.params.startBeforeDate = '';
             }
 
             if(data.types)
                 this.params.messageTypeList = data.types;
+            else
+                this.params.messageTypeList = '';
 
             if(data.subtrades)
                 this.params.companyCategoryIdList = data.subtrades;
+            else
+                this.params.companyCategoryIdList = '';
 
             let i = 0, j = 0;
             Object.keys(this.params).forEach((key)=>{

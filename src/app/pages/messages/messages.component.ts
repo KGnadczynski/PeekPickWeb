@@ -333,23 +333,35 @@ export class MessagesComponent implements OnInit{
     filter(event: any){
         console.log('data event: ');
         console.dir(event);
-        /*this.pageTopService.showLoadingBar(true);
         
+        this.pageTopService.showLoadingBar(true);
         let params: string = "";
         event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
-        
-        Object.keys(event).forEach((key) => {
-            if(event[key])
-                params += key + "=" + event[key] + "&";
-        });
-        params = params.substring(0, params.length-1);
-        
-        if((this.latitude !== undefined && this.longitude !== undefined) || (!event.latitude && !event.longitude))
-            params += "&latitude=" + this.latitude + "&longitude=" + this.longitude;
 
-        console.log('params: ' + params);
+        if("geolocation" in navigator){
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    params += "latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude + "&";
+                    Object.keys(event).forEach((key) => {
+                        if(event[key])
+                            params += key + "=" + event[key] + "&";
+                    });
+                    params = params.substring(0, params.length-1);
 
-        this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
+                    console.log('params: ' + params);
+                },
+                error => {
+                    Object.keys(event).forEach((key) => {
+                        if(event[key])
+                            params += key + "=" + event[key] + "&";
+                    });
+                    params = params.substring(0, params.length-1);
+
+                    console.log('params: ' + params);
+                }
+            ); 
+        }
+        /*this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
             this.messageList = result;
             this.pageTopService.showLoadingBar(false);
             console.log('result: ');
@@ -358,6 +370,7 @@ export class MessagesComponent implements OnInit{
             this.pageTopService.showLoadingBar(false);
         });*/
 
+        
     }
 
     filterFavourites(sortType: string): void{
