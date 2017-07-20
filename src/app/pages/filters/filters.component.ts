@@ -64,10 +64,10 @@ export class FiltersComponent implements OnInit{
             if(data.searchControl){
                 this.nouislider.disabled = false;
             } else {
-                this.nouislider.disabled = true;
-                this.params.latitude = null;
-                this.params.longitude = null;
-                this.ifGeolocation = false;
+                // this.nouislider.disabled = true;
+                // this.params.latitude = null;
+                // this.params.longitude = null;
+                // this.ifGeolocation = false;
                 // let filterBy = <FormControl>this.filterForm.get('filterBy');
                 // filterBy.reset('CREATE_DATE');
             }
@@ -157,6 +157,7 @@ export class FiltersComponent implements OnInit{
             error => {
                 if(error.code === error.PERMISSION_DENIED)
                     console.log('you denied me');
+                console.log('another error');
                 this.ifGeolocation = false;
                 this.nouislider.disabled = true;
             }
