@@ -35,6 +35,7 @@ export class MessagesComponent implements OnInit{
     lat: number;
     lng: number;
     ifGeolocation: boolean = true;
+    showInfo: string;
 
     public title: string = 'Czy jesteś pewny że chcesz usunąć tę wiadomość?';
     public confirmClicked: boolean = false;
@@ -330,6 +331,13 @@ export class MessagesComponent implements OnInit{
         }
     }
 
+    over(): void{
+        this.showInfo = 'żeby zobaczyć ';
+    }
+    over2(): void{
+        this.showInfo = '';
+    }
+
     filter(event: any){
         console.log('data event: ');
         console.dir(event);
@@ -349,6 +357,14 @@ export class MessagesComponent implements OnInit{
                     params = params.substring(0, params.length-1);
 
                     console.log('params: ' + params);
+                    this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
+                        this.messageList = result;
+                        this.pageTopService.showLoadingBar(false);
+                        console.log('result: ');
+                        console.dir(result);
+                    }, (error) => {
+                        this.pageTopService.showLoadingBar(false);
+                    });
                 },
                 error => {
                     Object.keys(event).forEach((key) => {
@@ -358,18 +374,17 @@ export class MessagesComponent implements OnInit{
                     params = params.substring(0, params.length-1);
 
                     console.log('params: ' + params);
+                    this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
+                        this.messageList = result;
+                        this.pageTopService.showLoadingBar(false);
+                        console.log('result: ');
+                        console.dir(result);
+                    }, (error) => {
+                        this.pageTopService.showLoadingBar(false);
+                    });
                 }
             ); 
         }
-        /*this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
-            this.messageList = result;
-            this.pageTopService.showLoadingBar(false);
-            console.log('result: ');
-            console.dir(result);
-        }, (error) => {
-            this.pageTopService.showLoadingBar(false);
-        });*/
-
         
     }
 

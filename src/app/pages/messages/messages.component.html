@@ -23,13 +23,14 @@
 				<p>{{getLocation(message)}}</p>
 			</div>
 
-			<div class="message-distance-message-icon-work">
+			<div class="message-distance-message-icon-work" (mouseover)="over()" (mouseout)="over2()">
 				<i *ngIf="message.type === 'EVENT'" class="material-icons">event</i>
 				<i *ngIf="message.type === 'WORK'" class="material-icons">work</i>
 				<i *ngIf="message.type === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
 				<i *ngIf="message.type === 'WORTH_SEEING'" class="material-icons">visibility</i>
 				<i *ngIf="message.type === 'PROMOTION'" class="material-icons">loyalty</i>
 				<p *ngIf="ifGeolocation">{{getDistance(message)}}</p>
+				<span *ngIf="showInfo">{{ showInfo }}</span>
 			</div>
 
 			<div class="message-content" (click)="goToSingle(message.id)">

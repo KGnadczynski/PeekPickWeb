@@ -35,7 +35,7 @@ export class FiltersComponent implements OnInit{
     types: {name: string, checked: boolean}[] = [];
     ifGeolocation: boolean = true;
     params: {sortType: string, startBeforeDate: string, range: number, messageTypeList: string, latitude:number, longitude: number, companyCategoryIdList: string} = {
-        sortType: '',
+        sortType: 'CREATE_DATE',
         startBeforeDate: '',
         range: 0,
         messageTypeList: "",
@@ -68,11 +68,12 @@ export class FiltersComponent implements OnInit{
                 this.params.latitude = null;
                 this.params.longitude = null;
                 this.ifGeolocation = false;
+                // let filterBy = <FormControl>this.filterForm.get('filterBy');
+                // filterBy.reset('CREATE_DATE');
             }
 
             this.mapsAPILoader.load().then(() => {
                 let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
-
                 autocomplete.addListener("place_changed", () => {
                     this.ngZone.run(() => {
                         let place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -91,6 +92,7 @@ export class FiltersComponent implements OnInit{
                         this.ifGeolocation = true;
                         
                         this.zoom = 12;
+                        
                     })
                 })
             });
@@ -102,9 +104,7 @@ export class FiltersComponent implements OnInit{
                 this.params.range = data.distance;
             
             if(data.startBeforeDate){
-                let date: any = Date.now();
-                date = moment().format("YYYY-MM-DD HH:mm");
-                this.params.startBeforeDate = date;
+                this.params.startBeforeDate = moment().startOf('day').format("YYYY-MM-DD HH:mm");
             } else {
                 this.params.startBeforeDate = '';
             }
@@ -127,12 +127,8 @@ export class FiltersComponent implements OnInit{
                 }
             });
 
-            // console.log('j: ' + j);
-            
             if(i > 1 || j > 0){
                 x = 1;
-                // console.log('params: ');
-                // console.dir(params);
                 this.myEvent.emit(this.params);
             } else if(i === 1 && x === 1){
                 this.myEvent.emit(this.params);
