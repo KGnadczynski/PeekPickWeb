@@ -34,7 +34,7 @@
                         <img src="../../meta/account-card-details.png" alt="">
                     </template>
                     <template md-tab-content>
-                        <profile-edit [otherUser]="otherUser"></profile-edit>
+                        <profile-edit [otherUser]="otherUser" (sendImage)="changeImage($event)"></profile-edit>
                     </template>
                 </md-tab>
 

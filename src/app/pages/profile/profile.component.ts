@@ -54,4 +54,8 @@ export class ProfileComponent implements OnInit {
         }
     }
 
+    changeImage(imageUrl: string): void {
+        this.otherImgs.imageUrl = imageUrl;
+    }
+
 }

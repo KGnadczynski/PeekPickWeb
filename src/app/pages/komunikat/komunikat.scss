@@ -1,5 +1,5 @@
 div.messagesDiv{
-    padding-top: 3vw;
+    /*padding-top: 3vw;
     @media(max-width: 565px){
         padding: 0 4vw;
     }
@@ -11,7 +11,7 @@ div.messagesDiv{
     }
     @media(min-width: 992px){
         padding: 0;
-    }
+    }*/
 }
 
 div.mainPage{
@@ -21,18 +21,21 @@ div.mainPage{
     display: -moz-flex;
     display: -webkit-flex;
     display: flex;
+    
 }
 
-@media(max-width: 575px){
+@media(max-width: 565px){
   div.mainPage{
     flex-direction: column;
+    align-items: center;
     div.blankDiv{
       order: 3;
       width: 100%;
+      // width: auto;
     }
     div.messagesDiv{
       order: 2;
-      width: 100%;
+      // width: 96%;
     }
     div.filterMessages{
       order: 1;
@@ -40,16 +43,18 @@ div.mainPage{
     }
   }
 }
-@media (min-width: 576px) {
+@media (min-width: 566px) {
   div.mainPage{
     flex-direction: column;
+    align-items: center;
     div.blankDiv{
       order: 3;
       width: 100%;
+      width: auto;
     }
     div.messagesDiv{
       order: 2;
-      width: 100%;
+      // width: 96%;
     }
     div.filterMessages{
       order: 1;
@@ -58,10 +63,17 @@ div.mainPage{
   }
 }
 @media (min-width: 768px) {
-  div.filterMessages{
-    h4{
-      padding: 0;
-      margin: 0;
+  
+  div.mainPage{
+    
+    // div.messagesDiv{
+    //   width: 709px;
+    // }
+    div.filterMessages{
+      h4{
+        padding: 0;
+        margin: 0;
+      }
     }
   }
 }
@@ -69,20 +81,22 @@ div.mainPage{
   div.mainPage{
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
     div.blankDiv{
       order: 1;
-      width: (100%/3);
+      // width: (100%/3);
+      width: 280px;
     }
     div.messagesDiv{
       order: 2;
-      width: 80%;
+      // width: 80%;
     }
     div.filterMessages{
       order: 3;
       // width: (100%/3);
       width: auto;
-      padding-left: 20px;
+      padding: 0 20px;
     }
   }
 }

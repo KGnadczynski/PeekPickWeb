@@ -14,6 +14,7 @@ export class FavouritesComponent implements OnInit{
     name: string = 'Obserwowane';
     filterForm: FormGroup;
     @ViewChild("messageComponent") messageComponent: MessagesComponent;
+    ifGeolocation: boolean = true;
 
     constructor(private fb: FormBuilder){
         this.filterForm = this.fb.group({
@@ -42,5 +43,13 @@ export class FavouritesComponent implements OnInit{
     ngOnInit(): void {
         console.log('fav ls: ');
         console.dir(localStorage);
+
+        navigator.geolocation.getCurrentPosition(
+            position => {},
+            error => {
+                // if(error.code === error.PERMISSION_DENIED)
+                this.ifGeolocation = false;
+            }
+        );
     }
 }

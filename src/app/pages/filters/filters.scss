@@ -58,11 +58,12 @@ $blackColor: #263238;
 div#filterInside{
     width: 375px;
     margin: auto;
+
     @media(max-width: 565px){
-        padding: 0 3%;
+        // padding: 0 3%;
     }
     @media(min-width: 992px){
-        width: 300px;
+        width: 315px;
     }
     
 }
@@ -121,7 +122,7 @@ form#mainForm{
             text-align: center;
             color: $blackColor;
             font-size: 16px;
-            line-height: 20px;
+            line-height: 23px;
             span{
                 font-family: 'Open Sans', sans-serif;
                 color: $redColor;

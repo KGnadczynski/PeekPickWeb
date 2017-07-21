@@ -61,7 +61,7 @@ export class FiltersComponent implements OnInit{
 
         this.filterForm.valueChanges.subscribe(data => {
 
-            if(data.searchControl){
+            if(this.params.latitude && this.params.longitude){
                 this.nouislider.disabled = false;
             } else {
                 // this.nouislider.disabled = true;

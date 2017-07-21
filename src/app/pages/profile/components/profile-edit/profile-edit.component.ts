@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EqualPasswordsValidator } from '../../../../theme/validators';
 import { ProfileService } from '../../profile.service';
@@ -33,6 +33,7 @@ export class ProfileEditComponent implements OnInit {
 
     @Input() otherUser: any;
     @ViewChild('fileUpload') fileUpload:any;
+    @Output() sendImage: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(private fb: FormBuilder, private profileService: ProfileService, private menuService: BaMenuService){
         this.passwordForm = fb.group({
@@ -147,6 +148,7 @@ export class ProfileEditComponent implements OnInit {
                         this.imageUrl = data.imageUrl;
                         this.name = null;
                         this.menuService.changeImage(data.imageUrl);
+                        this.sendImage.emit(data.imageUrl);
                     },
                     error => {}
                 );

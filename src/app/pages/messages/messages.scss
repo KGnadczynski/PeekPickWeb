@@ -3,6 +3,18 @@ $redColor: #A20E12;
 
 div.messages{
     overflow: hidden;
+    margin: auto;
+    @media(max-width: 565px){
+        // width: 375px;
+        width: 96%;
+    }
+    @media(min-width: 566px){
+        // width: 709px;
+        width: 96%;
+    }
+    @media(min-width: 768px){
+        width: 709px;
+    }
     div.message{
         overflow: hidden;
         border: 1px solid lightgray;

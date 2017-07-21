@@ -10,7 +10,7 @@
     <form [formGroup]="filterForm" novalidate>
         <h5>sortuj po:</h5>
         <div id="filterBy">
-            <div class="checkbox">
+            <div class="checkbox" *ngIf="ifGeolocation">
                 <input type="radio" name="filterBy" id="location" value="DISTANCE" formControlName="filterBy">
                 <label for="location"></label>
                 <span>najbliższe</span>
@@ -23,6 +23,9 @@
             </div>
             
         </div>
+        <div *ngIf="!ifGeolocation" class="geolocationError">
+                <p>jeśli chcesz sortować po <span>najbliższych</span> pozwól na dostęp do lokalizacji lub wpisz miasto</p>
+            </div>
         <div class="lineF"></div>    
     </form>
 

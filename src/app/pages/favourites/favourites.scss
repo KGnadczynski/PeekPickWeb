@@ -55,8 +55,8 @@ $blackColor: #263238;
         background: $color;
         height: 2px;
         margin: auto;
-        margin-top: 2%;
-        margin-bottom: 2%;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 }
 
@@ -67,19 +67,19 @@ h4{
     text-transform: lowercase;
     font-family: 'Sanchez', serif;
     text-align: center;
-    margin: 2% 0;
+    margin: 20px 0;
     font-size: 20px;
 }
 
 form {
     width: 80%;
     margin: auto;
-    margin-top: 4%;
-    margin-bottom: 4%;
+    margin-top: 20px;
+    margin-bottom: 20px;
     
     h5{
         text-align: center;
-        margin: 2% 0;
+        margin: 10px 0;
         color: $blackColor;
         font-family: 'Open Sans', sans-serif;
         font-size: 16px;
@@ -91,23 +91,38 @@ form {
         justify-content: space-around;
     }
 
+    div.geolocationError{
+        p{
+            font-family: 'Open Sans', sans-serif;
+            margin: 20px 0;
+            text-align: center;
+            color: $blackColor;
+            font-size: 16px;
+            line-height: 20px;
+            span{
+                font-family: 'Open Sans', sans-serif;
+                color: $redColor;
+            }
+        }
+    }
+
     @include line($blackColor, 70%);
 }
 
 div.favourites{
-    @media(max-width: 565px){
-        padding: 0 4%;
-    }
-    @media(min-width: 566px){
-        padding: 0 8%;
-    }
-    @media(min-width: 768px){
-        padding: 0 12%;
-    }
-    @media(min-width: 992px){
-        padding: 0 16%;
-    }
-    @media(min-width: 1200px){
-        padding: 0 20%;
-    }
+    // @media(max-width: 565px){
+    //     padding: 0 4%;
+    // }
+    // @media(min-width: 566px){
+    //     padding: 0 8%;
+    // }
+    // @media(min-width: 768px){
+    //     padding: 0 12%;
+    // }
+    // @media(min-width: 992px){
+    //     padding: 0 16%;
+    // }
+    // @media(min-width: 1200px){
+    //     padding: 0 20%;
+    // }
 }
