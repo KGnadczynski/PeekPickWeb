@@ -46,6 +46,7 @@ export class FiltersComponent implements OnInit{
 
     @ViewChild("search") public searchElementRef: ElementRef;
     @ViewChild("nouislider") nouislider: NouisliderComponent;
+    counter: number = 0;
 
     constructor(private fb: FormBuilder, private filtersService: FiltersService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone){
         this.filterForm = this.fb.group({
@@ -60,6 +61,8 @@ export class FiltersComponent implements OnInit{
         let x = 0;
 
         this.filterForm.valueChanges.subscribe(data => {
+            
+            this.counter++;
 
             if(data.filterBy === 'DISTANCE' && !data.searchControl){
                 let filterBy = <FormControl>this.filterForm.get('filterBy');
@@ -74,7 +77,10 @@ export class FiltersComponent implements OnInit{
                 this.nouislider.disabled = false;
             }
 
-            if(!data.searchControl){
+            // if((this.params.latitude && this.params.longitude))
+
+            //wieksze od dwoch bo counter zwieksza sie do dwoch przy inicie gdy uzupełnia branze
+            if(!data.searchControl && this.counter > 2){
                 this.nouislider.disabled = true;
                 this.params.latitude = null;
                 this.params.longitude = null;
