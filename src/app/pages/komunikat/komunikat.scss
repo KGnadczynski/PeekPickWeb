@@ -54,7 +54,7 @@ div.mainPage{
     }
     div.messagesDiv{
       order: 2;
-      // width: 96%;
+      width: 96%;
     }
     div.filterMessages{
       order: 1;
@@ -66,9 +66,9 @@ div.mainPage{
   
   div.mainPage{
     
-    // div.messagesDiv{
-    //   width: 709px;
-    // }
+    div.messagesDiv{
+      width: 709px;
+    }
     div.filterMessages{
       h4{
         padding: 0;
@@ -96,7 +96,7 @@ div.mainPage{
       order: 3;
       // width: (100%/3);
       width: auto;
-      padding: 0 20px;
+      padding: 0 5px;
     }
   }
 }

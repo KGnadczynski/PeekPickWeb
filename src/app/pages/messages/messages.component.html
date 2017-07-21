@@ -23,7 +23,8 @@
 				<p>{{getLocation(message)}}</p>
 			</div>
 
-			<div class="message-distance-message-icon-work" (mouseover)="over()" (mouseout)="over2()">
+			<!-- (mouseover)="over()" (mouseout)="over2()" -->
+			<div class="message-distance-message-icon-work" >
 				<i *ngIf="message.type === 'EVENT'" class="material-icons">event</i>
 				<i *ngIf="message.type === 'WORK'" class="material-icons">work</i>
 				<i *ngIf="message.type === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>

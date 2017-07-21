@@ -10,10 +10,13 @@ div.messages{
     }
     @media(min-width: 566px){
         // width: 709px;
-        width: 96%;
+        // width: 96%;
     }
     @media(min-width: 768px){
-        width: 709px;
+        // width: 709px;
+    }
+    @media(min-width: 992px){
+
     }
     div.message{
         overflow: hidden;

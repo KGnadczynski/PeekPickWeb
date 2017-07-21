@@ -1,4 +1,5 @@
 div#activeAndEndedPosts{
+    
     div.tabs{
         margin-top: 2%;
         display: flex;
@@ -20,10 +21,10 @@ div#activeAndEndedPosts{
         border: 0 !important;
         margin-top: 3%;
         @media(max-width: 565px){
-            margin: 4%;
+            // margin: 4%;
         }
         @media(min-width: 992px){
-            margin: 20px 14%;
+            // margin: 20px 14%;
         }
     }
 }

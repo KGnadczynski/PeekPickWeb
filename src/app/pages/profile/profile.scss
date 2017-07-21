@@ -112,8 +112,18 @@ div#profile{
     
     md-tab-group{
         div.md-tab-body{
-            @media(min-width: 992px){
-                padding: 0 18%;
+            // @media(min-width: 992px){
+            //     padding: 0 18%;
+            // }
+            margin: auto;
+            @media(max-width: 565px){
+                width: 96%;
+            }
+            @media(min-width: 566px){
+                width: 96%;
+            }
+            @media(min-width: 768px){
+                width: 709px;
             }
         }
         div.md-tab-header{

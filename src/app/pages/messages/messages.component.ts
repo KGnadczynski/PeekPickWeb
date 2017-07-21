@@ -242,10 +242,12 @@ export class MessagesComponent implements OnInit{
                 break;
 
                 case 'active':
+                    console.log('GETTING ACTIVE POSTS');
                     this.getActivePost();
                 break;
 
                 case 'ended':
+                    console.log('GETTING ENDED POSTS');
                     this.getEnded();
                 break;
 
@@ -331,16 +333,16 @@ export class MessagesComponent implements OnInit{
         }
     }
 
-    over(): void{
-        this.showInfo = 'żeby zobaczyć ';
-    }
-    over2(): void{
-        this.showInfo = '';
-    }
+    // over(): void{
+    //     this.showInfo = 'żeby zobaczyć ';
+    // }
+    // over2(): void{
+    //     this.showInfo = '';
+    // }
 
     filter(event: any){
-        console.log('data event: ');
-        console.dir(event);
+        // console.log('data event: ');
+        // console.dir(event);
         
         this.pageTopService.showLoadingBar(true);
         let params: string = "";
@@ -356,7 +358,7 @@ export class MessagesComponent implements OnInit{
                     });
                     params = params.substring(0, params.length-1);
 
-                    console.log('params: ' + params);
+                    // console.log('params: ' + params);
                     this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
                         this.messageList = result;
                         this.pageTopService.showLoadingBar(false);
@@ -373,7 +375,7 @@ export class MessagesComponent implements OnInit{
                     });
                     params = params.substring(0, params.length-1);
 
-                    console.log('params: ' + params);
+                    // console.log('params: ' + params);
                     this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
                         this.messageList = result;
                         this.pageTopService.showLoadingBar(false);
@@ -441,8 +443,8 @@ export class MessagesComponent implements OnInit{
                     result => {
                         this.messageList = result;
                          this.pageTopService.showLoadingBar(false);
-                        // console.log('active posts: ');
-                        // console.dir(result);
+                        console.log('active posts: ');
+                        console.dir(result);
                     },
                     err => {
                         this.pageTopService.showLoadingBar(false);
@@ -450,7 +452,11 @@ export class MessagesComponent implements OnInit{
                         console.dir(err);
                     }
                 );
-            });
+            },
+            error => {
+                this.getMessagesWhenGeolocationDisabled(this.pageNumber);
+            }
+        );
         }
 
         
@@ -468,8 +474,8 @@ export class MessagesComponent implements OnInit{
                     result => {
                         this.messageList = result;
                          this.pageTopService.showLoadingBar(false);
-                        // console.log('ended posts: ');
-                        // console.dir(result);
+                        console.log('ended posts: ');
+                        console.dir(result);
                     },
                     err => {
                         this.pageTopService.showLoadingBar(false);
@@ -477,7 +483,10 @@ export class MessagesComponent implements OnInit{
                         console.dir(err);
                     }
                 );
-            });
+            },
+        error => {
+            this.getMessagesWhenGeolocationDisabled(this.pageNumber);
+        });
         }
     }
 

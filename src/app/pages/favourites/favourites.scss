@@ -110,19 +110,14 @@ form {
 }
 
 div.favourites{
-    // @media(max-width: 565px){
-    //     padding: 0 4%;
-    // }
-    // @media(min-width: 566px){
-    //     padding: 0 8%;
-    // }
-    // @media(min-width: 768px){
-    //     padding: 0 12%;
-    // }
-    // @media(min-width: 992px){
-    //     padding: 0 16%;
-    // }
-    // @media(min-width: 1200px){
-    //     padding: 0 20%;
-    // }
+    margin: auto;
+    @media(max-width: 565px){
+        width: 96%;
+    }
+    @media(min-width: 566px){
+        width: 96%;
+    }
+    @media(min-width: 768px){
+        width: 709px;
+    }
 }

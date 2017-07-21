@@ -61,15 +61,24 @@ export class FiltersComponent implements OnInit{
 
         this.filterForm.valueChanges.subscribe(data => {
 
+            if(data.filterBy === 'DISTANCE' && !data.searchControl){
+                let filterBy = <FormControl>this.filterForm.get('filterBy');
+                filterBy.reset('CREATE_DATE');
+                data.filterBy = 'CREATE_DATE';
+                this.params.latitude = null;
+                this.params.longitude = null;
+                this.params.sortType = 'CREATE_DATE';
+            }
+
             if(this.params.latitude && this.params.longitude){
                 this.nouislider.disabled = false;
-            } else {
-                // this.nouislider.disabled = true;
-                // this.params.latitude = null;
-                // this.params.longitude = null;
-                // this.ifGeolocation = false;
-                // let filterBy = <FormControl>this.filterForm.get('filterBy');
-                // filterBy.reset('CREATE_DATE');
+            }
+
+            if(!data.searchControl){
+                this.nouislider.disabled = true;
+                this.params.latitude = null;
+                this.params.longitude = null;
+                this.ifGeolocation = false;
             }
 
             this.mapsAPILoader.load().then(() => {
@@ -126,6 +135,9 @@ export class FiltersComponent implements OnInit{
                     j++;
                 }
             });
+
+            console.log('params: ');
+            console.dir(this.params);
 
             if(i > 1 || j > 0){
                 x = 1;
