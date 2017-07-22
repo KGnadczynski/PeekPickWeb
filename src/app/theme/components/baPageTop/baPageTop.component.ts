@@ -173,7 +173,7 @@ export class BaPageTop implements OnInit{
                 $('div.al-main').css({
                     "position": 'relative',
                     "width": "initial",
-                    "height": "initial",
+                    "height": "100%",
                     "background-color": "transparent",
                     "opacity": 1,
                     "top": "auto",
@@ -205,7 +205,7 @@ export class BaPageTop implements OnInit{
         $('div.al-main').css({
             "position": 'relative',
             "width": "initial",
-            "height": "initial",
+            "height": "100%",
             "background-color": "transparent",
             "opacity": 1,
             "top": "auto",
