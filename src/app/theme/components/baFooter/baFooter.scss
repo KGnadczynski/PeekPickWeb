@@ -63,15 +63,14 @@ div#footer{
                 font-family: 'Sanchez', serif;
                 font-size: 15px;
                 color: $redColor;
-                // padding: 10px;
-                // border: 2px dotted;
                 position: relative;
                 background-image: url('../../../../meta/przycisk2.png');
                 background-size: 100% 100%;
                 width: 184px;
                 height: 47px;
-                padding-top: 16px;
-                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 img{
                     position: absolute;
                     top: 15px;
@@ -127,6 +126,7 @@ div#footer{
                 p{
                     color: $blackColor;
                     font-size: 16px;
+                    margin: 0;
                 }
                 a{
                     color: $redColor;

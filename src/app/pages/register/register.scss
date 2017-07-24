@@ -106,7 +106,9 @@ div#registerFormMain{
             text-transform: lowercase;
           }
           a{
-            padding-top: 10px;
+        	display: flex;
+			align-items: center;
+			justify-content: center;
           }
         }
         

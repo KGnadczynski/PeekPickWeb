@@ -156,15 +156,12 @@ export class BaPageTop implements OnInit{
                     "height": "100%",
                     "background-color": "white",
                     "opacity": 0.6,
-                    "top": 0,
+                    "top": "0px",
                     "left": 0,
+                    "right": "1000px"
                 });
                 $('#footer').css({
                     "display": "none"
-                    /*"position": 'fixed',
-                    "background-color": "white",
-                    "opacity": 0.6,
-                    "bottom": 0,*/
                 });
 
                 break;
@@ -172,19 +169,16 @@ export class BaPageTop implements OnInit{
             
                 $('div.al-main').css({
                     "position": 'relative',
-                    "width": "initial",
+                    "width": "100%",
                     "height": "100%",
                     "background-color": "transparent",
                     "opacity": 1,
                     "top": "auto",
                     "left": "auto",
+                    "right": 0
                 });
                 $('#footer').css({
                     "display": "block"
-                    /*"position": 'relative',
-                    "background-color": "transparent",
-                    "opacity": 1,
-                    "bottom": "auto",*/
                 });
 
                 break;
@@ -204,19 +198,16 @@ export class BaPageTop implements OnInit{
     fixStyles(): void {
         $('div.al-main').css({
             "position": 'relative',
-            "width": "initial",
+            "width": "100%",
             "height": "100%",
             "background-color": "transparent",
             "opacity": 1,
             "top": "auto",
             "left": "auto",
+            "right": 0
         });
         $('#footer').css({
             "display": "block"
-            /*"position": 'relative',
-            "background-color": "transparent",
-            "opacity": 1,
-            "bottom": "auto",*/
         });
         this.ifDarkened = !this.ifDarkened;
     }

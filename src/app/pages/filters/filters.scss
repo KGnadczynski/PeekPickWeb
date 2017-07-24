@@ -151,7 +151,7 @@ form#mainForm{
       
         span{
             float: left;
-            margin-top: 15px;
+            margin-top: 8px;
             margin-left: 10px;
             color: $blackColor;
         }
@@ -246,7 +246,7 @@ form#mainForm{
               overflow: hidden;
               span{
                 float: left;
-                margin-top: 15px;
+                margin-top: 9px;
                 margin-left: 5px;
                 text-transform: lowercase;
                 font-family: 'Open Sans', sans-serif;
@@ -329,7 +329,7 @@ form#mainForm{
             clear: both;
             @include checkboxMixin(checkbox);
             span{
-                margin: 15px;
+                margin: 9px;
                 text-transform: lowercase;
             }
           }
@@ -337,7 +337,6 @@ form#mainForm{
         }
       }
       button {
-        // margin: auto;
         display: block;
         outline: 0;
         text-transform: lowercase;
@@ -348,10 +347,11 @@ form#mainForm{
         &.clearButton{
             margin: auto;
             border: 0;
-            background-image: url('../../meta/przycisk2.png');
+            background-image: url('../../meta/przycisk.png');
             background-size: 100% 100%;
             width: 160px;
             height: 50px;
+            margin-bottom: 20px;
         }
       }
 }

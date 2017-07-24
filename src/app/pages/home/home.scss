@@ -102,24 +102,20 @@ div#home{
         div.router{
             text-align: center;
             margin: 20px 0;
-            @media(min-width: 566px){
-                // margin: 8% 0;
-            }
             
             a{
                 background-image: url('../../meta/przycisk.png');
                 background-size: 100% 100%;
                 width: 184px;
-                height: 47px;
+                height: 52px;
                 font-family: 'Sanchez', serif;
                 font-size: 20px;
-                padding: 10px;
                 color: $redColor;
-                // border: 2px dotted $redColor;
                 display: block;
-                // width: 60%;
                 margin: auto;
-                padding-top: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
         }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
 import { ProfileService } from '../../profile.service';
-import { FormGroup, FormBuilder} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, EmailValidator} from '@angular/forms';
 
 @Component({
     selector: 'profile-additional',
@@ -16,13 +16,16 @@ export class ProfileAdditionalComponent implements OnInit{
     messageAfterUpdate: boolean = false;
     @Input() otherUser: any;
 
+    //[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*) website
+    //\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4}) telephone
+
     constructor(private profileService: ProfileService, private fb: FormBuilder){
         this.additionalForm = fb.group({
             'contact': fb.group({
                 'website': '',
                 'openingHours': '',
                 'phoneNumber': '',
-                'email': '',
+                'email': ['', Validators.compose([Validators.email])],
                 'description': ''
             })
         });

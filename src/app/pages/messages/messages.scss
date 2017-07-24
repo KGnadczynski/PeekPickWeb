@@ -79,7 +79,6 @@ div.messages{
             clear: both;
             float: left;
             cursor: pointer;
-            // width: 80%;
             margin: 20px 0 20px 20px;
             font-family: 'Open Sans', sans-serif;
             position: relative;
@@ -91,6 +90,7 @@ div.messages{
                 color: white;
                 font-size: 16px;
                 line-height: 24px;
+                margin: 0;
             }
             &:before{
                 content: "";
