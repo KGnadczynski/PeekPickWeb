@@ -8,6 +8,8 @@ export const PAGES_MENU = [
           menu: {
             title: 'Strona Główna', // menu title
             icon: 'strona_glowna', // menu icon
+            icon_selected: 'strona_glowna_selected',
+            icon_unselected: 'strona_glowna',
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,

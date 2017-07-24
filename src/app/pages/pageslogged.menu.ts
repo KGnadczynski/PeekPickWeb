@@ -8,6 +8,8 @@ export const PAGES_MENU_LOGGED = [
           menu: {
             title: 'Strona Główna', // menu title
             icon: 'strona_glowna', // menu icon
+            icon_selected: 'strona_glowna_selected',
+            icon_unselected: 'strona_glowna',
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,
@@ -21,6 +23,7 @@ export const PAGES_MENU_LOGGED = [
           menu: {
             title: 'Kultura i rozrywka',
             icon: 'kultura_i_rozrywka',
+            icon_selected: 'kultura_i_rozrywka_selected',
             icon_unselected: 'kultura_i_rozrywka',
             pathMatch: 'prefix',
             selected: false,
@@ -36,6 +39,7 @@ export const PAGES_MENU_LOGGED = [
           menu: {
             title: 'Gastronomia i życie nocne',
             icon: 'gastronomia_i_nocne_zycie',
+            icon_selected: 'gastronomia_i_nocne_zycie_selected',
             icon_unselected: 'gastronomia_i_nocne_zycie',
             pathMatch: 'prefix',
             selected: false,
@@ -51,6 +55,7 @@ export const PAGES_MENU_LOGGED = [
           menu: {
             title: 'Zakupy małe',
             icon: 'zakupy_male',
+            icon_selected: 'zakupy_male_selected',
             icon_unselected: 'zakupy_male',
             pathMatch: 'prefix',
             selected: false,
@@ -66,6 +71,7 @@ export const PAGES_MENU_LOGGED = [
           menu: {
             title: 'Zakupy duże',
             icon: 'zakupy_duze',
+            icon_selected: 'zakupy_duze_selected',
             icon_unselected: 'zakupy_duze',
             pathMatch: 'prefix',
             selected: false,
@@ -81,6 +87,7 @@ export const PAGES_MENU_LOGGED = [
           menu: {
             title: 'Usługi dla ciała',
             icon: 'uslugi_dla_ciala',
+            icon_selected: 'uslugi_dla_ciala_selected',
             icon_unselected: 'uslugi_dla_ciala',
             pathMatch: 'prefix',
             selected: false,
@@ -96,6 +103,7 @@ export const PAGES_MENU_LOGGED = [
           menu: {
             title: 'Usługi inne',
             icon: 'uslugi_inne',
+            icon_selected: 'uslugi_inne_selected',
             icon_unselected: 'uslugi_inne',
             pathMatch: 'prefix',
             selected: false,
@@ -111,6 +119,7 @@ export const PAGES_MENU_LOGGED = [
           menu: {
             title: 'Sport i turystyka',
             icon: 'sport_i_turystyka',
+            icon_selected: 'sport_i_turystyka_selected',
             icon_unselected: 'sport_i_turystyka',
             pathMatch: 'prefix',
             selected: false,
