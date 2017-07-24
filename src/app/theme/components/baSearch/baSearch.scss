@@ -68,7 +68,18 @@ div.ba-search-div{
     @media(min-width: 992px){
         width: 100%;
     }*/
-    
+    div.showAdvanced{
+        background-image: url('../../../meta/przycisk.png');
+        background-size: 100% 100%;
+        width: 210px;
+        height: 70px;
+        margin: auto;
+        font-family: 'Sanchez', serif;
+        font-size: 16px;
+        text-align: center;
+        padding: 8px 20px;
+        cursor: pointer;
+    }
 }
 
 form{

@@ -13,9 +13,12 @@
         </div>
         <div class="searchError" *ngIf="searchForm.controls['searchTerm'].hasError('required') && searchForm.controls['searchTerm'].touched">Wpisz szukaną frazę</div>
 
-        <!-- <button (click)="showAdvanced = !showAdvanced">zaawansowane szukanie</button> -->
+        <div class="showAdvanced" (click)="showAdvanced = !showAdvanced">
+            zaawansowane szukanie
+        </div>
+         
 
-        <!-- <div *ngIf = "showAdvanced"> -->
+         <div [collapse] = "showAdvanced"> 
             <p class="distance">Odległość</p>
             <div id="nouisliderDiv">
                 <nouislider [min]="0" [max]="101" [step]="1" [(ngModel)]="someValue" formControlName = "range"></nouislider>
@@ -76,7 +79,7 @@
                 </div>
             </div>
 
-        <!-- </div> -->
+         </div> 
         
         
     </form>

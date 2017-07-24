@@ -18,7 +18,7 @@ export class BaSearch {
     messageTypes: string[] = Object.keys(MessageType);
     messageTypesOb: {name: string, value: string}[] = [];
     categories: {id: number, name: string, subcategories: any[], bol: boolean}[] = [];
-    // isCollapsed:boolean = true;
+    isCollapsed:boolean = true;
     searchForm: FormGroup;
     someValue: number = 0;
     subcategories: {id: number, checked: boolean}[]= [];
