@@ -129,6 +129,32 @@ export const PAGES_MENU = [
           }
         }
       },
+      {
+        path: 'favourites',  // path for our page
+        data: { // custom menu declaration
+          menu: {
+            title: 'Obserwowane', // menu title
+            icon: 'star', // menu icon
+            pathMatch: 'prefix', // use it if item children not displayed in menu
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      {
+        path: 'regulaminy',  // path for our page
+        data: { // custom menu declaration
+          menu: {
+            title: 'Regulaminy', // menu title
+            icon: 'star', // menu icon
+            pathMatch: 'prefix', // use it if item children not displayed in menu
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      }
       /*{
         path: 'login',  // path for our page
         data: { // custom menu declaration

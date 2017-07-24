@@ -25,9 +25,6 @@ export class Pages implements OnInit {
 
     ngOnInit() {
 
-        if(navigator.geolocation)
-          navigator.geolocation.getCurrentPosition(this.setPosition);
-   
         this.currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
         
         if(this.currentUser != null) {
@@ -38,8 +35,4 @@ export class Pages implements OnInit {
    
     }
 
-    setPosition(position){
-        localStorage.setItem('latitude', JSON.stringify({ latitude: position.coords.latitude})); 
-        localStorage.setItem('longitude', JSON.stringify({ longitude: position.coords.longitude})); 
-    }
 }
