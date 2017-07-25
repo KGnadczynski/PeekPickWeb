@@ -19,7 +19,7 @@ export class PowiadomieniaComponent implements OnInit{
     powiadomieniaList: PowiadomieniaList;
      canScrool: boolean = true;
     
-    constructor(private powiadomieniaService: PowiadomieniaService, private profileService: ProfileService, , private router: Router){}
+    constructor(private powiadomieniaService: PowiadomieniaService, private profileService: ProfileService, private router: Router){}
 
     ngOnInit(): void {
         
