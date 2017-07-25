@@ -26,8 +26,8 @@ const ngcWebpack = require('ngc-webpack');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'tackpad',
-  description: 'tackpad',
+  title: 'peekpick',
+  description: 'peekpick',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };

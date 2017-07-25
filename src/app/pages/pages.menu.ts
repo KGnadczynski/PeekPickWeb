@@ -8,6 +8,8 @@ export const PAGES_MENU = [
           menu: {
             title: 'Strona Główna', // menu title
             icon: 'strona_glowna', // menu icon
+            icon_selected: 'strona_glowna_selected',
+            icon_unselected: 'strona_glowna',
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,
@@ -127,6 +129,32 @@ export const PAGES_MENU = [
           }
         }
       },
+      {
+        path: 'favourites',  // path for our page
+        data: { // custom menu declaration
+          menu: {
+            title: 'Obserwowane', // menu title
+            icon: 'star', // menu icon
+            pathMatch: 'prefix', // use it if item children not displayed in menu
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      {
+        path: 'regulaminy',  // path for our page
+        data: { // custom menu declaration
+          menu: {
+            title: 'Regulaminy', // menu title
+            icon: 'star', // menu icon
+            pathMatch: 'prefix', // use it if item children not displayed in menu
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      }
       /*{
         path: 'login',  // path for our page
         data: { // custom menu declaration

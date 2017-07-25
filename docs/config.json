@@ -1,9 +1,9 @@
 {
-  "baseUrl": "/tackpad/",
+  "baseUrl": "/peekpick/",
   "locals": {
     "url": "http://localhost:8080",
-    "name": "tackpad",
-    "owner": "tackpad",
+    "name": "peekpick",
+    "owner": "peekpick",
     "description": ""
   },
   "plugins": [

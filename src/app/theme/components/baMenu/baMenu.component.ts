@@ -40,7 +40,6 @@ export class BaMenu implements OnInit {
       private pageTopService: BaPageTopService
   ) {
     this._service.loggedChange.subscribe((value) => {
-        console.log('changed log in menu service with value: ' + value);
         this.profileService.getUser().subscribe(
           user => {
               this.isLoggedIn = true;
