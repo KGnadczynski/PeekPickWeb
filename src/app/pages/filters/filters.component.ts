@@ -46,7 +46,6 @@ export class FiltersComponent implements OnInit{
 
     @ViewChild("search") public searchElementRef: ElementRef;
     @ViewChild("nouislider") nouislider: NouisliderComponent;
-    counter: number = 0;
 
     constructor(private fb: FormBuilder, private filtersService: FiltersService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone){
         this.filterForm = this.fb.group({
@@ -62,30 +61,38 @@ export class FiltersComponent implements OnInit{
 
         this.filterForm.valueChanges.subscribe(data => {
             
-            this.counter++;
+            navigator.geolocation.getCurrentPosition(
+                position => {},
+                error => {
+                    //jesli nie mamy lokalizacji:
+                    //1 -> mamy wybrane najblizsze i jednoczesnie pole do miasta jest puste, ma wracac na date dodania i blokowac
+                    //wszystko
+                    if(data.filterBy === 'DISTANCE' && !data.searchControl){
+                        let filterBy = <FormControl>this.filterForm.get('filterBy');
+                        filterBy.reset('CREATE_DATE');
+                        data.filterBy = 'CREATE_DATE';
+                        this.params.latitude = null;
+                        this.params.longitude = null;
+                        this.params.sortType = 'CREATE_DATE';
+                        this.ifGeolocation = false;
+                        this.params.range = 0;
+                        data.distance = 0;
+                        this.someValue = 101;
+                    }
 
-            if(data.filterBy === 'DISTANCE' && !data.searchControl && ! this.ifGeolocation){
-                let filterBy = <FormControl>this.filterForm.get('filterBy');
-                filterBy.reset('CREATE_DATE');
-                data.filterBy = 'CREATE_DATE';
-                this.params.latitude = null;
-                this.params.longitude = null;
-                this.params.sortType = 'CREATE_DATE';
-            }
-
-            if(this.params.latitude && this.params.longitude){
-                this.nouislider.disabled = false;
-            }
-
-            // if((this.params.latitude && this.params.longitude))
-
-            //wieksze od dwoch bo counter zwieksza sie do dwoch przy inicie gdy uzupełnia branze
-            if(!data.searchControl && this.counter > 2 && !this.ifGeolocation){
-                this.nouislider.disabled = true;
-                this.params.latitude = null;
-                this.params.longitude = null;
-                this.ifGeolocation = false;
-            }
+                    //2 -> jesli w kazdym przypadku jest puste pole miasta blokujemy wszystko
+                    // if(!data.searchControl && this.counter > 2){
+                    if(!data.searchControl){
+                        this.nouislider.disabled = true;
+                        this.params.latitude = null;
+                        this.params.longitude = null;
+                        this.ifGeolocation = false;
+                        this.params.range = 0;
+                        data.distance = 0;
+                        this.someValue = 101;
+                    }
+                }
+            );
 
             this.mapsAPILoader.load().then(() => {
                 let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});

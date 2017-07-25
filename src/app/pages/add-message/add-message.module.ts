@@ -25,7 +25,7 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
         CollapseModule,
         ToastyModule.forRoot(),
         ConfirmationPopoverModule.forRoot({
-            confirmText: 'usuń',
+            confirmText: 'stwórz',
             cancelText: 'anuluj'
     })
     ],

@@ -198,8 +198,6 @@ export class AddMessageComponent implements OnInit {
     }
 
     addToast(message: string): void {
-        this.toastyService.default('Hi there!');
-
         let toastOptions: ToastOptions = {
             title: 'Błąd',
             msg: message,

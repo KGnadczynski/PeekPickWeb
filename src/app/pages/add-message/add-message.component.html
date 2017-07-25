@@ -124,11 +124,13 @@
             </div>
 
             <div id="buttons">
-              <button mwlConfirmationPopover [title]="title" placement="left" (confirm)="addMessage()"
-      					(cancel)="cancelClicked = true" [(isOpen)]="isOpen">{{submitButton}}</button>
-              <button (click)="closeModal()">Anuluj</button>
-            </div>
+              	<button *ngIf="!this.msgAddModel.endDate" mwlConfirmationPopover [title]="title" placement="left" (confirm)="addMessage()"
+                          (cancel)="cancelClicked = true" [(isOpen)]="isOpen">{{submitButton}}</button>
+				<button *ngIf="this.msgAddModel.endDate" (click)="addMessage()">{{submitButton}}</button>
+              	<button (click)="closeModal()">Anuluj</button>
 
+            </div>
+ 
         </div>
 
       <div class="modal-body">
