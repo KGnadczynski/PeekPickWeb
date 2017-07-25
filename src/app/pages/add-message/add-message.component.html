@@ -5,6 +5,8 @@
     <div class="modal-content">
         <div id="addForm">
             
+            <ng2-toasty [position]="'bottom-right'"></ng2-toasty>
+
             <div class="header">
                 <div>
                     <h3>{{ messageTypeValue }}</h3>
@@ -41,11 +43,12 @@
                 
                 <div class="text">
                     <p>Data zakończenia: </p>
-                    <p>{{ msgAddModel.endDate }}</p>
 
-                    <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
-                      <!-- <input daterangepicker [(ngModel)]="msgAddModel.endDate" (selected)="selectEndDate($event)" [options]="pickerOptionsEnd" type="submit" /> -->
+                    <div [collapse]="isCollapsed">
+                      <p>{{ msgAddModel.endDate }}</p>
+                      <p class="notDateEnd" *ngIf="!this.msgAddModel.endDate">wybierz datę zakończenia</p>
                     </div>
+                    
                     <div class="checkBoxDiv">
                         <div class="checkbox">
                             <input type="checkbox" name="checkboxAdd" id="checkboxAdd" [checked]="withEndDate" (change)="addprop()">
@@ -121,7 +124,8 @@
             </div>
 
             <div id="buttons">
-              <button (click)="addMessage()">{{submitButton}}</button>
+              <button mwlConfirmationPopover [title]="title" placement="left" (confirm)="addMessage()"
+      					(cancel)="cancelClicked = true" [(isOpen)]="isOpen">{{submitButton}}</button>
               <button (click)="closeModal()">Anuluj</button>
             </div>
 

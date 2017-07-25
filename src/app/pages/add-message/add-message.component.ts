@@ -5,24 +5,26 @@ import { CommunicationService } from '../komunikat/communicationservice.componen
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
 import { MessageType } from '../../globals/enums/message-type.enum';
-import { MessageAddModel } from './add-message-model';
+import { MessageAddModel, CompanyBranchList } from './add-message-model';
 import { NgUploaderOptions } from 'ngx-uploader';
-import { AgmMap } from '@agm/core';
-import { MapsAPILoader } from '@agm/core'
+import { AgmMap, MapsAPILoader } from '@agm/core';
 import { ImageModel } from "./imagemodel";
 import { MessagesService } from '../messages/messages.service';
 import { ObjectList } from '../messages/message';
-import { CompanyBranchList } from "./add-message-model";
-import { Daterangepicker } from 'ng2-daterangepicker';
+import { Daterangepicker, DaterangepickerConfig } from 'ng2-daterangepicker';
 import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings, MultiselectDropdown } from 'angular-2-dropdown-multiselect';
-import { DaterangepickerConfig } from 'ng2-daterangepicker';
+import { ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 let moment = require('../../../../node_modules/moment/moment');
 
 @Component({
     selector: 'add-message',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./add-message.scss'), require('../../../../node_modules/ng2-daterangepicker/daterangepicker.component.css')],
+    styles: [
+        require('./add-message.scss'), 
+        require('../../../../node_modules/ng2-daterangepicker/daterangepicker.component.css'),
+        require('../../../../node_modules/ng2-toasty/style-bootstrap.css')
+    ],
     template: require('./add-message.component.html'),
     providers: [AddMessageService, MessagesService]
 })
@@ -37,28 +39,14 @@ export class AddMessageComponent implements OnInit {
     messageAddModel: MessageAddModel;
     addedMessage: any;
     image:File;
-    isCollapsed:boolean = false;
+    isCollapsed:boolean = true;
     isLocationCollapsed: boolean = true;
     withEndDate:boolean = false;
     triggerResize:boolean = true;
     id: number;
     paramValue: any;
     messageEdit: ObjectList;
-    submitButton: string = "Utwórz";
-    public defaultPicture = 'assets/img/theme/camera.png';
-    public profile:any = {
-        picture: 'assets/img/theme/camera.png'
-    };
-     @ViewChild(AgmMap) sebmGoogleMap: any;
-    public uploaderOptions:NgUploaderOptions = {
-        // url: 'http://website.com/upload'
-        url: '',
-    };
-    @Input() disVal:string = "false";
-    ifTextAreaDisabled: boolean = false;
-    errorInfo: string;
-
-    zoom: number = 8;   
+    zoom: number = 8;
     lat: number;
     lng: number;
     localization:any;
@@ -69,15 +57,28 @@ export class AddMessageComponent implements OnInit {
     companyBranchList: any;
     companyBranchListSelected: CompanyBranchList[];
     companyBranchListSelectedFinal: CompanyBranchList[] =[];
-
     showMulitSelect:boolean = false;
+    submitButton: string = "Utwórz";
+    defaultPicture = 'assets/img/theme/camera.png';
+    profile:any = {
+        picture: 'assets/img/theme/camera.png'
+    };
+    uploaderOptions: NgUploaderOptions = {
+        url: '',
+    };
+
+    @ViewChild(AgmMap) sebmGoogleMap: any;
+    @ViewChild('childModal') childModal: ModalDirective;
+    @ViewChild('fileUpload') fileUpload:any;
+    @ViewChild('datePickerStart') datePickerStart:Daterangepicker;
+    @ViewChild('datePickerEnd') datePickerEnd: Daterangepicker;
+    @ViewChild('multiSelectDropdown') multiSelectDropdown: MultiselectDropdown;
+    @Input() disVal:string = "false";
 
     mySettings: IMultiSelectSettings = {
         checkedStyle: 'glyphicon',
-        // dynamicTitleMaxItems: 3,
         showCheckAll: true,
 		showUncheckAll: true,
-        // displayAllSelectedText: fa/lse,
         buttonClasses: '',
     };
 
@@ -91,33 +92,9 @@ export class AddMessageComponent implements OnInit {
         allSelected: 'wszystkie wybrane',
     };
 
-    callback = (address: string) : void => {
-        console.log('callback');  
-         this.localization = address;
-         this.locationChanged = true;
-    }
-
-    callbackEdit = (address: string) : void => {
-        console.log('callbackEdit');  
-         this.localization = address;
-    }
-
-    mapClicked($event: any) {
-      console.log('Map clicked');
-      this.lat =  $event.coords.lat;
-      this.lng = $event.coords.lng;
-      this.changeAddress(this.callback);
-    }
-    markerDragEnd($event: any) {
-      console.log('Map Dragged end');
-      this.lat =  $event.coords.lat;
-      this.lng = $event.coords.lng;
-      this.changeAddress(this.callback);
-    }
-
     pickerOptionsStart: Object = {
         'showDropdowns': true,
-        'showWeekNumbers': true,
+        'showWeekNumbers': false,
         "timePicker": true,
         'timePickerIncrement': 5,
         "timePicker24Hour": true,
@@ -150,16 +127,18 @@ export class AddMessageComponent implements OnInit {
                     "Grudzień"
                 ],
         },
-        "singleDatePicker": true
+        "singleDatePicker": true,
+        "minDate": moment().format("MM/DD/YYYY")
     };
 
     pickerOptionsEnd: Object = {
         'showDropdowns': true,
-        'showWeekNumbers': true,
+        'showWeekNumbers': false,
         "timePicker": true,
         'timePickerIncrement': 5,
         "timePicker24Hour": true,
         'autoApply': true,
+        "minDate": moment().format("MM/DD/YYYY"),
         "locale": {
             format: 'MM/DD/YYYY H:mm',
             "applyLabel": "Wybierz",
@@ -189,26 +168,13 @@ export class AddMessageComponent implements OnInit {
                 ],
         },
         "singleDatePicker": true
+        
     };
 
-    selectStartDate(message) {
-
-        this.msgAddModel.startDate = moment(new Date(message.start._d)).format("YYYY-MM-DD HH:mm:ss");
-        console.log('this.msgAddModel.startDate: ' + this.msgAddModel.startDate);
-        this.pickerOptionsEnd['minDate'] = '04/01/2017';
-
-    }
-
-    selectEndDate(message) {
-        this.msgAddModel.endDate = moment(new Date(message.end._d)).format("YYYY-MM-DD HH:mm:ss");
-        console.log('this.msgAddModel.endDate: ' + this.msgAddModel.endDate);
-    }
-
-    @ViewChild('childModal') public childModal: ModalDirective;
-    @ViewChild('fileUpload') public fileUpload:any;
-    @ViewChild('datePickerStart') public datePickerStart:Daterangepicker;
-    @ViewChild('datePickerEnd') public datePickerEnd: Daterangepicker;
-    @ViewChild('multiSelectDropdown') public multiSelectDropdown: MultiselectDropdown;
+    title: string = 'czy jesteś pewien że chcesz dodać post bez daty zakończenia?';
+    confirmClicked: boolean = false;
+    cancelClicked: boolean = false;
+    isOpen: boolean = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -218,18 +184,43 @@ export class AddMessageComponent implements OnInit {
         private mapsApiLoader: MapsAPILoader,
         private messageService: MessagesService,
         private daterange: DaterangepickerConfig,
-        private router: Router
+        private router: Router,
+        private toastyService: ToastyService,
+        private toastyConfig: ToastyConfig
     ){
         this.mapsApiLoader.load().then(() => {
-        console.log('google script loaded');
-        this.geocoder = new google.maps.Geocoder();
-        console.log(this.geocoder);
-        this.daterange.skipCSS = true;
-    });
-       
+            console.log('google script loaded');
+            this.geocoder = new google.maps.Geocoder();
+            console.log(this.geocoder);
+        });
+
+        this.toastyConfig.theme = 'material';
     }
 
-    ngOnInit(): void{  
+    addToast(message: string): void {
+        this.toastyService.default('Hi there!');
+
+        let toastOptions: ToastOptions = {
+            title: 'Błąd',
+            msg: message,
+            showClose: true,
+            timeout: 5000,
+            theme: 'bootstrap',
+            onAdd: (toast: ToastData) => {},
+            onRemove: function(toast: ToastData) {}
+        };
+
+        this.toastyService.error(toastOptions);
+    }
+
+    ngOnInit(): void{
+
+        this.msgAddModel.startDate = moment().format("YYYY-MM-DD HH:mm:ss");
+        this.msgAddModel.endDate = moment().format("YYYY-MM-DD HH:mm:ss");
+
+        $('#checkboxAdd + label').addClass('changed');
+        this.msgAddModel.endDate = null;
+
         if(localStorage.getItem('latitude') !== null) {
             this.lat = JSON.parse(localStorage.getItem('latitude'));
             console.log('this.lat: ' + this.lat);
@@ -239,8 +230,7 @@ export class AddMessageComponent implements OnInit {
             console.log('this.lng: ' + typeof JSON.parse(localStorage.getItem('longitude')).longitude);
         }
 
-        this.msgAddModel.startDate = moment().format("YYYY-MM-DD HH:mm:ss");
-        this.msgAddModel.endDate = moment().format("YYYY-MM-DD HH:mm:ss");
+        
         let user = JSON.parse(localStorage.getItem('user'));
         if(user != null) {
             this.addMessageService.getUserCompanyBranchList(user.user.company.id).subscribe((value)=> {
@@ -251,7 +241,7 @@ export class AddMessageComponent implements OnInit {
                 }
             }) 
        }
-         this.pickerOptionsEnd['minDate'] = '05/01/2017';
+        //  this.pickerOptionsEnd['minDate'] = '05/01/2017';
           
         for(let i = this.messageTypes.length-1; i >= 0; i--)
             if(i%2 !== 0)
@@ -303,17 +293,54 @@ export class AddMessageComponent implements OnInit {
         });
     }
 
+    callback = (address: string) : void => {
+        console.log('callback');  
+         this.localization = address;
+         this.locationChanged = true;
+    }
+
+    callbackEdit = (address: string) : void => {
+        console.log('callbackEdit');  
+         this.localization = address;
+    }
+
+    mapClicked($event: any) {
+      console.log('Map clicked');
+      this.lat =  $event.coords.lat;
+      this.lng = $event.coords.lng;
+      this.changeAddress(this.callback);
+    }
+    markerDragEnd($event: any) {
+      console.log('Map Dragged end');
+      this.lat =  $event.coords.lat;
+      this.lng = $event.coords.lng;
+      this.changeAddress(this.callback);
+    }
+
+    selectStartDate(message) {
+        this.msgAddModel.startDate = moment(new Date(message.start._d)).format("YYYY-MM-DD HH:mm:ss");
+        // this.pickerOptionsEnd['minDate'] = '04/01/2017';
+        if(this.msgAddModel.startDate && this.msgAddModel.endDate){
+            if(this.msgAddModel.startDate > this.msgAddModel.endDate){
+                this.addToast('Data rozpoczęcia nie może być później niż data zakończenia');
+            }
+        }
+    }
+
+    selectEndDate(message) {
+        this.msgAddModel.endDate = moment(new Date(message.end._d)).format("YYYY-MM-DD HH:mm:ss");
+        if(this.msgAddModel.startDate && this.msgAddModel.endDate){
+            if(this.msgAddModel.startDate > this.msgAddModel.endDate){
+                this.addToast('Data rozpoczęcia nie może być później niż data zakończenia');
+            }
+        }
+    }
+
     ngAfterViewInit(): void {
         this.showChildModal();    
     }
 
-    ngAfterViewChecked(){
-           
-     }
-
-
-
-     public changeAddress(callback: Function):void {
+    changeAddress(callback: Function):void {
          var address="";
 
              var latlng = {lat: this.lat, lng:this.lng};
@@ -327,20 +354,26 @@ export class AddMessageComponent implements OnInit {
                     }
                     callback(address);  
                 }); 
-     }
+    }
 
-    public showChildModal(): void {
+    showChildModal(): void {
       this.childModal.show();
     }
 
-    public hideChildModal(): void {
+    hideChildModal(): void {
       this.childModal.hide();
       this._location.back();
     }
 
     addprop():void {
         this.isCollapsed = !this.isCollapsed;
-       this.msgAddModel.endDate = null;
+        this.msgAddModel.endDate = null;
+
+        if($('#checkboxAdd + label').hasClass('changed')){
+            $('#checkboxAdd + label').removeClass('changed');
+        } else {
+            $('#checkboxAdd + label').addClass('changed');
+        }
     }
 
     addprop2(): void{
@@ -359,19 +392,10 @@ export class AddMessageComponent implements OnInit {
         }             
     }
 
-
-     withoutEndDate():void {
-      this.isCollapsed = false;
-      this.withEndDate = true;
-       this.msgAddModel.endDate = null;
-    }
-
-    public collapsed(event:any):void {
-        console.log(event);
-    }
-
-    public expanded(event:any):void {
-        console.log(event);
+    withoutEndDate():void {
+        this.isCollapsed = false;
+        this.withEndDate = true;
+        this.msgAddModel.endDate = null;
     }
 
     ngOnDestroy() { 
@@ -397,7 +421,6 @@ export class AddMessageComponent implements OnInit {
 
         this.messageAddModel.status = "NEW";
 
-        console.log('showMulitSelect '+this.showMulitSelect);
         if(this.showMulitSelect) {
             if(this.companyBranchListSelectedFinal.length>=1) {
                  this.messageAddModel.companyBranchList=this.companyBranchListSelectedFinal;
@@ -429,27 +452,32 @@ export class AddMessageComponent implements OnInit {
         }
         console.log(this.msgAddModel);
 
-        this.addMessageService.addMessage(this.messageAddModel).subscribe(
+        if(this.msgAddModel.startDate < this.msgAddModel.endDate || !this.msgAddModel.endDate){
+            console.log('OK data rozp > data zak');
+            this.addMessageService.addMessage(this.messageAddModel).subscribe(
             data => {
                 this.addedMessage = data;
-                if(this.fileUpload.file != null) {
-                    console.log('inside '+this.fileUpload.file); 
-                    this.addMessageService.addMessageImage(new ImageModel(this.addedMessage.id,this.fileUpload.file)).subscribe(
-                        data => {
-                        console.log('closing image '+this.fileUpload.file); 
+                    if(this.fileUpload.file != null) {
+                        console.log('inside '+this.fileUpload.file); 
+                        this.addMessageService.addMessageImage(new ImageModel(this.addedMessage.id,this.fileUpload.file)).subscribe(
+                            data => {
+                                console.log('closing image '+this.fileUpload.file); 
+                                this.hideChildModal();
+                            }
+                        );
+                    } else {
                         this.hideChildModal();   
-                        }
-                    );
-                } else {
-                    this.hideChildModal();   
-                }
+                    }
             },
-        error => {
-            console.log('error post:');
-            console.dir(error);
-            this.errorInfo = 'Musisz wpisać treść postu przed stworzeniem';
+            error => {
+                this.addToast('Musisz wpisać treść postu przed stworzeniem');
+            }
+        );
+        } else {
+            console.log('data rozp > data zak ERROR');
+            this.addToast('Data rozpoczęcia nie może być później niż data zakończenia');
         }
-      );
+        
     }
 
     onChange() {

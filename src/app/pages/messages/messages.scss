@@ -236,8 +236,9 @@ div.messages{
                 background-size: 100% 100%;
                 width: 140px;
                 height: 50px;
-                padding-top: 16px;
-                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 a{
                     color: $message_color;
                     font-size: 16px;

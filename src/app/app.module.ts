@@ -23,6 +23,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './globals/environment';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 // Application wide providers
 const APP_PROVIDERS = [
   AppState,
@@ -56,7 +58,8 @@ export type StoreType = {
     }),
     NgaModule.forRoot(),
     PagesModule,
-    routing
+    routing,
+    BrowserAnimationsModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

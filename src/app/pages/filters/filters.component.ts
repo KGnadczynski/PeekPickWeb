@@ -64,7 +64,7 @@ export class FiltersComponent implements OnInit{
             
             this.counter++;
 
-            if(data.filterBy === 'DISTANCE' && !data.searchControl){
+            if(data.filterBy === 'DISTANCE' && !data.searchControl && ! this.ifGeolocation){
                 let filterBy = <FormControl>this.filterForm.get('filterBy');
                 filterBy.reset('CREATE_DATE');
                 data.filterBy = 'CREATE_DATE';
@@ -80,7 +80,7 @@ export class FiltersComponent implements OnInit{
             // if((this.params.latitude && this.params.longitude))
 
             //wieksze od dwoch bo counter zwieksza sie do dwoch przy inicie gdy uzupełnia branze
-            if(!data.searchControl && this.counter > 2){
+            if(!data.searchControl && this.counter > 2 && !this.ifGeolocation){
                 this.nouislider.disabled = true;
                 this.params.latitude = null;
                 this.params.longitude = null;

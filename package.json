@@ -4,7 +4,7 @@
   "description": "tackpad aplikacja",
   "dependencies": {
     "@agm/core": "^1.0.0-beta.0",
-    "@angular/animations": "^4.1.2",
+    "@angular/animations": "^4.3.1",
     "@angular/common": "^4.1.2",
     "@angular/compiler": "^4.1.2",
     "@angular/compiler-cli": "^4.1.2",
@@ -69,6 +69,7 @@
     "ng2-slim-loading-bar": "^4.0.0",
     "ng2-smart-table": "0.5.3-0",
     "ng2-tab": "^0.4.0",
+    "ng2-toasty": "^4.0.3",
     "ng2-tree": "2.0.0-alpha.3",
     "ng2letteravatar": "^1.0.3",
     "ngx-modal": "0.0.29",

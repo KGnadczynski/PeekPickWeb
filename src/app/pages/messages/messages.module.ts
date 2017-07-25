@@ -9,7 +9,10 @@ import { NgaModule } from '../../theme/nga.module';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 @NgModule({
-    imports:[CommonModule, InfiniteScrollModule, MomentModule, routing, ShareButtonsModule.forRoot(), NgaModule, ConfirmationPopoverModule],
+    imports:[CommonModule, InfiniteScrollModule, MomentModule, routing, ShareButtonsModule.forRoot(), NgaModule, ConfirmationPopoverModule.forRoot({
+            confirmText: 'usuń',
+            cancelText: 'anuluj'
+    })],
     declarations: [MessagesComponent],
     exports: [MessagesComponent]
 })
