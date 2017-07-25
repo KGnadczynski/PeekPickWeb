@@ -27,9 +27,9 @@ export class FiltersComponent implements OnInit{
     @Output() myEvent: EventEmitter<any> = new EventEmitter<any>();
     @Input() id: number;
 
-    public latitude: number;
-    public longitude: number;
-    public zoom: number;
+    latitude: number;
+    longitude: number;
+    zoom: number;
     width: any;
     subcategories: {id: number, checked: boolean}[]= [];
     types: {name: string, checked: boolean}[] = [];
@@ -44,7 +44,7 @@ export class FiltersComponent implements OnInit{
         companyCategoryIdList: ""
     };
 
-    @ViewChild("search") public searchElementRef: ElementRef;
+    @ViewChild("search") searchElementRef: ElementRef;
     @ViewChild("nouislider") nouislider: NouisliderComponent;
 
     constructor(private fb: FormBuilder, private filtersService: FiltersService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone){
@@ -188,12 +188,6 @@ export class FiltersComponent implements OnInit{
             }
         );
 
-        if(window.innerWidth > 992){
-            this.isFiltryCollapse = false;
-        } else {
-            this.isFiltryCollapse = true;
-        }
-
         this.zoom = 4;
         this.latitude = 39.8282;
         this.longitude = -98.5795;
@@ -315,6 +309,8 @@ export class FiltersComponent implements OnInit{
         for(let i = 0; i < companyCategories.length; i++){
             companyCategories[i].checked = false;
         }
+
+        this.myEvent.emit(this.params);
     }
     
 }

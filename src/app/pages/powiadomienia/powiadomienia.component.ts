@@ -2,13 +2,15 @@ import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder} from '@angular/forms';
 import { PowiadomieniaService } from './powiadomienia.service';
 import { PowiadomieniaList } from './powiadomieniaList.model';
+import { ProfileService } from '../profile/profile.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'powiadomienia',
     encapsulation: ViewEncapsulation.None,
     template: require('./powiadomienia.component.html'),
     styles: [require('./powiadomienia.scss')],
-    providers: [PowiadomieniaService]
+    providers: [PowiadomieniaService, ProfileService]
 })
 
 export class PowiadomieniaComponent implements OnInit{
@@ -17,11 +19,17 @@ export class PowiadomieniaComponent implements OnInit{
     powiadomieniaList: PowiadomieniaList;
      canScrool: boolean = true;
     
-    constructor(private powiadomieniaService: PowiadomieniaService){
-
-    }
+    constructor(private powiadomieniaService: PowiadomieniaService, private profileService: ProfileService, , private router: Router){}
 
     ngOnInit(): void {
+        
+        this.profileService.getUser().subscribe(
+            result => {},
+            error => {
+                this.router.navigateByUrl('/pages/komunikat');
+            }
+        )
+
         this.powiadomieniaList = new PowiadomieniaList();
         this.getPowiadomienia(this.pageNumber);
     }
