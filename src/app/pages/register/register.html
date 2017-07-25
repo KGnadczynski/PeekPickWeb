@@ -53,6 +53,9 @@
       <div class="buttons">
         <button [disabled]="!form.valid" type="submit">utwórz konto</button>
         <a routerLink="/pages/login">zaloguj</a>
+        <div *ngIf="error" class="alert alert-danger">
+          {{error.error_description}}
+        </div>
       </div>
       
     </form>

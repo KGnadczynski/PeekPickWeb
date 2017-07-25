@@ -34,6 +34,7 @@ export class Register implements OnInit {
   public repeatPassword: AbstractControl;
   public passwords: FormGroup;
   busy: Subscription;
+ 
 
 
   public submitted: boolean = false;
@@ -47,7 +48,10 @@ export class Register implements OnInit {
   selectedKategoria: PodKategoria;
   podKategorie = Array<MainBranze>();
   userFromServer:User
-
+  static latitude;
+  static  longitude;
+   error: any;
+  
   ngOnInit() {
     this.registerService.getBranze().subscribe(
       data => {
@@ -113,32 +117,29 @@ export class Register implements OnInit {
 
   public onSubmit(values: Object): void {
     window.onLoginButtonClick();
+    
     this.registerJson = new RegisterObject();
     this.registerJson.user.name = this.user.name;
     this.registerJson.user.email = this.user.email;
     this.registerJson.user.password = this.user.password;
     this.registerJson.companyBranch.city = this.company.city;
     this.registerJson.companyBranch.main = false;
-    var latitude = JSON.parse(localStorage.getItem('latitude'));
-    var longitude = JSON.parse(localStorage.getItem('longitude'));
-    if(latitude !=null && longitude != null) {
-      this.registerJson.companyBranch.latitude = latitude.latitude;
-      this.registerJson.companyBranch.longitude = longitude.longitude;
-    } else {
-      var geocoder = new google.maps.Geocoder();
-      var address = this.company.city+" "+this.company.street+" "+this.company.streetNo;
-      console.log('address'+ address);
-      geocoder.geocode( { 'address': address}, function(results, status) {
+  
 
-      if (status == google.maps.GeocoderStatus.OK) {
-        console.log('maps okej'+ results[0].geometry.location.lat);
-         this.registerJson.companyBranch.latitude = results[0].geometry.location.lat;
-         this.registerJson.companyBranch.longitude = results[0].geometry.location.lng;
-         localStorage.setItem('latitude', JSON.stringify({ latitude: this.registerJson.companyBranch.latitude})); 
-         localStorage.setItem('longitude', JSON.stringify({ longitude: this.registerJson.companyBranch.longitude})); 
-        } 
-      }); 
-    }
+    var geocoder = new google.maps.Geocoder();
+    var address = this.company.city+" "+this.company.street+" "+this.company.streetNo;
+    console.log('address'+ address);
+    geocoder.geocode( { 'address': address}, function(results, status) {
+
+    if (status == google.maps.GeocoderStatus.OK) {
+ 
+      Register.latitude = results[0].geometry.location.lat();
+      Register.longitude = results[0].geometry.location.lng();
+    } else {
+  
+    } 
+  }); 
+    
     this.registerJson.companyBranch.name = this.user.name;
     this.registerJson.companyBranch.street = this.company.street;
     this.registerJson.companyBranch.streetNo = this.company.streetNo;
@@ -199,6 +200,10 @@ public onSubmitDigitsCallback(req: any): void {
   digitsObject.url = apiUrl;
   digitsObject.credentials = credentials;
   console.log("Diggits URL"+digitsObject.url);
+  console.log("register lat"+Register.latitude);
+  this.registerJson.companyBranch.latitude = Register.latitude;
+  this.registerJson.companyBranch.longitude =  Register.longitude;
+  console.log("lattiude registring "+this.registerJson.companyBranch.latitude);
   this.registerService.getDigits(digitsObject).subscribe(data => {
           this.registerJson.user.phoneNumber = data.phoneNumber;
           this.registerJson.token.value = data.token;
@@ -206,6 +211,8 @@ public onSubmitDigitsCallback(req: any): void {
         .subscribe(
           data => {
             console.log(data);
+            localStorage.setItem('latitude', Register.latitude); 
+            localStorage.setItem('longitude', Register.longitude); 
             localStorage.setItem('user', JSON.stringify({ user: data}));
             let body = new URLSearchParams();
             body.set('password', this.registerJson.user.password);
@@ -225,7 +232,8 @@ public onSubmitDigitsCallback(req: any): void {
                            data => {
                              localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
                              this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
-                             this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);       
+                             this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);    
+                             this._menuService.changedLoggedFlag(this.userFromServer.company.id);   
                              this.pageTopService.showLoadingBar(false);
                              this.router.navigate(['/komunikat']);
                             },
@@ -245,6 +253,15 @@ public onSubmitDigitsCallback(req: any): void {
             },
           error => {
             this.pageTopService.showLoadingBar(false);
+            console.dir('HELLO '+error);   
+            this.error= error;
+             if(this.error.error_description === "PHONE_NUMBER_IS_USED") {
+               this.error.error_description = "Podany numer telefonu jest już w użyciu";
+             } else if (this.error.error_description === "EMAIL_IS_USED") {
+               this.error.error_description = "Podany email jest już w użyciu";
+            } else {
+              this.error.error_description = "Podany adres nie istnieje";
+            }
           }); 
         },
         error => {
