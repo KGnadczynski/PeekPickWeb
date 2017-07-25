@@ -188,6 +188,13 @@ export class FiltersComponent implements OnInit{
             }
         );
 
+        if(window.innerWidth > 992){
+            this.isFiltryCollapse = false;
+        } 
+        else {
+            this.isFiltryCollapse = true;
+        }
+
         this.zoom = 4;
         this.latitude = 39.8282;
         this.longitude = -98.5795;
