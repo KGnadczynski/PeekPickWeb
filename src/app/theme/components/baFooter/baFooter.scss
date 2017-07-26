@@ -105,7 +105,10 @@ div#footer{
                 font-family: $openSansFont, sans-serif;
                 text-align: center;
                 @include pElement(16, 0, none, left);
-               
+                a{
+                    color: $redColor;
+                    font-size: 16px;
+                }
             }
         }
         div.menu{
