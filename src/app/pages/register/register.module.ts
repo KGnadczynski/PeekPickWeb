@@ -6,6 +6,7 @@ import { NgaModule } from '../../theme/nga.module';
 import { Register } from './register.component';
 import { routing }       from './register.routing';
 import {BusyModule} from "angular2-busy";
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {BusyModule} from "angular2-busy";
     FormsModule,
     NgaModule,
     BusyModule,
+    AgmCoreModule,
     routing
   ],
   declarations: [
