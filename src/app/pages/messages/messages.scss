@@ -50,7 +50,7 @@ div.messages{
             i{
                 float: right;
                 font-size: 35px;
-                color: #A20E12;
+                color: $redColor;
             }
         }
 
@@ -58,18 +58,18 @@ div.messages{
             clear: both;
             float: left;
             cursor: pointer;
-            margin: 20px 0 20px 20px;
+            margin: 10px 15px 15px 0px;
             font-family: $openSansFont, sans-serif;
-            position: relative;
-            background-color: $redColor;
-            border-radius: 160px / 150px;
-            padding: 10px 35px;
+            background-image: url('../../meta/wiadomosc_do_gory2.png');
+            background-size: 100% 100%;
             @include pElement(16, 0, none, left);
+
             p{
+                padding: 20px 82px 20px 82px;
                 line-height: 24px;
                 color: white;
             }
-            
+            /*
             &:before{
                 content: "";
                 position: absolute;
@@ -91,7 +91,7 @@ div.messages{
                 background: #FAFAFA;
                 border-bottom-left-radius: 89px 50px;
                 transform: translate(21px, 0px);
-            }
+            }*/
         }
         div.message-time{
             clear: both;
