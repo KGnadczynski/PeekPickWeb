@@ -1,36 +1,4 @@
-$redColor: #A20E12;
-$blackColor: #263238;
-
-@mixin button($url){
-    button, input[type=submit]{
-        background: transparent;
-        border: 0;
-        background-image: url('../../meta/#{$url}');
-        font-family: 'Sanchez', serif;
-        background-size: 100% 100%;
-        color: $redColor;
-        text-transform: lowercase;
-        clear: both;
-        font-size: 16px;
-        outline: 0;
-        padding: 0;
-        @if($url == 'przycisk.png'){
-            width: 160px;
-            height: 50px;
-            margin: auto;
-            display: block;
-            
-        } @else {
-            width: 200px;
-            height: 57px;
-            float: none;
-        }
-        
-        &.mainBranchButton{
-            height: 70px;
-        }
-    }
-}
+@import '../../theme/sass/general/general.scss';
 
 div.popover{
     border: 1px solid $blackColor;
@@ -41,14 +9,7 @@ div.popover{
         background: transparent;
         border-bottom: 1px solid $blackColor;
     }
-    @media(max-width: 565px){
-        // left: 39px !important;
-        // top: 213px !important;
-    }
-    @media(min-width: 566px){
-        // top: 113px !important;
-        // left: 290px !important;
-    }
+    
     div.popover-content{
         padding: 0;
         button{
@@ -113,9 +74,6 @@ div#profile{
     
     md-tab-group{
         div.md-tab-body{
-            // @media(min-width: 992px){
-            //     padding: 0 18%;
-            // }
             margin: auto;
             @media(max-width: 565px){
                 width: 96%;
@@ -192,20 +150,4 @@ div#profile{
             }
         }
     }
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus
-input:-webkit-autofill, 
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  border: 1px solid gray;
-  -webkit-text-fill-color: gray;
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
-  transition: background-color 5000s ease-in-out 0s;
 }

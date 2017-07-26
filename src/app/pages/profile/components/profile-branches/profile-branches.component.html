@@ -4,13 +4,11 @@
             {{ branch?.name }}
             <i class="fa fa-home fa-1x" *ngIf="branch.main" aria-hidden="true"></i>
         </h2>
-        <p>
-            <span>
-                {{ branch?.city }},
-                {{ branch?.street }}
-                {{ branch?.streetNo }}
-            </span>
-        </p>
+        <span>
+            {{ branch?.city }},
+            {{ branch?.street }}
+            {{ branch?.streetNo }}
+        </span>
 
         <div class="buttons">
             <button class="editBranch" (click)="branch.collapse = !branch.collapse">Edytuj oddział</button>

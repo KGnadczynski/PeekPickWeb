@@ -20,6 +20,7 @@
             </div>
         </div>
         <button type="submit" [disabled]="!passwordForm.valid">Zapisz</button>
+        
     </form>
     <div class="errorDiv">
         <span *ngIf="messageAfter">Pomyślnie zmieniono hasło</span>
@@ -56,7 +57,7 @@
                 <input type="number" id="numer" formControlName="streetNo">
             </div>
         </div>
-        <button type="submit">Zapisz</button>
+            <button type="submit">Zapisz</button>
     </form>
     <div class="errorDiv">
         <span *ngIf="messageAfterUpdateCompany">Pomyślnie zaktualizowano profil</span>

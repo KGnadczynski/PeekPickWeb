@@ -1,10 +1,7 @@
-$redColor: #A20E12;
-$blackColor: #263238;
-$darkerBlackColor: #2B2E34;
+@import '../../theme/sass/general/general.scss';
 
 div#home{
     overflow: hidden;
-    
     display: flex;
     flex-wrap: wrap;
     @media(max-width: 575px){
@@ -13,6 +10,7 @@ div#home{
     @media(min-width: 576px){
         flex-direction: row;
     }
+
     div.hello{
         @media(max-width: 575px){
             width: 100%;
@@ -37,24 +35,23 @@ div#home{
             color: $redColor;
             text-align: center;
             font-size: 40px;
-            font-family: 'Sanchez', serif;
+            font-family: $sanchezFont, serif;
             margin-bottom: 20px;
         }
 
         div.messangerShape{
             position: relative;
-            background: #A20E12;
+            background: $redColor;
             color: white;
             margin: 30px 9% 40px 9%;
             padding: 16px 25px;
             border-radius: 275px;
+            margin: auto;
             @media(max-width: 565px){
                 width: 90%;
-                margin: auto;
             }
             @media(min-width: 566px){
                 width: 60%;
-                margin: auto;
             }
             @media(min-width: 768px){
                 width: 50%;
@@ -72,8 +69,8 @@ div#home{
                 bottom: -30px;
                 right: 6%;
                 height: 30px;
-                border-left: 60px solid #A20E12;
-                background: #A20E12;
+                border-left: 60px solid $redColor;
+                background: $redColor;
                 border-bottom-left-radius: 80px 50px;
                 transform: translate(0, 0px);
             }
@@ -89,35 +86,17 @@ div#home{
                 border-bottom-left-radius: 40px 50px;
                 transform: translate(-30px, 0px);
             }
-
+            @include pElement(16, 0, none, center);
             p {
-                font-size: 16px;
-                font-family: 'Open Sans', sans-serif;
                 color: white;
                 line-height: 22px;
-                text-align: center;
             }
         }
 
         div.router{
             text-align: center;
             margin: 20px 0;
-            
-            a{
-                background-image: url('../../meta/przycisk.png');
-                background-size: 100% 100%;
-                width: 184px;
-                height: 52px;
-                font-family: 'Sanchez', serif;
-                font-size: 20px;
-                color: $redColor;
-                display: block;
-                margin: auto;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
+            @include button('przycisk.png', 20, 184, 52);
         }
     }
     div.photo{
@@ -143,12 +122,12 @@ div#home{
             left: 17%;
             p{
                 font-size: 14px;
-                font-family: 'Open Sans', sans-serif;
+                font-family: $openSansFont, sans-serif;
                 color: $blackColor;
                 margin: 6px 0;
                 span{
                     font-size: 14px;
-                    font-family: 'Sanchez', serif;
+                    font-family: $sanchezFont, serif;
                     color: $redColor;
                 }
             }
@@ -173,7 +152,6 @@ div#home{
         h1#main{
             position: relative;
             font-size: 575px;
-            // left: 70px;
             @media(min-width: 566px){
                 font-size: 450px;
             }
@@ -185,7 +163,7 @@ div#home{
             }
             color: $redColor;
             opacity: 0.3;
-            font-family: 'Sanchez', serif;
+            font-family: $sanchezFont, serif;
         }
 
         div.inside{
@@ -206,7 +184,7 @@ div#home{
             h3 {
                 color: $redColor;
                 font-size: 24px;
-                font-family: 'Sanchez', serif;
+                font-family: $sanchezFont, serif;
                 text-align: center;
                 margin-bottom: 5%;
             }
@@ -218,7 +196,7 @@ div#home{
                 }
                 h4{
                     color: $darkerBlackColor;
-                    font-family: 'Open Sans', sans-serif;
+                    font-family: $openSansFont, sans-serif;
                     font-size: 18px;
                     float: left;
                     width: auto;

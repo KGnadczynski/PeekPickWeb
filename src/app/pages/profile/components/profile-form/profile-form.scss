@@ -1,25 +1,21 @@
+@import '../../../../theme/sass/general/general.scss';
 @import "../../profile.scss";
 
 form#profile-form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin: 4% 0;
+    margin: 25px 0;
     align-items: center;
     label{
-        margin: 2% 0;
-        font-family: 'Open Sans', sans-serif;
+        margin: 20px 0;
+        font-family: $openSansFont, sans-serif;
         font-size: 16px;
         color: $blackColor;
         text-transform: lowercase;
     }
-    input {
-        border: 0;
-        border-bottom: 1px solid $blackColor;
-        color: $blackColor;
-        outline: 0;
-        width: 50%;
-    }
+    @include inputBlack(0, 17, 50);
+    
     input[type=submit]{
         margin-top: 20px;
         &.disabled{
@@ -30,10 +26,10 @@ form#profile-form {
         width: 100%;
         text-align: center;
         font-size: 16px;
-        font-family: 'Open Sans', sans-serif;
+        font-family: $openSansFont, sans-serif;
         margin-top: 20px;
         margin-bottom: 20px;
         color: $redColor;
     }
-    @include button('przycisk2.png');
+    @include button('przycisk2.png', 16, 200, 57);
 }

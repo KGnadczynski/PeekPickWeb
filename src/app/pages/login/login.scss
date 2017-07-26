@@ -1,34 +1,29 @@
-@import '../../theme/sass/auth';
-
-$colorRed: #A20E12;
-$colorBlack: #263238;
+@import '../../theme/sass/general/general.scss';
 
 div.alert-danger{
     border: 0;
-    color: #A20E12;
+    color: $redColor;
     background: white;
     margin: 1% 0;
     border-radius: 0;
 }
 
 div#loginFormMain{
-    border: 2px solid $colorBlack;
+    border: 2px solid $blackColor;
     margin: auto;
     padding: 20px;
     width: 343px;
     min-height: 342px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    @include margin(20, 20);
 
     div#loginFormBlock{
         
         h1{
             text-align: center;
-            
             text-transform: uppercase;
-            color: $colorRed;
+            color: $redColor;
             font-size: 20px;
-            font-family: 'Sanchez', serif;
+            font-family: $sanchezFont, serif;
         }
         form{
             overflow: hidden;
@@ -38,26 +33,12 @@ div#loginFormMain{
                 flex-direction: column;
                 width: 80%;
                 margin: auto;
-                margin-top: 10px;
-                margin-bottom: 10px;
+                @include margin(10,10);
                 label{
                     font-size: 18px;
                     margin-right: 2%;
                 }
-                input{
-                    width: 100%;
-                    padding: 2% 0;
-                    font-size: 16px;
-                    outline: 0;
-                    border: 0;
-                    border-bottom: 1px solid $colorBlack;
-                    text-transform: lowercase;
-                    color: $colorBlack;
-                    font-family: 'Open Sans', sans-serif;
-                    &::placeholder{
-                        color: $colorBlack;
-                    }
-                }
+                @include inputBlack(20, 16, 100);
                 
             }
             div.actionButtons{
@@ -65,37 +46,14 @@ div#loginFormMain{
                 flex-direction: column;
                 align-items: center;
                 text-transform: lowercase;
-                
-                button#login, a#register{
-                    color: $colorRed;
-                    font-size: 20px;
-                    font-family: 'Sanchez', serif;
-                    text-align: center;
-                    background-image: url('../../meta/przycisk2.png');
-                    background-size: 100% 100%;
-                    width: 184px;
-                    height: 60px;
-                    outline: 0;
-                }
-                button#login{
-                    border: 0;
-                    padding-bottom: 7px;
-                }
-                a#register{
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
+                @include button('przycisk2.png', 20, 184, 60);
 
-                a#forgotPassword{
-                    margin: 20px 0;
-                    color: $colorBlack;
+                a{
+                    @include margin(20, 20);
+                    color: $blackColor;
                     font-size: 15px;
-                    color: $colorBlack;
-                    font-size: 15px;
-                    font-family: 'Open Sans', sans-serif;
-                    outline: 0;
-                    
+                    color: $blackColor;
+                    font-family: $openSansFont, sans-serif;
                 }
                 
             }
@@ -103,18 +61,3 @@ div#loginFormMain{
     }
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus
-input:-webkit-autofill, 
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  border: 1px solid gray;
-  -webkit-text-fill-color: gray;
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
-  transition: background-color 5000s ease-in-out 0s;
-}

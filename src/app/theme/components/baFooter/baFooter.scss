@@ -1,15 +1,8 @@
-$redColor: #A20E12;
-$blackColor: #263238;
+@import '../../sass/general/general.scss';
 
 div#footer{
-    div.footerLine{
-        width: 80%;
-        margin: auto;
-        height: 2px;
-        background: $redColor;
-        margin-top: 2%;
-        margin-bottom: 20px;
-    }
+
+    @include line(2, $redColor, 80, 20);
 
     div#inside{
         display: flex;
@@ -59,18 +52,8 @@ div#footer{
                 padding: 5px;
             }
 
-            a{
-                font-family: 'Sanchez', serif;
-                font-size: 15px;
-                color: $redColor;
-                position: relative;
-                background-image: url('../../../../meta/przycisk2.png');
-                background-size: 100% 100%;
-                width: 184px;
-                height: 47px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+            @include button('przycisk2.png', 15, 184, 47);
+            button{
                 img{
                     position: absolute;
                     top: 15px;
@@ -82,7 +65,6 @@ div#footer{
                     background-image: url('../../../../meta/przycisk.png');
                 }
             }
-                
         }
 
         div#bottomDiv{
@@ -120,20 +102,10 @@ div#footer{
 
             }
             div.text{
-                font-family: 'Open Sans', sans-serif;
-                
+                font-family: $openSansFont, sans-serif;
                 text-align: center;
-                p{
-                    color: $blackColor;
-                    font-size: 16px;
-                    margin: 0;
-                }
-                a{
-                    color: $redColor;
-                    @media(min-width: 992px){
-
-                    }
-                }
+                @include pElement(16, 0, none, left);
+               
             }
         }
         div.menu{
@@ -162,7 +134,7 @@ div#footer{
                     }
                     a{
                         color: $blackColor;
-                        font-family: 'Open Sans', sans-serif;
+                        font-family: $openSansFont, sans-serif;
                         
                         @media(max-width: 565px){
                             font-size: 12px;

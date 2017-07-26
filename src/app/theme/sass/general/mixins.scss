@@ -1,0 +1,149 @@
+@import "colorsAndFonts.scss";
+
+@mixin button($url, $fontSize, $width, $height){
+    button {
+        color: $redColor;
+        font-size: $fontSize + px;
+        font-family: 'Sanchez', serif;
+        text-align: center;
+        background: transparent;
+        background-image: url('../../../../meta/#{$url}');
+        background-size: 100% 100%;
+        width: $width + px;
+        height: $height + px;
+        border: 0;
+        outline: 0;
+        text-transform: lowercase;
+        display: block;
+        margin: auto;
+        clear: both;
+    }
+}
+
+@mixin margin($top, $bottom){
+    margin-top: $top + px;
+    margin-bottom: $bottom + px;
+}
+
+@mixin padding($top, $bottom, $left, $right){
+    padding-top: $top + px;
+    padding-bottom: $bottom + px;
+    padding-left: $left + px;
+    padding-right: $right + px;
+}
+
+@mixin inputBlack($padding, $fontSize, $width){
+    input{
+        margin: auto;
+        display: block;
+        width: $width + %;
+        padding: $padding+px 0;
+        font-size: $fontSize + px;
+        outline: 0;
+        border: 0;
+        border-bottom: 1px solid $blackColor;
+        text-transform: lowercase;
+        color: $blackColor;
+        font-family: $openSansFont, sans-serif;
+        &::placeholder{
+            color: $blackColor;
+            font-family: $openSansFont, sans-serif;
+        }
+    }
+}
+
+@mixin line($height, $bcgColor, $width, $margin){
+    div.line{
+        float: left;
+        clear: both;
+        width: 100%;
+        @include margin($margin, $margin);
+        div{
+            height: $height + px;
+            background: $bcgColor;
+            width: $width + %;
+            margin: auto;
+        }
+    }
+}
+
+@mixin checkboxMixin($checkOrRadio, $margin, $top) {
+    div.checkbox{
+        @if $checkOrRadio == "radio"{
+            width: 120px;
+        } @else {
+            width: 25px;
+        }
+        position: relative;
+        float: left;
+        clear: both;
+        margin-top: $margin + px;
+        margin-bottom: $margin + px;
+        label{
+            cursor: pointer;
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: -$top + px;
+            left: 0;
+            background-image: url('../../meta/selection.png');
+            background-size: 25px;
+            margin: 0;
+            &:after{
+                opacity: 0;
+                content: '';
+                position: absolute;
+                background-image: url(../../meta/checkbox-blank.png);
+                width: 28px;
+                height: 28px;
+                top: -5px;
+                left: -5px;
+            }
+            &:hover::after{
+                opacity: 0;
+            }
+        }
+        input[type=#{$checkOrRadio}]:checked + label:after{
+            opacity: 1;
+        }
+        input[type=#{$checkOrRadio}]:checked + label.changed:after{
+            opacity: 1;
+        }
+        input[type=#{$checkOrRadio}]{
+            opacity: 0;
+        }
+        span {
+            position: absolute;
+            left: 30px;
+            top: 5px;
+        }
+    }
+}
+
+@mixin pElement($fontSize, $margin, $float, $textAlign){
+    p{
+        font-family: $openSansFont, sans-serif;
+        font-size: $fontSize + px;
+        color: $blackColor;
+        text-transform: lowercase;
+        float: $float;
+        text-align: $textAlign;
+        @include margin($margin, $margin);
+    }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid gray;
+  -webkit-text-fill-color: gray;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  transition: background-color 5000s ease-in-out 0s;
+}

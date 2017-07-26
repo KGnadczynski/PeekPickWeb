@@ -17,11 +17,10 @@
                     <i *ngIf="messageTypeName === 'PROMOTION'" class="material-icons">loyalty</i>
                 </div>
                 <button type="button" class="header-button" aria-label="Close" (click)="hideChildModal()">
-                    <img src="../../meta/close-circle-outline.png" alt="">
                 </button>
             </div>
 
-            <div class="blackLineF">
+            <div class="line">
                 <div></div>
             </div>
 
@@ -31,7 +30,6 @@
                 </div>
                 <div class="text">
                     <p>Data rozpoczęcia: </p>
-                        <!-- <input daterangepicker #datePickerStart [(ngModel)]="msgAddModel.startDate" (selected)="selectStartDate($event)" [options]="pickerOptionsStart" type="submit"/>   -->
                     <p>{{ msgAddModel.startDate }}</p>
                 </div>
             </div>
@@ -46,7 +44,7 @@
 
                     <div [collapse]="isCollapsed">
                       <p>{{ msgAddModel.endDate }}</p>
-                      <p class="notDateEnd" *ngIf="!this.msgAddModel.endDate">wybierz datę zakończenia</p>
+                      <p class="red" *ngIf="!this.msgAddModel.endDate">wybierz datę zakończenia</p>
                     </div>
                     
                     <div class="checkBoxDiv">
@@ -60,20 +58,16 @@
 
             </div>
             
-            <div class="blackLineF">
+            <div class="line">
                 <div></div>
             </div>
 
             <div class="content">
-                <!--<h4>Opis</h4>-->
                 <textarea rows="3" type="text" placeholder="treść komunikatu" [(ngModel)]="msgAddModel.content" #messageContent maxlength="200"></textarea>
                 <p>Zostało: {{200 - messageContent.value.length}} znaków</p>
-                <div class="errorDiv" *ngIf="errorInfo">
-                    <span>{{ errorInfo }}</span>
-                </div>
             </div>
 
-            <div class="blackLineF">
+            <div class="line">
                 <div></div>
             </div>
 
@@ -87,15 +81,6 @@
                     <img class="icon" src="../../meta/map-marker.png" alt="" (click)="setLocationCallapsed()" (change)="addprop2()">
                     <p>zmień lokalizację</p>
                 </div>
-
-                <!--<div class="checkBoxDiv">
-                    <div class="checkbox">
-                        <input type="checkbox" name="checkboxAdd2" id="checkboxAdd2">
-                        <label for="checkboxAdd2"></label>
-                    </div>
-                    <span>użyj lokalizacji</span>
-                </div>-->
-                
             </div>
 
             <div class="odzialFirmy">

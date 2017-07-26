@@ -8,8 +8,8 @@
     <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
 
         <div class="inputs">
-            <input class="inputSearch" type="text" formControlName="searchTerm">
-            <input class="searchSubmit" type="submit" value="szukaj" [disabled]="!searchForm.valid" [ngClass]="{disabled: !searchForm.valid}">
+            <input class="inputSearch" type="text" formControlName="searchTerm" placeholder="...">
+            <button class="searchSubmit" type="submit" value="szukaj" [disabled]="!searchForm.valid" [ngClass]="{disabled: !searchForm.valid}"></button>
         </div>
         <div class="searchError" *ngIf="searchForm.controls['searchTerm'].hasError('required') && searchForm.controls['searchTerm'].touched">Wpisz szukaną frazę</div>
 
@@ -17,8 +17,7 @@
             zaawansowane szukanie
         </div>
          
-
-         <div [collapse] = "showAdvanced"> 
+        <div [collapse] = "showAdvanced"> 
             <p class="distance">Odległość</p>
             <div id="nouisliderDiv">
                 <nouislider [min]="0" [max]="101" [step]="1" [(ngModel)]="someValue" formControlName = "range"></nouislider>

@@ -1,12 +1,13 @@
+@import '../../../../theme/sass/general/general.scss';
 @import "../../profile.scss";
 
 div#companyInfo{
     div#header{
         text-align: center;
         h3{
-            margin: 5px 0;
+            @include margin(5, 5);
             font-size: 20px;
-            font-family: 'Sanchez', serif;
+            font-family: $sanchezFont, serif;
             color: $redColor;
             display: inline-block;
             width: auto;
@@ -15,22 +16,11 @@ div#companyInfo{
     }
     
     form#changeEP{
-        input{
-            display: block;
-            margin: auto;
-            padding: 2%;
-            margin-bottom: 2%;
-            outline: 0;
-            border : 0;
-            border-bottom: 1px solid $blackColor;
-            width: 60%;
-            &::placeholder{
-                color: $blackColor;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 17px;
-            }
+        @include inputBlack(20, 17, 60);
+        @include button('przycisk.png', 16, 160, 50);
+        button {
+            margin-top: 20px;
         }
-        @include button('przycisk.png');
     }
 }
 div#editProfile{
@@ -45,7 +35,7 @@ div#editProfile{
         h3{
             margin: 5px 0;
             font-size: 20px;
-            font-family: 'Sanchez', serif;
+            font-family: $sanchezFont, serif;
             color: $redColor;
             display: inline-block;
             width: auto;
@@ -60,25 +50,12 @@ div#editProfile{
             width: auto;
             height: auto;
         }
-        input[type=text], input[type=password], input[type=email], input[type=number]{
-            width: 100%;
-            outline: 0;
-            border : 0;
-            border-bottom: 1px solid $blackColor;
-            font-size: 17px;
-            color: $blackColor;
-            &::placeholder{
-                color: $blackColor;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 17px;
-            }
-        }
+        @include inputBlack(0, 17, 100);
         div.image-upload{
             width: 40%;
             cursor: pointer;
             border-radius: 1px;
             float: left;
-
             div.picture-wrapper{
                 width: 100%;
                 height: auto;
@@ -141,10 +118,10 @@ div#editProfile{
             }
         }
         
-        @include button('przycisk.png');
+        @include button('przycisk.png', 16, 160, 50);
 
         label {
-            font-family: 'Open Sans', sans-serif;
+            font-family: $openSansFont, sans-serif;
             font-size: 17px;
             color: $blackColor;
         }

@@ -1,24 +1,13 @@
-$message_color: #263238;;
-$redColor: #A20E12;
+@import '../../theme/sass/general/general.scss';
 
 div.messages{
     overflow: hidden;
     margin: auto;
     @media(max-width: 565px){
-        // width: 375px;
         width: 96%;
     }
-    @media(min-width: 566px){
-        // width: 709px;
-        // width: 96%;
-    }
-    @media(min-width: 768px){
-        // width: 709px;
-    }
-    @media(min-width: 992px){
-
-    }
     div.message{
+        @include line(2, $redColor, 100, 10);
         overflow: hidden;
         border: 1px solid lightgray;
         padding: 10px;
@@ -36,38 +25,28 @@ div.messages{
         div.message-text-block{
             float: left;
             padding-left: 5px;
-            font-family: 'Open Sans', sans-serif;
+            font-family: $openSansFont, sans-serif;
             display: flex;
             flex-direction: column;
             @media(max-width: 565px){
                 width: 35%;
             }
             a{
-                color: $message_color;
+                color: $blackColor;
                 text-transform: capitalize;
                 font-size: 20px;
-                font-family: 'Open Sans', sans-serif;
+                font-family: $openSansFont, sans-serif;
                 font-weight: bold;
                 line-height: 22px;
                 margin: 0;
             }
         
-            p{
-                text-align: left;
-                color: $message_color;
-                font-size: 13px;
-                margin: 3px 0;
-            }
+            @include pElement(13, 3, none, left);
         }
 
         div.message-distance-message-icon-work{
             float: right;
-            p{
-                float: right;
-                color: $message_color;
-                margin-right: 10px;
-                font-size: 12px;
-            }
+            @include pElement(12, 10, right, left);
             i{
                 float: right;
                 font-size: 35px;
@@ -80,18 +59,17 @@ div.messages{
             float: left;
             cursor: pointer;
             margin: 20px 0 20px 20px;
-            font-family: 'Open Sans', sans-serif;
+            font-family: $openSansFont, sans-serif;
             position: relative;
             background-color: $redColor;
             border-radius: 160px / 150px;
             padding: 10px 35px;
+            @include pElement(16, 0, none, left);
             p{
-                text-align: left;
-                color: white;
-                font-size: 16px;
                 line-height: 24px;
-                margin: 0;
+                color: white;
             }
+            
             &:before{
                 content: "";
                 position: absolute;
@@ -123,26 +101,18 @@ div.messages{
             justify-content: space-between;
             margin-bottom: 2%;
             color: black;
-            font-family: 'Open Sans', sans-serif;
+            font-family: $openSansFont, sans-serif;
             span{
-                margin-bottom: 6%;
-                color: $message_color;
-                font-size: 13px;
+                color: $blackColor;
+                font-size: 14px;
                 @media(max-width: 575px){
-                    font-size: 14px;
                     line-height: 0;
                 }
             }
-            p{
-                margin: 3% 0;
-                font-size: 13px;
-            }
+            @include pElement(14, 10, none, left);
             
             div.end-date{
                 text-align: right;
-                span{
-                    margin-bottom: 6%;
-                }
             }
         }
         div.message-photo{
@@ -176,54 +146,10 @@ div.messages{
             }
             
             div.time{
-                p{
-                    text-align: right;
-                    font-family: 'Open Sans', sans-serif;
-                    font-size: 14px;
-                    margin: 0;
-                }
-                
+                @include pElement(14, 0, none, right);
             }
         }
-        div#odzialFirmy{
-            ss-multiselect-dropdown{
-                button{
-                    background: white;
-                    border: 1px solid gray;
-                    border-radius: 1px;
-                    margin: auto;
-                }
-                div.dropdown{
-                    float: none;
-                    padding: 0;
-                    button{
-                        display: block;
-                        padding: 3%;
-                        border: 1px solid black;
-                    }
-                }
-
-                ul.dropdown-menu{
-                    position: static;
-                    float: right;
-                    padding: 3% 0;
-                    width: 100%;
-                    li{
-                        text-align: center;
-                        a{
-                            color: gray;
-                            font-size: 16px;
-                        }
-                        &.dropdown-divider{
-                            display: none;
-                        }
-                        &.dropdown-item{
-                            padding: 3% 1%;
-                        }
-                    }
-                }
-            }
-        }
+        
         div.actions{
             clear: both;
             float: left;
@@ -231,58 +157,21 @@ div.messages{
             display: flex;
             justify-content: space-between;
             div#edit, div#continue, div#delete {
+                @include button('przycisk.png', 16, 140, 50);
                 cursor: pointer;
-                background-image: url('../../meta/przycisk.png');
-                background-size: 100% 100%;
-                width: 140px;
-                height: 50px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                a{
-                    color: $message_color;
-                    font-size: 16px;
-                    
-                    color: $redColor;
-                }
             }
             div.popover{
-                border: 1px solid $message_color;
+                border: 1px solid $blackColor;
             }
             h3.popover-title{
                 background: white;
-                border-bottom-color: $message_color;
-                color: $message_color;
+                border-bottom-color: $blackColor;
+                color: $blackColor;
             }
             div.popover-content{
-                button{
-                    color: $redColor;
-                    // border: 2px dotted $redColor;
-                    background: transparent;
-                    background-image: url('../../meta/przycisk.png');
-                    background-size: 100% 100%;
-                    width: 140px;
-                    height: 50px;
-                    border: 0;
-                }
+                @include button('przycisk.png', 16, 140, 50);
             }
            
          }
-    }
-}
-
-div.blackline{
-    clear: both;
-    float: left;
-    width: 100%;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    div{
-        width: 100%;
-        height: 2px;
-        background: $redColor;
-    }
-    @media (min-width: 992px){
-        width: 100%;
     }
 }

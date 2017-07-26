@@ -1,208 +1,132 @@
-@import '../../theme/sass/auth';
-
-$colorRed: #A20E12;
-$colorBlack: #263238;
+@import '../../theme/sass/general/general.scss';
 
 .digits-button {
-  width: 320px;
-  margin: 30px auto 0;
-  font-family: "Gotham-Medium", "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 24px;
-  font-weight: 500;
-  background: transparent;
-  color: #00a69b;
-  padding: 15px 20px 15px 60px;
-  border: 3px solid #00a69b;
-  border-radius: 5px;
-  cursor: pointer;
-  background: url(/images/digits-icon.png) 20px center no-repeat;
-  background-size: 30px 35px;
-  transition: box-shadow 0.3s;
+	width: 320px;
+	margin: 30px auto 0;
+	font-family: "Gotham-Medium", "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: 500;
+	background: transparent;
+	color: #00a69b;
+	padding: 15px 20px 15px 60px;
+	border: 3px solid #00a69b;
+	border-radius: 5px;
+	cursor: pointer;
+	background: url(/images/digits-icon.png) 20px center no-repeat;
+	background-size: 30px 35px;
+	transition: box-shadow 0.3s;
 }
 
 div#registerFormMain{
 
+	@media(max-width: 565px){
+		width: 84%;
+	}
+	@media (min-width: 566px){
+		width: 60%;
+	}
+
+	@media (min-width: 768px) {
+		width: 65%;
+	}
+
+	@media(min-width: 992px){
+		width: 872px;
+	}
+
     margin: auto;
     margin-top: 20px;
 
-  div#registerFormBlock{
-    h1 {
-        text-align: center;
-        color: $colorRed;
-        text-transform: uppercase;
-        font-size: 25px;
-        font-family: 'Sanchez', serif;
-        margin-bottom: 10px;
-    }
-    a{
-        display: block;
-        text-align: center;
-        width: 40%;
-    }
-    form{
-        margin: auto;
-        
-        input{
-            @media(max-width: 565px){
-                width: 90%;
-            }
-            @media(min-width: 566px){
-                width: 50%;
-            }
-            
-            padding: 2% 0;
-            outline: 0;
-            color: $colorBlack !important;
-            text-transform: lowercase;
-            padding-left: 3%;
-            border: 0;
-            border-bottom: 1px solid $colorBlack;
-            color: $colorBlack;
-            margin: auto;
-            display: block;
-            font-family: 'Open Sans', sans-serif;
-          }
-          select {
-            width: 100%;
-            padding: 2%;
-            outline: 0;
-            color: $colorBlack !important;
-            text-transform: lowercase;
-            padding-left: 3%;
-            border: 0;
-            border-bottom: 1px solid $colorBlack;
-            color: $colorBlack;
-            margin: auto;
-            display: block;
-            font-family: 'Open Sans', sans-serif;
-            option{
-                padding: 2% 0;
-            }
-          }
-        div.formRegDiv {
-          margin: 2% 0;
-          
-          span{
-              color: #A20E12;
-              font-size: 15px;
-              display: block;
-              text-align: center;
-              margin: 3% 0;
-          }
-        }
-        div.buttons{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          button, a{
-            border: 0;
-            width: 160px;
-            height: 50px;
-            background-image: url('../../meta/przycisk2.png');
-            background-size: 100% 100%;
-            color: $colorRed;
-            font-family: 'Sanchez', serif;
-            font-size: 16px;
-            text-transform: lowercase;
-          }
-          a{
-        	display: flex;
-			align-items: center;
+	h1 {
+		text-align: center;
+		color: $redColor;
+		text-transform: uppercase;
+		font-size: 20px;
+		font-family: $sanchezFont, serif;
+		@include margin(10, 10);
+	}
+
+	form{
+		margin: auto;
+		@include inputBlack(10, 16, 50);
+		@include line(2, $redColor, 100, 20);
+
+		input{
+			@media(max-width: 565px){
+				width: 90%;
+			}
+			padding-left: 20px;
+		}
+		select {
+			width: 100%;
+			@include padding(10, 10, 25, 0);
+			outline: 0;
+			text-transform: lowercase;
+			border: 0;
+			border-bottom: 1px solid $blackColor;
+			color: $blackColor;
+			margin: auto;
+			display: block;
+			font-family: $openSansFont, sans-serif;
+			option{
+				@include padding(10, 10, 0, 0);
+			}
+		}
+		div.formRegDiv {
+			@include margin(10, 10);
+			
+			span{
+				color: $redColor;
+				font-size: 15px;
+				display: block;
+				text-align: center;
+				@include margin(20, 20);
+			}
+		}
+		div.buttons{
+			display: flex;
 			justify-content: center;
-          }
-        }
-        
-        div.blackline{
-              height: 2px;
-              background: $colorRed;
-              width: 100%;
-              margin: auto;
-              margin-top: 4%;
-              margin-bottom: 4%;
-        }
+			align-items: center;
+			@include button('przycisk.png', 16, 160, 50);
+		}
 
-        div#address{
-            display: flex;
-            
-            clear: both;
-            width: 100%;
-            @media(max-width: 565px){
-                flex-wrap: wrap;
-            }
-            @media(min-width: 566px){
-                justify-content: space-around;
-            }
+		div#address{
+			display: flex;
+			clear: both;
+			width: 100%;
 
-            input#city{
-              @media(max-width: 565px){
-                  width: 100%;
-              }
-              @media(min-width: 566px){
-                  width: 38%;
-              }
-            }
-            input#street{
-                @media(max-width: 565px){
-                    width: 79%;
-                }
-                @media(min-width: 566px){
-                    width: 38%;
-                }
-            }
-            input#streetNo{
-              @media(max-width: 565px){
-                  width: 19%;
-              }
-              @media(min-width: 566px){
-                  width: 15%;
-              }
-              
-            }
-        }
-        
-    }
-  }
-}
+			@media(max-width: 565px){
+				flex-wrap: wrap;
+			}
+			@media(min-width: 566px){
+				justify-content: space-around;
+			}
 
-@media(max-width: 575px){
-    div#registerFormMain{
-        width: 84%;
-        h1{
-          font-size: 20px;
-        }
-        a{
-          margin: 2% 0;
-          font-size: 14px;
-        }
-        form {
-          div.formRegDiv {
-            margin: 3% 0;
-          }
-        }
-    }
-}
-@media (min-width: 576px) {
-    div#registerFormMain{
-      width: 60%;
-      h1{
-        font-size:28px;
-      }
-    }
-}
-@media (min-width: 768px) {
-   div#registerFormMain{
-      width: 65%;
-   }
-}
-@media (min-width: 992px) {
-    div#registerFormMain{
-    }
-}
-@media (min-width: 1200px) {
-    div#registerFormMain{
-      width: 60%;
-      form{
-        width: 50%;
-      }
-    }
+			input#city{
+				@media(max-width: 565px){
+					width: 100%;
+				}
+				@media(min-width: 566px){
+					width: 38%;
+				}
+			}
+			input#street{
+				@media(max-width: 565px){
+					width: 79%;
+				}
+				@media(min-width: 566px){
+					width: 38%;
+				}
+			}
+			input#streetNo{
+				@media(max-width: 565px){
+					width: 19%;
+				}
+				@media(min-width: 566px){
+					width: 15%;
+				}
+			}
+		}
+		
+	}
 }

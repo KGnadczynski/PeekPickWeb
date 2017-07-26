@@ -1,4 +1,4 @@
-@import "../profile/profile.scss";
+@import '../../theme/sass/general/general.scss';
 
 div.notifications{
 
@@ -30,7 +30,7 @@ div.notifications{
             color: $blackColor;
             margin: 0;
         }
-        @include button('przycisk.png');
+        @include button('przycisk.png', 16, 160, 50);
         button {
             margin: initial;
         }

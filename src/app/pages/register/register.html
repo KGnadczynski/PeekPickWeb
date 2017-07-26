@@ -5,8 +5,7 @@
 <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 
-<div class="auth-main" id="registerFormMain">
-  <div class="auth-block" id="registerFormBlock">
+<div id="registerFormMain">
     <h1>Rejestracja</h1>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
@@ -24,7 +23,9 @@
           <input [formControl]="name" type="text" [(ngModel)]="user.name" placeholder="Nazwa firmy">
       </div>
       
-      <div class="blackline"></div>
+      <div class="line">
+          <div></div>
+      </div>
 
       <div class="formRegDiv" id="address">
           <input id="city" [formControl]="name" type="text" placeholder="Miasto" [(ngModel)]="company.city">
@@ -32,11 +33,9 @@
           <input id="streetNo" [formControl]="name" type="number" min="0" placeholder="Nr" [(ngModel)]="company.streetNo">
       </div>
 
-      <div class="blackline"></div>
-
-      <!--<div class="formRegDiv">
-        <input type="radio" name="" value="lokalizacja"> lokalizacja
-      </div>-->
+      <div class="line">
+          <div></div>
+      </div>
 
       <div class="formRegDiv" >
           <select  [formControl]="name" [(ngModel)]="selectedParentKategoria" (ngModelChange)="changePodkategorie()" >
@@ -52,11 +51,10 @@
       <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
       <div class="buttons">
         <button [disabled]="!form.valid" type="submit">utwórz konto</button>
-        <a routerLink="/pages/login">zaloguj</a>
+        <button routerLink="/pages/login">zaloguj</button>
       </div>
       
     </form>
-  </div>
 </div>
 
 </body>

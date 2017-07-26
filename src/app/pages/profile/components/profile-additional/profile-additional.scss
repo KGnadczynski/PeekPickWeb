@@ -1,3 +1,4 @@
+@import '../../../../theme/sass/general/general.scss';
 @import "../../profile.scss";
 
 div#additionalInfo{
@@ -5,35 +6,17 @@ div#additionalInfo{
     margin: auto;
 
     @media(max-width: 575px){
-        padding: 3%;
+        padding: 0 20px;
     }
+
     form{
 
         div.error{
-            p {
-                margin: 0;
-                margin: 10px 0;
-                color: $redColor;
-                text-align: center;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 16px;
-            }
+            @include pElement(16, 10, none, center);
         }
 
-        input[type=text], input[type=password], input[type=email]{
-            width: 100%;
-            outline: 0;
-            border : 0;
-            border-bottom: 1px solid $blackColor;
-            font-size: 17px;
-            font-family: 'Open Sans', sans-serif;
-            color: $blackColor;
-            &::placeholder{
-                color: $blackColor;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 17px;
-            }
-        }
+        @include inputBlack(0, 17, 100);
+
         div#contact{
             clear: both;
             float: left;
@@ -59,7 +42,7 @@ div#additionalInfo{
                 textarea{
                     float: right;
                     width: 100%;
-                    font-family: 'Open Sans', sans-serif;
+                    font-family: $openSansFont, sans-serif;
                     outline: 0;
                 }
             }
@@ -73,7 +56,7 @@ div#additionalInfo{
                 }
                 textarea{
                     width: 100%;
-                    font-family: 'Open Sans', sans-serif;
+                    font-family: $openSansFont, sans-serif;
                     outline: 0;
                 }
             }
@@ -81,8 +64,7 @@ div#additionalInfo{
 
         label{
             display: block;
-            
-            font-family: 'Open Sans', sans-serif;
+            font-family: $openSansFont, sans-serif;
             font-size: 17px;
             color: $blackColor;
             @media(max-width: 575px){
@@ -90,6 +72,7 @@ div#additionalInfo{
             }
         }
 
-        @include button('przycisk.png');
+        // @include button('przycisk.png');
+        @include button('przycisk.png', 16, 160, 50);
     }
 }
