@@ -17,6 +17,14 @@
 	transition: box-shadow 0.3s;
 }
 
+div.alert-danger{
+    border: 0;
+    color: #A20E12;
+    background: white;
+    margin: 1% 0;
+    border-radius: 0;
+}
+
 div#registerFormMain{
 
 	@media(max-width: 565px){
