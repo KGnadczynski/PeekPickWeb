@@ -1,372 +1,229 @@
 @import "../komunikat/komunikat.scss";
-$redColor: #A20E12;
-$blackColor: #263238;
-
-@mixin checkboxMixin($checkOrRadio) {
-    div.checkbox{
-        @if $checkOrRadio == "radio"{
-            width: 124px;
-        } @else {
-            width: 25px;
-        }
-        margin-bottom: 10px;
-        margin-top: 10px;
-        position: relative;
-        float: left;
-        clear: both;
-        label{
-            cursor: pointer;
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            top: -2px;
-            left: 0;
-            background-image: url('../../meta/selection.png');
-            background-size: 25px;
-            margin: 0;
-            border: 0;
-            &:after{
-                opacity: 0;
-                    content: '';
-                    background-image: url(../../meta/checkbox-blank.png);
-                    width: 28px;
-                    height: 28px;
-                    position: absolute;
-                    top: -5px;
-                    left: -5px;
-            }
-            &:hover::after{
-                opacity: 0;
-            }
-        }
-        input[type=#{$checkOrRadio}]:checked + label:after{
-            opacity: 1;
-        }
-        input[type=checkbox], input[type=radio]{
-            opacity: 0;
-        }
-        @if $checkOrRadio == "radio"{
-            span {
-                position: absolute;
-                left: 30px;
-                top: 0px;
-            }
-        }
-      }
-}
+@import '../../theme/sass/general/general.scss';
 
 div#filterInside{
     width: 375px;
     margin: auto;
-
-    @media(max-width: 565px){
-        // padding: 0 3%;
-    }
     @media(min-width: 992px){
         width: 315px;
-    }
-    
+	}
+	
+	div#head{
+		overflow: hidden;
+		h4{
+			float: left;
+			cursor: pointer;
+			width: 90%;
+			text-align: center;
+			color: $redColor;
+			margin: 5px 0;
+			font-weight: normal;
+			font-size: 20px;
+		}
+		img{
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+			float: right;
+		}
+	}
+
+	form#mainForm{
+		@include line(1, $blackColor, 94, 15);
+		overflow: hidden;
+		div.geolocationError{
+        	@include pElement(16, 20, none, center);
+			p{
+				line-height: 23px;
+				span{
+					font-family: $openSansFont, sans-serif;
+					color: $redColor;
+				}
+			}
+		}
+
+		h5{
+			font-family: $openSansFont, sans-serif;
+			margin: 20px 0;
+			color: $blackColor;
+			text-align: center;
+			font-weight: normal;
+			font-size: 16px;
+			text-transform: lowercase;
+			float: left;
+		}
+
+		div.ifActive{
+			overflow: hidden;
+			text-align: center;
+			padding-left: 4%;
+			display: flex;
+			justify-content: center;
+			@include checkboxMixin(checkbox, 0, -2);
+		
+			span{
+				float: left;
+				margin-top: 3px;
+				margin-left: 10px;
+				color: $blackColor;
+			}
+		}
+
+		div.filterBy{
+			display: flex;
+			justify-content: space-around;
+			color: $blackColor;
+			clear: both;
+			@include checkboxMixin(radio, 0, -2);
+		}
+
+		div.clearButton{
+			margin-top: 10px;
+			@include button('przycisk.png', 16, 160, 50);
+		}
+
+	}
+
 }
 
-div#head{
-    overflow: hidden;
-    h4{
-      float: left;
-      cursor: pointer;
-      width: 90%;
-      text-align: center;
-      color: $redColor;
-      margin: 5px 0;
-      font-weight: normal;
-      font-size: 20px;
-    }
-    img{
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        float: right;
-    }
-    div.line{
-        clear: both;
-        float: left;
-        width: 100%;
-        margin: 2% 0;
-        div{
-            display: block;
-            width: 94%;
-            margin: 0 auto;
-            height: 2px;
-            background: $redColor;
-        }
-    }
+div#nouisliderDiv{
+	width: 100%;
+	float: left;
+	clear: both;
+	nouislider{
+		width: 70%;
+		margin: auto;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	.noUi-target{
+		background: white !important;
+		border-radius: 0 !important;
+		border: 1px solid $blackColor !important;
+	}
+	.noUi-horizontal{
+		height: 1px !important;
+	}
+	.noUi-horizontal .noUi-handle{
+		width: 20px !important;
+		height: 20px !important;
+		top: -10px !important;
+
+	}
+	.noUi-handle{
+		border-radius: 2500px !important;
+		background: white !important;
+		box-shadow: none !important;
+		border: 1px solid $blackColor !important;
+		&::before, &::after{
+			display: none;
+		}
+	}
 }
 
-form#mainForm{
-    
-    overflow: hidden;
-
-    @media(max-width: 565px){
-        // padding: 0 4%;
-    }
-    @media(min-width: 566px){
-        // padding: 0 10%;
-    }
-    @media(min-width: 992px){
-        padding: 0;
-    }
-
-    div.geolocationError{
-        p{
-            font-family: 'Open Sans', sans-serif;
-            margin: 20px 0;
-            text-align: center;
-            color: $blackColor;
-            font-size: 16px;
-            line-height: 23px;
-            span{
-                font-family: 'Open Sans', sans-serif;
-                color: $redColor;
-            }
-        }
-    }
-
-    h5{
-      font-family: 'Open Sans', sans-serif;
-      margin: 4% 0;
-      color: $blackColor;
-      text-align: center;
-      font-weight: normal;
-      font-size: 16px;
-      text-transform: lowercase;
-      float: left;
-    }
-
-    div.ifActive{
-        overflow: hidden;
-        text-align: center;
-        padding-left: 4%;
-        display: flex;
-        justify-content: center;
-        @include checkboxMixin(checkbox);
-      
-        span{
-            float: left;
-            margin-top: 8px;
-            margin-left: 10px;
-            color: $blackColor;
-        }
-    }
-
-    div.filterBy{
-      display: flex;
-      justify-content: space-around;
-      color: $blackColor;
-      clear: both;
-
-      @include checkboxMixin(radio);
-      
-    }
-
-    div#nouisliderDiv{
-        width: 100%;
-        float: left;
-        clear: both;
-        nouislider{
-          width: 70%;
-          margin: auto;
-          margin-top: 6%;
-          margin-bottom: 6%;
-        }
-        .noUi-target{
-            background: white !important;
-            border-radius: 0 !important;
-            border: 1px solid $blackColor !important;
-        }
-        .noUi-horizontal{
-            height: 1px !important;
-        }
-        .noUi-horizontal .noUi-handle{
-            width: 20px !important;
-            height: 20px !important;
-            top: -10px !important;
-
-        }
-        .noUi-handle{
-            border-radius: 2500px !important;
-            background: white !important;
-            box-shadow: none !important;
-            border: 1px solid $blackColor !important;
-            &::before, &::after{
-                display: none;
-            }
-        }
-    }
-
-    input#searchLocation{
-        display: block;
-        margin: auto;
-        padding: 8px;
-        text-align: center;
-        border: 0;
-        background-color: white;
-        background-image: url('../../meta/przycisk2.png');
-        background-size: 260px 50px;
-        width: 260px;
-        height: 50px;
-        outline: 0;
-        color: $blackColor;
-        &::placeholder{
-            color: $blackColor;
-        }
-    }
-
-    div#checkboxDiv{
-        float: left;
-        clear: both;
-        width: 100%;
-        padding: 0 5%;
-
-        div#checkboxes{
-          width: 5%;
-          @media(max-width: 575px){
-              width: 10%;
-          }
-          @media (min-width: 992px){
-            width: 10%;
-          }
-          @include checkboxMixin(checkbox);
-        }
-
-        div#checkboxesValues{
-          width: 95%;
-          margin-top: 10px;
-          float: left;
-          clear: both;
-          div.c{
-              overflow: hidden;
-              span{
-                float: left;
-                margin-top: 9px;
-                margin-left: 5px;
-                text-transform: lowercase;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 16px;
-              }
-              i{
-                color: $redColor;
-                margin-left: 5px;
-                margin-top: 10px;
-              }
-          }
-          @include checkboxMixin(checkbox);
-          @media(max-width: 575px){
-              width: 90%;
-          }
-          @media (min-width: 992px){
-            width: 90%;
-          }
-          label{
-            display: block;
-            margin-top: 5px;
-            margin-bottom: 20px;
-          }
-        }
-    }
-
-    
-    p#distance{
-      clear: both;
-      color: $blackColor;
-      float: left;
-      width: 100%;
-      margin: 1% 0;
-      text-align: center;
-    }
-
-    div#companyCategories{
-        width: 85%;
-        margin: auto;
-        font-size: 16px;
-        overflow: hidden;
-
-        div.categoriesI{
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          .blacklineF{
-            margin-top: 1%;
-            margin-bottom: 1%;
-            div{
-                width: 100%;
-            }
-          }
-          button{
-            padding: 1.5vw;
-            @media(min-width: 1200px){
-                padding: 0.3vw;
-            }
-            color: $blackColor;
-            border: 0;
-            border-radius: 1px;
-            outline: none;
-            margin-top: 6px;
-            margin-bottom: 6px;
-            background: white;
-            text-transform: lowercase;
-            //border: 3px dotted $redColor;
-            img{
-                width: 25px;
-            }
-          }
-        }
-        div{
-          div.subcategories{
-            display: flex;
-            align-items: flex-start;
-            float: left;
-            width: 100%;
-            clear: both;
-            @include checkboxMixin(checkbox);
-            span{
-                margin: 9px;
-                text-transform: lowercase;
-            }
-          }
-          
-        }
-      }
-      button {
-        display: block;
-        outline: 0;
-        text-transform: lowercase;
-        background: white;
-        border: 2px dotted $redColor;
-        padding: 10px;
-        color: $redColor;
-        &.clearButton{
-            margin: auto;
-            border: 0;
-            background-image: url('../../meta/przycisk.png');
-            background-size: 100% 100%;
-            width: 160px;
-            height: 50px;
-            margin-bottom: 20px;
-        }
-      }
+@include button('przycisk2.png', 16, 260, 50);
+input.searchLocation{
+	&::placeholder{
+		color: $blackColor;
+	}
 }
 
-div.blacklineF{
-    div{
-        width: 80%;
-        margin: auto;
-        height: 1px;
-        background: black;  
-    }
-    
-    margin-top: 4%;
-    margin-bottom: 4%;
-    clear: both;
-    float: left;
-    width: 100%;
+div#checkboxDiv{
+	float: left;
+	clear: both;
+	width: 100%;
+	padding: 0 20px;
+	div#checkboxes{
+		width: 5%;
+		@media(max-width: 575px){
+			width: 10%;
+		}
+		@media (min-width: 992px){
+			width: 10%;
+		}
+		@include checkboxMixin(checkbox, 0, -2);
+	}
+	div#checkboxesValues{
+		width: 95%;
+		margin-top: 10px;
+		float: left;
+		clear: both;
+		div.c{
+			overflow: hidden;
+			span{
+				float: left;
+				margin-top: 2px;
+				margin-left: 5px;
+				text-transform: lowercase;
+				font-family: $openSansFont, sans-serif;
+				font-size: 16px;
+			}
+			i{
+				color: $redColor;
+				margin-left: 5px;
+				margin-top: 3px;
+			}
+		}
+			@include checkboxMixin(checkbox, 0, -2);
+		@media(max-width: 575px){
+			width: 90%;
+		}
+		@media (min-width: 992px){
+			width: 90%;
+		}
+		label{
+			display: block;
+			margin-top: 5px;
+			margin-bottom: 20px;
+		}
+	}
+}
+
+p#distance{
+	clear: both;
+	color: $blackColor;
+	float: left;
+	width: 100%;
+	margin: 1% 0;
+	text-align: center;
+}
+
+div#companyCategories{
+	width: 85%;
+	margin: auto;
+	font-size: 16px;
+	overflow: hidden;
+
+	div.categoriesI{
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		
+		button{
+			color: $blackColor;
+			border: 0;
+			outline: none;
+			background: white;
+			text-transform: lowercase;
+			img{
+				width: 25px;
+			}
+		}
+	}
+
+	div{
+		div.subcategories{
+			display: flex;
+			align-items: flex-start;
+			float: left;
+			width: 100%;
+			clear: both;
+			@include checkboxMixin(checkbox, 0, -2);
+			span{
+				margin: 9px;
+				text-transform: lowercase;
+			}
+		}
+	}
 }

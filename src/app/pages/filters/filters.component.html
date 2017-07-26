@@ -24,7 +24,7 @@
                 <span>dostępne dziś</span>
             </div>
 
-            <div class="blacklineF">
+            <div class="line">
                 <div></div>
             </div>
 
@@ -51,13 +51,13 @@
                 <p>jeśli chcesz sortować po <span>najbliższych</span> pozwól na dostęp do lokalizacji lub wpisz miasto</p>
             </div>
 
-            <div class="blacklineF">
+            <div class="line">
                 <div></div>
             </div>
 
             <h5>Lokalizacja</h5>
 
-            <input id="searchLocation" placeholder="miasto" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="searchControl">
+            <input class="searchLocation" placeholder="miasto" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="searchControl">
             
             <!--<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
                 <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
@@ -78,7 +78,7 @@
                 <span *ngIf="someValue === 101">brak ograniczeń</span> 
             </p>
 
-            <div class="blacklineF">
+            <div class="line">
                 <div></div>
             </div>
 
@@ -105,7 +105,7 @@
 
             <div id="companyCategories" *ngIf="id === undefined">
                 <div class="categoriesI" *ngFor="let category of categories">
-                    <div class="blacklineF">
+                    <div class="line">
                         <div></div>
                     </div>
                     <button type="button" (click)="category.bol = !category.bol" [ngSwitch]="category.id">
@@ -133,7 +133,9 @@
                 </div>
             </div>
 
-            <button class="clearButton" (click)="clearFilters()">wyczyść</button>
+            <div class="clearButton">
+                <button (click)="clearFilters()">wyczyść</button>
+            </div>
 
         </form>
     </div>

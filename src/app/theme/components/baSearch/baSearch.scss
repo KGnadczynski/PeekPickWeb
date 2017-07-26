@@ -1,18 +1,21 @@
+@import "../../../pages/filters/filters.scss";
 @import "../../../pages/komunikat/komunikat.scss";
 @import '../../sass/general/general.scss';
 
 div.ba-search-div{
+    @include line(1, $blackColor, 94, 15);
     div.showAdvanced{
         background-image: url('../../../meta/przycisk.png');
         background-size: 100% 100%;
         width: 210px;
-        height: 70px;
+        height: 80px;
         margin: auto;
         font-family: $sanchezFont, serif;
         font-size: 16px;
         text-align: center;
-        padding: 8px 20px;
+        padding: 13px 20px;
         cursor: pointer;
+        color: $redColor;
     }
 
     h3{
@@ -36,7 +39,7 @@ div.ba-search-div{
                 color: $blackColor;
             }
         }
-        input.inputSearch{
+        input.searchLocation{
             color: $blackColor;
             &::placeholder{
                 color: $blackColor;
@@ -67,152 +70,4 @@ p.distance2{
     font-size: 15px;
     font-family: $openSansFont, sans-serif;
     margin-right: 35px;
-}
-
-
-
-div#checkboxDiv{
-    padding: 0 3%;
-
-    div#checkboxes{
-        width: 5%;
-        @media(max-width: 575px){
-            width: 10%;
-        }
-        @media (min-width: 992px){
-        width: 10%;
-        }
-        @include checkboxMixin(checkbox, 10, 0);
-    }
-
-    div#checkboxesValues{
-        width: 95%;
-        margin-top: 10px;
-        div.c{
-            overflow: hidden;
-            span{
-            float: left;
-            margin-top: 15px;
-            margin-left: 5px;
-            text-transform: lowercase;
-            font-family: $openSansFont, sans-serif;
-            font-size: 16px;
-            }
-            i{
-            color: $redColor;
-            margin-left: 5px;
-            margin-top: 10px;
-            }
-        }
-        @include checkboxMixin(checkbox, 10, 0);
-        @media(max-width: 575px){
-            width: 90%;
-        }
-        @media (min-width: 992px){
-        width: 90%;
-        }
-        label{
-        display: block;
-        margin-top: 5px;
-        margin-bottom: 20px;
-        }
-    }
-}
-
-div#nouisliderDiv{
-    width: 100%;
-    margin: 30px 0;
-    nouislider{
-        width: 70%;
-        margin: auto;
-        margin-top: 6%;
-        margin-bottom: 6%;
-    }
-    .noUi-target{
-        background: white !important;
-        border-radius: 0 !important;
-        border: 1px solid $blackColor !important;
-    }
-    .noUi-horizontal{
-        height: 1px !important;
-    }
-    .noUi-horizontal .noUi-handle{
-        width: 20px !important;
-        height: 20px !important;
-        top: -10px !important;
-
-    }
-    .noUi-handle{
-        border-radius: 2500px !important;
-        background: white !important;
-        box-shadow: none !important;
-        border: 1px solid $blackColor !important;
-        &::before, &::after{
-            display: none;
-        }
-    }
-}
-
-div#companyCategories{
-        width: 85%;
-        margin: auto;
-        font-size: 16px;
-        overflow: hidden;
-        margin-top: 30px;
-
-        div.categoriesI{
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          float: left;
-          .blacklineF{
-            margin-top: 1%;
-            margin-bottom: 1%;
-            div{
-                width: 100%;
-            }
-          }
-          button{
-            padding: 0.3vw;
-            color: $blackColor;
-            border: 0;
-            border-radius: 1px;
-            outline: none;
-            margin-top: 6px;
-            margin-bottom: 6px;
-            background: white;
-            text-transform: lowercase;
-            img{
-                width: 25px;
-            }
-          }
-        }
-        div{
-          div.subcategories{
-            display: flex;
-            align-items: flex-start;
-            float: left;
-            width: 100%;
-            clear: both;
-            @include checkboxMixin(checkbox, 10, 0);
-            span{
-                margin: 15px;
-                text-transform: lowercase;
-            }
-          }
-          
-        }
-      }
-
-
-div.blacklineF{
-    width: 80%;
-    margin: auto;
-    height: 1px;
-    background: black;
-    
-    margin-top: 4%;
-    margin-bottom: 4%;
-    float: none;
 }

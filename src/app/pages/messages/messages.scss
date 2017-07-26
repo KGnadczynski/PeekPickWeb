@@ -58,6 +58,7 @@ div.messages{
             clear: both;
             float: left;
             cursor: pointer;
+            
             margin: 10px 15px 15px 0px;
             font-family: $openSansFont, sans-serif;
             background-image: url('../../meta/wiadomosc_do_gory2.png');
@@ -65,6 +66,9 @@ div.messages{
             @include pElement(16, 0, none, left);
 
             p{
+                @media(max-width: 565px){
+                    padding: 10px 21px 18px 58px;
+                }
                 padding: 20px 82px 20px 82px;
                 line-height: 24px;
                 color: white;

@@ -1,7 +1,7 @@
 @import "colorsAndFonts.scss";
 
 @mixin button($url, $fontSize, $width, $height){
-    button {
+    button, input.searchLocation {
         color: $redColor;
         font-size: $fontSize + px;
         font-family: 'Sanchez', serif;
@@ -70,7 +70,7 @@
 @mixin checkboxMixin($checkOrRadio, $margin, $top) {
     div.checkbox{
         @if $checkOrRadio == "radio"{
-            width: 120px;
+            width: 124px;
         } @else {
             width: 25px;
         }
@@ -115,7 +115,7 @@
         span {
             position: absolute;
             left: 30px;
-            top: 5px;
+            top: 2px;
         }
     }
 }

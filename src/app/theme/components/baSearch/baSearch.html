@@ -8,8 +8,8 @@
     <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
 
         <div class="inputs">
-            <input class="inputSearch" type="text" formControlName="searchTerm" placeholder="...">
-            <button class="searchSubmit" type="submit" value="szukaj" [disabled]="!searchForm.valid" [ngClass]="{disabled: !searchForm.valid}"></button>
+            <input class="searchLocation" type="text" formControlName="searchTerm" placeholder="...">
+            <button class="searchSubmit" type="submit" [disabled]="!searchForm.valid" [ngClass]="{disabled: !searchForm.valid}">szukaj</button>
         </div>
         <div class="searchError" *ngIf="searchForm.controls['searchTerm'].hasError('required') && searchForm.controls['searchTerm'].touched">Wpisz szukaną frazę</div>
 
@@ -29,7 +29,8 @@
                 <span *ngIf="someValue === 101">brak ograniczeń</span>
             </p>
 
-            <div class="blacklineF">
+            <div class="line">
+                <div></div>
             </div>
 
             <div id="checkboxDiv">
@@ -51,7 +52,8 @@
 
             <div id="companyCategories">
                 <div class="categoriesI" *ngFor="let category of categories">
-                    <div class="blacklineF">
+                    <div class="line">
+                        <div></div>
                     </div>
                     <button type="button" (click)="category.bol = !category.bol" [ngSwitch]="category.id">
                         <img *ngSwitchCase="1" src="../../meta/menu_icons/kultura_i_rozrywka.png" alt="">
