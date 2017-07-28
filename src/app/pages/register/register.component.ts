@@ -15,6 +15,7 @@ import { BaMenuService , BaPageTopService} from '../../theme';
 import { Routes } from '@angular/router';
 import { PAGES_MENU_LOGGED } from '../pageslogged.menu';
 import { ProfileService } from '../profile/profile.service';
+import { MapsAPILoader } from '@agm/core';
 
 declare var window: any
 
@@ -48,7 +49,8 @@ export class Register implements OnInit {
   userFromServer:User
   static latitude;
   static  longitude;
-   error: any;
+  error: any;
+  geocoder:any;
   
   ngOnInit() {
     this.registerService.getBranze().subscribe(
@@ -79,8 +81,15 @@ export class Register implements OnInit {
     private zone:NgZone,
     private _menuService: BaMenuService,
     private pageTopService: BaPageTopService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private mapsAPILoader: MapsAPILoader
   ){
+
+     this.mapsAPILoader.load().then(() => {
+            console.log('google script loaded');
+            this.geocoder = new google.maps.Geocoder();
+            console.log(this.geocoder);
+      });
 
     window.angularComponentRef = {
       zone: this.zone,
@@ -114,10 +123,9 @@ export class Register implements OnInit {
     this.registerJson.companyBranch.main = false;
   
 
-    var geocoder = new google.maps.Geocoder();
     var address = this.company.city+" "+this.company.street+" "+this.company.streetNo;
     console.log('address'+ address);
-    geocoder.geocode( { 'address': address}, function(results, status) {
+    this.geocoder.geocode( { 'address': address}, function(results, status) {
 
     if (status == google.maps.GeocoderStatus.OK) {
  
