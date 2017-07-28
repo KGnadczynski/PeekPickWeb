@@ -9,12 +9,12 @@
 
             <div class="header">
                 <div>
-                    <h3>{{ messageTypeValue }}</h3>
-                    <i *ngIf="messageTypeName === 'EVENT'" class="material-icons">event</i>
-                    <i *ngIf="messageTypeName === 'WORK'" class="material-icons">work</i>
-                    <i *ngIf="messageTypeName === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
-                    <i *ngIf="messageTypeName === 'WORTH_SEEING'" class="material-icons">visibility</i>
-                    <i *ngIf="messageTypeName === 'PROMOTION'" class="material-icons">loyalty</i>
+                    <h3>{{ messageTypeName }}</h3>
+                    <i *ngIf="messageTypeValue === 'EVENT'" class="material-icons">event</i>
+                    <i *ngIf="messageTypeValue === 'WORK'" class="material-icons">work</i>
+                    <i *ngIf="messageTypeValue === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
+                    <i *ngIf="messageTypeValue === 'WORTH_SEEING'" class="material-icons">visibility</i>
+                    <i *ngIf="messageTypeValue === 'PROMOTION'" class="material-icons">loyalty</i>
                 </div>
                 <button type="button" class="header-button" aria-label="Close" (click)="hideChildModal()">
                 </button>

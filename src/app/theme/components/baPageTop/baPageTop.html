@@ -20,7 +20,7 @@
                 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <div *ngFor="let messageType of messageTypesOb" (click)="fixStyles()">
-                        <a [routerLink]="['/pages/add_message/', messageType.value]">{{ messageType.value }}</a>
+                        <a [routerLink]="['/pages/add_message/', messageType.name]">{{ messageType.value }}</a> 
                         <i *ngIf="messageType.name === 'EVENT'" class="material-icons">event</i>
                         <i *ngIf="messageType.name === 'WORK'" class="material-icons">work</i>
                         <i *ngIf="messageType.name === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>

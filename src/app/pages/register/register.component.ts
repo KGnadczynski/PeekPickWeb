@@ -35,8 +35,6 @@ export class Register implements OnInit {
   public passwords: FormGroup;
   busy: Subscription;
  
-
-
   public submitted: boolean = false;
 
   user:any = {};
@@ -67,18 +65,8 @@ export class Register implements OnInit {
             result => {
                 this.router.navigateByUrl('/pages/komunikat');
             },
-            err => {
-                /*this.router.navigateByUrl('/pages/komunikat');
-                this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
-                this.pageTopService.changedLoggedFlag(-1);
-                if(localStorage.getItem('currentUserToken'))
-                  localStorage.removeItem('currentUserToken');
-                if(localStorage.getItem('user'))
-                  localStorage.removeItem('user');*/
-            }
+            err => {}
           );
-      } else {
-          // this.router.navigateByUrl('/pages/komunikat');
       }
   }
 

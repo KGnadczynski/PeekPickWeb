@@ -261,6 +261,7 @@ div#addPhoto, div#addLocalization, div.odzialFirmy{
     @include pElement(15, 5, none, center);
     p {
         line-height: 25px;
+        padding: 0 2px;
     }
     
     div.checkBoxDiv{

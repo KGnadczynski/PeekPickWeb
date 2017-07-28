@@ -36,6 +36,7 @@ export class MessagesComponent implements OnInit{
     lng: number;
     ifGeolocation: boolean = true;
     showInfo: string;
+    params: string = "";
 
     public title: string = 'Czy jesteś pewny że chcesz usunąć tę wiadomość?';
     public confirmClicked: boolean = false;
@@ -78,11 +79,16 @@ export class MessagesComponent implements OnInit{
     }
 
     onScrollDown(){
-        if(!this.messageList.isLastPage){
+        if(!this.messageList.isLastPage && this.messageList.messages.length > 0){
             if(this.canScrool){
                 this.pageNumber += 1;
                 this.canScrool = false;
-                this.getMessages(this.pageNumber);
+                if(this.params)
+                    this.messageService.getFilterMessages(this.params, this.pageNumber);
+                else
+                    this.getMessages(this.pageNumber);
+                
+                // console.log('params: ' + this.params);
                 console.log('SCROLLLING BADDD');
             }
         }
@@ -333,13 +339,6 @@ export class MessagesComponent implements OnInit{
         }
     }
 
-    // over(): void{
-    //     this.showInfo = 'żeby zobaczyć ';
-    // }
-    // over2(): void{
-    //     this.showInfo = '';
-    // }
-
     filter(event: any){
         // console.log('data event: ');
         // console.dir(event);
@@ -351,14 +350,18 @@ export class MessagesComponent implements OnInit{
         if("geolocation" in navigator){
             navigator.geolocation.getCurrentPosition(
                 position => {
-                    params += "latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude + "&";
+                    //jesli nie przesylam zadnych coordynatow, czyli nie wybrano miasta to daj kordynaty z przegladarki
+                    //jesli dalem kordynaty z okrslonego miasta to w petli ponizej zostana uwzglednione
+                    if(!(event.latitude && event.longitude))
+                        params += "latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude + "&";
                     Object.keys(event).forEach((key) => {
                         if(event[key])
                             params += key + "=" + event[key] + "&";
                     });
                     params = params.substring(0, params.length-1);
+                    this.params = params;
 
-                    // console.log('params: ' + params);
+                    console.log('lok params: ' + params);
                     this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
                         this.messageList = result;
                         this.pageTopService.showLoadingBar(false);
@@ -374,8 +377,9 @@ export class MessagesComponent implements OnInit{
                             params += key + "=" + event[key] + "&";
                     });
                     params = params.substring(0, params.length-1);
+                    this.params = params;
 
-                    // console.log('params: ' + params);
+                    console.log('not lok params: ' + params);
                     this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
                         this.messageList = result;
                         this.pageTopService.showLoadingBar(false);

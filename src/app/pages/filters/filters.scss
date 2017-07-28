@@ -1,7 +1,8 @@
-@import "../komunikat/komunikat.scss";
+@import '../../theme/sass/general/nouislider.scss';
 @import '../../theme/sass/general/general.scss';
 
 div#filterInside{
+	
     width: 375px;
     margin: auto;
     @media(min-width: 992px){
@@ -79,6 +80,7 @@ div#filterInside{
 
 		div.clearButton{
 			margin-top: 10px;
+			margin-bottom: 10px;
 			@include button('przycisk.png', 16, 160, 50);
 		}
 
@@ -123,6 +125,7 @@ div#nouisliderDiv{
 
 @include button('przycisk2.png', 16, 260, 50);
 input.searchLocation{
+	color: $blackColor;
 	&::placeholder{
 		color: $blackColor;
 	}
@@ -221,7 +224,7 @@ div#companyCategories{
 			clear: both;
 			@include checkboxMixin(checkbox, 0, -2);
 			span{
-				margin: 9px;
+				margin: 2px 8px;
 				text-transform: lowercase;
 			}
 		}

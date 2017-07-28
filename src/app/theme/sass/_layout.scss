@@ -1,4 +1,5 @@
 @import 'conf/conf';
+@import 'general/general.scss';
 
 @include scrollbars(.5em, #d9d9d9, rgba(0, 0, 0, 0));
 
@@ -11,7 +12,7 @@ html, body, main {
 }
 
 .al-main {
-	padding-top: 66px;
+	padding-top: 57px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -33,12 +34,14 @@ html, body, main {
       @media(min-width: 768px){
           position: fixed;
           overflow: scroll;
+          border-left: 1px solid $redColor;
       }
       @media(min-width: 992px){
           width: 330px;
+          
       }
 
-      top: 65px;
+      top: 57px;
       right: 0;
       background: white;
   }

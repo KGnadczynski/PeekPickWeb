@@ -1,8 +1,10 @@
 @import "../../../pages/filters/filters.scss";
-@import "../../../pages/komunikat/komunikat.scss";
+@import '../../sass/general/nouislider.scss';
 @import '../../sass/general/general.scss';
 
 div.ba-search-div{
+    
+    padding-top: $paddingTop;
     @include line(1, $blackColor, 94, 15);
     div.showAdvanced{
         background-image: url('../../../meta/przycisk.png');
@@ -15,7 +17,7 @@ div.ba-search-div{
         text-align: center;
         padding: 13px 20px;
         cursor: pointer;
-        color: $redColor;
+        color: $blackColor;
     }
 
     h3{

@@ -62,7 +62,12 @@ export class FiltersComponent implements OnInit{
         this.filterForm.valueChanges.subscribe(data => {
             
             navigator.geolocation.getCurrentPosition(
-                position => {},
+                position => {
+                    if(!data.searchControl){
+                        this.params.latitude = null;
+                        this.params.longitude = null;
+                    }
+                },
                 error => {
                     //jesli nie mamy lokalizacji:
                     //1 -> mamy wybrane najblizsze i jednoczesnie pole do miasta jest puste, ma wracac na date dodania i blokowac
@@ -124,6 +129,8 @@ export class FiltersComponent implements OnInit{
             
             if(data.distance < 101)
                 this.params.range = data.distance;
+            else if(data.distance === 101)
+                this.params.range = 0;
             
             if(data.startBeforeDate){
                 this.params.startBeforeDate = moment().startOf('day').format("YYYY-MM-DD HH:mm");

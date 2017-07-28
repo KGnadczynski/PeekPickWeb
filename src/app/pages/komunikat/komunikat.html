@@ -3,11 +3,11 @@
     <div class="blankDiv"></div>
 
     <div class="messagesDiv">
-        <messages #msgs [dest] = "''" [id] = 0 ></messages>
+        <messages #msgs [dest] = "''" [id] = 0 (requestParameters)="filters.receiveRequest($event)"></messages>
     </div>
     
     <div class="filterMessages">
-        <filters (myEvent) = "msgs.filter($event)"></filters>
+        <filters #filters (myEvent) = "msgs.filter($event)"></filters>
     </div>
 
 </div>

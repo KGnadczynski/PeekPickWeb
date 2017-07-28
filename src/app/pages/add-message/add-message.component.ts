@@ -14,6 +14,7 @@ import { ObjectList } from '../messages/message';
 import { Daterangepicker, DaterangepickerConfig } from 'ng2-daterangepicker';
 import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings, MultiselectDropdown } from 'angular-2-dropdown-multiselect';
 import { ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { ProfileService } from '../profile/profile.service';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -26,7 +27,7 @@ let moment = require('../../../../node_modules/moment/moment');
         require('../../../../node_modules/ng2-toasty/style-bootstrap.css')
     ],
     template: require('./add-message.component.html'),
-    providers: [AddMessageService, MessagesService]
+    providers: [AddMessageService, MessagesService, ProfileService]
 })
 
 export class AddMessageComponent implements OnInit {
@@ -186,7 +187,8 @@ export class AddMessageComponent implements OnInit {
         private daterange: DaterangepickerConfig,
         private router: Router,
         private toastyService: ToastyService,
-        private toastyConfig: ToastyConfig
+        private toastyConfig: ToastyConfig,
+        private profileService: ProfileService
     ){
         this.mapsApiLoader.load().then(() => {
             console.log('google script loaded');
@@ -212,6 +214,13 @@ export class AddMessageComponent implements OnInit {
     }
 
     ngOnInit(): void{
+
+        this.profileService.getUser().subscribe(
+            result => {},
+            error => {
+                this.router.navigateByUrl('/pages/komunikat');
+            }
+        );
 
         this.msgAddModel.startDate = moment().format("YYYY-MM-DD HH:mm:ss");
         this.msgAddModel.endDate = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -279,8 +288,8 @@ export class AddMessageComponent implements OnInit {
                 case 'message_type':
                     this.messageTypeValue = params[this.paramValue];
                     for(let a = 0; a < this.messageTypesOb.length; a++)
-                        if(this.messageTypesOb[a].value === this.messageTypeValue)
-                            this.messageTypeName = this.messageTypesOb[a].name;
+                        if(this.messageTypesOb[a].name === this.messageTypeValue)
+                            this.messageTypeName = this.messageTypesOb[a].value;
                     console.log('this name : ' + this.messageTypeName);
                     break;
 
