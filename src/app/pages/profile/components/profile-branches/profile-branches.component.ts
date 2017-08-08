@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ProfileService } from '../../profile.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
     selector: 'profile-branches',
@@ -21,8 +22,15 @@ export class ProfileBranchesComponent implements OnInit {
     confirmClicked: boolean = false;
     cancelClicked: boolean = false;
     isOpen: boolean = false;
+    geocoder:any;
 
-    constructor(private profileService: ProfileService, private fb: FormBuilder){}
+    constructor(private profileService: ProfileService, private fb: FormBuilder,private mapsAPILoader: MapsAPILoader){
+                this.mapsAPILoader.load().then(() => {
+                    console.log('google script loaded');
+                    this.geocoder = new google.maps.Geocoder();
+                    console.log(this.geocoder);
+            });
+            }
 
     ngOnInit(): void {
 
@@ -63,9 +71,41 @@ export class ProfileBranchesComponent implements OnInit {
 
 	}
 	
-	addNewBranch(value): void{
+	addNewBranch(value,fn): void{
+        var address =  value.city+" "+value.street+" "+value.streetNo;
+            console.log('address'+ address);
+            this.geocoder.geocode( { 'address': address}, function(results, status) {
 
-        this.profileService.getUser().subscribe(user => {
+            if (status == google.maps.GeocoderStatus.OK) {
+        
+    
+             value.lat = results[0].geometry.location.lat();
+             value.lng =  results[0].geometry.location.lng();
+             fn(value);
+            } else {
+        
+            } 
+        }); 
+       
+    }
+
+
+   
+
+    addNewBranchLatLng(value): void {
+     /*   this.addNewBranch(value,function(value) {
+            console.log('ADRESS '+value.lat);
+             this.addNewBranchCallback(value);  
+        });*/
+
+        this.addNewBranch(value,fun => {
+            console.log('ADRESS '+value.lat);
+             this.addNewBranchCallback(value);  
+        });
+    }
+
+   addNewBranchCallback(value) : void {
+            this.profileService.getUser().subscribe(user => {
             this.profileService.getCompanyBranches(user.company.id).subscribe(branches => {
                 let size = branches.length;
                 let body = {
@@ -82,8 +122,8 @@ export class ProfileBranchesComponent implements OnInit {
                     "distance": 0,
                     "email": value.email,
                     "main": false,
-                    "latitude": 0,
-                    "longitude": 0,
+                    "latitude": value.lat,
+                    "longitude": value.lng,
                     "name": value.name,
                     "openingHours": value.openingHours,
                     "phoneNumber": value.phoneNumber,
@@ -112,7 +152,7 @@ export class ProfileBranchesComponent implements OnInit {
                 }
                 );
             });
-        });
+        })
     }
 	
 	deleteBranch(id: number): void{
