@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { Company } from './company';
 import { CompanyService } from './company.service';
-import { ObjectList } from './company';
+import { ObjectList,MarkerObject } from './company';
 
 @Component({
   selector: 'company',
@@ -23,6 +23,9 @@ export class CompanyComponent implements OnInit {
   lat: number;
   lng: number;
   companyBranches: any[];
+  markers= new Array<MarkerObject>();
+  zoom: number = 7;
+  
 
   constructor(private route: ActivatedRoute, private _companyService: CompanyService) {}
 
@@ -41,6 +44,18 @@ export class CompanyComponent implements OnInit {
               this._companyService.getCompanyBranches(receivedCompany.company.id).subscribe(
                 branches => {
                     this.companyBranches = branches;
+               
+                    for (let companyBranch of this.companyBranches) {
+                       var marker =new MarkerObject();
+                    console.log('Branch '+companyBranch.latitude); // 1, "string", false
+                      marker.label = companyBranch.name;
+                      marker.lat = companyBranch.latitude;
+                      marker.lng = companyBranch.longitude;
+                     
+                       console.log('Branch '+marker.label); //
+                      this.markers.push(marker);
+                    }
+                    console.log('Branch '+JSON.stringify(this.markers)); //
                 },
                 error => {}
               )

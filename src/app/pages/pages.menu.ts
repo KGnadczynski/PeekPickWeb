@@ -135,6 +135,8 @@ export const PAGES_MENU = [
           menu: {
             title: 'Obserwowane', // menu title
             icon: 'star', // menu icon
+            icon_selected: 'star_selected',
+            icon_unselected: 'star',
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,
@@ -147,7 +149,9 @@ export const PAGES_MENU = [
         data: { // custom menu declaration
           menu: {
             title: 'Regulaminy', // menu title
-            icon: 'star', // menu icon
+            icon: 'approval', // menu icon
+            icon_selected: 'approval_selected',
+            icon_unselected: 'approval',
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,

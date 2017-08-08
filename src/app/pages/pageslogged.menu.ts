@@ -135,6 +135,8 @@ export const PAGES_MENU_LOGGED = [
           menu: {
             title: 'Obserwowane', // menu title
             icon: 'star', // menu icon
+            icon_selected: 'star_selected',
+            icon_unselected: 'star',
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,
@@ -147,7 +149,9 @@ export const PAGES_MENU_LOGGED = [
         data: { // custom menu declaration
           menu: {
             title: 'Regulaminy', // menu title
-            icon: 'star', // menu icon
+            icon: 'approval', // menu icon
+            icon_selected: 'approval_selected',
+            icon_unselected: 'approval',
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,
@@ -161,6 +165,8 @@ export const PAGES_MENU_LOGGED = [
           menu: {
             title: 'Moje Konto', // menu title
             icon: 'account-circle', // menu icon
+            icon_selected: 'account-circle_selected', // menu ico,
+            icon_unselected: 'account-circle',
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,
@@ -173,7 +179,9 @@ export const PAGES_MENU_LOGGED = [
         data: { // custom menu declaration
           menu: {
             title: 'Powiadomienia', // menu title
-            icon: 'account-circle', // menu icon
+            icon: 'bell', // menu icon
+            icon_selected: 'bell_selected', // menu ico,
+            icon_unselected: 'bell',
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,
