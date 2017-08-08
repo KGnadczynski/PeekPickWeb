@@ -289,8 +289,8 @@ export class AddMessageComponent implements OnInit {
                     this.messageTypeValue = params[this.paramValue];
                     for(let a = 0; a < this.messageTypesOb.length; a++)
                         if(this.messageTypesOb[a].name === this.messageTypeValue)
-                            this.messageTypeName = this.messageTypesOb[a].value;
-                    console.log('this name : ' + this.messageTypeName);
+                            this.messageTypeName = this.messageTypesOb[a];
+                    console.log('this name : ' + this.messageTypeName.name);
                     break;
 
                 default:
@@ -414,6 +414,8 @@ export class AddMessageComponent implements OnInit {
         this.messageAddModel = new MessageAddModel(this.locationChanged);
         this.messageAddModel.content = this.msgAddModel.content;
 
+        console.log('Tresc '+ this.messageAddModel.content)
+
         if(this.msgAddModel.id != null) {
             this.messageAddModel.id = this.msgAddModel.id;
         }
@@ -424,7 +426,10 @@ export class AddMessageComponent implements OnInit {
           this.messageAddModel.endDate = moment(new Date(this.msgAddModel.endDate)).format("YYYY-MM-DDTHH:mm:ssZZ");
         }
 
-        this.messageAddModel.type = this.messageTypeName;
+        this.messageAddModel.type = this.messageTypeName.name;
+
+         console.log('Typ '+  this.messageAddModel.type)
+
 
         this.messageAddModel.status = "NEW";
 
