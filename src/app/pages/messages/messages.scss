@@ -6,176 +6,189 @@ div.messages{
     @media(max-width: 565px){
         width: 96%;
     }
-    div.message{
-        @include line(2, $redColor, 100, 10);
+}
+
+div.message{
+    @include line(2, $redColor, 100, 10);
+    overflow: hidden;
+    border: 1px solid lightgray;
+    padding: 10px;
+    border-radius: 2px;
+    background: #FAFAFA;
+    margin-bottom: 4%;
+    div.message-icon{
+        float: left;
         overflow: hidden;
-        border: 1px solid lightgray;
-        padding: 10px;
-        border-radius: 2px;
-        background: #FAFAFA;
-        margin-bottom: 4%;
-        div.message-icon{
-            float: left;
-            overflow: hidden;
-            img{
-                width: 72px;
-                height: 72px;
-            }
+        img{
+            width: 72px;
+            height: 72px;
         }
-        div.message-text-block{
-            float: left;
-            padding-left: 5px;
-            font-family: $openSansFont, sans-serif;
-            display: flex;
-            flex-direction: column;
-            @media(max-width: 565px){
-                width: 35%;
-            }
-            a{
-                color: $blackColor;
-                text-transform: capitalize;
-                font-size: 20px;
-                font-family: $openSansFont, sans-serif;
-                font-weight: bold;
-                line-height: 22px;
-                margin: 0;
-            }
-        
-            @include pElement(13, 3, none, left);
-        }
-
-        div.message-distance-message-icon-work{
-            float: right;
-            @include pElement(12, 10, right, left);
-            i{
-                float: right;
-                font-size: 35px;
-                color: $redColor;
-            }
-        }
-
-        div.message-content{
-            clear: both;
-            float: left;
-            cursor: pointer;
-            
-            margin: 10px 15px 15px 0px;
-            font-family: $openSansFont, sans-serif;
-            background-image: url('../../meta/wiadomosc_do_gory2.png');
-            background-size: 100% 100%;
-            @include pElement(16, 0, none, left);
-
-            p{
-                @media(max-width: 565px){
-                    padding: 10px 21px 18px 58px;
-                }
-                padding: 20px 82px 20px 82px;
-                line-height: 24px;
-                color: white;
-            }
-            /*
-            &:before{
-                content: "";
-                position: absolute;
-                top: -16px;
-                left: 13px;
-                height: 30px;
-                border-left: 60px solid #A20E12;
-                background: #A20E12;
-                border-bottom-left-radius: 90px 295px;
-                transform: translate(0px, 0px);
-            }
-            &:after{
-                content: "";
-                position: absolute;
-                top: -20px;
-                left: -8px;
-                height: 20px;
-                width: 65px;
-                background: #FAFAFA;
-                border-bottom-left-radius: 89px 50px;
-                transform: translate(21px, 0px);
-            }*/
-        }
-        div.message-time{
-            clear: both;
-            float: left;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 2%;
-            color: black;
-            font-family: $openSansFont, sans-serif;
-            span{
-                color: $blackColor;
-                font-size: 14px;
-                @media(max-width: 575px){
-                    line-height: 0;
-                }
-            }
-            @include pElement(14, 10, none, left);
-            
-            div.end-date{
-                text-align: right;
-            }
-        }
-        div.message-photo{
-            clear: both;
-            float: left;
-            width: 100%;
-            img{
-                width: 100%;
-            }
-        }
-        div.message-icons{
-            float: left;
-            clear: both;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            div.icons{
-                display: flex;
-                align-items: center;
-                
-                img{
-                    width: 10%;
-                    margin-right: 40px;
-                    cursor: pointer;
-                    &.icons8-Star-Filled, &.icons8-Marker-Filled{
-                        width: 25px;
-                    }
-                }
-            }
-            
-            div.time{
-                @include pElement(14, 0, none, right);
-            }
-        }
-        
-        div.actions{
-            clear: both;
-            float: left;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            div#edit, div#continue, div#delete {
-                @include button('przycisk.png', 16, 140, 50);
-                cursor: pointer;
-            }
-            div.popover{
-                border: 1px solid $blackColor;
-            }
-            h3.popover-title{
-                background: white;
-                border-bottom-color: $blackColor;
-                color: $blackColor;
-            }
-            div.popover-content{
-                @include button('przycisk.png', 16, 140, 50);
-            }
-           
-         }
     }
+    div.message-text-block{
+        float: left;
+        padding-left: 5px;
+        font-family: $openSansFont, sans-serif;
+        display: flex;
+        flex-direction: column;
+        @media(max-width: 565px){
+            width: 35%;
+        }
+        a{
+            color: $blackColor;
+            text-transform: capitalize;
+            font-size: 20px;
+            font-family: $openSansFont, sans-serif;
+            font-weight: bold;
+            line-height: 22px;
+            margin: 0;
+        }
+    
+        @include pElement(13, 3, none, left);
+    }
+
+    div.message-distance-message-icon-work{
+        float: right;
+        @include pElement(12, 10, right, left);
+        i{
+            float: right;
+            font-size: 35px;
+            color: $redColor;
+        }
+    }
+
+    div.message-content{
+        clear: both;
+        float: left;
+        cursor: pointer;
+        
+        margin: 10px 15px 15px 0px;
+        font-family: $openSansFont, sans-serif;
+        background-image: url('../../meta/wiadomosc_do_gory2.png');
+        background-size: 100% 100%;
+        @include pElement(16, 0, none, left);
+        max-width: 392px;
+        max-height: 162px;
+
+        p{
+            line-height: 24px;
+            color: white;
+            
+
+            &.extra-extra-small {
+                padding: 10px 10px 10px 30px;
+            }
+            &.extra-small{
+                padding: 10px 10px 10px 30px;
+            }
+            &.small{
+                padding: 15px 15px 15px 40px;
+            }
+            &.large{
+                padding: 20px 20px 20px 65px;
+            }
+        }
+        /*
+        &:before{
+            content: "";
+            position: absolute;
+            top: -16px;
+            left: 13px;
+            height: 30px;
+            border-left: 60px solid #A20E12;
+            background: #A20E12;
+            border-bottom-left-radius: 90px 295px;
+            transform: translate(0px, 0px);
+        }
+        &:after{
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: -8px;
+            height: 20px;
+            width: 65px;
+            background: #FAFAFA;
+            border-bottom-left-radius: 89px 50px;
+            transform: translate(21px, 0px);
+        }*/
+    }
+    div.message-time{
+        clear: both;
+        float: left;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2%;
+        color: black;
+        font-family: $openSansFont, sans-serif;
+        span{
+            color: $blackColor;
+            font-size: 14px;
+            @media(max-width: 575px){
+                line-height: 0;
+            }
+        }
+        @include pElement(14, 10, none, left);
+        
+        div.end-date{
+            text-align: right;
+        }
+    }
+    div.message-photo{
+        clear: both;
+        float: left;
+        width: 100%;
+        img{
+            width: 100%;
+        }
+    }
+    div.message-icons{
+        float: left;
+        clear: both;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        div.icons{
+            display: flex;
+            align-items: center;
+            
+            img{
+                width: 10%;
+                margin-right: 40px;
+                cursor: pointer;
+                &.icons8-Star-Filled, &.icons8-Marker-Filled{
+                    width: 25px;
+                }
+            }
+        }
+        
+        div.time{
+            @include pElement(14, 0, none, right);
+        }
+    }
+    
+    div.actions{
+        clear: both;
+        float: left;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        div#edit, div#continue, div#delete {
+            @include button('przycisk.png', 16, 140, 50);
+            cursor: pointer;
+        }
+        div.popover{
+            border: 1px solid $blackColor;
+        }
+        h3.popover-title{
+            background: white;
+            border-bottom-color: $blackColor;
+            color: $blackColor;
+        }
+        div.popover-content{
+            @include button('przycisk.png', 16, 140, 50);
+        }
+        
+        }
 }

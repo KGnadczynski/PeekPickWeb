@@ -40,9 +40,17 @@ div#home{
         }
 
         div.messangerShape{
-            position: relative;
-            background: $redColor;
             color: white;
+            font-family: $openSansFont, sans-serif;
+            background-image: url('../../meta/wiadomosc2.png');
+            background-size: 100% 100%;
+            max-width: 414px;
+            min-height: 110px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            /*position: relative;
+            background: $redColor;
             margin: 30px 9% 40px 9%;
             padding: 16px 25px;
             border-radius: 275px;
@@ -61,8 +69,8 @@ div#home{
             }
             @media(min-width: 1400px){
                 width: 70%;
-            }
-
+            }*/
+/*
             &::before{
                 content: "";
                 position: absolute;
@@ -85,11 +93,13 @@ div#home{
                 background: white;
                 border-bottom-left-radius: 40px 50px;
                 transform: translate(-30px, 0px);
-            }
+            }*/
             @include pElement(16, 0, none, center);
             p {
                 color: white;
-                line-height: 22px;
+                line-height: 24px;
+                width: 80%;
+                margin: auto;
             }
         }
 

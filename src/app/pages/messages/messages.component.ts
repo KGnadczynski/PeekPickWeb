@@ -79,17 +79,43 @@ export class MessagesComponent implements OnInit{
     }
 
     onScrollDown(){
+
+        if(this.params){
+            console.log('sa paramsy');
+        } else{
+            console.log('nie ma paramsow');
+        }
+
         if(!this.messageList.isLastPage && this.messageList.messages.length > 0){
             if(this.canScrool){
                 this.pageNumber += 1;
                 this.canScrool = false;
-                if(this.params)
-                    this.messageService.getFilterMessages(this.params, this.pageNumber);
-                else
-                    this.getMessages(this.pageNumber);
-                
-                // console.log('params: ' + this.params);
-                console.log('SCROLLLING BADDD');
+                if(this.params){
+                    this.messageService.getFilterMessages(this.params, this.pageNumber).subscribe(
+                        result => {
+                            if(this.pageNumber === 1){
+                                this.messageList = result;
+                            } else {
+                                this.messageList.messages = this.messageList.messages.concat(result.messages);
+                                this.messageList.isLastPage = result.isLastPage;
+                                this.canScrool = true;
+                            }
+                        }
+                    );
+                }
+                else {
+                    if(this.pageNumber === 1){
+                        this.getMessages(this.pageNumber);
+                    } else {
+                        let i = 1;
+                        while(i <= this.pageNumber){
+                            this.getMessages(i);
+                            i++;
+                        }
+                    }
+                }
+                // else
+                //     this.getMessages(this.pageNumber);
             }
         }
     }

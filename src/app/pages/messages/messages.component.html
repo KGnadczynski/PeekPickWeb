@@ -23,7 +23,6 @@
 				<p>{{getLocation(message)}}</p>
 			</div>
 
-			<!-- (mouseover)="over()" (mouseout)="over2()" -->
 			<div class="message-distance-message-icon-work" >
 				<i *ngIf="message.type === 'EVENT'" class="material-icons">event</i>
 				<i *ngIf="message.type === 'WORK'" class="material-icons">work</i>
@@ -35,7 +34,15 @@
 			</div>
 
 			<div class="message-content" (click)="goToSingle(message.id)">
-				<p class="content">{{ message.content}} </p>
+				<p [ngClass]="{
+					'extra-extra-small': message.content.length < 10,
+					'extra-small': (message.content.length > 10 && message.content.length < 20),
+					'small': (message.content.length > 20 && message.content.length < 35),
+					'large': (message.content.length >= 35 && message.content.length < 200)}"
+				>
+					<!-- {{ message.content }}, length: {{message.content.length}} -->
+					{{ message.content }}
+				</p>
 			</div>
 
 			<div class="message-time">

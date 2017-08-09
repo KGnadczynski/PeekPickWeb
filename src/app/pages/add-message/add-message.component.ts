@@ -297,6 +297,12 @@ export class AddMessageComponent implements OnInit {
 
                     break;
             }
+            /*
+                messageTypeValue: string;
+    messageTypeName: any;
+            */ 
+            // console.log('messageTypeValue' + this.messageTypeValue);
+            // console.log('messageTypeName' + this.messageTypeName);
         });
     }
 
@@ -424,7 +430,10 @@ export class AddMessageComponent implements OnInit {
           this.messageAddModel.endDate = moment(new Date(this.msgAddModel.endDate)).format("YYYY-MM-DDTHH:mm:ssZZ");
         }
 
-        this.messageAddModel.type = this.messageTypeName;
+        // this.messageAddModel.type = this.messageTypeName;
+        // console.log('messageTypeValue' + this.messageTypeValue);
+        // console.log('messageTypeName' + this.messageTypeName);
+        this.messageAddModel.type = this.messageTypeValue
 
         this.messageAddModel.status = "NEW";
 
@@ -477,7 +486,9 @@ export class AddMessageComponent implements OnInit {
                     }
             },
             error => {
-                this.addToast('Musisz wpisać treść postu przed stworzeniem');
+                // this.addToast('Musisz wpisać treść postu przed stworzeniem');
+                console.log('error:');
+                console.dir(error);
             }
         );
         } else {

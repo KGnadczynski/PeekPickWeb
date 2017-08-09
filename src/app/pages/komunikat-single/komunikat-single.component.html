@@ -4,10 +4,8 @@
 <div bsModal #childModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}" tabindex="-1" 
   role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" backdrop="false" keyboard="false">
   <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-          <!--<button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
-              <span aria-hidden="true">&times;</span>
-          </button>-->
+      <div class="modal-content message">
+
           <img class="close-img" src="../../meta/close-circle-outline.png" (click)="hideChildModal()" alt="">
 
           <div class="message-icon">
@@ -28,7 +26,7 @@
               <p>{{ message?.location?.address }}</p>
           </div>
 
-          <div class="message-icon-distance">
+          <div class="message-distance-message-icon-work">
               <i *ngIf="message?.type === 'EVENT'" class="material-icons">event</i>
               <i *ngIf="message?.type === 'WORK'" class="material-icons">work</i>
               <i *ngIf="message?.type === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>
