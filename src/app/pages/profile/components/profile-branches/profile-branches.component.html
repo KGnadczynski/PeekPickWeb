@@ -28,7 +28,7 @@
     <i class="fa fa-plus-circle fa-3x" aria-hidden="true" (click)="isCollapse = !isCollapse"></i>
 
     <div [collapse]="isCollapse" id="addCollapseDiv">
-        <profile-form [type] = "'dodaj'" (callParentMethod)="addNewBranch($event)"></profile-form>
+        <profile-form [type] = "'dodaj'" (callParentMethod)="addNewBranchLatLng($event)"></profile-form>
     </div>
 
 </div>

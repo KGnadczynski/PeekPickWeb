@@ -71,3 +71,13 @@ export interface ObjectList {
   companyBranchCount: number;
   nearestCompanyBranch?: NearestCompanyBranch;
 }
+
+export class MarkerObject {
+
+  constructor() { 
+  }
+
+	lat: number;
+	lng: number;
+	label?: string;
+}
