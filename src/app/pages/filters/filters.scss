@@ -67,6 +67,7 @@ div#filterInside{
 				margin-top: 3px;
 				margin-left: 5px;
 				color: $blackColor;
+				cursor: pointer;
 			}
 		}
 
@@ -76,8 +77,10 @@ div#filterInside{
 			color: $blackColor;
 			clear: both;
 			label.newLabel{
-				left: 10px !important;
+				left: 28px !important;
 				background-image: url('') !important;
+				width: auto !important;
+				height: auto !important;
 			}
 			@include checkboxMixin(radio, 0, -2);
 			
@@ -229,9 +232,10 @@ div#companyCategories{
 			width: 100%;
 			clear: both;
 			@include checkboxMixin(checkbox, 0, -2);
-			span{
-				margin: 2px 8px;
+			label.newLabel{
+				margin: 2px 8px !important;
 				text-transform: lowercase;
+				cursor: pointer;
 			}
 		}
 	}

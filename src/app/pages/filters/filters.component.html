@@ -41,7 +41,7 @@
                 <div class="checkbox">
                     <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy">
                     <label for="create_day"></label>
-                    <label for="distance" class="newLabel">data dodania</label>
+                    <label for="create_day" class="newLabel">data dodania</label>
                 </div>
 
             </div>
@@ -57,7 +57,8 @@
             <h5>Lokalizacja</h5>
 
             <input class="searchLocation" placeholder="miasto" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="searchControl">
-            
+            <button (click)="getLoc()">test</button>
+
             <!--<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
                 <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
             </agm-map>-->
@@ -124,8 +125,7 @@
                                 <input type="checkbox" class="checkboxInput" id="sub-{{ subcategory.id }}" (click)="setSubcategory(subcategory.id)">
                                 <label for="sub-{{ subcategory.id }}"></label>
                             </div>
-                            <span>{{ subcategory.name }}</span>
-                            
+                            <label class="newLabel" for="sub-{{ subcategory.id }}">{{ subcategory.name }}</label>
                         </div>
                     </div>
                     

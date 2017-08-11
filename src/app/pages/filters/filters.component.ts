@@ -327,4 +327,7 @@ export class FiltersComponent implements OnInit{
         this.myEvent.emit(this.params);
     }
     
+    getLoc(): void {
+        console.log('tets');
+    }
 }
