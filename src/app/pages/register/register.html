@@ -60,5 +60,36 @@
     </form>
 </div>
 
+<div bsModal #childModal="bs-modal" class="modal fade" [config]="{backdrop: 'static', keyboard: false}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            
+            <div class="header">
+                <div>
+                    Podałeś błędny adres, wskaż go na mapie
+                </div>
+            </div>
+           <div>
+                <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="mapClicked($event)" [zoom]="zoom"
+                [disableDefaultUI]="false"
+                    [zoomControl]="true">
+                    <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
+                    <agm-info-window>
+                        <strong>InfoWindow content</strong>
+                    </agm-info-window>
+                </agm-map>
+                <p>{{localization}}</p>
+            </div>
+             <div id="buttons">
+                <button (click)="confirmMap()">Dodaj</button>
+                <button (click)="closeModal()">Anuluj</button>
+
+            </div>
+         </div>
+  </div>
+   
+</div>
+
 </body>
 </html>
