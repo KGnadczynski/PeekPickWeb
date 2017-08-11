@@ -51,6 +51,7 @@ export class Register implements OnInit {
   static  longitude;
   error: any;
   geocoder:any;
+  registerError:boolean = false;
   
   ngOnInit() {
     this.registerService.getBranze().subscribe(
@@ -113,38 +114,58 @@ export class Register implements OnInit {
   }
 
   public onSubmit(values: Object): void {
-    window.onLoginButtonClick();
-    
-    this.registerJson = new RegisterObject();
-    this.registerJson.user.name = this.user.name;
-    this.registerJson.user.email = this.user.email;
-    this.registerJson.user.password = this.user.password;
-    this.registerJson.companyBranch.city = this.company.city;
-    this.registerJson.companyBranch.main = false;
-  
-
-    var address = this.company.city+" "+this.company.street+" "+this.company.streetNo;
-    console.log('address'+ address);
-    this.geocoder.geocode( { 'address': address}, function(results, status) {
-
-    if (status == google.maps.GeocoderStatus.OK) {
- 
-      Register.latitude = results[0].geometry.location.lat();
-      Register.longitude = results[0].geometry.location.lng();
-    } else {
-  
-    } 
-  }); 
-    
-    this.registerJson.companyBranch.name = this.user.name;
-    this.registerJson.companyBranch.street = this.company.street;
-    this.registerJson.companyBranch.streetNo = this.company.streetNo;
-    this.registerJson.companyBranch.company.name = this.user.name;
-    this.registerJson.companyBranch.company.category.name = this.selectedKategoria.name;
-    this.registerJson.companyBranch.company.category.id = this.selectedKategoria.id;
-    this.registerJson.companyBranch.company.category.parentCategory.name = this.selectedParentKategoria.name;
-    this.registerJson.companyBranch.company.category.parentCategory.id = this.selectedParentKategoria.id;
+   
+    var value :any = {};
+     this.registerUser(value,fun => {
+             this.registerCallback(value);  
+        });
   }
+
+  registerUser(value,fn): void{
+        var address = this.company.city+" "+this.company.street+" "+this.company.streetNo;
+            console.log('address'+ address);
+            this.geocoder.geocode( { 'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              value.latitude  = results[0].geometry.location.lat();
+              value.longitude =  results[0].geometry.location.lng();
+              console.log('correct  address');
+             fn(value);
+             
+            } else {
+              value.error = true;
+              console.log('wrong  address');
+               fn(value);
+            } 
+        }); 
+       
+    }
+
+
+    registerCallback(value) :void {
+
+    if(value.error == null) {
+       window.onLoginButtonClick();
+      this.registerJson = new RegisterObject();
+      this.registerJson.user.name = this.user.name;
+      this.registerJson.user.email = this.user.email;
+      this.registerJson.user.password = this.user.password;
+      this.registerJson.companyBranch.city = this.company.city;
+      this.registerJson.companyBranch.main = false;
+      this.registerJson.companyBranch.latitude = value.latitude;
+      this.registerJson.companyBranch.longitude = value.longitude;
+      
+      this.registerJson.companyBranch.name = this.user.name;
+      this.registerJson.companyBranch.street = this.company.street;
+      this.registerJson.companyBranch.streetNo = this.company.streetNo;
+      this.registerJson.companyBranch.company.name = this.user.name;
+      this.registerJson.companyBranch.company.category.name = this.selectedKategoria.name;
+      this.registerJson.companyBranch.company.category.id = this.selectedKategoria.id;
+      this.registerJson.companyBranch.company.category.parentCategory.name = this.selectedParentKategoria.name;
+      this.registerJson.companyBranch.company.category.parentCategory.id = this.selectedParentKategoria.id;
+    } else {
+      this.registerError = true;
+    }
+    }
 
 public onSubmitDigitsCallback(req: any): void {
     console.log('calledFromOutside on submit');
@@ -196,9 +217,6 @@ public onSubmitDigitsCallback(req: any): void {
   digitsObject.url = apiUrl;
   digitsObject.credentials = credentials;
   console.log("Diggits URL"+digitsObject.url);
-  console.log("register lat"+Register.latitude);
-  this.registerJson.companyBranch.latitude = Register.latitude;
-  this.registerJson.companyBranch.longitude =  Register.longitude;
   console.log("lattiude registring "+this.registerJson.companyBranch.latitude);
   this.registerService.getDigits(digitsObject).subscribe(data => {
           this.registerJson.user.phoneNumber = data.phoneNumber;
@@ -207,8 +225,8 @@ public onSubmitDigitsCallback(req: any): void {
         .subscribe(
           data => {
             console.log(data);
-            localStorage.setItem('latitude', Register.latitude); 
-            localStorage.setItem('longitude', Register.longitude); 
+            localStorage.setItem('latitude', this.registerJson.companyBranch.latitude.toString()); 
+            localStorage.setItem('longitude', this.registerJson.companyBranch.longitude.toString()); 
             localStorage.setItem('user', JSON.stringify({ user: data}));
             let body = new URLSearchParams();
             body.set('password', this.registerJson.user.password);
