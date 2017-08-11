@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, OnInit, NgZone} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit, NgZone, ViewChild} from '@angular/core';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
 import {RegisterService} from "./registerservice.component";
@@ -15,7 +15,8 @@ import { BaMenuService , BaPageTopService} from '../../theme';
 import { Routes } from '@angular/router';
 import { PAGES_MENU_LOGGED } from '../pageslogged.menu';
 import { ProfileService } from '../profile/profile.service';
-import { MapsAPILoader } from '@agm/core';
+import {AgmMap, MapsAPILoader } from '@agm/core';
+import { ModalDirective } from 'ng2-bootstrap/modal';
 
 declare var window: any
 
@@ -49,9 +50,16 @@ export class Register implements OnInit {
   userFromServer:User
   static latitude;
   static  longitude;
+  isLocationCollapsed: boolean = true;
   error: any;
   geocoder:any;
   registerError:boolean = false;
+  lat: number = 52.0409;
+  lng: number = 19.2850;
+  localization:any;
+  zoom: number = 6;
+  @ViewChild('childModal') childModal: ModalDirective;
+  @ViewChild(AgmMap) sebmGoogleMap: any;
   
   ngOnInit() {
     this.registerService.getBranze().subscribe(
@@ -164,7 +172,39 @@ export class Register implements OnInit {
       this.registerJson.companyBranch.company.category.parentCategory.id = this.selectedParentKategoria.id;
     } else {
       this.registerError = true;
+      this.childModal.show();
+       setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
+                console.log('triggerResize');  
+                console.log('this.lat: ' + this.lat);
+                this.sebmGoogleMap._mapsWrapper.setCenter({lat: this.lat, lng: this.lng});
+                this.changeAddress(this.callbackEdit);
+            }),300);
     }
+  }
+
+  changeAddress(callback: Function):void {
+         var address="";
+
+             var latlng = {lat: this.lat, lng:this.lng};
+                this.geocoder.geocode( { 'location': latlng}, function(results, status) {
+                // and this is function which processes response
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        console.log('geocoder inside: '+results[1].formatted_address);  
+                        address=results[0].formatted_address;
+                    } else {
+                        console.log("Geocode was not successful for the following reason: " + status);
+                    }
+                    callback(address);  
+                }); 
+    }
+
+    callbackEdit = (address: string) : void => {
+        console.log('callbackEdit');  
+         this.localization = address;
+    }
+
+    closeModal(){
+        this.childModal.hide();
     }
 
 public onSubmitDigitsCallback(req: any): void {
@@ -299,7 +339,38 @@ public onSubmitDigitsCallback(req: any): void {
     window.onLoginButtonClick();
   }
 
+  hideChildModal(): void {
+      this.childModal.hide();
+    }
 
+    mapClicked($event: any) {
+      console.log('Map clicked');
+      this.lat =  $event.coords.lat;
+      this.lng = $event.coords.lng;
+       this.changeAddress(this.callbackEdit);
+    }
+
+    confirmMap(): void {
+      this.hideChildModal();
+      window.onLoginButtonClick();
+      this.registerJson = new RegisterObject();
+      this.registerJson.user.name = this.user.name;
+      this.registerJson.user.email = this.user.email;
+      this.registerJson.user.password = this.user.password;
+      this.registerJson.companyBranch.city = this.company.city;
+      this.registerJson.companyBranch.main = false;
+      this.registerJson.companyBranch.latitude = this.lat;
+      this.registerJson.companyBranch.longitude = this.lng;
+      console.log('latitude map '+this.lat);
+      this.registerJson.companyBranch.name = this.user.name;
+      this.registerJson.companyBranch.street = this.company.street;
+      this.registerJson.companyBranch.streetNo = this.company.streetNo;
+      this.registerJson.companyBranch.company.name = this.user.name;
+      this.registerJson.companyBranch.company.category.name = this.selectedKategoria.name;
+      this.registerJson.companyBranch.company.category.id = this.selectedKategoria.id;
+      this.registerJson.companyBranch.company.category.parentCategory.name = this.selectedParentKategoria.name;
+      this.registerJson.companyBranch.company.category.parentCategory.id = this.selectedParentKategoria.id;
+    }
 
 
 }
