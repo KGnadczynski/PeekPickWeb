@@ -47,6 +47,8 @@ export class FiltersComponent implements OnInit{
     @ViewChild("search") searchElementRef: ElementRef;
     @ViewChild("nouislider") nouislider: NouisliderComponent;
 
+    geocoder: any;
+
     constructor(private fb: FormBuilder, private filtersService: FiltersService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone){
         this.filterForm = this.fb.group({
             filterBy: 'CREATE_DATE',
@@ -183,6 +185,8 @@ export class FiltersComponent implements OnInit{
     }
 
     ngOnInit(): void {
+
+        this.searchElementRef.nativeElement.value = "tralalal";
 
         navigator.geolocation.getCurrentPosition(
             position => {},
@@ -328,6 +332,29 @@ export class FiltersComponent implements OnInit{
     }
     
     getLoc(): void {
-        console.log('tets');
+
+        if("geolocation" in navigator){
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.params.latitude = position.coords.latitude;
+                    this.params.longitude = position.coords.longitude;
+                    this.myEvent.emit(this.params);
+
+                    let geocoder = new google.maps.Geocoder();
+                    let latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+                    geocoder.geocode({location: latlng}, function(results, status) {
+                        $('input.searchLocation').val(results[0].formatted_address);
+
+                    });
+
+                },
+                error => {
+                    console.log('error:');
+                    console.dir(error);
+                }
+            )
+        }
     }
+
 }

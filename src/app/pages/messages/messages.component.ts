@@ -367,8 +367,8 @@ export class MessagesComponent implements OnInit{
     }
 
     filter(event: any){
-        // console.log('data event: ');
-        // console.dir(event);
+        console.log('data event: ');
+        console.dir(event);
         
         this.pageTopService.showLoadingBar(true);
         let params: string = "";
@@ -378,6 +378,7 @@ export class MessagesComponent implements OnInit{
         if("geolocation" in navigator){
             navigator.geolocation.getCurrentPosition(
                 position => {
+                    console.log('POSTION');
                     //jesli nie przesylam zadnych coordynatow, czyli nie wybrano miasta to daj kordynaty z przegladarki
                     //jesli dalem kordynaty z okrslonego miasta to w petli ponizej zostana uwzglednione
                     if(!(event.latitude && event.longitude))
@@ -400,6 +401,7 @@ export class MessagesComponent implements OnInit{
                     });
                 },
                 error => {
+                    console.log('ERROR');
                     Object.keys(event).forEach((key) => {
                         if(event[key])
                             params += key + "=" + event[key] + "&";

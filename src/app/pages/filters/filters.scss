@@ -30,12 +30,17 @@ div#filterInside{
 	}
 
 	form#mainForm{
-		@include line(1, $blackColor, 94, 15);
+		@include line(1, $blackColor, 94, 10);
 		overflow: hidden;
 		div.geolocationError{
-        	@include pElement(16, 20, none, center);
+        	@include pElement(16, 10, none, center);
 			p{
+				font-size: 14px;
+				margin-left: 10px;
+				margin-right: 10px;
 				line-height: 23px;
+				float: left;
+    			clear: both;
 				span{
 					font-family: $openSansFont, sans-serif;
 					color: $redColor;
@@ -45,7 +50,7 @@ div#filterInside{
 
 		h5{
 			font-family: $openSansFont, sans-serif;
-			margin: 20px 0;
+			margin: 10px 0;
 			color: $blackColor;
 			text-align: center;
 			font-weight: normal;
@@ -134,9 +139,29 @@ div#nouisliderDiv{
 @include button('przycisk2.png', 16, 260, 50);
 input.searchLocation{
 	color: $blackColor;
+	
+	padding: 0 20px;
+
+	&.not-geo{
+		margin: auto;
+	}
+
+	&.is-geo{
+		margin: 0;
+		width: 90%;
+		float: left;
+	}
+
 	&::placeholder{
 		color: $blackColor;
 	}
+}
+
+img.locationImage{
+	width: 30px;
+	cursor: pointer;
+	float: right;
+	margin-top: 8px;
 }
 
 div#checkboxDiv{

@@ -31,17 +31,17 @@
             <h5>Sortuj po:</h5>
             
             <div class="filterBy">
+
+                <div class="checkbox">
+                    <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy">
+                    <label for="create_day"></label>
+                    <label for="create_day" class="newLabel">data dodania</label>
+                </div>
                 
                 <div class="checkbox" *ngIf="ifGeolocation"> 
                     <input type="radio" id="distance" name="filterBy" value="DISTANCE" formControlName="filterBy"> 
                     <label for="distance"></label>
                     <label for="distance" class="newLabel">najbliższe</label>
-                </div>
-                
-                <div class="checkbox">
-                    <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy">
-                    <label for="create_day"></label>
-                    <label for="create_day" class="newLabel">data dodania</label>
                 </div>
 
             </div>
@@ -56,8 +56,10 @@
 
             <h5>Lokalizacja</h5>
 
-            <input class="searchLocation" placeholder="miasto" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="searchControl">
-            <button (click)="getLoc()">test</button>
+            <input
+                [ngClass]="{'is-geo': (ifGeolocation), 'not-geo': (!ifGeolocation)}"
+            class="searchLocation" placeholder="miasto" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="searchControl">
+            <img *ngIf="ifGeolocation" class="locationImage" (click)="getLoc()" src="../../meta/lokalizacja.png" alt="">
 
             <!--<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
                 <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
