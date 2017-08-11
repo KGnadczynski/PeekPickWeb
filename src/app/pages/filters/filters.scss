@@ -75,10 +75,12 @@ div#filterInside{
 			justify-content: space-around;
 			color: $blackColor;
 			clear: both;
-			@include checkboxMixin(radio, 0, -2);
 			label.newLabel{
-				left: 10px;
+				left: 10px !important;
+				background-image: url('') !important;
 			}
+			@include checkboxMixin(radio, 0, -2);
+			
 		}
 
 		div.clearButton{
