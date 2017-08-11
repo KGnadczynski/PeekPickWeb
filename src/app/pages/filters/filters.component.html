@@ -21,7 +21,7 @@
                     <input type="checkbox" id="ifActiveCheckbox" formControlName="startBeforeDate">
                     <label for="ifActiveCheckbox"></label>
                 </div>
-                <span>dostępne dziś</span>
+                <label class="newLabel" for="ifActiveCheckbox">dostępne dziś</label>
             </div>
 
             <div class="line">
@@ -33,16 +33,15 @@
             <div class="filterBy">
                 
                 <div class="checkbox" *ngIf="ifGeolocation"> 
-                <!-- <div class="checkbox"> -->
                     <input type="radio" id="distance" name="filterBy" value="DISTANCE" formControlName="filterBy"> 
                     <label for="distance"></label>
-                    <span>najbliższe</span>
+                    <label for="distance" class="newLabel">najbliższe</label>
                 </div>
                 
                 <div class="checkbox">
                     <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy">
                     <label for="create_day"></label>
-                    <span>data dodania</span>
+                    <label for="distance" class="newLabel">data dodania</label>
                 </div>
 
             </div>
@@ -91,7 +90,7 @@
                             <input type="checkbox" class="checkboxInput" id="types-{{messageType.name}}" (click)="setType(messageType.name)">
                             <label for="types-{{messageType.name}}"></label>
                         </div>
-                        <span>{{ messageType.value }}</span>
+                        <label class="newLabel" for="types-{{messageType.name}}">{{ messageType.value }}</label>
                         <i *ngIf="messageType.name === 'EVENT'" class="material-icons">event</i>
                         <i *ngIf="messageType.name === 'WORK'" class="material-icons">work</i>
                         <i *ngIf="messageType.name === 'SHORT_TERM_OFFER'" class="material-icons">timer</i>

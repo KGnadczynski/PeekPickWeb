@@ -86,7 +86,8 @@ export class MessagesComponent implements OnInit{
             console.log('nie ma paramsow');
         }
 
-        if(!this.messageList.isLastPage && this.messageList.messages.length > 0){
+        if(!this.messageList.isLastPage){
+        // if(!this.messageList.isLastPage && this.messageList.messages.length > 0){
             if(this.canScrool){
                 this.pageNumber += 1;
                 this.canScrool = false;
@@ -371,6 +372,7 @@ export class MessagesComponent implements OnInit{
         
         this.pageTopService.showLoadingBar(true);
         let params: string = "";
+        this.pageNumber = 1;
         event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
 
         if("geolocation" in navigator){
@@ -472,7 +474,7 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getActiveMessages(this.pageNumber, date, this.latitude, this.longitude, this.id).subscribe(
                     result => {
                         this.messageList = result;
-                         this.pageTopService.showLoadingBar(false);
+                        this.pageTopService.showLoadingBar(false);
                         console.log('active posts: ');
                         console.dir(result);
                     },

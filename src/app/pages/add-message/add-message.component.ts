@@ -297,7 +297,12 @@ export class AddMessageComponent implements OnInit {
 
                     break;
             }
-            
+            /*
+                messageTypeValue: string;
+    messageTypeName: any;
+            */ 
+            // console.log('messageTypeValue' + this.messageTypeValue);
+            // console.log('messageTypeName' + this.messageTypeName);
         });
     }
 
@@ -428,6 +433,11 @@ export class AddMessageComponent implements OnInit {
         }
 
         this.messageAddModel.type = this.messageTypeValue
+/*=======
+        this.messageAddModel.type = this.messageTypeName.name;
+
+         console.log('Typ '+  this.messageAddModel.type)
+*/
 
         this.messageAddModel.status = "NEW";
 

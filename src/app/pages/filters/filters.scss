@@ -62,10 +62,10 @@ div#filterInside{
 			justify-content: center;
 			@include checkboxMixin(checkbox, 0, -2);
 		
-			span{
+			label.newLabel{
 				float: left;
 				margin-top: 3px;
-				margin-left: 10px;
+				margin-left: 5px;
 				color: $blackColor;
 			}
 		}
@@ -76,6 +76,9 @@ div#filterInside{
 			color: $blackColor;
 			clear: both;
 			@include checkboxMixin(radio, 0, -2);
+			label.newLabel{
+				left: 10px;
+			}
 		}
 
 		div.clearButton{
@@ -175,9 +178,10 @@ div#checkboxDiv{
 			width: 90%;
 		}
 		label{
-			display: block;
-			margin-top: 5px;
-			margin-bottom: 20px;
+			float: left;
+			text-transform: lowercase;
+			margin-left: 5px;
+			cursor: pointer;
 		}
 	}
 }
