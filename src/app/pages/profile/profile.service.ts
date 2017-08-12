@@ -159,7 +159,7 @@ export class ProfileService{
 
             let formData: FormData = new FormData();
             let xhr: XMLHttpRequest = new XMLHttpRequest();
-
+            console.log('fileee '+imageModel.file);
             formData.append('file', imageModel.file, imageModel.file.name);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
