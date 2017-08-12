@@ -6,6 +6,13 @@ $angle-left: "\f100";
 $angle-right: "\f101";
 
 .al-sidebar {
+
+
+  ::-webkit-scrollbar{
+    width: 0 !important;
+    height: 0 !important;
+  }
+
   width: $sidebar-width;
   top: 58px;
   left: 0;
@@ -104,7 +111,7 @@ $angle-right: "\f101";
               }
               span {
                   float: none;
-                  font-size: 15px;
+                  font-size: 16px;
                   font-family: 'Sanchez', serif;
                   color: $redColor;
               }
@@ -184,7 +191,7 @@ a.al-sidebar-list-link {
   display: block;
   padding-left: 18px;
   text-decoration: none;
-  line-height: 42px;
+  line-height: 37px;
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
@@ -196,11 +203,11 @@ a.al-sidebar-list-link {
     }
   }
   img{
-      width: 32px;
+      width: 23px;
   }
   span{
       margin-left: 5px;
-      font-size: 15px;
+      font-size: 16px;
   }
   b {
     display: block;
