@@ -125,7 +125,7 @@ div.modal-content{
             div.dropdown{
                 text-align: center;
                 
-                @include button('oddzialy.png', 0, 53, 53);
+                @include button('oddzialy.png', 0, 35, 53);
                 button{
                     @media(max-width: 565px){
                         margin-left: 18px !important;

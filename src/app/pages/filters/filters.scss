@@ -57,6 +57,7 @@ div#filterInside{
 			font-size: 16px;
 			text-transform: lowercase;
 			float: left;
+			font-weight: bold;
 		}
 
 		div.ifActive{
@@ -232,6 +233,12 @@ div#companyCategories{
 	overflow: hidden;
 
 	div.categoriesI{
+
+		div.line{
+			margin-top: 5px !important;
+			margin-bottom: 5px !important;
+		}
+
 		width: 100%;
 		display: flex;
 		flex-direction: column;
@@ -243,6 +250,8 @@ div#companyCategories{
 			outline: none;
 			background: white;
 			text-transform: lowercase;
+			height: auto;
+			margin: 5px 0;
 			img{
 				width: 25px;
 			}
