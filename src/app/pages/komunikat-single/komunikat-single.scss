@@ -15,137 +15,19 @@ div.modal-dialog{
     overflow-y: auto;
 }
 
-div.modal-content{
-    padding: 20px;
-    overflow: hidden;
-    img.close-img{
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 30px;
-        cursor: pointer;
+div.single{
+    @media (min-width: 544px){
+        max-width: 590px;
     }
-    div.message-distance-message-icon-work{
-        i{
-            margin-right: 20px;
-        }
-    }
-
-    /*div.message-icon{
-        float: left;
-        img{
-            width: 72px;
-            height: 72px;
-        }
-    }
-    div.message-text-block{
-        float: left;
-        padding-left: 10px;
-        @media(max-width: 565px){
-            width: 40%;
-        }
-        h4{
-            font-family: $openSansFont, sans-serif;
-            font-size: 20px;
-            color:$blackColor;
-            text-align: left;
-            text-transform: capitalize;
-        }
-        @include pElement(13, 5, none, left);
-    }
-    div.message-icon-distance{
-        float: right;
-        text-align: right;
-        margin-right: 25px;
-        i{
-            font-size: 36px;
-            color: $redColor;
-        }
-        @include pElement(13, 0, none, left);
-    }
-    div.message-content{
-        clear: both;
-        float: left;
-        width: 100%;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        background-color: $redColor;
-        border-radius: 160px / 150px;
-        padding: 20px 35px;
-        position: relative;
-        @include pElement(20, 0, none, left);
-        p{
-            color: white;
-        }
-        &:before{
-            content: "";
-            position: absolute;
-            top: -16px;
-            left: 13px;
-            height: 30px;
-            border-left: 60px solid $redColor;
-            background: $redColor;
-            border-bottom-left-radius: 90px 295px;
-            transform: translate(0px, 0px);
-        }
-        &:after{
-            content: "";
-            position: absolute;
-            top: -20px;
-            left: -8px;
-            height: 20px;
-            width: 65px;
-            background: #FAFAFA;
-            border-bottom-left-radius: 89px 50px;
-            transform: translate(21px, 0px);
-        }
-    }
-    div.message-time{
-        clear: both;
-        float: left;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        @include pElement(15, 5, none, left);
-        
-        span{
-            font-family: $openSansFont, sans-serif;
-            color:$blackColor;
-        }
-    }
-    div.message-photo{
-        float: left;
-        clear: both;
-        width: 100%;
-        margin: 10px 0;
-        img {
-            width: 100%;
-        }
-    }
-    div.message-icons{
-        float: left;
-        clear: both;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        div.icons{
-            display: flex;
-            align-items: center;
-            img{
-                cursor: pointer;
-                margin-right: 40px;
-                width: 10%;
-                &.icons8-Star-Filled, &.icons8-Marker-Filled{
-                    width: 25px;
-                }
-            }
-        }
-        div#time{
-            @include pElement(14, 0, none, right);
-        }
-    }*/
 }
 
+img.close-img{
+    width: 25px;
+    position: absolute;
+    right: 6px;
+    top: 8px;
+}
+
+div.message-distance-message-icon-work{
+    margin-right: 20px;
+}

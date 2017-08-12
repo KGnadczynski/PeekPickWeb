@@ -29,7 +29,6 @@ export class KomunikatSingleComponent implements OnInit {
     lat: number;
     lng: number;
 
-
     @ViewChild('childModal') public childModal: ModalDirective;
 
     constructor(
@@ -50,7 +49,6 @@ export class KomunikatSingleComponent implements OnInit {
       });
 
       this.komunikatSingleService.getKomunikat(this.id).subscribe(komunikat => {
-        
         let kilometers;
         if("geolocation" in navigator){
             navigator.geolocation.getCurrentPosition((position)=>{
@@ -61,8 +59,8 @@ export class KomunikatSingleComponent implements OnInit {
                 };
 
                 let otherCoordinates: GeoCoord = {
-                    latitude: komunikat.location.latitude,
-                    longitude: komunikat.location.longitude
+                    latitude: komunikat.companyBranchList[0].latitude,
+                    longitude: komunikat.companyBranchList[0].longitude
                 };
                 
                 kilometers = this.haversineService.getDistanceInKilometers(browserCoordinates, otherCoordinates);
@@ -85,6 +83,25 @@ export class KomunikatSingleComponent implements OnInit {
         );
       });
 
+    }
+
+    getLocation(message: any): string {
+        console.log('message: ');
+        console.dir(message);
+        if(message.location){
+            
+        }
+        /*if(message.location != null) {
+           return message.location.address;
+        } /*else if(message.companyBranchCount == 1) {
+           return message.nearestCompanyBranch.city +','+ message.nearestCompanyBranch.street+" "+ message.nearestCompanyBranch.streetNo;
+        }else if(message.companyBranchCount > 1 && message.companyBranchCount < 5) {
+           return message.companyBranchCount+" lokalizacje, Najbliższa: "+message.nearestCompanyBranch.city +','+ message.nearestCompanyBranch.street+" "+ message.nearestCompanyBranch.streetNo;
+        }
+        else if(message.companyBranchCount >= 5) {
+           return message.companyBranchCount+" lokalizacji, Najbliższa: "+message.nearestCompanyBranch.city +','+ message.nearestCompanyBranch.street+" "+ message.nearestCompanyBranch.streetNo;
+        }*/
+        return '';
     }
 
     ngAfterViewInit(): void {

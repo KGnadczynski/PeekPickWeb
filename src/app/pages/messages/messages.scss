@@ -9,13 +9,13 @@ div.messages{
 }
 
 div.message{
-    @include line(2, $redColor, 100, 10);
+    @include line(1, $redColor, 100, 0);
     overflow: hidden;
     border: 1px solid lightgray;
     padding: 10px;
     border-radius: 2px;
     background: #FAFAFA;
-    margin-bottom: 4%;
+    margin-bottom: 7px;
     div.message-icon{
         float: left;
         overflow: hidden;
@@ -57,36 +57,30 @@ div.message{
     }
 
     div.message-content{
+        width: 100%;
         clear: both;
         float: left;
-        cursor: pointer;
-        
-        margin: 10px 15px 15px 0px;
-        font-family: $openSansFont, sans-serif;
-        background-image: url('../../meta/wiadomosc_do_gory2.png');
-        background-size: 100% 100%;
-        @include pElement(16, 0, none, left);
-        max-width: 392px;
-        max-height: 162px;
 
-        p{
-            line-height: 24px;
-            color: white;
-            
-
-            &.extra-extra-small {
-                padding: 10px 10px 10px 30px;
-            }
-            &.extra-small{
-                padding: 10px 10px 10px 30px;
-            }
-            &.small{
-                padding: 15px 15px 15px 40px;
-            }
-            &.large{
-                padding: 20px 20px 20px 65px;
+        div{
+            cursor: pointer;
+            width: 507px;
+            height: 135px;
+            margin: auto;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            @include pElement(16, 0, none, left);
+            background-image: url('../../meta/wiadomosc_do_gory2.png');
+            background-size: 100% 100%;
+            p{
+                line-height: 24px;
+                color: white;
+                padding-left: 80px;
+                padding-top: 16px;
+                padding-right: 35px;
             }
         }
+        
+        
         /*
         &:before{
             content: "";
@@ -117,7 +111,6 @@ div.message{
         width: 100%;
         display: flex;
         justify-content: space-between;
-        margin-bottom: 2%;
         color: black;
         font-family: $openSansFont, sans-serif;
         span{
@@ -127,7 +120,10 @@ div.message{
                 line-height: 0;
             }
         }
-        @include pElement(14, 10, none, left);
+        @include pElement(14, 5, none, left);
+        p{
+            margin-top: 0;
+        }
         
         div.end-date{
             text-align: right;
@@ -137,6 +133,7 @@ div.message{
         clear: both;
         float: left;
         width: 100%;
+        margin-bottom: 10px;
         img{
             width: 100%;
         }
@@ -148,18 +145,40 @@ div.message{
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 5px 0;
+
+        share-buttons{
+            div.sb-buttons{
+                margin: 0;
+                share-button{
+                    padding: 0;
+                    button {
+                        outline: 0;
+                        width: auto;
+                        height: auto;
+                        width: 20px !important;
+                        height: 20px !important;
+                        padding: 0;
+                        div.sb-template{
+                            display: flex;
+                            i {
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         div.icons{
             display: flex;
             align-items: center;
             
             img{
-                width: 10%;
+                width: 20px;
+                height: 20px;
                 margin-right: 40px;
                 cursor: pointer;
-                &.icons8-Star-Filled, &.icons8-Marker-Filled{
-                    width: 25px;
-                }
             }
         }
         

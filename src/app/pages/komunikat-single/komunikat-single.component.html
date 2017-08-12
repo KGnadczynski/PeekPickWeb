@@ -3,7 +3,7 @@
 
 <div bsModal #childModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}" tabindex="-1" 
   role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" backdrop="false" keyboard="false">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg single">
       <div class="modal-content message">
 
           <img class="close-img" src="../../meta/close-circle-outline.png" (click)="hideChildModal()" alt="">
@@ -19,13 +19,13 @@
 
           <div class="message-text-block">
               <a *ngIf="message?.user.company.id" [routerLink]="['/pages/company', message?.user.company.id]">
-                <h4>{{ message?.user.company.name }}</h4>
+                {{ message?.user.company.name }}
               </a>
                 
               <p>{{ message?.user.company.category.name }}</p>
-              <p>{{ message?.location?.address }}</p>
+               <p>{{ getLocation(message) }}</p> 
           </div>
-
+         
           <div class="message-distance-message-icon-work">
               <i *ngIf="message?.type === 'EVENT'" class="material-icons">event</i>
               <i *ngIf="message?.type === 'WORK'" class="material-icons">work</i>
@@ -36,7 +36,10 @@
           </div>
 
           <div class="message-content">
-              <p>{{ message?.content }}</p>
+              <div>
+                <p>{{ message?.content }}</p>
+              </div>
+              
           </div>
 
           <div class="message-time">
@@ -62,6 +65,10 @@
               <img src="{{ message?.mainImageUrl}}">
           </div>
 
+            <div class="line">
+            <div></div>
+            </div>
+
           <div class="message-icons">
               <div class="icons">
                 <img *ngIf="!checkIfFavourite(message?.id)" (click)="addToFavourites(message?.id)" class="icon icons8-Star-Filled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAFSUlEQVRoQ92ZbYhUVRzGn/+dydaduXf2XiUyyoJ8+ZCfMnozCCkppSBIJ6xmrktt65ekD5sZFgVlCikWfTDLt7mrRWtBIbRhQgWRSEEEQmm09CIVoffOnrPjujpz/3FH1zadl3Nn711cz9f7nOf//O45c+6ccwiXSaO4ORzDXBLUyAvv0zhrxQ+iWx9VQaT78KQFKej6NCD511mA8gxbyhNxwcQ6Ir261cOE16vhGT156W6alCAF3TpChDlVDsZRW7pzJx3ILt1coBF9PTY4MRbkpPtNHDCxTa2Cbu0gQufY0MzYYUv3iUkDshVob9OtE0RouyB0aVi4V3UDJ6OGiWVEHN3qAuGdmmEZT+alu31SgBQM6xABt9YKy8wHbendecmD7DGM2RUkjzYKmkB5zmNC/BwlTORTy0lbm6HhmYYh2d+Ul8WeSxbkCyD5h2EeByjTGISPXye9GQuBclQwkY5Ib9rKsoYPVMKRX1maGxqs/g+LokUK4hjWfgCLVIIxuN8WXvWfcRQtMpCdqdTVCW3KnyBS82Tmin/6ms5S6e9YQfoMwyqd1oxkAhloZPhABj4MjZDxCQaIUgS2wDA4eAbcSEQ3hQrFfJiBAQIGQRAMcsFcIsYgMwQ0CC145rMoVzCYmuKLrBBurRrVt+foHRsB7YFqIIJBQHuoQBMsZuBkAAsE8LzPlt6zVZBzq81bAK2c4EzjKsfgLTOFtypY/f43nx29YwVA74IoOa4KcXdmLgPclZfFXaOlLvphFnTrDoD3EdG0uPO04s/MJwB60JbuwbH9a64wu6da1/pJ7gfRvFaKxdaH+bBWpsWPD7vHLqxRd6nsA6aeMqwCgGWxBQtnvLdNuHYWGK67ajXyc9LmWhBeUf4+hAvXXM3MYLyYH/LWNRIrfbwKhrmYQH0A0s0rR6oYYnDWFl5/M1clkMCkV9fn+pT8jEA3NDON4jmDf9W4fH9OyiMqfsoggdlOdHQkdPoYRHermLeqYeCAL/xlnSgWVT1CgQSmfUDiVNra2HTPoZrgQh1j84B0e14G/DAWoUFGzR3dXA+iNWGKNdUyb8hL7/mmuhqCcYBY20CI9GiH2d9my2LXxIIY5m8AzWylaP0+/HteeNe34tnSiPQaxixGMtLDg9Hw/khl1oqRwV/CwrQE4qTNldBoS9hiKnpidOekW/tMrIFBayC69SEIcd137M0LN6sCPVbTEkjBMD0CdYQtpqJncNEWnqmiHReI0565BcnEt2ELhdFz2b/ZPln8Pkyf0CPi6OYaEK1XKsL4h+E/FWgJtA1E01X6MfNqW3pnL4gUW2iQgmEdIOCepv7MTpvEqiy8YG+NPciYFV17E0S5Zn0Z2G8L975mupanVh8wZVg3BRFdWbcI4xixn8sNFb+spelNZRaxliiAMKOeBzOPTJVeKgtUVGFCjUghlbmXEonPa5oH+wbCVgivJw+UGgXYDuhX6OZGAF319jnk+wvrvYxa3uFAdHMDET13sREPAJVH80IcUn2Dgc7RzbtA2A1Qja85r8sL7wVVv3AghvUdAfPPmzNXAH5juiyuXQKMqBYdq6tuqdPWa0y8ioi0/7xxKC/d21U9lUH6YGZO6fDOTwXGj+T7y3Ol4g+qxRrpdrVn5lMi8T4RZld1zDwsvbTqNZ0ySCGdWUpaYi8znyGi9cPCfbUbOBMFxKjHucXkJQJWB2drzP5Dtix+olJDHUQ33wbhNp/Lyzul/EnFvFWNkzbngfAeE76yhfe0io8ySHD3kRtygwOICWuFtPWIPeSq3bdMWKqYCymPSMw5xm1/2YD8C6941UL4WkQOAAAAAElFTkSuQmCC">
@@ -75,6 +82,10 @@
                   <p>{{ message?.createDate | amTimeAgo }}</p>
               </div>
           </div>
+
+          <div class="line">
+				<div></div>
+			</div>
 
       </div>
   </div>

@@ -20,7 +20,7 @@
 					{{ message.user.name }}
 				</a>
 				<p>{{ message.user.company.category.name }}</p>
-				<p>{{getLocation(message)}}</p>
+				<p>{{ getLocation(message) }}</p>
 			</div>
 
 			<div class="message-distance-message-icon-work" >
@@ -34,15 +34,13 @@
 			</div>
 
 			<div class="message-content" (click)="goToSingle(message.id)">
-				<p [ngClass]="{
-					'extra-extra-small': message.content.length < 10,
-					'extra-small': (message.content.length > 10 && message.content.length < 20),
-					'small': (message.content.length > 20 && message.content.length < 35),
-					'large': (message.content.length >= 35 && message.content.length < 200)}"
-				>
-					<!-- {{ message.content }}, length: {{message.content.length}} -->
-					{{ message.content }}
-				</p>
+				<div>
+					<p>
+						<!-- {{ message.content }}, length: {{message.content.length}} -->
+						{{ message.content }}
+					</p>
+				</div>
+				
 			</div>
 
 			<div class="message-time">

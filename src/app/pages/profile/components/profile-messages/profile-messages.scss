@@ -24,7 +24,10 @@ div#activeAndEndedPosts{
 
     div.tab-contents{
         border: 0 !important;
-        margin-top: 3%;
+        width: 590px;
+        margin: auto;
+        margin-top: 15px;
+
         @media(max-width: 565px){
             // margin: 4%;
         }

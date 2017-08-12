@@ -121,3 +121,13 @@ div.favourites{
         width: 709px;
     }
 }
+
+div.fav-messages{
+    margin: auto;
+    @media(min-width: 566px){
+        width: 96%;
+    }
+    @media(min-width: 768px){
+        width: 590px;
+    }
+}
