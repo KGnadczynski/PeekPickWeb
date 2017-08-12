@@ -65,7 +65,7 @@ div.modal-content{
             }
             img{
                 cursor: pointer;
-                width: 43px;
+                width: 35px;
             }
             div.text{
                 display: flex;
@@ -255,8 +255,8 @@ div#addPhoto, div#addLocalization, div.odzialFirmy{
         display: none !important;
     }
     img{
-        width: 53px;
-        height: 53px;
+        width: 35px;
+        height: 35px;
     }
     @include pElement(15, 5, none, center);
     p {
