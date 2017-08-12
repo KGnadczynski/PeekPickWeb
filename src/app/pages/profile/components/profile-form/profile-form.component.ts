@@ -27,7 +27,6 @@ export class ProfileFormComponent implements OnInit {
             'phoneNumber': '',
             'openingHours': '',
             'description': '',
-            'email': [null, Validators.compose([Validators.email])]
         });
     }
 

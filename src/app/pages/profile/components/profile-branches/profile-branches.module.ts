@@ -7,13 +7,14 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { ProfileBranchesComponent } from './profile-branches.component';
 import { ProfileFormModule } from '../profile-form/profile-form.module';
 import { AgmCoreModule } from '@agm/core';
+import { ModalModule } from 'ng2-bootstrap';
 
 @NgModule({
     imports: [ CommonModule, FormsModule, ReactiveFormsModule, routing, CollapseModule, AgmCoreModule,
         ConfirmationPopoverModule.forRoot({
             confirmText: 'usuń',
             cancelText: 'anuluj'
-    }), ProfileFormModule ],
+    }), ModalModule.forRoot(), ProfileFormModule ],
     declarations: [ ProfileBranchesComponent ],
     exports: [ ProfileBranchesComponent ]
 })

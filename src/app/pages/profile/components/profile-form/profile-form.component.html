@@ -22,40 +22,5 @@
     <div *ngIf="!branchForm.controls['streetNo'].valid && branchForm.controls['streetNo'].touched" class="error">
         Musisz wpisać nr ulicy
     </div>
-
-    <label>Strona internetowa</label>
-    <input type="text" id="website" formControlName="website">
-    <div *ngIf="!branchForm.controls['website'].valid && branchForm.controls['website'].touched" class="error">
-        Musisz wpisać stronę internetową
-    </div>
-
-    <label>Numer telefonu</label>
-    <input type="text" id="phoneNumber" formControlName="phoneNumber">
-    <div *ngIf="!branchForm.controls['phoneNumber'].valid && branchForm.controls['phoneNumber'].touched" class="error">
-        Musisz wpisać numer telefonu
-    </div>
-
-    <label>Godziny otwarcia</label>
-    <input type="text" id="openingHours" formControlName="openingHours">
-    <div *ngIf="!branchForm.controls['openingHours'].valid && branchForm.controls['openingHours'].touched" class="error">
-        Musisz wpisać godziny otwarcia
-    </div>
-
-    <label>E-mail</label>
-    <input type="text" id="email" formControlName="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-    <div *ngIf="!branchForm.controls['email'].valid && branchForm.controls['email'].touched" class="error">
-        musisz wpisać e mail
-    </div>
-    <div *ngIf="branchForm.controls['email'].hasError('email') && branchForm.controls['email'].touched" class="error">
-        niepoprawny adres e-mail
-    </div>
-    
-
-    <label>Opis</label>
-    <input type="text" id="description" formControlName="description">
-    <div *ngIf="!branchForm.controls['description'].valid && branchForm.controls['description'].touched" class="error">
-        Musisz wpisać opis
-    </div>
-
     <input type="submit" [disabled]="!branchForm.valid" value="{{ type }} oddział" [ngClass]="{disabled: !branchForm.valid}">
 </form>
