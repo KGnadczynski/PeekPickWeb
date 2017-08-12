@@ -464,8 +464,8 @@ export class MessagesComponent implements OnInit{
 
     getActivePost(){
 
-        let date: any = Date.now();
-        date = moment().format("YYYY-MM-DD HH:mm");
+        let date: any;
+        date = moment().endOf('day').format("YYYY-MM-DD HH:mm");
 
         if("geolocation"  in navigator){
             navigator.geolocation.getCurrentPosition((position) => {
@@ -490,7 +490,6 @@ export class MessagesComponent implements OnInit{
             }
         );
         }
-
         
     }
 

@@ -68,15 +68,19 @@ export class MessagesService{
         this.urlNew = url + '/messages/page/' + page + '?companyCategoryMainIdList=' + id;
         if(!(latitude === 0 && longitude === 0))
             this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;
+
+        
         return this.http.get(this.urlNew).map(this.mapMessages).catch(this.handleError);
     }
 
     getActiveMessages(page: number, date: Date, latitude: number, longitude: number, id:number): Observable<MessageList>{
         
-        this.urlNew = url + '/messages/page/' + page + '?companyId=' + id + '&startBeforeDate=' + date;
+        this.urlNew = url + '/messages/page/' + page + "?companyId=" + id;
         
         if(!(latitude === 0 && longitude === 0))
             this.urlNew += '&latitude=' + latitude + '&longitude=' + longitude;
+
+        this.urlNew += '&startBeforeDate=' + date;
         
         return this.http.get(this.urlNew).map(this.mapMessages).catch(this.handleError);
     }

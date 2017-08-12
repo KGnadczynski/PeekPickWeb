@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, Input, ElementRef } from '@angular/core';
 import { MessagesComponent } from '../../../messages/messages.component';
 
 @Component({
@@ -10,17 +10,19 @@ import { MessagesComponent } from '../../../messages/messages.component';
 
 export class ProfileMessagesComponent implements OnInit {
 
-    @ViewChild('msgs') messagesCom: MessagesComponent;
+    @ViewChild('msgs') messagesCom: ElementRef;
     @Input() idCompany: number;
+    info: string = "";
 
     constructor(){}
 
     ngOnInit(): void {
-
+        console.log('this.messageCom: ');
+        console.dir(this.messagesCom);
     }
 
     showActive(): void {
-        this.messagesCom.getActivePost();
+        
     }
 
 }

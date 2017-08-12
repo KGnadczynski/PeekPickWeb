@@ -30,6 +30,7 @@ export class ProfileEditComponent implements OnInit {
     uploaderOptions:NgUploaderOptions = {
         url: '',
     };
+    isCollapse:boolean = true;
 
     @Input() otherUser: any;
     @ViewChild('fileUpload') fileUpload:any;

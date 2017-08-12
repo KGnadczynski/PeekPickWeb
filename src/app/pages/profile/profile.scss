@@ -75,10 +75,10 @@ div#profile{
     md-tab-group{
         div.md-tab-body{
             margin: auto;
-            @media(max-width: 565px){
+            @media(max-width: 544px){
                 width: 96%;
             }
-            @media(min-width: 566px){
+            @media(min-width: 545px){
                 width: 96%;
             }
             @media(min-width: 768px){
@@ -86,17 +86,17 @@ div#profile{
             }
         }
         div.md-tab-header{
-            
             border: none !important;
-            margin-bottom: 5%;
-            @media(max-width: 565px){
+            @media(max-width: 544px){
                 justify-content: space-around;
             }
-            @media(min-width: 566px){
+            @media(min-width: 545px){
                 justify-content: space-around;
             }
             @media(min-width: 992px){
-                justify-content: center;
+                justify-content: space-evenly;
+                width: 75%;
+                margin: auto;
             }
         }
         div.md-tab-label{
@@ -127,30 +127,34 @@ div#profile{
         }
         md-ink-bar{
             top: 40px;
-            width: 130px !important;
+            // width: 130px !important;
             color: white !important;
             background-color: $redColor !important;
         }
     }
 }
 
-@media(max-width: 575px){
+@media(max-width: 544px){
     
     md-tab-group{
         div.md-tab-label{
             min-width: 30px !important;
-            height: 50px !important;
+            height: 54px !important;
             &:focus{
                 background-color: white !important;
             }
         }
     }
+
+    md-ink-bar{
+        top: 50px !important;
+    }
 }
-@media (min-width: 576px) and (max-width: 992px){
+@media (min-width: 545px) and (max-width: 992px){
    md-tab-group{
         div.md-tab-label{
             min-width: 30px !important;
-            height: 50px !important;
+            // height: 50px !important;
             &:focus{
                 background-color: white !important;
             }

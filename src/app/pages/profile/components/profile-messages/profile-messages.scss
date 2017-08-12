@@ -1,7 +1,12 @@
 div#activeAndEndedPosts{
     
     div.tabs{
-        margin-top: 2%;
+
+        @media(min-width: 992px){
+            width: 43%;
+            margin: auto;
+            margin-top: 20px;
+        }
         display: flex;
         justify-content: space-around;
         font-family: 'Open Sans', sans-serif;
