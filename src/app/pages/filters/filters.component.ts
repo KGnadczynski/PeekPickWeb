@@ -135,7 +135,7 @@ export class FiltersComponent implements OnInit{
                 this.params.range = 0;
             
             if(data.startBeforeDate){
-                this.params.startBeforeDate = moment().startOf('day').format("YYYY-MM-DD HH:mm");
+                this.params.startBeforeDate = moment().endOf('day').format("YYYY-MM-DD HH:mm");
             } else {
                 this.params.startBeforeDate = '';
             }
@@ -341,7 +341,9 @@ export class FiltersComponent implements OnInit{
     getLoc(): void {
 
         if("geolocation" in navigator){
+            
             navigator.geolocation.getCurrentPosition(
+                
                 position => {
                     this.params.latitude = position.coords.latitude;
                     this.params.longitude = position.coords.longitude;
@@ -352,7 +354,7 @@ export class FiltersComponent implements OnInit{
 
                     geocoder.geocode({location: latlng}, function(results, status) {
                         $('input.searchLocation').val(results[0].formatted_address);
-
+                        console.log('results: ' + results[0].formatted_address);
                     });
 
                 },

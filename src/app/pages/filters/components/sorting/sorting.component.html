@@ -1,6 +1,8 @@
-<h5>Sortuj po:</h5>
+
 
 <div class="filterBy" [formGroup]="filterForm">
+
+    <h5 class="sortH5">Sortuj po:</h5>
 
     <div class="checkbox">
         <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy">
@@ -14,4 +16,9 @@
         <label for="distance" class="newLabel">najbliższe</label>
     </div>
 
+</div>
+
+ <div *ngIf="!ifGeolocation" class="geolocationError"> 
+    <!-- <div class="geolocationError"> -->
+    <p>jeśli chcesz sortować po <span>najbliższych</span> pozwól na dostęp do lokalizacji lub wpisz miasto</p>
 </div>
