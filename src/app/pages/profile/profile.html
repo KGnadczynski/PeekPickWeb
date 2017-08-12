@@ -15,6 +15,7 @@
                 <a *ngIf="name && !otherImgs?.imageUrl" [routerLink]="['/pages/company', otherUser?.company.id]">
                     <ng2-letter-avatar *ngIf="name && !otherImgs?.imageUrl" avatar-data='{{name}}' ></ng2-letter-avatar>
                 </a>
+                	<button (click)="edytujAvatarModal()">Edytuj</button>
                 
                 <h2>{{otherUser?.company.name}}</h2>
             </div>
@@ -63,5 +64,26 @@
             </md-tab-group>
         </div>
     </div>
+
+    <div bsModal #childModal="bs-modal" class="modal fade" [config]="{backdrop: 'static', keyboard: false}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content"> 
+            <div class="header">
+                <div>
+                     <div class="file-upload">
+                    <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+                    </div>
+                        <img-cropper #cropper [image]="data" [settings]="cropperSettings" (onCrop)="cropped($event)"></img-cropper>
+                </div>
+            </div>
+             <div id="buttons">
+                <button (click)="confirmPhoto()">Dodaj</button>
+                <button (click)="closeModal()">Anuluj</button>
+
+            </div>
+         </div>
+  </div>
+   
+</div>
 </div>
 

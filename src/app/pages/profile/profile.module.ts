@@ -8,6 +8,8 @@ import { ProfileEditModule } from './components/profile-edit/profile-edit.module
 import { ProfileAdditionalModule } from './components/profile-additional/profile-additional.module';
 import { ProfileBranchesModule } from './components/profile-branches/profile-branches.module';
 import { ProfileMessagesModule } from './components/profile-messages/profile-messages.module';
+import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+import { ModalModule } from 'ng2-bootstrap';
 
 @NgModule({
   imports: [
@@ -18,10 +20,11 @@ import { ProfileMessagesModule } from './components/profile-messages/profile-mes
     ProfileEditModule,
     ProfileAdditionalModule,
     ProfileBranchesModule,
-    ProfileMessagesModule
+    ProfileMessagesModule,
+    ModalModule.forRoot() 
   ],
   declarations: [
-    ProfileComponent
+    ProfileComponent,ImageCropperComponent
   ]
 })
 
