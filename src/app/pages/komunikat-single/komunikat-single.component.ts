@@ -28,6 +28,7 @@ export class KomunikatSingleComponent implements OnInit {
     longitude: number;
     lat: number;
     lng: number;
+    address: string = "";
 
     @ViewChild('childModal') public childModal: ModalDirective;
 
@@ -49,6 +50,18 @@ export class KomunikatSingleComponent implements OnInit {
       });
 
       this.komunikatSingleService.getKomunikat(this.id).subscribe(komunikat => {
+
+        if(komunikat.location){
+            this.address = komunikat.location.address;
+        } else if(komunikat.companyBranchList.length === 1){
+            this.address = komunikat.companyBranchList[0].city +','+ komunikat.companyBranchList[0].street+" "+ komunikat.companyBranchList[0].streetNo;
+        } else if(komunikat.companyBranchList.length > 1 && komunikat.companyBranchList.length < 5) {
+           this.address = komunikat.companyBranchList.length+" lokalizacje, Najbliższa: "+komunikat.companyBranchList[0].city +','+ komunikat.companyBranchList[0].street+" "+ komunikat.companyBranchList[0].streetNo;
+        }
+        else if(komunikat.companyBranchList.length >= 5) {
+           this.address = komunikat.companyBranchList.length+" lokalizacji, Najbliższa: "+komunikat.companyBranchList[0].city +','+ komunikat.companyBranchList[0].street+" "+ komunikat.companyBranchList[0].streetNo;
+        }
+
         let kilometers;
         if("geolocation" in navigator){
             navigator.geolocation.getCurrentPosition((position)=>{
@@ -86,11 +99,8 @@ export class KomunikatSingleComponent implements OnInit {
     }
 
     getLocation(message: any): string {
-        console.log('message: ');
-        console.dir(message);
-        if(message.location){
-            
-        }
+        
+        
         /*if(message.location != null) {
            return message.location.address;
         } /*else if(message.companyBranchCount == 1) {

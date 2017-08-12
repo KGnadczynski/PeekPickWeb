@@ -23,7 +23,7 @@
               </a>
                 
               <p>{{ message?.user.company.category.name }}</p>
-               <p>{{ getLocation(message) }}</p> 
+                <p>{{ address }}</p>  
           </div>
          
           <div class="message-distance-message-icon-work">
@@ -44,16 +44,16 @@
 
           <div class="message-time">
               <div class="start-date">
-                  <p *ngIf="message?.startDate">Data rozpoczęcia</p>
-                  <span>{{ message?.startDate | date: 'dd.MM.yyyy hh:mm' }}</span>
+                  <span *ngIf="message?.startDate">Data rozpoczęcia</span>
+                  <p>{{ message?.startDate | date: 'dd.MM.yyyy hh:mm' }}</p>
               </div>
               <div class="no-date" *ngIf="!message?.startDate">
                   <span>Brak daty rozpoczęcia</span>
               </div>
 
               <div class="end-date" *ngIf="message?.endDate">
-                  <p *ngIf="message?.endDate">Data zakończenia</p>
-                  <span>{{ message?.endDate | date: 'dd.MM.yyyy hh:mm' }}</span>
+                  <span *ngIf="message?.endDate">Data zakończenia</span>
+                  <p>{{ message?.endDate | date: 'dd.MM.yyyy hh:mm' }}</p>
               </div>
 
               <div class="no-date" *ngIf="!message?.endDate">

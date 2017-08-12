@@ -44,7 +44,7 @@
 
                     <div [collapse]="isCollapsed">
                       <p>{{ msgAddModel.endDate }}</p>
-                      <p class="red" *ngIf="!this.msgAddModel.endDate">wybierz datę zakończenia</p>
+                      <!-- <p class="red" *ngIf="!this.msgAddModel.endDate">wybierz datę zakończenia</p> -->
                     </div>
                     
                     <div class="checkBoxDiv">
@@ -72,7 +72,7 @@
             </div>
 
             <div id="addPhoto">
-                <ba-picture-uploader #fileUpload  (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
+                <ba-picture-uploader #fileUpload (beforeUpload)="beforeUpload($event)" [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
                 <p>dodaj zdjęcie</p>
             </div>
 

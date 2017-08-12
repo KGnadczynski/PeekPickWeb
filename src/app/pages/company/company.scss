@@ -51,12 +51,10 @@ div#mapaFirmy{
 }
 
 div#companyMain{
-    padding: 5%;
     overflow: hidden;
     font-family: 'Open Sans', sans-serif;
     color: $blackColor;
     @media(min-width: 992px){
-        padding: 2% 10%;
     }
 
     div.cLine{
@@ -74,9 +72,9 @@ div#companyMain{
     }
 
     h4{
-        float: left;
-        margin: 3px 0 0 6px;
-        text-align: left;
+        // float: left;
+        // margin: 3px 0 0 6px;
+        // text-align: left;
         width: auto;
         font-size: 20px;
         font-weight: normal;
@@ -85,45 +83,38 @@ div#companyMain{
         font-family: 'Open Sans', sans-serif;
     }
     i{
-        float: left;
+        // float: left;
         color: $redColor;
     }
     div.compDiv, div.compDivD{
         margin: 10px 0;
-        overflow: hidden;
         clear: both;
-        @media(min-width: 566px){
-            width: 95%;
-        }
-        @media(min-width: 768px){
-            width: 70%;
-        }
-        @media(min-width: 992px){
-            width: 50%;
+        width: 100%;
+        display: flex;
+
+        i.fa-2x{
+            font-size: 1.4em;
+            margin-right: 5px;
         }
 
         a{
-            display: block;
-            clear: both;
-            float: left;
-            margin: 10px 0;
+
             font-family: 'Open Sans', sans-serif;
             font-size: 16px;
         }
         div{
-            margin: 5% 0;
-            clear: both;
-            float: left;
+            display: flex;
+            width: 35%;
         }
         p {
             font-family: 'Open Sans', sans-serif;
-            margin: 16px 0 0 0;
-            float: left;
-            clear: both;
             line-height: 20px;
             font-size: 16px;
             color: $blackColor;
-            text-align: center;
+            &.opening{
+                white-space: pre-wrap;
+            }
+            
             &.desc{
                 float: none;
                 line-height: 25px;
@@ -133,23 +124,7 @@ div#companyMain{
     div.compDivD{
         width: 100%;
     }
-    div#contactDiv, div#adressDiv{
-        overflow: hidden;
-        float: left;
-        
-        display: flex;
-        flex-direction: column;
-        
-        @media(max-width: 565px){
-            width: 100%;
-            align-items: flex-start;
-        }
-        @media(min-width: 566px){
-            width: 50%;
-            align-items: center;
-        }
-        
-    }
+    
 }
 
 div#messages{
@@ -167,55 +142,55 @@ div#messages{
 }
 
 md-tab-group{
-        div.md-tab-body{
-            
-            @media(min-width: 992px){
-                padding: 0 4%;
-            }
-            @media(min-width: 1200px){
-                padding: 0 18%;
-            }
+    div.md-tab-body{
+        
+        @media(min-width: 992px){
+            padding: 0 4%;
         }
-        div.md-tab-header{
-            
-            border: none !important;
-            @media(max-width: 565px){
-                justify-content: space-around;
-            }
-            @media(min-width: 566px){
-                justify-content: space-around;
-            }
-            @media(min-width: 992px){
-                justify-content: center;
-            }
-        }
-        div.md-tab-label{
-            img{
-                width: 40px;
-                margin-top: 10px;
-            }
-            background: white !important;
-            opacity: 1 !important;
-            padding: 0 !important;
-            font-family: 'Open Sans', sans-serif;
-            color: $blackColor;
-            &:focus{
-                border: none !important;
-            }
-            &.md-tab-active{
-                opacity: 1 !important;
-                background: white !important;
-                p{
-                    color: $blackColor;
-                }
-            }
-        }
-        md-ink-bar{
-            top: 0;
-            color: white !important;
-            background-color: $redColor !important;
+        @media(min-width: 1200px){
+            padding: 0 18%;
         }
     }
+    div.md-tab-header{
+        
+        border: none !important;
+        @media(max-width: 565px){
+            justify-content: space-around;
+        }
+        @media(min-width: 566px){
+            justify-content: space-around;
+        }
+        @media(min-width: 992px){
+            justify-content: center;
+        }
+    }
+    div.md-tab-label{
+        img{
+            width: 40px;
+            margin-top: 10px;
+        }
+        background: white !important;
+        opacity: 1 !important;
+        padding: 0 !important;
+        font-family: 'Open Sans', sans-serif;
+        color: $blackColor;
+        &:focus{
+            border: none !important;
+        }
+        &.md-tab-active{
+            opacity: 1 !important;
+            background: white !important;
+            p{
+                color: $blackColor;
+            }
+        }
+    }
+    md-ink-bar{
+        top: 0;
+        color: white !important;
+        background-color: $redColor !important;
+    }
+}
 
     
 @media(max-width: 575px){

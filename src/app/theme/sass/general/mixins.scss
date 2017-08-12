@@ -93,7 +93,7 @@
                 opacity: 0;
                 content: '';
                 position: absolute;
-                background-image: url(../../meta/checkbox-blank.png);
+                background-image: url('../../meta/checkbox-blank.png');
                 width: 28px;
                 height: 28px;
                 top: -5px;
@@ -107,9 +107,15 @@
         input[type=#{$checkOrRadio}]:checked + label:after{
             opacity: 1;
         }
-        input[type=#{$checkOrRadio}]:checked + label.changed:after{
+        
+        input[type=#{$checkOrRadio}]:checked + label:after{
+            opacity: 0;
+        }
+
+        input[type=#{$checkOrRadio}] + label.changed:after{
             opacity: 1;
         }
+
         input[type=#{$checkOrRadio}]{
             opacity: 0;
         }

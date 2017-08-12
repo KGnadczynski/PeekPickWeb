@@ -26,7 +26,6 @@ export class CompanyComponent implements OnInit {
   markers= new Array<MarkerObject>();
   zoom: number = 7;
   
-
   constructor(private route: ActivatedRoute, private _companyService: CompanyService) {}
 
   ngOnInit() {
@@ -36,6 +35,8 @@ export class CompanyComponent implements OnInit {
         console.log('id: ' + this.id);
         this._companyService.getCompany(this.id).subscribe(
           receivedCompany => {
+            console.log('received company: ');
+            console.dir(receivedCompany);
               this.otherOneCompany = receivedCompany;
               this.name = receivedCompany.company.name;
               this.lat = receivedCompany.latitude;
@@ -58,7 +59,7 @@ export class CompanyComponent implements OnInit {
                     console.log('Branch '+JSON.stringify(this.markers)); //
                 },
                 error => {}
-              )
+              );
               console.log('this.name : ' + this.name);
               console.log('received company:');
               console.dir(receivedCompany);

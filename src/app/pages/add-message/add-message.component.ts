@@ -40,7 +40,7 @@ export class AddMessageComponent implements OnInit {
     messageAddModel: MessageAddModel;
     addedMessage: any;
     image:File;
-    isCollapsed:boolean = true;
+    isCollapsed:boolean = false;
     isLocationCollapsed: boolean = true;
     withEndDate:boolean = false;
     triggerResize:boolean = true;
@@ -225,7 +225,7 @@ export class AddMessageComponent implements OnInit {
         this.msgAddModel.startDate = moment().format("YYYY-MM-DD HH:mm:ss");
         this.msgAddModel.endDate = moment().format("YYYY-MM-DD HH:mm:ss");
 
-        $('#checkboxAdd + label').addClass('changed');
+        // $('#checkboxAdd + label').addClass('changed');
         this.msgAddModel.endDate = null;
 
         if(localStorage.getItem('latitude') !== null) {
@@ -248,7 +248,7 @@ export class AddMessageComponent implements OnInit {
                 }
             }) 
        }
-        //  this.pickerOptionsEnd['minDate'] = '05/01/2017';
+        //  this.pickerOptionsEnd['minDate'] = '05/01/2017';f
           
         for(let i = this.messageTypes.length-1; i >= 0; i--)
             if(i%2 !== 0)
@@ -297,12 +297,7 @@ export class AddMessageComponent implements OnInit {
 
                     break;
             }
-            /*
-                messageTypeValue: string;
-    messageTypeName: any;
-            */ 
-            // console.log('messageTypeValue' + this.messageTypeValue);
-            // console.log('messageTypeName' + this.messageTypeName);
+            
         });
     }
 
@@ -433,11 +428,6 @@ export class AddMessageComponent implements OnInit {
         }
 
         this.messageAddModel.type = this.messageTypeValue
-/*=======
-        this.messageAddModel.type = this.messageTypeName.name;
-
-         console.log('Typ '+  this.messageAddModel.type)
-*/
 
         this.messageAddModel.status = "NEW";
 
@@ -490,9 +480,9 @@ export class AddMessageComponent implements OnInit {
                     }
             },
             error => {
-                // this.addToast('Musisz wpisać treść postu przed stworzeniem');
-                console.log('error:');
-                console.dir(error);
+                this.addToast('Musisz wpisać treść postu przed stworzeniem');
+                // console.log('error:');
+                // console.dir(error);
             }
         );
         } else {
