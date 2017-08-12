@@ -72,6 +72,8 @@ export class KomunikatComponent implements OnInit {
 
   }
 
+  
+
   registerFCMToken() {
     const messaging = firebase.messaging();
     messaging.requestPermission()

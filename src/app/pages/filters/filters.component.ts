@@ -184,6 +184,13 @@ export class FiltersComponent implements OnInit{
 
     }
 
+    newFunction(event: any): void {
+        console.log('New function in filters: ');
+        console.dir(event);
+        let filterBy = <FormControl>this.filterForm.get('filterBy');
+        filterBy.reset(event.filterBy);
+    }
+
     ngOnInit(): void {
 
         this.searchElementRef.nativeElement.value = "tralalal";

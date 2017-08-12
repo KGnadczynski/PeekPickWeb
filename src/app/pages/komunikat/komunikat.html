@@ -3,6 +3,7 @@
     <div class="blankDiv"></div>
 
     <div class="messagesDiv">
+        <sorting (sendSort) = "filters.newFunction($event)"></sorting>
         <messages #msgs [dest] = "''" [id] = 0 (requestParameters)="filters.receiveRequest($event)"></messages>
     </div>
     

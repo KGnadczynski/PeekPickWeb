@@ -1,0 +1,17 @@
+<h5>Sortuj po:</h5>
+
+<div class="filterBy" [formGroup]="filterForm">
+
+    <div class="checkbox">
+        <input type="radio" id="create_day" name="filterBy" value="CREATE_DATE" formControlName="filterBy">
+        <label for="create_day"></label>
+        <label for="create_day" class="newLabel">data dodania</label>
+    </div>
+    
+    <div class="checkbox" *ngIf="ifGeolocation"> 
+        <input type="radio" id="distance" name="filterBy" value="DISTANCE" formControlName="filterBy"> 
+        <label for="distance"></label>
+        <label for="distance" class="newLabel">najbliższe</label>
+    </div>
+
+</div>
