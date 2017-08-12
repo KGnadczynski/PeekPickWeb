@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import { ProfileService } from '../../profile.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MapsAPILoader } from '@agm/core';
+import { AgmMap, MapsAPILoader } from '@agm/core';
+import { ModalDirective } from 'ng2-bootstrap/modal';
 
 @Component({
     selector: 'profile-branches',
@@ -23,6 +24,14 @@ export class ProfileBranchesComponent implements OnInit {
     cancelClicked: boolean = false;
     isOpen: boolean = false;
     geocoder:any;
+    lat: number = 52.0409;
+    lng: number = 19.2850;
+    localization:any;
+    zoom: number = 6;
+    @ViewChild('childModal') childModal: ModalDirective;
+    @ViewChild(AgmMap) sebmGoogleMap: any;
+    valueForMap:any;
+    
 
     constructor(private profileService: ProfileService, private fb: FormBuilder,private mapsAPILoader: MapsAPILoader){
                 this.mapsAPILoader.load().then(() => {
@@ -54,23 +63,26 @@ export class ProfileBranchesComponent implements OnInit {
     }
 	
 	editBranch(value:any, id: number){
-        
-        this.profileService.getCompanyBranch(id).subscribe(companyBranch => {
+         console.log('edditing '+value.city+value.street+value.streetNo);
+         
 
-            Object.keys(value).forEach((key) => {
-                if(value[key])
-                    companyBranch[key] = value[key];
-            });
-
-            this.profileService.editBranch(companyBranch, companyBranch.id).subscribe(editedBranch => {
-                let objIndex = this.companyBranches.findIndex((obj => obj.id === companyBranch.id));
-                this.companyBranches[objIndex] = editedBranch;
-                this.companyBranches[objIndex].collapse = !this.companyBranches[objIndex].collapse;
-            });
+          this.editBranchGeo(id,value,fun => {
+            if(value.error != null && value.error ==true) {
+              this.childModal.show();
+              setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
+                        console.log('triggerResize');  
+                        console.log('this.lat: ' + this.lat);
+                        this.valueForMap = value;
+                        this.sebmGoogleMap._mapsWrapper.setCenter({lat: this.lat, lng: this.lng});
+                        this.changeAddress(this.callbackEdit);
+                    }),300);        
+            } else {
+             this.editBranchCallback(id,value); 
+             } 
         });
-
-	}
-	
+    }
+    
+ 
 	addNewBranch(value,fn): void{
         var address =  value.city+" "+value.street+" "+value.streetNo;
             console.log('address'+ address);
@@ -81,13 +93,60 @@ export class ProfileBranchesComponent implements OnInit {
     
              value.lat = results[0].geometry.location.lat();
              value.lng =  results[0].geometry.location.lng();
+             console.log('value.lng '+ value.lng);
              fn(value);
             } else {
-        
+
+             value.error =true;
+             fn(value);    
             } 
         }); 
        
     }
+
+    editBranchGeo(id,value,fn): void{
+        var address =  value.city+" "+value.street+" "+value.streetNo;
+            console.log('address'+ address);
+            this.geocoder.geocode( { 'address': address}, function(results, status) {
+
+            if (status == google.maps.GeocoderStatus.OK) {
+        
+    
+             value.lat = results[0].geometry.location.lat();
+             value.lng =  results[0].geometry.location.lng();
+             console.log('value.lng '+ value.lng);
+             fn(id,value);
+            } else {
+
+             value.error =true;
+             fn(id,value);    
+            } 
+        }); 
+       
+    }
+
+    
+    callbackEdit = (address: string) : void => {
+        console.log('callbackEdit');  
+         this.localization = address;
+    }
+
+     changeAddress(callback: Function):void {
+         var address="";
+
+             var latlng = {lat: this.lat, lng:this.lng};
+                this.geocoder.geocode( { 'location': latlng}, function(results, status) {
+                // and this is function which processes response
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        console.log('geocoder inside: '+results[1].formatted_address);  
+                        address=results[0].formatted_address;
+                    } else {
+                        console.log("Geocode was not successful for the following reason: " + status);
+                    }
+                    callback(address);  
+                }); 
+    }
+
 
 
    
@@ -99,8 +158,41 @@ export class ProfileBranchesComponent implements OnInit {
         });*/
 
         this.addNewBranch(value,fun => {
-            console.log('ADRESS '+value.lat);
-             this.addNewBranchCallback(value);  
+            if(value.error != null && value.error ==true) {
+              this.childModal.show();
+              setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => { 
+                        console.log('triggerResize');  
+                        console.log('this.lat: ' + this.lat);
+                        this.valueForMap = value;
+                        this.sebmGoogleMap._mapsWrapper.setCenter({lat: this.lat, lng: this.lng});
+                        this.changeAddress(this.callbackEdit);
+                    }),300);        
+            } else {
+             this.addNewBranchCallback(value); 
+             } 
+        });
+    }
+
+     mapClicked($event: any) {
+      console.log('Map clicked');
+      this.lat =  $event.coords.lat;
+      this.lng = $event.coords.lng;
+       this.changeAddress(this.callbackEdit);
+    }
+
+    editBranchCallback(id,value) : void {
+           this.profileService.getCompanyBranch(id).subscribe(companyBranch => {
+
+            Object.keys(value).forEach((key) => {
+                if(value[key])
+                    companyBranch[key] = value[key];
+            });
+
+            this.profileService.editBranch(companyBranch, companyBranch.id).subscribe(editedBranch => {
+                let objIndex = this.companyBranches.findIndex((obj => obj.id === companyBranch.id));
+                this.companyBranches[objIndex] = editedBranch;
+                this.companyBranches[objIndex].collapse = !this.companyBranches[objIndex].collapse;
+            });
         });
     }
 
@@ -190,6 +282,18 @@ export class ProfileBranchesComponent implements OnInit {
                 });
             });
         });
+    }
+
+     closeModal(){
+        this.childModal.hide();
+    }
+
+    confirmMap(): void {
+        this.childModal.hide();
+        this.valueForMap.lat = this.lat;
+        this.valueForMap.lng =  this.lng
+        console.log('this.valueForMap '+this.valueForMap.lat);
+        this.addNewBranchCallback(this.valueForMap);
     }
 
 }
