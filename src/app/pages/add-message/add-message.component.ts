@@ -59,7 +59,7 @@ export class AddMessageComponent implements OnInit {
     companyBranchListSelected: CompanyBranchList[];
     companyBranchListSelectedFinal: CompanyBranchList[] =[];
     showMulitSelect:boolean = false;
-    submitButton: string = "Utwórz";
+    submitButton: string = "dodaj";
     defaultPicture = 'assets/img/theme/camera.png';
     profile:any = {
         picture: 'assets/img/theme/camera.png'
@@ -129,7 +129,10 @@ export class AddMessageComponent implements OnInit {
                 ],
         },
         "singleDatePicker": true,
-        "minDate": moment().format("MM/DD/YYYY")
+        "minDate": moment().format("MM/DD/YYYY"),
+        "cancelClass": "",
+        "buttonClasses": "",
+        "applyClass": ""
     };
 
     pickerOptionsEnd: Object = {
@@ -168,8 +171,10 @@ export class AddMessageComponent implements OnInit {
                     "Grudzień"
                 ],
         },
-        "singleDatePicker": true
-        
+        "singleDatePicker": true,
+        "cancelClass": "",
+        "buttonClasses": "",
+        "applyClass": ""
     };
 
     title: string = 'czy jesteś pewien że chcesz dodać post bez daty zakończenia?';

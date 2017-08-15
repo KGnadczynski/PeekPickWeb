@@ -125,7 +125,7 @@ div.modal-content{
             div.dropdown{
                 text-align: center;
                 
-                @include button('oddzialy.png', 0, 35, 53);
+                @include button('oddzialy.png', 0, 35, 35);
                 button{
                     @media(max-width: 565px){
                         margin-left: 18px !important;
@@ -182,13 +182,47 @@ div.daterangepicker {
         left: 45% !important;
         width: 30% !important;
     }
-    
-    button.btn-success, button.btn-default {
-        background: white !important;
-        border: 1px solid $blackColor !important;
-        color: $blackColor;
-        border-radius: 0;
+
+    div.calendar{
+        float: none !important;
+        margin: auto !important;
     }
+
+    td.active{
+        background-color: $redColor;
+        &:hover{
+            color: $redColor;
+            background-color: white;
+        }
+    }
+
+    td.available{
+        &:hover{
+            color: white;
+            background-color: $redColor;
+        }
+    }
+
+    div.ranges{
+        div.range_inputs{
+            display: flex;
+            button {
+                outline: 0;
+                width: 160px;
+                color: #A20E12;
+                font-size: 18px;
+                font-family: 'Sanchez', serif;
+                text-align: center;
+                background: transparent;
+                background-image: url(../../../../meta/przycisk.png);
+                background-size: 100% 100%;
+                height: 47px;
+                border: 0;
+                outline: 0;
+                text-transform: lowercase;
+            }
+        }
+    }    
 }
 
 div#addPhoto, div#addLocalization div.iconAndP, div.odzialFirmy{

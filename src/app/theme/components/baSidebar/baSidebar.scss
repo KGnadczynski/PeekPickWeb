@@ -35,10 +35,10 @@ $angle-right: "\f101";
   list-style: none;
   height: 100%;
   overflow: scroll;
+  border-right: 1px solid $redColor;
   
   div.companyMenu {
     overflow: hidden;
-    padding: 0 15px;
     height: 100%;
 
     div.login{
@@ -46,20 +46,11 @@ $angle-right: "\f101";
         margin: 3% 0;
         overflow: hidden;
         @include button('przycisk.png', 16, 160, 50);
-        /*button{
-            color: $redColor;
-            padding: 10px 25px;
-            border: 2px dotted $redColor;
-            font-family: 'Sanchez', serif;
-            font-size: 16px;
-            display: inline-block;
-            width: 60%;
-        }*/
     }
 
     div.mLine{
         margin: 20px 0;
-        height: 2px;
+        height: 1px;
         background: $redColor;
     }
 
@@ -75,6 +66,7 @@ $angle-right: "\f101";
         width: 77px;
         height: 77px;
         float: left;
+        margin-left: 5px;
     }
 
     p{
@@ -84,6 +76,7 @@ $angle-right: "\f101";
         margin-bottom: 5px;
         text-transform: capitalize;
         color: $blackColor;
+        margin-right: 5px;
     }
 
     span {
@@ -91,6 +84,7 @@ $angle-right: "\f101";
         font-family: 'Open Sans', sans-serif;
         font-size: 12px;
         color: $blackColor;
+        margin-right: 5px;
     }
 
     ul {
@@ -316,6 +310,9 @@ a.al-sidebar-list-link {
 @mixin sidebar-collapsed() {
   .al-sidebar {
     width: 0px;
+    ul {
+      border: 0;
+    }
 
     .fa-angle-down, .fa-angle-up {
       opacity: 0;

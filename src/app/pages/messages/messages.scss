@@ -71,6 +71,9 @@ div.message{
             @include pElement(16, 0, none, left);
             background-image: url('../../meta/wiadomosc_do_gory2.png');
             background-size: 100% 100%;
+            @media(max-width: 507px){
+                width: 100%;
+            }
             p{
                 line-height: 24px;
                 color: white;

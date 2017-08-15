@@ -19,6 +19,7 @@ export class BaSidebar {
       console.log('HIDE menu '+ isCollapsed);
       this.isMenuCollapsed = isCollapsed;
     });
+
   }
 
   public ngOnInit():void {

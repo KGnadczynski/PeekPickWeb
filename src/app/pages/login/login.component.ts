@@ -39,7 +39,7 @@ export class Login implements OnInit{
 		private router: Router,
 		private pageTopService: BaPageTopService,
 		private toastyService: ToastyService,
-		private toastyConfig: ToastyConfig
+		private toastyConfig: ToastyConfig,
 	){
 		this.form = fb.group({
 		'email': ['', Validators.compose([Validators.required])],
@@ -147,4 +147,5 @@ export class Login implements OnInit{
 			}
 		}
 	}
+
 }
