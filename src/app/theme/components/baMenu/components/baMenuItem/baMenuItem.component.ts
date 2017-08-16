@@ -16,7 +16,7 @@ export class BaMenuItem implements OnInit{
   @Output() toggleSubMenu = new EventEmitter<any>();
 
   ngOnInit(): void {
-    console.log('section: ' + this.section);
+    console.log('menuItem.title ' + this.menuItem.title  + ', section: ' + this.section);
   }
 
   public onHoverItem($event):void {

@@ -19,16 +19,9 @@
           <p>{{ companyName }}</p>
           <span>{{ email }}</span>
 
-          <ul id="userMenu">
-            <li id="logout">
-              <a (click)="logout()">
-                <img src="../../../meta/menu_icons/forward.png" alt="">
-                <span>wyloguj</span>
-              </a>
-            </li>
-          </ul>
+          
       </div>
-       <div class="companyMenu" *ngIf="!isLoggedIn">
+       <!-- <div class="companyMenu" *ngIf="!isLoggedIn">
          <div class="mLine"></div>
          <div class="login">
             <button routerLink="/pages/login">zaloguj</button>
@@ -36,9 +29,28 @@
          <div class="login">
             <button routerLink="/pages/register">zarejestruj</button>
          </div>
-       </div>
+       </div> -->
+        <div class="mLine"></div>
+        <ba-menu-item
+      [menuItem]="item"
+      (itemHover)="hoverItem($event)"
+      (toggleSubMenu)="toggleSubMenu($event)"
+      [section] = "'under'"
+      *ngFor="let item of menuItems"></ba-menu-item>
+        <li class="logout" *ngIf="isLoggedIn">
+          <a (click)="logout()">
+            <img src="../../../meta/menu_icons/forward.png" alt="">
+            <span>wyloguj</span>
+          </a>
+        </li>
+        <li class="al-sidebar-list-item" *ngIf="!isLoggedIn">
+          <a class="al-sidebar-list-link" routerLink="/pages/login">
+            <img src="../../../meta/login.png" alt="">
+            <span>zaloguj</span>
+          </a>
+        </li>
   </ul>
   
-  <div class="sidebar-hover-elem" [ngStyle]="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}"
-       [ngClass]="{'show-hover-elem': showHoverElem }"></div>
+  <!-- <div class="sidebar-hover-elem" [ngStyle]="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}"
+       [ngClass]="{'show-hover-elem': showHoverElem }"></div> -->
 </aside>
