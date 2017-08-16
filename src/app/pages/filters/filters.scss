@@ -214,6 +214,7 @@ div#checkboxDiv{
 			text-transform: lowercase;
 			margin-left: 5px;
 			cursor: pointer;
+			font-family: $openSansFont, sans-serif;
 		}
 	}
 }
@@ -253,6 +254,7 @@ div#companyCategories{
 			text-transform: lowercase;
 			height: auto;
 			margin: 5px 0;
+			font-family: "Open Sans", sans-serif;
 			img{
 				width: 23px;
 			}
@@ -271,6 +273,9 @@ div#companyCategories{
 				margin: 2px 8px !important;
 				text-transform: lowercase;
 				cursor: pointer;
+			}
+			label{
+				font-family: "Open Sans", sans-serif;
 			}
 		}
 	}

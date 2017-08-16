@@ -10,11 +10,13 @@ export class BaMenuItem implements OnInit{
 
   @Input() menuItem:any;
   @Input() child:boolean = false;
+  @Input() section: string;
 
   @Output() itemHover = new EventEmitter<any>();
   @Output() toggleSubMenu = new EventEmitter<any>();
 
   ngOnInit(): void {
+    console.log('section: ' + this.section);
   }
 
   public onHoverItem($event):void {

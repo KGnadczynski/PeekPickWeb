@@ -13,7 +13,8 @@ export const PAGES_MENU = [
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,
-            order: 0
+            order: 0,
+            section: 'above'
           }
         }
       },
@@ -29,7 +30,8 @@ export const PAGES_MENU = [
             selected: false,
             expanded: false,
             order: 0,
-            id: 1
+            id: 1,
+            section: 'above'
           }
         }
       },
@@ -45,7 +47,8 @@ export const PAGES_MENU = [
             selected: false,
             expanded: false,
             order: 0,
-            id: 2
+            id: 2,
+            section: 'above'
           }
         }
       },
@@ -61,7 +64,8 @@ export const PAGES_MENU = [
             selected: false,
             expanded: false,
             order: 0,
-            id: 3
+            id: 3,
+            section: 'above'
           }
         }
       },
@@ -77,7 +81,8 @@ export const PAGES_MENU = [
             selected: false,
             expanded: false,
             order: 0,
-            id: 4
+            id: 4,
+            section: 'above'
           }
         }
       },
@@ -93,7 +98,8 @@ export const PAGES_MENU = [
             selected: false,
             expanded: false,
             order: 0,
-            id: 5
+            id: 5,
+            section: 'above'
           }
         }
       },
@@ -109,7 +115,8 @@ export const PAGES_MENU = [
             selected: false,
             expanded: false,
             order: 0,
-            id: 6
+            id: 6,
+            section: 'above'
           }
         }
       },
@@ -125,7 +132,8 @@ export const PAGES_MENU = [
             selected: false,
             expanded: false,
             order: 0,
-            id: 7
+            id: 7,
+            section: 'above'
           }
         }
       },
@@ -140,7 +148,8 @@ export const PAGES_MENU = [
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,
-            order: 0
+            order: 0,
+            section: 'under'
           }
         }
       },
@@ -155,7 +164,8 @@ export const PAGES_MENU = [
             pathMatch: 'prefix', // use it if item children not displayed in menu
             selected: false,
             expanded: false,
-            order: 0
+            order: 0,
+            section: 'under'
           }
         }
       }

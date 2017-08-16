@@ -27,13 +27,13 @@ export class ProfileEditComponent implements OnInit {
     profile:any = {
         picture: 'assets/img/theme/add-icon.png'
     };
-    uploaderOptions:NgUploaderOptions = {
-        url: '',
-    };
+    // uploaderOptions:NgUploaderOptions = {
+    //     url: '',
+    // };
     isCollapse:boolean = true;
 
     @Input() otherUser: any;
-    @ViewChild('fileUpload') fileUpload:any;
+    // @ViewChild('fileUpload') fileUpload:any;
     @Output() sendImage: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(private fb: FormBuilder, private profileService: ProfileService, private menuService: BaMenuService){
@@ -99,7 +99,7 @@ export class ProfileEditComponent implements OnInit {
 
     udpateCompanyName(value: any){
 
-        this.addCompanyImage();
+        // this.addCompanyImage();
 
         this.profileService.getUser().subscribe(
             user => {
@@ -141,20 +141,20 @@ export class ProfileEditComponent implements OnInit {
         
     }
 
-    addCompanyImage(): void {
-        if(this.fileUpload.file != null){
-            this.profileService.getUser().subscribe(user => {
-                this.profileService.addCompanyImage(new ImageModel(user.company.id, this.fileUpload.file)).subscribe(
-                    data => {
-                        this.imageUrl = data.imageUrl;
-                        this.name = null;
-                        this.menuService.changeImage(data.imageUrl);
-                        this.sendImage.emit(data.imageUrl);
-                    },
-                    error => {}
-                );
-            });
-        }
-    }
+    // addCompanyImage(): void {
+    //     if(this.fileUpload.file != null){
+    //         this.profileService.getUser().subscribe(user => {
+    //             this.profileService.addCompanyImage(new ImageModel(user.company.id, this.fileUpload.file)).subscribe(
+    //                 data => {
+    //                     this.imageUrl = data.imageUrl;
+    //                     this.name = null;
+    //                     this.menuService.changeImage(data.imageUrl);
+    //                     this.sendImage.emit(data.imageUrl);
+    //                 },
+    //                 error => {}
+    //             );
+    //         });
+    //     }
+    // }
 
 }

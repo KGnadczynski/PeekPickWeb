@@ -7,6 +7,7 @@ import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { ImageModel } from '../add-message/imagemodel';
 import { BaMenuService } from '../../theme';
+import { NgUploaderOptions } from 'ngx-uploader';
 
 @Component({
   selector: 'profile',
@@ -32,8 +33,17 @@ export class ProfileComponent implements OnInit {
     cropper:ImageCropperComponent;
     cropperSettings:CropperSettings;
     file:File;
+    @ViewChild('fileUpload') fileUpload:any;
   
-    
+    uploaderOptions:NgUploaderOptions = {
+        url: '',
+    };
+
+    defaultPicture = 'assets/img/theme/add-icon.png';
+    profile:any = {
+        picture: 'assets/img/theme/add-icon.png'
+    };
+    showButton: boolean = false;
 
     constructor(private profileService: ProfileService, private router: Router, private menuService: BaMenuService){
 
@@ -52,6 +62,8 @@ export class ProfileComponent implements OnInit {
                 this.profileService.getUserImages(user.company.id).subscribe(
                     images => {
                         this.otherImgs = images;
+                        this.defaultPicture = images.imageUrl;
+                        this.profile.picture = images.imageUrl;
                     }
                 );
             },
@@ -60,8 +72,8 @@ export class ProfileComponent implements OnInit {
             }
         );
     }
-
-
+    
+    
   
   fileChangeListener($event) {
     var image:any = new Image();
@@ -142,6 +154,32 @@ confirmPhoto() : void {
   
     closeModal() : void {
         this.childModal.hide();
+    }
+
+    addCompanyImage(): void {
+        if(this.fileUpload.file != null){
+            console.log('works');
+            console.dir(this.fileUpload.file);
+            this.profileService.getUser().subscribe(user => {
+                this.profileService.addCompanyImage(new ImageModel(user.company.id, this.fileUpload.file)).subscribe(
+                    data => {
+                        this.imageUrl = data.imageUrl;
+                        this.defaultPicture = data.imageUrl;
+                        this.profile.picture = data.imageUrl;
+                        this.name = null;
+                        this.menuService.changeImage(data.imageUrl);
+                        this.sendImage.emit(data.imageUrl);
+                    },
+                    error => {
+                        console.log('error');
+                        console.dir(error);
+                    }
+                );
+            });
+        }
+        else {
+            console.log('sth wrong');
+        }
     }
 
 }

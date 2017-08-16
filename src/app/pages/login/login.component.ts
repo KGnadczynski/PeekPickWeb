@@ -10,6 +10,7 @@ import { Routes } from '@angular/router';
 import { PAGES_MENU_LOGGED } from '../pageslogged.menu';
 import { ProfileService } from '../profile/profile.service';
 import { ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { GlobalState } from '../../global.state'
 
 @Component({
 	selector: 'login',
@@ -40,6 +41,7 @@ export class Login implements OnInit{
 		private pageTopService: BaPageTopService,
 		private toastyService: ToastyService,
 		private toastyConfig: ToastyConfig,
+		private _state:GlobalState
 	){
 		this.form = fb.group({
 		'email': ['', Validators.compose([Validators.required])],
@@ -48,7 +50,7 @@ export class Login implements OnInit{
 
 		this.email = this.form.controls['email'];
 		this.password = this.form.controls['password'];
-
+		
 	}
 
 	ngOnInit(): void{
@@ -113,6 +115,7 @@ export class Login implements OnInit{
 								this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);
 								this._menuService.changedLoggedFlag(this.userFromServer.company.id);
 								this.pageTopService.showLoadingBar(false);
+								this._state.notifyDataChanged('menu.isCollapsed',true);
 								this.router.navigate(['/komunikat']);
 							},
 							error => {

@@ -210,6 +210,12 @@ div#profile{
             width: auto;
             margin-left: 20px;
         }
+
+        @include button('przycisk.png', 18, 108, 47);
+
+        button{
+
+        }
     }
 
     margin: auto;
@@ -333,4 +339,19 @@ div#profile{
             }
         }
     }
+}
+
+a.change-picture, i.ion-ios-close-outline{
+    display: none !important;
+}
+
+div.picture-group{
+    border: none !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+div.picture-wrapper{
+    width: 200px !important;
+    // height: 
 }

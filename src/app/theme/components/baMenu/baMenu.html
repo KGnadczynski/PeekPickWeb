@@ -8,6 +8,7 @@
       [menuItem]="item"
       (itemHover)="hoverItem($event)"
       (toggleSubMenu)="toggleSubMenu($event)"
+      [section] = "'above'"
       *ngFor="let item of menuItems"></ba-menu-item>
       <div class="companyMenu" *ngIf="isLoggedIn">
 
