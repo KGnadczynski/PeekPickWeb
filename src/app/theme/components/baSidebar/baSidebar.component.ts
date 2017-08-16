@@ -9,7 +9,7 @@ import 'style-loader!./baSidebar.scss';
   templateUrl: './baSidebar.html'
 })
 export class BaSidebar {
-  public menuHeight:number;
+  // public menuHeight:number;
   public isMenuCollapsed:boolean = false;
   public isMenuShouldCollapsed:boolean = false;
 
@@ -29,7 +29,7 @@ export class BaSidebar {
   }
 
   public ngAfterViewInit():void {
-    setTimeout(() => this.updateSidebarHeight());
+    // setTimeout(() => this.updateSidebarHeight());
   }
 
   @HostListener('window:resize')
@@ -41,7 +41,7 @@ export class BaSidebar {
       this.menuCollapseStateChange(isMenuShouldCollapsed);
     }
     this.isMenuShouldCollapsed = isMenuShouldCollapsed;
-    this.updateSidebarHeight();
+    // this.updateSidebarHeight();
   }
 
   public menuExpand():void {
@@ -57,10 +57,10 @@ export class BaSidebar {
     this._state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
   }
 
-  public updateSidebarHeight():void {
-    // TODO: get rid of magic 84 constant
-    this.menuHeight = this._elementRef.nativeElement.childNodes[0].clientHeight - 84;
-  }
+  // public updateSidebarHeight():void {
+  //   // TODO: get rid of magic 84 constant
+  //   this.menuHeight = this._elementRef.nativeElement.childNodes[0].clientHeight - 84;
+  // }
 
   private _shouldMenuCollapse():boolean {
     return window.innerWidth <= layoutSizes.resWidthCollapseSidebar;

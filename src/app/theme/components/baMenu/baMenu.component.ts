@@ -82,6 +82,11 @@ export class BaMenu implements OnInit {
 
   ngOnInit(): void {
 
+    console.log('height of sidebar ul: ' + $('aside.al-sidebar .al-sidebar-list').height());
+    console.log('sidebar: ' + $('aside.al-sidebar').height());
+    // $('aside.al-sidebar').height($('aside.al-sidebar').height() + 58);
+    // $('aside.al-sidebar .al-sidebar-list').height($('aside.al-sidebar .al-sidebar-list').height() + 58);
+
     this.profileService.getUser().subscribe(
         user => {
             console.log('logged in: ');
