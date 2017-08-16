@@ -33,7 +33,8 @@ div#filterInside{
 		@include line(1, $blackColor, 94, 10);
 		overflow: hidden;
 		div.geolocationError{
-        	@include pElement(16, 10, none, center);
+			@include pElement(16, 10, none, center);
+			clear: both;
 			p{
 				font-size: 14px;
 				margin-left: 10px;

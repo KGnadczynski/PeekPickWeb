@@ -27,8 +27,17 @@ div#companyInfo{
 div#editProfile{
     margin: auto;
     margin-bottom: 2%;
-    @media (max-width: 575px){
-        padding: 0 3%;
+    @media(max-width: 565px){
+        width: 90%;
+    }
+    @media(min-width: 566px){
+        width: 86%;
+    }
+    @media(min-width: 768px){
+        width: 82%;
+    }
+    @media(min-width: 992px){
+        width: 65%;
     }
     div#editH{
         text-align: center;

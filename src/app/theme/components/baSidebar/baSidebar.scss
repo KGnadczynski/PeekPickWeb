@@ -46,6 +46,7 @@ $angle-right: "\f101";
         margin: 3% 0;
         overflow: hidden;
         @include button('przycisk.png', 16, 160, 50);
+        
     }
 
     div.mLine{
@@ -189,7 +190,8 @@ a.al-sidebar-list-link {
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
-  color: $redColor;
+  // color: $redColor;
+  color: $blackColor;
   &:hover {
     color: $primary;
     b {

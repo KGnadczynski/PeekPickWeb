@@ -6,6 +6,8 @@ import { GlobalState } from '../../../global.state';
 import 'style-loader!./baMenu.scss';
 import { ProfileService } from '../../../pages/profile/profile.service';
 import { BaPageTopService } from '../../services';
+import { Routes } from '@angular/router';
+import { PAGES_MENU } from '../../../pages/pages.menu';
 
 @Component({
   selector: 'ba-menu',
@@ -159,5 +161,6 @@ export class BaMenu implements OnInit {
       this.pageTopService.changedLoggedFlag(-1);
       this.pageTopService.showLoadingBar(false);
       this._router.navigate(['/komunikat']);
+      this._service.updateMenuByRoutes(<Routes>PAGES_MENU);
   }
 }

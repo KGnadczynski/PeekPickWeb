@@ -49,6 +49,9 @@ div.message{
     div.message-distance-message-icon-work{
         float: right;
         @include pElement(12, 10, right, left);
+        p{
+            margin-right: 5px;
+        }
         i{
             float: right;
             font-size: 35px;
@@ -119,6 +122,7 @@ div.message{
         span{
             color: $blackColor;
             font-size: 14px;
+            font-style: italic;
             @media(max-width: 575px){
                 line-height: 0;
             }
@@ -126,6 +130,7 @@ div.message{
         @include pElement(14, 5, none, left);
         p{
             margin-top: 0;
+            font-style: italic;
         }
         
         div.end-date{
