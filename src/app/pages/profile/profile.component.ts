@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
     profile:any = {
         picture: 'assets/img/theme/add-icon.png'
     };
-    showButton: boolean = true;
+    showButton: boolean = false;
 
     constructor(private profileService: ProfileService, private router: Router, private menuService: BaMenuService){
 
@@ -76,6 +76,7 @@ export class ProfileComponent implements OnInit {
 
     onUploadCompleted(event: any): void{
         console.log('on upload macieja: ' + event);
+        this.showButton = true;
     }
 
     fileChangeListener($event) {

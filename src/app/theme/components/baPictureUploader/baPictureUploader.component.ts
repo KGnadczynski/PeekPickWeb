@@ -33,7 +33,7 @@ export class BaPictureUploader {
       const file = files[0];
       this.file = files[0];
       this._changePicture(file);
-      this.onUpload.emit(true);
+      this.onUploadCompleted.emit(true);
 
       if (!this._canUploadOnServer()) {
         uploadingFile.setAbort();

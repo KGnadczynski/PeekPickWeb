@@ -1,5 +1,8 @@
 @import '../../theme/sass/general/general.scss';
 
+$image_width: 125px;
+$image_height: 125px;
+
 div.popover{
     border: 1px solid $blackColor;
     border-radius: 0;
@@ -198,7 +201,6 @@ div#profile{
         display: flex;
         justify-content: center;
         align-items: center;
-        // margin-bottom: 20px;
         @media(max-width: 565px){
             flex-direction: column;
         }
@@ -217,11 +219,21 @@ div#profile{
             position: relative;
             ng2-letter-avatar{
                 img{
-                    width: 125px;
+                    width: $image_width;
                 }
             }
             ba-picture-uploader{
+                div.picture-group{
+                    border: none;
+                    width: $image_width;
+                    height: $image_height;
+                    div.picture-wrapper{
+                        width: $image_width;
+                        height: $image_height;
+                    }
+                }
                 
+                &.unchosen{
                     div.picture-group{
                         position: absolute;
                         bottom: 2px;
@@ -232,12 +244,10 @@ div#profile{
                         div.picture-wrapper{
                             width: 30px;
                             height: 30px;
-                            
                         }
                     }
-                
+                }
             }
-            
         }
     }
 
