@@ -122,7 +122,6 @@ div.message{
         span{
             color: $blackColor;
             font-size: 14px;
-            font-style: italic;
             @media(max-width: 575px){
                 line-height: 0;
             }
@@ -130,7 +129,7 @@ div.message{
         @include pElement(14, 5, none, left);
         p{
             margin-top: 0;
-            font-style: italic;
+            font-weight: bold;
         }
         
         div.end-date{
