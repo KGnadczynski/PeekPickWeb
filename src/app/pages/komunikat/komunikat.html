@@ -4,7 +4,7 @@
 
     <div class="messagesDiv">
         <sorting (sendSort) = "filters.newFunction($event)"></sorting>
-        <messages #msgs [dest] = "''" [id] = 0 (requestParameters)="filters.receiveRequest($event)"></messages>
+        <messages #msgs [dest] = "''" [id] = 0></messages>
     </div>
     
     <div class="filterMessages">

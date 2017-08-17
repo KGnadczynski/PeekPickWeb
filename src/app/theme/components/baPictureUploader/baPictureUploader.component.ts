@@ -28,10 +28,12 @@ export class BaPictureUploader {
   beforeUpload(uploadingFile): void {
     let files = this._fileUpload.nativeElement.files;
     console.log('uploadingFile');
+
     if (files.length) {
       const file = files[0];
       this.file = files[0];
       this._changePicture(file);
+      this.onUpload.emit(true);
 
       if (!this._canUploadOnServer()) {
         uploadingFile.setAbort();
@@ -60,6 +62,7 @@ export class BaPictureUploader {
   }
 
   _onUpload(data):void {
+    console.log('_onUpload working');
     if (data['done'] || data['abort'] || data['error']) {
       this._onUploadCompleted(data);
     } else {
@@ -68,6 +71,7 @@ export class BaPictureUploader {
   }
 
   _onUploadCompleted(data):void {
+    console.log('_onUploadcompleted working');
     this.uploadInProgress = false;
     this.onUploadCompleted.emit(data);
   }

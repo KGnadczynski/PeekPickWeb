@@ -2,55 +2,35 @@
 <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
 
 <aside class="al-sidebar" (mouseleave)="hoverElemTop=outOfArea">
-  <!--<ul id="al-sidebar-list" class="al-sidebar-list" baSlimScroll [baSlimScrollOptions]="{height: menuHeight}">-->
-  <ul id="al-sidebar-list" class="al-sidebar-list" [ngClass]="{logged: (isLoggedIn), notlogged: (!isLoggedIn)}">
-    <ba-menu-item
-      [menuItem]="item"
-      (itemHover)="hoverItem($event)"
-      (toggleSubMenu)="toggleSubMenu($event)"
-      [section] = "'above'"
-      *ngFor="let item of menuItems"></ba-menu-item>
-      <div class="companyMenu" *ngIf="isLoggedIn">
+	<!--<ul id="al-sidebar-list" class="al-sidebar-list" baSlimScroll [baSlimScrollOptions]="{height: menuHeight}">-->
+	<ul id="al-sidebar-list" class="al-sidebar-list" [ngClass]="{logged: (isLoggedIn), notlogged: (!isLoggedIn)}">
+		<ba-menu-item [menuItem]="item" (itemHover)="hoverItem($event)"  (toggleSubMenu)="toggleSubMenu($event)"  [section] = "'above'" *ngFor="let item of menuItems"></ba-menu-item>
+		
+		<div class="companyMenu" *ngIf="isLoggedIn">
+			<div class="mLine"></div>
+			<img id="main" *ngIf="imageUrl" src="{{ imageUrl }}" alt="">
+			<ng2-letter-avatar *ngIf="name" avatar-data='{{name}}' ></ng2-letter-avatar>
+			<p>{{ companyName }}</p>
+			<span>{{ email }}</span>
+		</div>
+		<div class="mLine" *ngIf="isLoggedIn"></div>
+		
+		<ba-menu-item [menuItem]="item" (itemHover)="hoverItem($event)" (toggleSubMenu)="toggleSubMenu($event)" [section] = "'under'" *ngFor="let item of menuItems"></ba-menu-item>
+		
+		<li class="logout" *ngIf="isLoggedIn">
+			<a (click)="logout()">
+				<img src="../../../meta/menu_icons/forward.png" alt="">
+				<span>wyloguj</span>
+			</a>
+		</li>
+		<li class="al-sidebar-list-item" *ngIf="!isLoggedIn">
+			<a class="al-sidebar-list-link" routerLink="/pages/login">
+				<img src="../../../meta/login.png" alt="">
+				<span>zaloguj</span>
+			</a>
+		</li>
+	</ul>
 
-          <div class="mLine"></div>
-
-          <img id="main" *ngIf="imageUrl" src="{{ imageUrl }}" alt="">
-          <ng2-letter-avatar *ngIf="name" avatar-data='{{name}}' ></ng2-letter-avatar>
-          <p>{{ companyName }}</p>
-          <span>{{ email }}</span>
-
-          
-      </div>
-       <!-- <div class="companyMenu" *ngIf="!isLoggedIn">
-         <div class="mLine"></div>
-         <div class="login">
-            <button routerLink="/pages/login">zaloguj</button>
-         </div>
-         <div class="login">
-            <button routerLink="/pages/register">zarejestruj</button>
-         </div>
-       </div> -->
-        <div class="mLine"></div>
-        <ba-menu-item
-      [menuItem]="item"
-      (itemHover)="hoverItem($event)"
-      (toggleSubMenu)="toggleSubMenu($event)"
-      [section] = "'under'"
-      *ngFor="let item of menuItems"></ba-menu-item>
-        <li class="logout" *ngIf="isLoggedIn">
-          <a (click)="logout()">
-            <img src="../../../meta/menu_icons/forward.png" alt="">
-            <span>wyloguj</span>
-          </a>
-        </li>
-        <li class="al-sidebar-list-item" *ngIf="!isLoggedIn">
-          <a class="al-sidebar-list-link" routerLink="/pages/login">
-            <img src="../../../meta/login.png" alt="">
-            <span>zaloguj</span>
-          </a>
-        </li>
-  </ul>
-  
-  <!-- <div class="sidebar-hover-elem" [ngStyle]="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}"
-       [ngClass]="{'show-hover-elem': showHoverElem }"></div> -->
+	<!-- <div class="sidebar-hover-elem" [ngStyle]="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}"
+	[ngClass]="{'show-hover-elem': showHoverElem }"></div> -->
 </aside>

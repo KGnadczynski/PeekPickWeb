@@ -213,8 +213,31 @@ div#profile{
 
         @include button('przycisk.png', 18, 108, 47);
 
-        button{
-
+        div.image-upload{
+            position: relative;
+            ng2-letter-avatar{
+                img{
+                    width: 125px;
+                }
+            }
+            ba-picture-uploader{
+                
+                    div.picture-group{
+                        position: absolute;
+                        bottom: 2px;
+                        right: 2px;
+                        border: none;
+                        width: 30px;
+                        height: 30px;
+                        div.picture-wrapper{
+                            width: 30px;
+                            height: 30px;
+                            
+                        }
+                    }
+                
+            }
+            
         }
     }
 
@@ -343,15 +366,4 @@ div#profile{
 
 a.change-picture, i.ion-ios-close-outline{
     display: none !important;
-}
-
-div.picture-group{
-    border: none !important;
-    width: auto !important;
-    height: auto !important;
-}
-
-div.picture-wrapper{
-    width: 200px !important;
-    // height: 
 }
