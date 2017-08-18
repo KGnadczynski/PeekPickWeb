@@ -199,23 +199,19 @@ div.modal-content{
 
 div#registerFormMain{
 
-	@media(max-width: 565px){
-		width: 84%;
-	}
-	@media (min-width: 566px){
-		width: 60%;
-	}
-
-	@media (min-width: 768px) {
-		width: 65%;
-	}
-
-	@media(min-width: 992px){
-		width: 872px;
-	}
-
     margin: auto;
-    margin-top: 20px;
+    @media(max-width: 565px){
+        width: 90%;
+    }
+    @media(min-width: 566px){
+        width: 86%;
+    }
+    @media(min-width: 768px){
+        width: 82%;
+    }
+    @media(min-width: 992px){
+        width: 45%;
+    }
 
 	h1 {
 		text-align: center;

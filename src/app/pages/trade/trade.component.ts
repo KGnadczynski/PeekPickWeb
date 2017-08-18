@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'trade',
     templateUrl: './trade.component.html',
-    styleUrls: ['./trade.scss']
+    styleUrls: ['./trade.scss'],
 })
 
 export class TradeComponent implements OnInit {
@@ -12,7 +12,8 @@ export class TradeComponent implements OnInit {
     sub: any;
     id: number;
 
-    constructor(private route: ActivatedRoute){}
+    constructor(private route: ActivatedRoute){
+    }
 
     ngOnInit(): void{
 

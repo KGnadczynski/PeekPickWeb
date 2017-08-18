@@ -81,11 +81,33 @@
                     </template>
                 </md-tab>
 
+                <!-- <md-tab>
+                    <template md-tab-label>
+                        <p class="hidden-xs-down">cropper</p>
+                        <img src="../../meta/oddzialy.png" alt="">
+                    </template>
+                    <template md-tab-content>
+                        <div>
+                            
+                            <img-cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
+                            <span class="result" *ngIf="data1.image" >
+                               <img [src]="data1.image" 
+                               [width]="croppedWidth" 
+                               [height]="croppedHeight">
+                               {{data1.image.length}}
+                           </span>
+                           
+                           <button (click)="checkFile()">check</button>
+
+                           </div>
+                    </template>
+                </md-tab> -->
+
             </md-tab-group>
         </div>
     </div>
 
-    <div bsModal #childModal="bs-modal" class="modal fade" [config]="{backdrop: 'static', keyboard: false}">
+    <!-- <div bsModal #childModal="bs-modal" class="modal fade" [config]="{backdrop: 'static', keyboard: false}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content"> 
             <div class="header">
@@ -104,6 +126,6 @@
          </div>
   </div>
    
-</div>
+</div> -->
 </div>
 

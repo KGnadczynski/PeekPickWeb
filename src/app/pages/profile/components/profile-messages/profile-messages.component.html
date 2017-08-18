@@ -6,11 +6,12 @@
         </div>
         <div class="tab-contents">
             <div contents="active">
-                <messages #msgs [dest] = "'active'" *ngIf="idCompany" [id] = idCompany></messages>
-                <p>{{ info }}</p>
+                <p class="info" *ngIf="infoA">{{ infoA }}</p>
+                <messages [dest] = "'active'" *ngIf="idCompany" [id] = idCompany (sendMessagesLength)="setLength($event)"></messages>
             </div>
             <div contents="ended">
-                <messages #msgs [dest] = "'ended'" *ngIf="idCompany" [id] = idCompany></messages>
+                <p class="info" *ngIf="infoE">{{ infoE }}</p>
+                <messages [dest] = "'ended'" *ngIf="idCompany" [id] = idCompany (sendMessagesLength)="setLength($event)"></messages>
             </div>
         </div>
     </ng2-tab>

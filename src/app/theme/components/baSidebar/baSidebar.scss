@@ -5,11 +5,6 @@ $sidebar-scroll-width: 4px;
 $angle-left: "\f100";
 $angle-right: "\f101";
 
-::-webkit-scrollbar{
-  width: 0 !important;
-  height: 0 !important;
-}
-
 .al-sidebar {
 
   width: $sidebar-width;
@@ -38,16 +33,12 @@ div.mLine{
 }
 
 .al-sidebar-list {
+
   margin: 0;
-  // overflow: hidden;
-  // padding: 10px 0 0 0;
   padding: 0;
   list-style: none;
-  // height: 100%;
   border-right: 1px solid $redColor;
   border-bottom: 1px solid $redColor;
-
-  
   
   &.logged{
     height: 675px;
@@ -72,7 +63,6 @@ div.mLine{
 
   div.companyMenu {
     overflow: hidden;
-    // height: 100%;
 
     div.login{
         text-align: center;
@@ -466,9 +456,4 @@ a.al-sidebar-list-link {
     .sidebar-hover-elem{
       left: 259px !important;
     }
-}
-
-::-webkit-scrollbar {
-    width: 0.4em;
-    height: 0.7em;
 }

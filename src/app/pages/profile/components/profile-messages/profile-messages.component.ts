@@ -10,18 +10,33 @@ import { MessagesComponent } from '../../../messages/messages.component';
 
 export class ProfileMessagesComponent implements OnInit {
 
-    @ViewChild('msgs') messagesCom: ElementRef;
     @Input() idCompany: number;
-    info: string = "";
+    infoA: string = "";
+    infoE: string = "";
 
     constructor(){}
 
     ngOnInit(): void {
-        console.log('this.messageCom: ');
-        console.dir(this.messagesCom);
     }
 
-    showActive(): void {
+    setLength(event: any): void{
+        console.log('dostalem length: ');
+        console.dir(event);
+
+        switch (event.s) {
+            case 'a':
+                if(event.count === 0 || event.count === null || event.count === undefined)
+                    this.infoA = "Nie masz żadnych aktywnych postów";
+                break;
+            case 'e':
+                if(event.count === 0 || event.count === null || event.count === undefined)
+                    this.infoE = "Nie masz żadnych zakończonych postów";
+                break;
+        
+            default:
+                break;
+        }
+
         
     }
 

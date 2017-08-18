@@ -3,7 +3,7 @@ import { ProfileService } from './profile.service';
 import { ObjectList } from './user';
 import { User } from './user';
 import { Router } from '@angular/router';
-import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
+import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { ImageModel } from '../add-message/imagemodel';
 import { BaMenuService } from '../../theme';
@@ -26,13 +26,17 @@ export class ProfileComponent implements OnInit {
     imageUrl: string = "";
     idCompany: number;
     name: string = '';
-    data:any;
+    data1: any;
     @ViewChild('childModal') childModal: ModalDirective;
     @Output() sendImage: EventEmitter<string> = new EventEmitter<string>();
 
     @ViewChild('cropper', undefined)
     cropper:ImageCropperComponent;
-    cropperSettings:CropperSettings;
+    cropperSettings1:CropperSettings;
+    croppedWidth:number;
+    croppedHeight:number;
+    croppName: string;
+
     file:File;
     @ViewChild('fileUpload') fileUpload: BaPictureUploader;
   
@@ -48,9 +52,30 @@ export class ProfileComponent implements OnInit {
 
     constructor(private profileService: ProfileService, private router: Router, private menuService: BaMenuService){
 
-      this.cropperSettings = new CropperSettings();
-      this.cropperSettings.noFileInput = true;
-      this.data = {};
+    //   this.cropperSettings = new CropperSettings();
+    //   this.cropperSettings.noFileInput = true;
+    //   this.data = {};
+        this.croppName = 'Angular2'
+        this.cropperSettings1 = new CropperSettings();
+        /*this.cropperSettings1.width = 200;
+        this.cropperSettings1.height = 200;
+
+        this.cropperSettings1.croppedWidth = 200;
+        this.cropperSettings1.croppedHeight = 200;
+
+        this.cropperSettings1.canvasWidth = 500;
+        this.cropperSettings1.canvasHeight = 300;
+
+        this.cropperSettings1.minWidth = 10;
+        this.cropperSettings1.minHeight = 10;*/
+
+        this.cropperSettings1.rounded = false;
+        this.cropperSettings1.keepAspect = false;
+
+        this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+        this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
+
+        this.data1 = {};
     }
 
     ngOnInit() {
@@ -75,11 +100,10 @@ export class ProfileComponent implements OnInit {
     }
 
     onUploadCompleted(event: any): void{
-        console.log('on upload macieja: ' + event);
         this.showButton = true;
     }
 
-    fileChangeListener($event) {
+    /*fileChangeListener($event) {
         var image:any = new Image();
         this.file = $event.target.files[0];
         var myReader:FileReader = new FileReader();
@@ -91,7 +115,7 @@ export class ProfileComponent implements OnInit {
         };
 
         myReader.readAsDataURL(this.file);
-    }
+    }*/
 
     public setLocationFromCompanyBranchList(companyBranchList:any): void {
         console.log('seting correct latitiude and longitude '+JSON.parse(companyBranchList));
@@ -106,7 +130,7 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    changeImage(imageUrl: string): void {
+    /*changeImage(imageUrl: string): void {
         this.otherImgs.imageUrl = imageUrl;
     }
 
@@ -156,6 +180,33 @@ export class ProfileComponent implements OnInit {
   
     closeModal() : void {
         this.childModal.hide();
+    }*/
+
+    /*makeFile(): File{
+
+        return new File();
+    }*/
+
+    cropped(bounds:Bounds) {
+        this.croppedHeight =bounds.bottom-bounds.top;
+        this.croppedWidth = bounds.right-bounds.left;
+        console.log('croppedHeight: ' + this.croppedHeight);
+        console.log('croppedWidth: ' + this.croppedWidth);
+        this.checkFile();
+    }
+    
+    fileChangeListener($event) {
+        var image:any = new Image();
+        var file:File = $event.target.files[0];
+        var myReader:FileReader = new FileReader();
+        var that = this;
+        myReader.onloadend = function (loadEvent:any) {
+            image.src = loadEvent.target.result;
+            that.cropper.setImage(image);
+
+        };
+
+        myReader.readAsDataURL(file);
     }
 
     addCompanyImage(): void {
@@ -182,6 +233,11 @@ export class ProfileComponent implements OnInit {
         else {
             console.log('sth wrong');
         }
+    }
+
+    checkFile(): void {
+        console.log('this.data: ');
+        console.dir(this.data1);
     }
 
 }

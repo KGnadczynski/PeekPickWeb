@@ -4,13 +4,15 @@ import { TradeComponent } from './trade.component';
 import { routing } from './trade.routing';
 import { MessagesModule } from '../messages/messages.module';
 import { FiltersModule } from '../filters/filters.module';
+import { SortingModule } from '../filters/components/sorting/sorting.module';
 
 @NgModule({
   imports: [
     CommonModule,
     routing,
     MessagesModule,
-    FiltersModule
+    FiltersModule,
+    SortingModule
   ],
   declarations: [
     TradeComponent

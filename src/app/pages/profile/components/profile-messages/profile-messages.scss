@@ -28,11 +28,12 @@ div#activeAndEndedPosts{
         margin: auto;
         margin-top: 15px;
 
-        @media(max-width: 565px){
-            // margin: 4%;
+        p.info{
+            font-family: 'Open Sans', sans-serif;
+            font-size: 18px;
+            text-align: center;
+            color: #A20E12;
         }
-        @media(min-width: 992px){
-            // margin: 20px 14%;
-        }
+
     }
 }

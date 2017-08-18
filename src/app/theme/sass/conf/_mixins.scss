@@ -23,6 +23,10 @@
     // height: $size;
     height: 0.5em;
   }
+  .al-sidebar::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+  }
 
   ::-webkit-scrollbar-thumb {
     background: $foreground-color;

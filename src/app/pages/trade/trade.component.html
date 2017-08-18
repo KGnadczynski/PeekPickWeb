@@ -3,11 +3,12 @@
         <div class="blankDiv"></div>
 
         <div class="messagesDiv">
-            <messages [dest] = "'companyCategory'" [id] = id ></messages>
+            <sorting (sendSort) = "filters.newFunction($event)"></sorting>
+            <messages #messages [dest] = "'companyCategory'" [id] = id ></messages>
         </div>
 
         <div class="filterMessages">
-            <filters [id] = id></filters>
+            <filters #filters [id] = id (myEvent)="messages.filter($event)"></filters>
         </div>
         
 </div>

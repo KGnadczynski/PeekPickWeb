@@ -21,6 +21,7 @@ export class MessagesComponent implements OnInit{
     
     @Input() dest: string;
     @Input() id: number;
+    @Output() sendMessagesLength: EventEmitter<any> = new EventEmitter<any>();
 
     pageNumber: number = 1;
     messageList: MessageList;
@@ -75,7 +76,9 @@ export class MessagesComponent implements OnInit{
                 this.getMessages(this.pageNumber);
             }
             
-        });    
+        });
+
+        
     }
 
     onScrollDown(){
@@ -245,6 +248,7 @@ export class MessagesComponent implements OnInit{
                                     this.messageList = result;
                                     console.log('komunikaty: ');
                                     console.dir(this.messageList);
+                                    
                                 }
                                 else {
                                     this.messageList.messages = this.messageList.messages.concat(result.messages);
@@ -263,6 +267,7 @@ export class MessagesComponent implements OnInit{
                                 this.messageList = result;
                                 console.log('komunikaty: ');
                                 console.dir(this.messageList);
+                                
                             }
                             else {
                                 this.messageList.messages = this.messageList.messages.concat(result.messages);
@@ -289,7 +294,7 @@ export class MessagesComponent implements OnInit{
                 console.log('something else')
                 break;
         }
-    
+        
     }
 
     addToFavourites(id: number){
@@ -344,6 +349,7 @@ export class MessagesComponent implements OnInit{
             this.busy = this.messageService.getMessages(page, 0, 0).subscribe(result => {           
             if(page === 1) {
                 this.messageList = result;
+                this.sendMessagesLength.emit({count: result.messages.length, s: 'a'});
             } else {
                 this.messageList.messages = this.messageList.messages.concat(result.messages);
                 this.messageList.isLastPage = result.isLastPage;
@@ -367,6 +373,7 @@ export class MessagesComponent implements OnInit{
     }
 
     filter(event: any){
+
         console.log('messages data event: ');
         console.dir(event);
         
@@ -374,6 +381,10 @@ export class MessagesComponent implements OnInit{
         let params: string = "";
         this.pageNumber = 1;
         event.companyCategoryIdList = event.companyCategoryIdList.substring(0, event.companyCategoryIdList.length-1);
+
+        if(this.dest === 'companyCategory'){
+            params += 'companyCategoryMainIdList=' + this.id + "&";
+        }
 
         if("geolocation" in navigator){
             navigator.geolocation.getCurrentPosition(
@@ -474,6 +485,7 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getActiveMessages(this.pageNumber, date, this.latitude, this.longitude, this.id).subscribe(
                     result => {
                         this.messageList = result;
+                        this.sendMessagesLength.emit({count: result.messages.length, s: 'a'});
                         this.pageTopService.showLoadingBar(false);
                         console.log('active posts: ');
                         console.dir(result);
@@ -504,7 +516,8 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getFilterMessages(params, this.pageNumber).subscribe(
                     result => {
                         this.messageList = result;
-                         this.pageTopService.showLoadingBar(false);
+                        this.sendMessagesLength.emit({count: result.messages.length, s: 'e'});
+                        this.pageTopService.showLoadingBar(false);
                         console.log('ended posts: ');
                         console.dir(result);
                     },

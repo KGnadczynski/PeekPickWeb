@@ -24,7 +24,8 @@ import { ModalModule } from 'ng2-bootstrap';
     ModalModule.forRoot() 
   ],
   declarations: [
-    ProfileComponent,ImageCropperComponent
+    ProfileComponent,
+    ImageCropperComponent
   ]
 })
 
