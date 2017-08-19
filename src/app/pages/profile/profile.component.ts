@@ -10,6 +10,8 @@ import { BaMenuService } from '../../theme';
 import { NgUploaderOptions } from 'ngx-uploader';
 import { BaPictureUploader } from '../../theme/components/baPictureUploader/baPictureUploader.component';
 
+let moment = require('../../../../node_modules/moment/moment');
+
 @Component({
   selector: 'profile',
   encapsulation: ViewEncapsulation.None,
@@ -130,10 +132,10 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    /*changeImage(imageUrl: string): void {
+    changeImage(imageUrl: string): void {
         this.otherImgs.imageUrl = imageUrl;
     }
-
+/*
     edytujAvatarModal() : void {
         this.childModal.show();
     }
@@ -167,17 +169,9 @@ export class ProfileComponent implements OnInit {
         console.log('Cropping '+(bounds.bottom-bounds.top));
         this.file = this.data
     }
-
-    blobToFile(theBlob: Blob, fileName:string): File {
-        var b: any = theBlob;
-        //A Blob() is almost a File() - it's just missing the two properties below which we will add
-        b.lastModifiedDate = new Date();
-        b.name = fileName;
-
-        //Cast to a File() type
-        return <File>theBlob;
-    }
-  
+*/
+    
+  /*
     closeModal() : void {
         this.childModal.hide();
     }*/
@@ -190,23 +184,7 @@ export class ProfileComponent implements OnInit {
     cropped(bounds:Bounds) {
         this.croppedHeight =bounds.bottom-bounds.top;
         this.croppedWidth = bounds.right-bounds.left;
-        console.log('croppedHeight: ' + this.croppedHeight);
-        console.log('croppedWidth: ' + this.croppedWidth);
         this.checkFile();
-    }
-    
-    fileChangeListener($event) {
-        var image:any = new Image();
-        var file:File = $event.target.files[0];
-        var myReader:FileReader = new FileReader();
-        var that = this;
-        myReader.onloadend = function (loadEvent:any) {
-            image.src = loadEvent.target.result;
-            that.cropper.setImage(image);
-
-        };
-
-        myReader.readAsDataURL(file);
     }
 
     addCompanyImage(): void {
@@ -235,9 +213,23 @@ export class ProfileComponent implements OnInit {
         }
     }
 
+    blobToFile(theBlob: Blob, fileName:string): File {
+        var b: any = theBlob;
+        b.lastModifiedDate = new Date();
+        b.name = fileName;
+
+        return <File>theBlob;
+    }
+
     checkFile(): void {
-        console.log('this.data: ');
-        console.dir(this.data1);
+        let z = new Blob([this.data1.image],  {type: 'image/png'});
+
+        let file = new File([z], "image.png", {type: "image/png"});
+        this.fileUpload.file = file;
+
+        console.log('fileimage object: ');
+        console.dir(file);
+
     }
 
 }

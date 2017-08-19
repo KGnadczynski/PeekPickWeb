@@ -81,13 +81,13 @@
                     </template>
                 </md-tab>
 
-                <!-- <md-tab>
+                <md-tab>
                     <template md-tab-label>
                         <p class="hidden-xs-down">cropper</p>
                         <img src="../../meta/oddzialy.png" alt="">
                     </template>
                     <template md-tab-content>
-                        <div>
+                        <div class="image-uploader">
                             
                             <img-cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
                             <span class="result" *ngIf="data1.image" >
@@ -101,7 +101,7 @@
 
                            </div>
                     </template>
-                </md-tab> -->
+                </md-tab>
 
             </md-tab-group>
         </div>

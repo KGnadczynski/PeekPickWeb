@@ -377,3 +377,18 @@ div#profile{
 a.change-picture, i.ion-ios-close-outline{
     display: none !important;
 }
+
+div.image-uploader{
+    display: flex;
+    flex-direction: column;
+    span {
+        text-align: right;
+        img{
+            width: 200px;
+            height: 200px;
+        }
+    }
+    button{
+        width: 200px;
+    }
+}
