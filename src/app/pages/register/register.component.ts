@@ -287,7 +287,7 @@ public onSubmitDigitsCallback(req: any): void {
                              localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
                              this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
                              this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);    
-                             this._menuService.changedLoggedFlag(this.userFromServer.company.id);   
+                             this._menuService.changedLoggedFlag(this.userFromServer.company.id);
                              this.pageTopService.showLoadingBar(false);
                              this.router.navigate(['/komunikat']);
                             },

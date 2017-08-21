@@ -2,7 +2,7 @@
 
 div#footer{
 
-    @include line(2, $redColor, 80, 20);
+    @include line(2, $redColor, 80, 10);
 
     div#inside{
         display: flex;

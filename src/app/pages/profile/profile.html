@@ -87,7 +87,17 @@
                         <img src="../../meta/oddzialy.png" alt="">
                     </template>
                     <template md-tab-content>
-                        <div class="image-uploader">
+                        <!-- <div class="file-upload">
+                            <span class="text">upload</span>
+                            <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+                        </div> -->
+                        <img-cropper #cropper [image]="data" [settings]="cropperSettings" (onCrop)="cropped($event)" (change)="fileChangeListener($event)"></img-cropper>
+                        <br>
+                        <span class="result rounded" *ngIf="data.image" >
+                            <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+                        </span>
+                        <button (click)="checkFile()">check</button>
+                        <!-- <div class="image-uploader">
                             
                             <img-cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
                             <span class="result" *ngIf="data1.image" >
@@ -96,10 +106,8 @@
                                [height]="croppedHeight">
                                {{data1.image.length}}
                            </span>
-                           
-                           <button (click)="checkFile()">check</button>
 
-                           </div>
+                           </div> -->
                     </template>
                 </md-tab>
 

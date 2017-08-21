@@ -224,18 +224,19 @@ div#registerFormMain{
 
 	form{
 		margin: auto;
-		@include inputBlack(10, 16, 50);
-		@include line(2, $redColor, 100, 20);
+		@include inputBlack(5, 16, 50);
+		@include line(2, $redColor, 100, 10);
 
 		input{
 			@media(max-width: 565px){
 				width: 90%;
-			}
-			padding-left: 20px;
+            }
+            padding-left: 20px;
+            
 		}
 		select {
 			width: 100%;
-			@include padding(10, 10, 25, 0);
+			@include padding(5, 5, 25, 0);
 			outline: 0;
 			text-transform: lowercase;
 			border: 0;
@@ -249,7 +250,14 @@ div#registerFormMain{
 			}
 		}
 		div.formRegDiv {
-			@include margin(10, 10);
+            @include margin(5, 5);
+            p{
+                font-family: $openSansFont, sans-serif;
+                font-size: 16px;
+                clear: both;
+                font-weight: bold;
+                margin: 0;
+            }
 			
 			span{
 				color: $redColor;
@@ -263,7 +271,13 @@ div#registerFormMain{
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			@include button('przycisk.png', 16, 160, 50);
+            @include button('przycisk.png', 16, 160, 50);
+            button.invalid{
+                color: $blackColor;
+            }
+            button.invalid{
+                color: $blackColor;
+            }
 		}
 
 		div#address{

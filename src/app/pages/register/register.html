@@ -37,12 +37,14 @@
           <div></div>
       </div>
 
-      <div class="formRegDiv" >
+      <div class="formRegDiv">
+          <p>wybierz branżę</p>
           <select  [formControl]="name" [(ngModel)]="selectedParentKategoria" (ngModelChange)="changePodkategorie()" >
             <option *ngFor="let kategoria of kategorieGlowne" [ngValue]="kategoria">{{kategoria.name}}</option>
           </select>
       </div>
       <div class="formRegDiv">
+          <p>wybierz kategorię</p>
           <select  [formControl]="name" [(ngModel)]="selectedKategoria" >
             <option *ngFor="let kategoria of podKategorie" [ngValue]="kategoria">{{kategoria.name}}</option>
           </select>
@@ -50,7 +52,7 @@
       
       <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
       <div class="buttons">
-        <button [disabled]="!form.valid" type="submit">utwórz konto</button>
+        <button [ngClass]="{valid: (form.valid), invalid: (!form.valid)}" [disabled]="!form.valid" type="submit">utwórz konto</button>
         <button routerLink="/pages/login">zaloguj</button>
         <div *ngIf="error" class="alert alert-danger">
           {{error.error_description}}
@@ -63,8 +65,6 @@
 <div bsModal #childModal="bs-modal" class="modal fade" [config]="{backdrop: 'static', keyboard: false}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
-            
             <div class="header">
                 <div>
                     Podałeś błędny adres, wskaż go na mapie

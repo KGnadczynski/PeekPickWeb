@@ -28,18 +28,16 @@ export class ProfileComponent implements OnInit {
     imageUrl: string = "";
     idCompany: number;
     name: string = '';
-    data1: any;
+    data: any;
     @ViewChild('childModal') childModal: ModalDirective;
     @Output() sendImage: EventEmitter<string> = new EventEmitter<string>();
 
     @ViewChild('cropper', undefined)
     cropper:ImageCropperComponent;
-    cropperSettings1:CropperSettings;
+    cropperSettings:CropperSettings;
     croppedWidth:number;
     croppedHeight:number;
-    croppName: string;
 
-    file:File;
     @ViewChild('fileUpload') fileUpload: BaPictureUploader;
   
     uploaderOptions:NgUploaderOptions = {
@@ -52,38 +50,39 @@ export class ProfileComponent implements OnInit {
     };
     showButton: boolean = false;
 
+    file: File;
+    image:any;
+
     constructor(private profileService: ProfileService, private router: Router, private menuService: BaMenuService){
 
-    //   this.cropperSettings = new CropperSettings();
-    //   this.cropperSettings.noFileInput = true;
-    //   this.data = {};
-        this.croppName = 'Angular2'
-        this.cropperSettings1 = new CropperSettings();
-        /*this.cropperSettings1.width = 200;
-        this.cropperSettings1.height = 200;
+        this.cropperSettings = new CropperSettings();
+        this.cropperSettings.width = 200;
+        this.cropperSettings.height = 200;
 
-        this.cropperSettings1.croppedWidth = 200;
-        this.cropperSettings1.croppedHeight = 200;
+        this.cropperSettings.croppedWidth = 200;
+        this.cropperSettings.croppedHeight = 200;
 
-        this.cropperSettings1.canvasWidth = 500;
-        this.cropperSettings1.canvasHeight = 300;
+        this.cropperSettings.canvasWidth = 500;
+        this.cropperSettings.canvasHeight = 300;
 
-        this.cropperSettings1.minWidth = 10;
-        this.cropperSettings1.minHeight = 10;*/
+        this.cropperSettings.minWidth = 10;
+        this.cropperSettings.minHeight = 10;
 
-        this.cropperSettings1.rounded = false;
-        this.cropperSettings1.keepAspect = false;
+        this.cropperSettings.rounded = false;
+        this.cropperSettings.keepAspect = false;
 
-        this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
-        this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
+        this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+        this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
 
-        this.data1 = {};
+        this.data = {};
     }
 
     ngOnInit() {
 
         this.profileService.getUser().subscribe(
             user => {
+                console.log('user:');
+                console.dir(user);
                 this.otherUser = user;
                 this.name = user.company.name;
                 this.idCompany = user.company.id;
@@ -135,6 +134,28 @@ export class ProfileComponent implements OnInit {
     changeImage(imageUrl: string): void {
         this.otherImgs.imageUrl = imageUrl;
     }
+
+    fileChangeListener($event) {
+        // var url = 'https://damp-temple-52216.herokuapp.com/companyimages/companyId/57';
+        var url = 'http://localhost:8080/companyimages/companyId/1';
+        let image: any = new Image();
+        this.file = $event.target.files[0];
+        var myReader:FileReader = new FileReader();
+        var that = this;
+        myReader.onloadend = function (loadEvent:any) {
+            image.src = loadEvent.target.result;
+            that.cropper.setImage(image);
+            // var xhr = new XMLHttpRequest();
+            // var formData:any = new FormData();
+            // formData.append('file', file, file.name);
+            // xhr.open('POST', url, true);
+            // xhr.setRequestHeader('Authorization', 'Bearer cbf02db7-bbfe-4337-95bd-b6656ba8d475');
+            // xhr.send(formData);
+        };
+
+        myReader.readAsDataURL(this.file);
+    }
+
 /*
     edytujAvatarModal() : void {
         this.childModal.show();
@@ -176,17 +197,12 @@ export class ProfileComponent implements OnInit {
         this.childModal.hide();
     }*/
 
-    /*makeFile(): File{
-
-        return new File();
-    }*/
-
     cropped(bounds:Bounds) {
         this.croppedHeight =bounds.bottom-bounds.top;
         this.croppedWidth = bounds.right-bounds.left;
         this.checkFile();
     }
-
+/*
     addCompanyImage(): void {
         if(this.fileUpload.file != null){
             console.log('works');
@@ -220,16 +236,30 @@ export class ProfileComponent implements OnInit {
 
         return <File>theBlob;
     }
-
+*/
     checkFile(): void {
-        let z = new Blob([this.data1.image],  {type: 'image/png'});
 
-        let file = new File([z], "image.png", {type: "image/png"});
-        this.fileUpload.file = file;
+        var url = 'http://localhost:8080/companyimages/companyId/1';
+        
+        let z = new Blob([this.data.image],  {type: 'image/png'});
+
+        let fileNew = new File([z], "image.png", {type: "image/png"});
+        // this.fileUpload.file = file;
 
         console.log('fileimage object: ');
-        console.dir(file);
+        console.dir(this.file);
 
+        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        let token = currentUser.token;
+        let authorizationHeader = 'Bearer ' + token.access_token;
+
+        var xhr = new XMLHttpRequest();
+        var formData:any = new FormData();
+        formData.append('file', this.file, this.file.name);
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Authorization', authorizationHeader);
+        xhr.send(formData);
     }
+
 
 }

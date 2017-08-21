@@ -42,12 +42,12 @@
         outline: 0;
         border: 0;
         border-bottom: 1px solid $blackColor;
-        text-transform: lowercase;
         color: $blackColor;
         font-family: $openSansFont, sans-serif;
         &::placeholder{
             color: $blackColor;
             font-family: $openSansFont, sans-serif;
+            text-transform: lowercase;
         }
     }
 }
