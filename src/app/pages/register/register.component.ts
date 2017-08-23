@@ -62,6 +62,7 @@ export class Register implements OnInit {
   @ViewChild(AgmMap) sebmGoogleMap: any;
   
   ngOnInit() {
+
     this.registerService.getBranze().subscribe(
       data => {
         this.kategorieGlowne = data;
@@ -324,16 +325,19 @@ public onSubmitDigitsCallback(req: any): void {
   }
 
 
-  changePodkategorie() {
-    if (this.selectedParentKategoria) {
-      this.registerService.getPodBranze(this.selectedParentKategoria.id).subscribe(
-        data => {
-          this.podKategorie = data;
-        },
-        error => {
-        });
-    }
-  }
+//   changePodkategorie() {
+    
+//     if (this.selectedParentKategoria) {
+//       this.registerService.getPodBranze(this.selectedParentKategoria.id).subscribe(
+//         data => {
+//           this.podKategorie = data;
+//           console.log('change podcategory');
+//           console.dir(data);
+//         },
+//         error => {
+//         });
+//     }
+//   }
 
   onLoginButtonClick() {
     window.onLoginButtonClick();
@@ -372,5 +376,26 @@ public onSubmitDigitsCallback(req: any): void {
       this.registerJson.companyBranch.company.category.parentCategory.id = this.selectedParentKategoria.id;
     }
 
+    setSelectKategoryName(name: string, id: number): void{
+        // this.selectedParentKategoria.name = name;
+        this.selectedParentKategoria = new MainBranze();
+        this.selectedParentKategoria.name = name;
+		this.selectedParentKategoria.id = id;
+		this.registerService.getPodBranze(this.selectedParentKategoria.id).subscribe(
+			data => {
+				this.podKategorie = data;
+				console.log('change podcategory');
+				console.dir(data);
+			},
+			error => {
+		});
+        // console.dir(this.selectedParentKategoria);
+    }
+
+    setSelectPodKategoryName(name: string, id: number): void{
+		this.selectedKategoria = new PodKategoria();
+		this.selectedKategoria.name = name;
+		this.selectedKategoria.id = id;
+	}
 
 }

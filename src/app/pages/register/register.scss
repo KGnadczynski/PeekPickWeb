@@ -246,18 +246,76 @@ div#registerFormMain{
 			display: block;
 			font-family: $openSansFont, sans-serif;
 			option{
-				@include padding(10, 10, 0, 0);
+                @include padding(10, 10, 0, 0);
+                &#option-1{
+                    background-image: url('../../meta/menu_icons/kultura_i_rozrywka.png') !important;
+                }
 			}
 		}
 		div.formRegDiv {
-            @include margin(5, 5);
-            p{
-                font-family: $openSansFont, sans-serif;
-                font-size: 16px;
-                clear: both;
-                font-weight: bold;
-                margin: 0;
+
+            div.dropdown-menu{
+                div{
+                    overflow: hidden;
+                    clear: both;
+                    cursor: pointer;
+                    margin: 5px;
+                    img{
+                        width: 25px;
+                        float: left;
+                    }
+                    span{
+                        font-family: $openSansFont, sans-serif;
+                        margin: 0;
+                        display: initial;
+                        color: $blackColor;
+                        float: left;
+                        margin-left: 10px;
+                        font-size: 17px;
+                    }
+                }
             }
+
+            div.select{
+                text-align: center;
+                button{
+                    width: 60%;
+                    background: 0;
+                    border: 1px solid $blackColor;
+                    border-radius: 2px;
+                    margin: auto;
+                    padding: 10px;
+                    &::after{
+                        float: right;
+                        margin-top: 10px;
+                    }
+                    span{
+                        font-family: $openSansFont, sans-serif;
+                        margin: 0;
+                        display: initial;
+                        color: $blackColor;
+                        float: left;
+                        margin-left: 10px;
+                        font-size: 17px;
+                    }
+                    img{
+                        width: 25px;
+                        float: left;
+                    }
+
+                }
+                clear: both;
+                
+            }
+
+            @include margin(5, 5);
+            // p{
+            //     font-family: $openSansFont, sans-serif;
+            //     font-size: 16px;
+            //     clear: both;
+            //     font-weight: bold;
+            //     margin: 0;
+            // }
 			
 			span{
 				color: $redColor;

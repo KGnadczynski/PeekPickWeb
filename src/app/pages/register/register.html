@@ -38,22 +38,63 @@
       </div>
 
       <div class="formRegDiv">
-          <p>wybierz branżę</p>
-          <select  [formControl]="name" [(ngModel)]="selectedParentKategoria" (ngModelChange)="changePodkategorie()" >
-            <option *ngFor="let kategoria of kategorieGlowne" [ngValue]="kategoria">{{kategoria.name}}</option>
-          </select>
+          <!-- <p>wybierz branżę</p>
+          <select [formControl]="name" [(ngModel)]="selectedParentKategoria" (ngModelChange)="changePodkategorie()" >
+            <option id="option-{{kategoria.id}}" *ngFor="let kategoria of kategorieGlowne" [ngValue]="kategoria">
+                {{kategoria.name}}
+            </option>
+          </select> -->
+          <div class="dropdown select">
+                <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img *ngIf="selectedParentKategoria && selectedParentKategoria.id === 1" src="../../meta/menu_icons/kultura_i_rozrywka.png">
+                <img *ngIf="selectedParentKategoria && selectedParentKategoria.id === 2" src="../../meta/menu_icons/gastronomia_i_nocne_zycie.png">
+                <img *ngIf="selectedParentKategoria && selectedParentKategoria.id === 3" src="../../meta/menu_icons/zakupy_male.png">
+                <img *ngIf="selectedParentKategoria && selectedParentKategoria.id === 4" src="../../meta/menu_icons/zakupy_duze.png">
+                <img *ngIf="selectedParentKategoria && selectedParentKategoria.id === 5" src="../../meta/menu_icons/uslugi_dla_ciala.png">
+                <img *ngIf="selectedParentKategoria && selectedParentKategoria.id === 6" src="../../meta/menu_icons/uslugi_inne.png">
+                <img *ngIf="selectedParentKategoria && selectedParentKategoria.id === 7" src="../../meta/menu_icons/sport_i_turystyka.png">
+                <span *ngIf="!selectedParentKategoria">wybierz branżę</span>
+                <span *ngIf="selectedParentKategoria">{{selectedParentKategoria.name}}</span>
+                
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div (click)="selectedParentKategoria=null; podKategorie = {};">-</div>
+                <div *ngFor="let kategoria of kategorieGlowne" (click)="setSelectKategoryName(kategoria.name, kategoria.id)">
+                    <img *ngIf="kategoria.id === 1" src="../../meta/menu_icons/kultura_i_rozrywka.png">
+                    <img *ngIf="kategoria.id === 2" src="../../meta/menu_icons/gastronomia_i_nocne_zycie.png">
+                    <img *ngIf="kategoria.id === 3" src="../../meta/menu_icons/zakupy_male.png">
+                    <img *ngIf="kategoria.id === 4" src="../../meta/menu_icons/zakupy_duze.png">
+                    <img *ngIf="kategoria.id === 5" src="../../meta/menu_icons/uslugi_dla_ciala.png">
+                    <img *ngIf="kategoria.id === 6" src="../../meta/menu_icons/uslugi_inne.png">
+                    <img *ngIf="kategoria.id === 7" src="../../meta/menu_icons/sport_i_turystyka.png">
+                    <span>{{kategoria.name}}</span>
+                </div>
+            </div>
+          </div>
       </div>
-      <div class="formRegDiv">
-          <p>wybierz kategorię</p>
+      <div class="formRegDiv" *ngIf="podKategorie.length>0">
+          <!-- <p>wybierz kategorię</p>
           <select  [formControl]="name" [(ngModel)]="selectedKategoria" >
             <option *ngFor="let kategoria of podKategorie" [ngValue]="kategoria">{{kategoria.name}}</option>
-          </select>
+          </select> -->
+          <div class="dropdown select">
+            <button class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span *ngIf="!selectedKategoria">wybierz kategorię</span>
+                <span *ngIf="selectedKategoria">{{selectedKategoria.name}}</span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <div class="dropdownElement" (click)="selectedKategoria=null">-</div>
+                <div class="dropdownElement" *ngFor="let kategoria of podKategorie">
+                    <p class="dropdown-item" (click)="setSelectPodKategoryName(kategoria.name, kategoria.id)">{{kategoria.name}}</p>
+                </div>
+            </div>
+          </div>
       </div>
       
       <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
       <div class="buttons">
         <button [ngClass]="{valid: (form.valid), invalid: (!form.valid)}" [disabled]="!form.valid" type="submit">utwórz konto</button>
-        <button routerLink="/pages/login">zaloguj</button>
+        <!-- <button routerLink="/pages/login">zaloguj</button> -->
         <div *ngIf="error" class="alert alert-danger">
           {{error.error_description}}
         </div>
