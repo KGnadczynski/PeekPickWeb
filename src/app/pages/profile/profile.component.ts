@@ -1,14 +1,11 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild , Output, EventEmitter} from '@angular/core';
-import { ProfileService } from './profile.service';
-import { ObjectList } from './user';
-import { User } from './user';
+import { Headers, Http } from '@angular/http';
 import { Router } from '@angular/router';
+import { ObjectList, User } from './user';
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
 import { ModalDirective } from 'ng2-bootstrap/modal';
-import { ImageModel } from '../add-message/imagemodel';
 import { BaMenuService } from '../../theme';
-import { NgUploaderOptions } from 'ngx-uploader';
-import { BaPictureUploader } from '../../theme/components/baPictureUploader/baPictureUploader.component';
+import { ProfileService } from './profile.service';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -17,7 +14,7 @@ let moment = require('../../../../node_modules/moment/moment');
   encapsulation: ViewEncapsulation.None,
   styles: [require('./profile.scss')],
   template: require('./profile.html'),
-  providers: [ProfileService]
+  providers: [ProfileService, BaMenuService]
 })
 
 export class ProfileComponent implements OnInit {
@@ -37,23 +34,11 @@ export class ProfileComponent implements OnInit {
     cropperSettings:CropperSettings;
     croppedWidth:number;
     croppedHeight:number;
-
-    @ViewChild('fileUpload') fileUpload: BaPictureUploader;
-  
-    uploaderOptions:NgUploaderOptions = {
-        url: '',
-    };
-
-    defaultPicture = 'assets/img/theme/add-icon.png';
-    profile:any = {
-        picture: 'assets/img/theme/add-icon.png'
-    };
-    showButton: boolean = false;
-
     file: File;
     image:any;
+    myReader: FileReader;
 
-    constructor(private profileService: ProfileService, private router: Router, private menuService: BaMenuService){
+    constructor(private http: Http, private profileService: ProfileService, private router: Router, private menuService: BaMenuService){
 
         this.cropperSettings = new CropperSettings();
         this.cropperSettings.width = 200;
@@ -89,8 +74,6 @@ export class ProfileComponent implements OnInit {
                 this.profileService.getUserImages(user.company.id).subscribe(
                     images => {
                         this.otherImgs = images;
-                        this.defaultPicture = images.imageUrl;
-                        this.profile.picture = images.imageUrl;
                     }
                 );
             },
@@ -98,25 +81,8 @@ export class ProfileComponent implements OnInit {
                 this.router.navigateByUrl('/pages/komunikat');
             }
         );
+        
     }
-
-    onUploadCompleted(event: any): void{
-        this.showButton = true;
-    }
-
-    /*fileChangeListener($event) {
-        var image:any = new Image();
-        this.file = $event.target.files[0];
-        var myReader:FileReader = new FileReader();
-        var that = this;
-        myReader.onloadend = function (loadEvent:any) {
-            console.log('Croping')
-            image.src = loadEvent.target.result;
-            that.cropper.setImage(image);
-        };
-
-        myReader.readAsDataURL(this.file);
-    }*/
 
     public setLocationFromCompanyBranchList(companyBranchList:any): void {
         console.log('seting correct latitiude and longitude '+JSON.parse(companyBranchList));
@@ -136,130 +102,54 @@ export class ProfileComponent implements OnInit {
     }
 
     fileChangeListener($event) {
-        // var url = 'https://damp-temple-52216.herokuapp.com/companyimages/companyId/57';
-        var url = 'http://localhost:8080/companyimages/companyId/1';
         let image: any = new Image();
         this.file = $event.target.files[0];
-        var myReader:FileReader = new FileReader();
+        this.myReader = new FileReader();
         var that = this;
-        myReader.onloadend = function (loadEvent:any) {
+        this.myReader.onloadend = function (loadEvent:any) {
             image.src = loadEvent.target.result;
             that.cropper.setImage(image);
-            // var xhr = new XMLHttpRequest();
-            // var formData:any = new FormData();
-            // formData.append('file', file, file.name);
-            // xhr.open('POST', url, true);
-            // xhr.setRequestHeader('Authorization', 'Bearer cbf02db7-bbfe-4337-95bd-b6656ba8d475');
-            // xhr.send(formData);
         };
-
-        myReader.readAsDataURL(this.file);
+        this.myReader.readAsDataURL(this.file);
     }
 
-/*
+
     edytujAvatarModal() : void {
         this.childModal.show();
     }
-
-    confirmPhoto() : void {
-        this.childModal.hide();
-
-        var z = new Blob([this.data.image],  {type: 'image/png'});
-        console.log(z);
-        var fileImage: File = this.blobToFile(z,'image.png');
-        console.log('this.data.image '+JSON.stringify(this.data.image));
-        console.log('blob file '+JSON.stringify(fileImage));
-        console.log('normal file '+JSON.stringify(this.file));
-        if(fileImage != null){
-            this.profileService.getUser().subscribe(user => {
-                this.profileService.addCompanyImage(new ImageModel(user.company.id, fileImage)).subscribe(
-                    data => {
-                        console.log('Confirm dodano ');
-                        this.imageUrl = data.imageUrl;
-                        this.name = null;
-                        this.menuService.changeImage(data.imageUrl);
-                        this.sendImage.emit(data.imageUrl);
-                    },
-                    error => {}
-                );
-            });
-        }
-    }
-
-    cropped(bounds:Bounds) {
-        console.log('Cropping '+(bounds.bottom-bounds.top));
-        this.file = this.data
-    }
-*/
     
-  /*
     closeModal() : void {
         this.childModal.hide();
-    }*/
+        this.cropper.reset();
+    }
 
     cropped(bounds:Bounds) {
         this.croppedHeight =bounds.bottom-bounds.top;
         this.croppedWidth = bounds.right-bounds.left;
-        this.checkFile();
     }
-/*
-    addCompanyImage(): void {
-        if(this.fileUpload.file != null){
-            console.log('works');
-            console.dir(this.fileUpload.file);
-            this.profileService.getUser().subscribe(user => {
-                this.profileService.addCompanyImage(new ImageModel(user.company.id, this.fileUpload.file)).subscribe(
-                    data => {
-                        this.imageUrl = data.imageUrl;
-                        this.defaultPicture = data.imageUrl;
-                        this.profile.picture = data.imageUrl;
+
+    confirmPhoto(): void {
+        let o = {
+            "base64" : this.data.image.substr(this.data.image.indexOf("base64,") + "base64".length+1)
+        };
+
+        this.profileService.getUser().subscribe(
+            user => {
+                this.profileService.addImage(o, user.company.id).subscribe(
+                    images => {
+                        console.log('added photo');
+                        console.dir(images);
+                        this.otherImgs = images;
                         this.name = null;
-                        this.menuService.changeImage(data.imageUrl);
-                        this.sendImage.emit(data.imageUrl);
+                        this.menuService.changeImage(images.imageUrl);
                     },
                     error => {
-                        console.log('error');
                         console.dir(error);
                     }
                 );
-            });
-        }
-        else {
-            console.log('sth wrong');
-        }
+            }
+        );
+        this.closeModal();
     }
-
-    blobToFile(theBlob: Blob, fileName:string): File {
-        var b: any = theBlob;
-        b.lastModifiedDate = new Date();
-        b.name = fileName;
-
-        return <File>theBlob;
-    }
-*/
-    checkFile(): void {
-
-        var url = 'http://localhost:8080/companyimages/companyId/1';
-        
-        let z = new Blob([this.data.image],  {type: 'image/png'});
-
-        let fileNew = new File([z], "image.png", {type: "image/png"});
-        // this.fileUpload.file = file;
-
-        console.log('fileimage object: ');
-        console.dir(this.file);
-
-        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
-        let token = currentUser.token;
-        let authorizationHeader = 'Bearer ' + token.access_token;
-
-        var xhr = new XMLHttpRequest();
-        var formData:any = new FormData();
-        formData.append('file', this.file, this.file.name);
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Authorization', authorizationHeader);
-        xhr.send(formData);
-    }
-
 
 }

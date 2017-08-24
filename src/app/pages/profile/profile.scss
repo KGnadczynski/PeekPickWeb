@@ -24,23 +24,6 @@ div.popover{
 
 div.modal-content{
 
-    div#buttons{
-            width: 100%;
-            clear: both;
-            text-align: center;
-            float: left;
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            @include button('przycisk.png', 18, 108, 47);
-
-            button {
-                margin: initial;
-            }
-        }
-
     div.header {
         text-align: center;
     }
@@ -222,32 +205,6 @@ div#profile{
                     width: $image_width;
                 }
             }
-            ba-picture-uploader{
-                div.picture-group{
-                    border: none;
-                    width: $image_width;
-                    height: $image_height;
-                    div.picture-wrapper{
-                        width: $image_width;
-                        height: $image_height;
-                    }
-                }
-                
-                &.unchosen{
-                    div.picture-group{
-                        position: absolute;
-                        bottom: 2px;
-                        right: 2px;
-                        border: none;
-                        width: 30px;
-                        height: 30px;
-                        div.picture-wrapper{
-                            width: 30px;
-                            height: 30px;
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -378,17 +335,42 @@ a.change-picture, i.ion-ios-close-outline{
     display: none !important;
 }
 
-div.image-uploader{
-    display: flex;
-    flex-direction: column;
-    span {
-        text-align: right;
-        img{
-            width: 200px;
-            height: 200px;
+div.modal-content{
+    overflow: hidden;
+    div.header{
+        div.input{
+            overflow: hidden;
+            margin: 10px 0;
+            input{
+                float: right;
+                outline: 0;
+            }
         }
+        div.cropper{
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            img-cropper{
+                span.ng2-imgcrop{
+                    float: left;
+                    input{
+                        display: none;
+                    }
+                }
+            }
+        }
+        
     }
-    button{
-        width: 200px;
+    div.buttons{
+        @include button('przycisk.png', 16, 160, 50);
+        display: flex;
+        justify-content: center;
+        button{
+            margin: 1px;
+            display: initial;
+            &.inactive{
+                color: $blackColor;
+            }
+        }
     }
 }

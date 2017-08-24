@@ -177,4 +177,17 @@ export class ProfileService{
 
         }));
     }
+
+    addImage(image: any, id: number): Observable<any>{
+
+        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        let token = currentUser.token;
+        let headers = new Headers({'Authorization': 'Bearer '+ token.access_token});
+
+        // let body = JSON.stringify(image);
+
+        return this.http.post(url + '/companyimages/companyId/' + id + '/base64', image, {headers: headers})
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
+    }
 }

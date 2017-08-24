@@ -107,19 +107,18 @@ export class MessagesComponent implements OnInit{
                         }
                     );
                 }
-                else {
-                    if(this.pageNumber === 1){
-                        this.getMessages(this.pageNumber);
-                    } else {
-                        let i = 1;
-                        while(i <= this.pageNumber){
-                            this.getMessages(i);
-                            i++;
-                        }
+
+            }
+            else {
+                if(this.pageNumber === 1){
+                    this.getMessages(this.pageNumber);
+                } else {
+                    let i = 1;
+                    while(i <= this.pageNumber){
+                        this.getMessages(i);
+                        i++;
                     }
                 }
-                // else
-                //     this.getMessages(this.pageNumber);
             }
         }
     }
