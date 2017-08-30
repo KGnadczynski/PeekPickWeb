@@ -111,6 +111,117 @@
          }
     }
 
+    /*{
+        "companyBranchCount": 0,
+        "companyBranchList": [
+          {
+            "city": "string",
+            "company": {
+              "category": {
+                "id": 0,
+                "name": "string"
+              },
+              "createDate": "2017-08-30T08:40:32.610Z",
+              "currency": "PLN",
+              "id": 0,
+              "mainImageUrl": "string",
+              "name": "string"
+            },
+            "createDate": "2017-08-30T08:40:32.611Z",
+            "description": "string",
+            "distance": 0,
+            "email": "string",
+            "id": 0,
+            "latitude": 0,
+            "longitude": 0,
+            "main": true,
+            "name": "string",
+            "openingHours": "string",
+            "phoneNumber": "string",
+            "status": "NEW",
+            "street": "string",
+            "streetNo": "string",
+            "website": "string"
+          }
+        ],
+        "content": "string",
+        "createDate": "2017-08-30T08:40:32.611Z",
+        "distance": 0,
+        "endDate": "2017-08-30T08:40:32.611Z",
+        "expirationDate": "2017-08-30T08:40:32.611Z",
+        "id": 0,
+        "location": {
+          "address": "string",
+          "city": "string",
+          "id": 0,
+          "latitude": 0,
+          "longitude": 0,
+          "name": "string",
+          "street": "string",
+          "streetNo": "string"
+        },
+        "mainImageUrl": "string",
+        "nearestCompanyBranch": {
+          "city": "string",
+          "company": {
+            "category": {
+              "id": 0,
+              "name": "string"
+            },
+            "createDate": "2017-08-30T08:40:32.612Z",
+            "currency": "PLN",
+            "id": 0,
+            "mainImageUrl": "string",
+            "name": "string"
+          },
+          "createDate": "2017-08-30T08:40:32.612Z",
+          "description": "string",
+          "distance": 0,
+          "email": "string",
+          "id": 0,
+          "latitude": 0,
+          "longitude": 0,
+          "main": true,
+          "name": "string",
+          "openingHours": "string",
+          "phoneNumber": "string",
+          "status": "NEW",
+          "street": "string",
+          "streetNo": "string",
+          "website": "string"
+        },
+        "startDate": "2017-08-30T08:40:32.612Z",
+        "status": "NEW",
+        "type": "WORK",
+        "user": {
+          "company": {
+            "category": {
+              "id": 0,
+              "name": "string"
+            },
+            "createDate": "2017-08-30T08:40:32.612Z",
+            "currency": "PLN",
+            "id": 0,
+            "mainImageUrl": "string",
+            "name": "string"
+          },
+          "createDate": "2017-08-30T08:40:32.616Z",
+          "email": "string",
+          "id": 0,
+          "name": "string",
+          "password": "string",
+          "phoneNumber": "string",
+          "status": "ACTIVE",
+          "userRoles": [
+            {
+              "authority": "string",
+              "id": 0,
+              "name": "ROLE_ADMIN"
+            }
+          ]
+        }
+    }*/
+
     export class MessageAddModel {
         companyBranchCount: number;
         companyBranchList: CompanyBranchList[];

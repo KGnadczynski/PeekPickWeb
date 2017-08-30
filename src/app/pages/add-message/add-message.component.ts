@@ -261,6 +261,7 @@ export class AddMessageComponent implements OnInit {
 
         this.route.params.subscribe((params: Params) => {
             this.paramValue = Object.keys(params)[0];
+            console.log('EDITING');
             switch (this.paramValue) {
                 case 'message_id':
                     console.log('PARAMETER IS ' + Object.keys(params)[0]);
@@ -269,6 +270,7 @@ export class AddMessageComponent implements OnInit {
                     this.msgAddModel.id = this.id;
                     this.messageService.getMessagesSingle(this.id).subscribe(result => {
                         this.messageEdit = result;
+                    
                         this.msgAddModel.content = this.messageEdit.content;
                         this.msgAddModel.startDate = moment(new Date(this.messageEdit.startDate)).format("YYYY-MM-DD HH:mm:ss");
                         this.profile.picture = this.messageEdit.mainImageUrl;
@@ -432,7 +434,7 @@ export class AddMessageComponent implements OnInit {
           this.messageAddModel.endDate = moment(new Date(this.msgAddModel.endDate)).format("YYYY-MM-DDTHH:mm:ssZZ");
         }
 
-        this.messageAddModel.type = this.messageTypeValue
+        this.messageAddModel.type = this.messageTypeValue;
 
         this.messageAddModel.status = "NEW";
 
@@ -465,35 +467,74 @@ export class AddMessageComponent implements OnInit {
            // this.messageAddModel.location.streetNo = this.messageAddModel.companyBranchList[0].streetNo;
            // this.messageAddModel.location.address = this.messageAddModel.companyBranchList[0].city;
         }
-        console.log(this.msgAddModel);
+        
 
-        if(this.msgAddModel.startDate < this.msgAddModel.endDate || !this.msgAddModel.endDate){
-            console.log('OK data rozp > data zak');
-            this.addMessageService.addMessage(this.messageAddModel).subscribe(
-            data => {
-                this.addedMessage = data;
-                    if(this.fileUpload.file != null) {
-                        console.log('inside '+this.fileUpload.file); 
-                        this.addMessageService.addMessageImage(new ImageModel(this.addedMessage.id,this.fileUpload.file)).subscribe(
-                            data => {
-                                console.log('closing image '+this.fileUpload.file); 
-                                this.hideChildModal();
+        this.route.params.subscribe((params: Params) => {
+            this.paramValue = Object.keys(params)[0];
+            console.log('EDITING');
+            switch (this.paramValue) {
+                case 'message_id':
+                    this.messageAddModel.type = this.messageEdit.type;
+
+                    console.log('this.msgAddModel: ');
+                    console.dir(this.messageAddModel);
+
+                    Object.keys(this.messageAddModel).forEach((key) => {
+                        if(this.messageAddModel[key])
+                            this.messageEdit[key] = this.messageAddModel[key];
+                    });
+
+                    console.log('this.messageEdit: ');
+                    console.dir(this.messageEdit);
+                    
+                    this.addMessageService.editMessage(this.messageEdit).subscribe(
+                        edited => {
+                            console.log('edited:');
+                            console.dir(edited);
+                            this.hideChildModal();
+                        },
+                        error => {
+                            console.log('error:');
+                            console.dir(error);
+                        }
+                    );
+
+                    break;
+                
+                case 'message_type':
+                if(this.msgAddModel.startDate < this.msgAddModel.endDate || !this.msgAddModel.endDate){
+                    console.log('OK data rozp > data zak');
+                    this.addMessageService.addMessage(this.messageAddModel).subscribe(
+                    data => {
+                        this.addedMessage = data;
+                            if(this.fileUpload.file != null) {
+                                console.log('inside '+this.fileUpload.file); 
+                                this.addMessageService.addMessageImage(new ImageModel(this.addedMessage.id,this.fileUpload.file)).subscribe(
+                                    data => {
+                                        console.log('closing image '+this.fileUpload.file); 
+                                        this.hideChildModal();
+                                    }
+                                );
+                            } else {
+                                this.hideChildModal();   
                             }
-                        );
-                    } else {
-                        this.hideChildModal();   
+                    },
+                    error => {
+                        this.addToast('Musisz wpisać treść postu przed stworzeniem');
+                        console.log('error:');
+                        console.dir(error);
                     }
-            },
-            error => {
-                this.addToast('Musisz wpisać treść postu przed stworzeniem');
-                // console.log('error:');
-                // console.dir(error);
+                );
+                } else {
+                    console.log('data rozp > data zak ERROR');
+                    this.addToast('Data rozpoczęcia nie może być później niż data zakończenia');
+                }
+                    break;
             }
-        );
-        } else {
-            console.log('data rozp > data zak ERROR');
-            this.addToast('Data rozpoczęcia nie może być później niż data zakończenia');
-        }
+            
+        });
+
+        
         
     }
 

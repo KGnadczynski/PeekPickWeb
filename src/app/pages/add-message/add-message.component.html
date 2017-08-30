@@ -8,7 +8,7 @@
             <ng2-toasty [position]="'bottom-right'"></ng2-toasty>
 
             <div class="header">
-                <div>
+                <div *ngIf="messageTypeName && messageTypeValue">
                     <h3>{{ messageTypeName.value }}</h3>
                     <i *ngIf="messageTypeValue === 'EVENT'" class="material-icons">event</i>
                     <i *ngIf="messageTypeValue === 'WORK'" class="material-icons">work</i>

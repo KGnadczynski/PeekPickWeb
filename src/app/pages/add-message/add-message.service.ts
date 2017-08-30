@@ -33,6 +33,23 @@ export class AddMessageService {
 
     }
 
+    editMessage(messageModel: any): Observable<any>{
+
+      let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+      if(currentUser != null) {
+          var token = currentUser.token
+      }
+
+      let headers = new Headers();
+      let autorizationHeader = 'Bearer ' + token.access_token;
+      headers.append('Authorization', autorizationHeader);
+      headers.append('Content-Type', 'application/json');
+
+      return this.http.put(`${url}/messages`, JSON.stringify(messageModel),{ headers: headers })
+      .map((response: Response) => response.json())
+      .catch((error: any) => Observable.throw(error.json()) || 'Server output');
+    }
+
     handleError(error: any) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');

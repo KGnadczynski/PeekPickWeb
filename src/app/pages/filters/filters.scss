@@ -32,6 +32,8 @@ div#filterInside{
 	form#mainForm{
 		@include line(1, $blackColor, 94, 10);
 		overflow: hidden;
+		margin: auto;
+		width: 90%;
 		div.geolocationError{
 			@include pElement(16, 10, none, center);
 			clear: both;
@@ -170,7 +172,7 @@ div#checkboxDiv{
 	float: left;
 	clear: both;
 	width: 100%;
-	padding: 0 25px;
+	// padding: 0 25px;
 	div#checkboxes{
 		width: 5%;
 		@media(max-width: 575px){
