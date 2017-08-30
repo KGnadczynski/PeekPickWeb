@@ -62,14 +62,28 @@ div.mLine{
   }
 
   div.companyMenu {
+	@include button('przycisk.png', 16, 108, 47);
+    button{
+      display: initial;
+      margin: initial;
+      margin-top: 26px;
+    }
+	
     overflow: hidden;
 
-    div.login{
-        text-align: center;
-        margin: 3% 0;
-        overflow: hidden;
-        @include button('przycisk.png', 16, 160, 50);
-        
+    h5{
+		clear: both;
+		float: left;
+		color: $redColor;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 16px;
+		width: auto;
+		margin-top: 10px;
+		margin-left: 15px;
+		span{
+			font-size: 16px;
+			margin-left: 3px;
+		}
     }
 
     ng2-letter-avatar{

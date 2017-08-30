@@ -8,11 +8,12 @@ import { ProfileService } from '../../../pages/profile/profile.service';
 import { BaPageTopService } from '../../services';
 import { PAGES_MENU } from '../../../pages/pages.menu';
 import { Routes } from '@angular/router';
+import { MessagesService } from '../../../pages/messages/messages.service';
 
 @Component({
   selector: 'ba-menu',
   templateUrl: './baMenu.html',
-  providers: [ ProfileService ]
+  providers: [ ProfileService, MessagesService ]
 })
 
 export class BaMenu implements OnInit {
@@ -33,8 +34,9 @@ export class BaMenu implements OnInit {
   public companyName: string;
   public email: string;
   public isLoggedIn: boolean = false;
+  messagesCount: number;
 
-  constructor(private _router: Router, private _service: BaMenuService, private _state: GlobalState, private profileService: ProfileService, private pageTopService: BaPageTopService) {
+  constructor(private _router: Router, private _service: BaMenuService, private _state: GlobalState, private profileService: ProfileService, private pageTopService: BaPageTopService, private messageService: MessagesService) {
     this._service.loggedChange.subscribe((value) => {
         this.profileService.getUser().subscribe(
           user => {
@@ -92,7 +94,16 @@ export class BaMenu implements OnInit {
                 error => {
                     this.name = user.company.name;
                 }
-            )
+            );
+              
+            this.messageService.getMessageCount(user.company.id).subscribe(
+              count => {
+                this.messagesCount = count.count;
+                console.log('count:' + this.messagesCount);
+                console.dir(count);
+              }
+            );
+            
         },
         error => {
             console.log('not logged in, in bamenu component: ');

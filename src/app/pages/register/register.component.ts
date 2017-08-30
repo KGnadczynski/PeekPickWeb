@@ -17,15 +17,19 @@ import { PAGES_MENU_LOGGED } from '../pageslogged.menu';
 import { ProfileService } from '../profile/profile.service';
 import {AgmMap, MapsAPILoader } from '@agm/core';
 import { ModalDirective } from 'ng2-bootstrap/modal';
+import { ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 declare var window: any
 
 @Component({
 	selector: 'register',
 	encapsulation: ViewEncapsulation.None,
-	styles: [require('./register.scss')],
+	styles: [
+		require('./register.scss'),
+		require('../../../../node_modules/ng2-toasty/style-bootstrap.css')
+	],
 	template: require('./register.html'),
-	providers: [RegisterService,LoginService, ProfileService]
+	providers: [RegisterService,LoginService, ProfileService, ToastyService]
 })
 
 export class Register implements OnInit {
@@ -52,7 +56,7 @@ export class Register implements OnInit {
  	static latitude;
   	static  longitude;
  	isLocationCollapsed: boolean = true;
-  	error: any;
+  	// error: any;
   	geocoder:any;
  	registerError:boolean = false;
   	lat: number = 52.0409;
@@ -63,6 +67,8 @@ export class Register implements OnInit {
   	@ViewChild(AgmMap) sebmGoogleMap: any;
   
   	ngOnInit() {
+
+		
 
 	    this.registerService.getBranze().subscribe(
 			data => {
@@ -92,7 +98,9 @@ export class Register implements OnInit {
 	    private _menuService: BaMenuService,
 	    private pageTopService: BaPageTopService,
 	    private profileService: ProfileService,
-	    private mapsAPILoader: MapsAPILoader
+		private mapsAPILoader: MapsAPILoader,
+		private toastyService: ToastyService,
+		private toastyConfig: ToastyConfig,
   	){
 
 		this.mapsAPILoader.load().then(() => {
@@ -121,6 +129,20 @@ export class Register implements OnInit {
 	    this.password = this.passwords.controls['password'];
 	    this.repeatPassword = this.passwords.controls['repeatPassword'];
   	}
+
+	addToast(message: string): void {
+		let toastOptions: ToastOptions = {
+			title: 'Błąd',
+			msg: message,
+			showClose: true,
+			timeout: 5000,
+			theme: 'bootstrap',
+			onAdd: (toast: ToastData) => {},
+			onRemove: function(toast: ToastData) {}
+		};
+
+		this.toastyService.error(toastOptions);
+	}
 
   	public onSubmit(values: Object): void {
     	var value :any = {};
@@ -298,20 +320,32 @@ export class Register implements OnInit {
 					},
 					error => {
 						this.pageTopService.showLoadingBar(false);
-						console.dir('HELLO '+error);   
-						this.error= error;
+						// console.log('HELLO this is errror:');
+						this.addToast('error');
+						// console.dir(error);
+						/*if(error === 'PHONE_NUMBER_IS_USED'){
+							console.log('!!!!!!!!!!!!!!!!!!!!!! ERROR')
+							this.addToast('Podany');
+						}*/
+
+						/*this.error= error;
 						if(this.error.error_description === "PHONE_NUMBER_IS_USED") {
 							this.error.error_description = "Podany numer telefonu jest już w użyciu";
+							console.log('RARARAAAAAAAA');
+							this.addToast('Podany numer telefonu jest już w użyciu');
 						} else if (this.error.error_description === "EMAIL_IS_USED") {
 							this.error.error_description = "Podany email jest już w użyciu";
 						} else {
 							this.error.error_description = "Podany adres nie istnieje";
-						}
+						}*/
 					}
 				); 
 			},
 			error => {
 				this.pageTopService.showLoadingBar(false);
+				console.log('HELLO this is errror:');
+				// this.addToast(error);
+				console.dir(error);
 			}
 		);
 	}
@@ -372,5 +406,10 @@ export class Register implements OnInit {
 		this.selectedKategoria.name = name;
 		this.selectedKategoria.id = id;
 	}
+
+/*	testowaFunkcja(): void {
+		console.log('testowa fcja');
+		this.addToast('Meciej Zbierowski');
+	}*/
 
 }

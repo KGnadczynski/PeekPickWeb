@@ -7,6 +7,7 @@
 
 <div id="registerFormMain">
     <h1>Rejestracja</h1>
+    <ng2-toasty [position]="'bottom-right'"></ng2-toasty>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
       <div class="formRegDiv" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
@@ -95,9 +96,10 @@
       <div class="buttons">
         <button [ngClass]="{valid: (form.valid), invalid: (!form.valid)}" [disabled]="!form.valid" type="submit">utwórz konto</button>
         <!-- <button routerLink="/pages/login">zaloguj</button> -->
-        <div *ngIf="error" class="alert alert-danger">
+        <!-- <div *ngIf="error" class="alert alert-danger">
           {{error.error_description}}
-        </div>
+        </div> -->
+        <!-- <button (click)="testowaFunkcja()">testowa/</button> -->
       </div>
       
     </form>

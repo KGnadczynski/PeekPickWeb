@@ -36,11 +36,38 @@
 
 <div id="companyInfo">
 
-    <div id="header">
+    <div class="header">
+        <h3>zmień e-mail</h3>
+    </div>
+
+        <form class="changeEP" [formGroup]="emailForm" (ngSubmit)="updateEmail(emailForm.value)">
+            <div>
+                <input type="email" id="email" formControlName="email" placeholder="nowe e-mail">
+                <div class="errorDiv" *ngIf="emailForm.controls['email'].hasError('required') && emailForm.controls['email'].touched">
+                    musisz wpisać e-mail
+                </div>
+                <div *ngIf="emailForm.controls['email'].hasError('email') && emailForm.controls['email'].touched" class="errorDiv">
+                    niepoprawny adres e-mail
+                </div>
+            </div>
+    
+            <div>
+                <input type="password" id="password" placeholder="stare hasło" formControlName="password">
+                <div class="errorDiv"
+                    *ngIf="emailForm.controls['password'].touched && !emailForm.controls['password'].valid">
+                    Musisz wpisać stare hasło
+                </div>
+            </div>
+
+            <button [ngClass]="{valid: (emailForm.valid), invalid: (!emailForm.valid)}" type="submit" [disabled]="!emailForm.valid">Zapisz</button>
+            
+        </form>
+
+    <div class="header">
         <h3 (click) = "isCollapse = !isCollapse">zmień hasło</h3>
     </div>
 
-    <form [collapse]="isCollapse" id="changeEP" [formGroup]="passwordForm" (ngSubmit)="udpatePassword(passwordForm.value)">
+    <form [collapse]="isCollapse" class="changeEP" [formGroup]="passwordForm" (ngSubmit)="udpatePassword(passwordForm.value)">
         <div [ngClass]="{'has-error': passwordForm.controls['oldPassword'].touched}">
             <input type="password" id="oldPassword" placeholder="stare hasło" [formControl]="passwordForm.controls['oldPassword']">
             <div class="errorDiv"
@@ -58,6 +85,9 @@
         <button type="submit" [disabled]="!passwordForm.valid">Zapisz</button>
         
     </form>
+
+    
+
     <div class="errorDiv">
         <span *ngIf="messageAfter">Pomyślnie zmieniono hasło</span>
     </div>

@@ -95,11 +95,11 @@
 			</div>
 			
 			<div *ngIf="dest === 'profile' || dest === 'active' || dest === 'ended'" class="actions">
-				<div id="edit">
-					<button [routerLink]="['/pages/edit_message', message.id]">edytuj}</button>
+				<div id="edit" *ngIf="dest === 'active'">
+					<button [routerLink]="['/pages/edit_message', message.id]">edytuj</button>
 				</div>
-				<div id="continue">
-					<button href="#">przedłuż</button>
+				<div id="continue" >
+					<button href="#" *ngIf="dest === 'ended'">powtórz</button>
 				</div>
 				<div id="delete">
 					<button mwlConfirmationPopover [title]="title" placement="left" (confirm)="deleteMessage(message.id)"

@@ -113,6 +113,11 @@ export class MessagesService{
         return listing;
     }
 
+    getMessageCount(id: number): Observable<any>  {
+        return this.http.get(url + '/messages/companyId/' + id + '/count').map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
+    }
+
     handleError(error: any){
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');

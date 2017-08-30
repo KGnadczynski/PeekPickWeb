@@ -18,6 +18,7 @@ export class ProfileEditComponent implements OnInit {
 
     passwordForm: FormGroup;
     companyForm: FormGroup;
+    emailForm: FormGroup;
     messageAfter: boolean = false;
     messageAfterUpdateCompany: boolean = false;
     companyBranches: any[];
@@ -52,6 +53,11 @@ export class ProfileEditComponent implements OnInit {
                 'street': '',
                 'streetNo': ''
             }),
+        });
+
+        this.emailForm = fb.group({
+            'email': ['', Validators.compose([Validators.email, Validators.required])],
+            'password': ['', Validators.compose([Validators.required])]
         });
     }
 
@@ -141,20 +147,22 @@ export class ProfileEditComponent implements OnInit {
         
     }
 
-    // addCompanyImage(): void {
-    //     if(this.fileUpload.file != null){
-    //         this.profileService.getUser().subscribe(user => {
-    //             this.profileService.addCompanyImage(new ImageModel(user.company.id, this.fileUpload.file)).subscribe(
-    //                 data => {
-    //                     this.imageUrl = data.imageUrl;
-    //                     this.name = null;
-    //                     this.menuService.changeImage(data.imageUrl);
-    //                     this.sendImage.emit(data.imageUrl);
-    //                 },
-    //                 error => {}
-    //             );
-    //         });
-    //     }
-    // }
+    updateEmail(value: any): void{
+
+        console.log('value');
+        console.dir(value);
+        
+        this.profileService.updateEmail(value).subscribe(
+            updated => {
+                console.log('updated:');
+                console.dir(updated);
+            },
+            error =>{
+                console.log('error:');
+                console.dir(error);
+            }
+        )
+
+    }
 
 }

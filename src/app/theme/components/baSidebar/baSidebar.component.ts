@@ -1,14 +1,13 @@
-import {Component, ElementRef, HostListener} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
 import {GlobalState} from '../../../global.state';
 import {layoutSizes} from '../../../theme';
-
 import 'style-loader!./baSidebar.scss';
 
 @Component({
   selector: 'ba-sidebar',
-  templateUrl: './baSidebar.html'
+  templateUrl: './baSidebar.html',
 })
-export class BaSidebar {
+export class BaSidebar implements OnInit{
   // public menuHeight:number;
   public isMenuCollapsed:boolean = false;
   public isMenuShouldCollapsed:boolean = false;
@@ -22,7 +21,8 @@ export class BaSidebar {
 
   }
 
-  public ngOnInit():void {
+  ngOnInit(): void {
+	
     if (this._shouldMenuCollapse()) {
       this.menuCollapse();
     }

@@ -190,4 +190,15 @@ export class ProfileService{
         .map((response: Response) => response.json())
         .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
+
+    updateEmail(body: any): Observable<any>{
+
+        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        let token = currentUser.token;
+        let headers = new Headers({'Authorization': 'Bearer '+ token.access_token});
+
+        return this.http.put(url + '/users/email', body, {headers: headers})
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
+    }
 }

@@ -2,8 +2,9 @@
 @import "../../profile.scss";
 
 div#companyInfo{
-    div#header{
+    div.header{
         text-align: center;
+        margin-top: 15px;
         h3{
             @include margin(5, 5);
             font-size: 20px;
@@ -16,11 +17,14 @@ div#companyInfo{
         }
     }
     
-    form#changeEP{
+    form.changeEP{
         @include inputBlack(20, 17, 60);
         @include button('przycisk.png', 16, 160, 50);
         button {
             margin-top: 20px;
+            &.invalid{
+                color: $blackColor;
+            }
         }
     }
 }
