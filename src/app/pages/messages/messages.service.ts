@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import { url } from '../../globals/url';
 import { MessageList } from './messageList.model';
 import { ObjectList} from '../messages/message';
+import { Subject } from 'rxjs/Subject';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -16,8 +17,14 @@ export class MessagesService{
     latitude:number;
     longitude: number;
     public token: any;
+    changeImageSubject: Subject<string> = new Subject<string>();
 
     constructor(private http: Http){}
+
+    changeImage(url: string): void {
+        console.log('changing image');
+        this.changeImageSubject.next(url);
+    }
 
     getMessages(page: any, latitude: number, longitude: number) : Observable<MessageList>{
 

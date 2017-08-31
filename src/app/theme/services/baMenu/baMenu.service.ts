@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router, Routes} from '@angular/router';
 import * as _ from 'lodash';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
@@ -9,12 +10,14 @@ export class BaMenuService {
   
   menuItems = new BehaviorSubject<any[]>([]);
   loggedChange: Subject<number> = new Subject<number>();
-  imageChange: Subject<string> = new Subject<string>();
+  public imageChange: Subject<any>;
 
   protected _currentMenuItem = {};
   protected _previousMenuItem = {};
 
-  constructor(private _router:Router) { }
+  constructor(private _router:Router) {
+	  this.imageChange = new Subject();
+  }
 
   changedLoggedFlag(companyId:number):void {
       this.loggedChange.next(companyId)

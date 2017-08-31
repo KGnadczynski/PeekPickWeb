@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import { BaMenuService } from '../../services';
 import { GlobalState } from '../../../global.state';
 import 'style-loader!./baMenu.scss';
@@ -11,170 +11,173 @@ import { Routes } from '@angular/router';
 import { MessagesService } from '../../../pages/messages/messages.service';
 
 @Component({
-  selector: 'ba-menu',
-  templateUrl: './baMenu.html',
-  providers: [ ProfileService, MessagesService ]
+	selector: 'ba-menu',
+	templateUrl: './baMenu.html',
+	providers: [ProfileService, MessagesService ]
 })
 
 export class BaMenu implements OnInit {
 
-  @Input() sidebarCollapsed: boolean = false;
-  @Input() menuHeight: number;
-  @Output() expandMenu = new EventEmitter<any>();
+	@Input() sidebarCollapsed: boolean = false;
+	@Input() menuHeight: number;
+	@Output() expandMenu = new EventEmitter<any>();
 
-  public menuItems: any[];
-  protected _menuItemsSub: Subscription;
-  public showHoverElem: boolean;
-  public hoverElemHeight: number;
-  public hoverElemTop: number;
-  protected _onRouteChange: Subscription;
-  public outOfArea: number = -200;
-  public imageUrl: string;
-  public name: string;
-  public companyName: string;
-  public email: string;
-  public isLoggedIn: boolean = false;
-  messagesCount: number;
+	public menuItems: any[];
+	protected _menuItemsSub: Subscription;
+	public showHoverElem: boolean;
+	public hoverElemHeight: number;
+	public hoverElemTop: number;
+	protected _onRouteChange: Subscription;
+	public outOfArea: number = -200;
+	public imageUrl: string;
+	public name: string;
+	public companyName: string;
+	public email: string;
+	public isLoggedIn: boolean = false;
+	messagesCount: number;
+	subscription: Subscription;
 
-  constructor(private _router: Router, private _service: BaMenuService, private _state: GlobalState, private profileService: ProfileService, private pageTopService: BaPageTopService, private messageService: MessagesService) {
-    this._service.loggedChange.subscribe((value) => {
-        this.profileService.getUser().subscribe(
-          user => {
-              this.isLoggedIn = true;
-              this.companyName = user.company.name;
-              this.email = user.email;
-              this.profileService.getUserImages(value).subscribe(
-                  images => {
-                      this.imageUrl = images.imageUrl;
-                  },
-                  error => {
-                      this.name = user.company.name;
-                  }
-              );
-              this.messageService.getMessageCount(user.company.id).subscribe(
-                count => {
-                  this.messagesCount = count.credit;
-                  console.log('count from constructor:' + this.messagesCount);
-                  console.dir(count);
-                }
-              );
-          },
-          error => {
-              this.isLoggedIn = false;
-          }
-        )
-    });
+	constructor(private _router: Router, private _service: BaMenuService, private _state: GlobalState, private profileService: ProfileService, private pageTopService: BaPageTopService, private messageService: MessagesService) {
+		console.log('constructor in menu works');
+		this._service.imageChange.subscribe((url) => {
+			this.imageUrl = url;
+			this.name = null;
+		});
 
-    this._service.imageChange.subscribe((url) => {
-        this.imageUrl = url;
-        this.name = null;
-    });
-  }
+		this._service.loggedChange.subscribe((value) => {
+			this.profileService.getUser().subscribe(
+				user => {
+					this.isLoggedIn = true;
+					this.companyName = user.company.name;
+					this.email = user.email;
+					this.profileService.getUserImages(value).subscribe(
+							images => {
+									this.imageUrl = images.imageUrl;
+							},
+							error => {
+									this.name = user.company.name;
+							}
+					);
+					this.messageService.getMessageCount(user.company.id).subscribe(
+						count => {
+							this.messagesCount = count.credit;
+							console.log('count from constructor:' + this.messagesCount);
+							console.dir(count);
+						}
+					);
+				},
+				error => {
+					this.isLoggedIn = false;
+				}
+			)
+		});
 
-  public updateMenu(newMenuItems) {
-    this.menuItems = newMenuItems;
-    this.selectMenuAndNotify();
-  }
+		
+	}
 
-  public selectMenuAndNotify(): void {
-    if (this.menuItems) {
-      this.menuItems = this._service.selectMenuItem(this.menuItems);
-      this._state.notifyDataChanged('menu.activeLink', this._service.getCurrentItem());
-    }
-  }
+	public updateMenu(newMenuItems) {
+		this.menuItems = newMenuItems;
+		this.selectMenuAndNotify();
+	}
 
-  ngOnInit(): void {
+	public selectMenuAndNotify(): void {
+		if (this.menuItems) {
+			this.menuItems = this._service.selectMenuItem(this.menuItems);
+			this._state.notifyDataChanged('menu.activeLink', this._service.getCurrentItem());
+		}
+	}
 
-    this.profileService.getUser().subscribe(
-        user => {
-            console.log('logged in: ');
-            console.dir(user);
-            this.companyName = user.company.name;
-            this.email = user.email;
-            this.isLoggedIn = true;
-            this.profileService.getUserImages(user.company.id).subscribe(
-                images => {
-                    this.imageUrl = images.imageUrl;
-                    console.log('images:');
-                    console.dir(images);
-                },
-                error => {
-                    this.name = user.company.name;
-                }
-            );
-              
-            this.messageService.getMessageCount(user.company.id).subscribe(
-              count => {
-                this.messagesCount = count.credit;
-                console.log('count:' + this.messagesCount);
-                console.dir(count);
-              }
-            );
-            
-        },
-        error => {
-            console.log('not logged in, in bamenu component: ');
-            console.dir(error);
-            this.isLoggedIn = false;
-            this._service.updateMenuByRoutes(<Routes>PAGES_MENU);
-        }
-    )
+	ngOnInit(): void {
 
-    this._onRouteChange = this._router.events.subscribe((event) => {
+		this.profileService.getUser().subscribe(
+				user => {
+					console.log('logged in: ');
+					console.dir(user);
+					this.companyName = user.company.name;
+					this.email = user.email;
+					this.isLoggedIn = true;
+					this.profileService.getUserImages(user.company.id).subscribe(
+							images => {
+								this.imageUrl = images.imageUrl;
+								console.log('images:');
+								console.dir(images);
+							},
+							error => {
+								this.name = user.company.name;
+							}
+					);
+						
+					this.messageService.getMessageCount(user.company.id).subscribe(
+						count => {
+							this.messagesCount = count.credit;
+							console.log('count:' + this.messagesCount);
+							console.dir(count);
+						}
+					);
+				},
+				error => {
+					console.log('not logged in, in bamenu component: ');
+					console.dir(error);
+					this.isLoggedIn = false;
+					this._service.updateMenuByRoutes(<Routes>PAGES_MENU);
+				}
+		)
 
-      if (event instanceof NavigationEnd) {
-        if (this.menuItems) {
-          this.selectMenuAndNotify();
-        } else {
-          // on page load we have to wait as event is fired before menu elements are prepared
-          setTimeout(() => this.selectMenuAndNotify());
-        }
-      }
-    });
+		this._onRouteChange = this._router.events.subscribe((event) => {
 
-    this._menuItemsSub = this._service.menuItems.subscribe(this.updateMenu.bind(this));
-  }
+			if (event instanceof NavigationEnd) {
+				if (this.menuItems) {
+					this.selectMenuAndNotify();
+				} else {
+					// on page load we have to wait as event is fired before menu elements are prepared
+					setTimeout(() => this.selectMenuAndNotify());
+				}
+			}
+		});
 
-  public ngOnDestroy(): void {
-    this._onRouteChange.unsubscribe();
-    this._menuItemsSub.unsubscribe();
-  }
+		this._menuItemsSub = this._service.menuItems.subscribe(this.updateMenu.bind(this));
+	}
 
-  public hoverItem($event): void {
-    this.showHoverElem = true;
-    this.hoverElemHeight = $event.currentTarget.clientHeight;
-    // TODO: get rid of magic 66 constant
-    this.hoverElemTop = $event.currentTarget.getBoundingClientRect().top - 66;
-  }
+	public ngOnDestroy(): void {
+		this._onRouteChange.unsubscribe();
+		this._menuItemsSub.unsubscribe();
+	}
 
-  public toggleSubMenu($event): boolean {
-    let submenu = jQuery($event.currentTarget).next();
+	public hoverItem($event): void {
+		this.showHoverElem = true;
+		this.hoverElemHeight = $event.currentTarget.clientHeight;
+		// TODO: get rid of magic 66 constant
+		this.hoverElemTop = $event.currentTarget.getBoundingClientRect().top - 66;
+	}
 
-    if (this.sidebarCollapsed) {
-      this.expandMenu.emit(null);
-      if (!$event.item.expanded) {
-        $event.item.expanded = true;
-      }
-    } else {
-      $event.item.expanded = !$event.item.expanded;
-      submenu.slideToggle();
-    }
+	public toggleSubMenu($event): boolean {
+		let submenu = jQuery($event.currentTarget).next();
 
-    return false;
-  }
+		if (this.sidebarCollapsed) {
+			this.expandMenu.emit(null);
+			if (!$event.item.expanded) {
+				$event.item.expanded = true;
+			}
+		} else {
+			$event.item.expanded = !$event.item.expanded;
+			submenu.slideToggle();
+		}
 
-  logout(): void {
-      console.log('logging out');
-      localStorage.removeItem('currentUserToken');
-      localStorage.removeItem('user');
-      localStorage.removeItem('isTokenFCMRegister'); 
-      localStorage.removeItem('latitude');
-      localStorage.removeItem('longitude');
-      this._service.changedLoggedFlag(-1);
-      this.pageTopService.changedLoggedFlag(-1);
-      this.pageTopService.showLoadingBar(false);
-      this._service.updateMenuByRoutes(<Routes>PAGES_MENU );
-      this._router.navigate(['/komunikat']);
-      this._service.updateMenuByRoutes(<Routes>PAGES_MENU);
-  }
+		return false;
+	}
+
+	logout(): void {
+			console.log('logging out');
+			localStorage.removeItem('currentUserToken');
+			localStorage.removeItem('user');
+			localStorage.removeItem('isTokenFCMRegister'); 
+			localStorage.removeItem('latitude');
+			localStorage.removeItem('longitude');
+			this._service.changedLoggedFlag(-1);
+			this.pageTopService.changedLoggedFlag(-1);
+			this.pageTopService.showLoadingBar(false);
+			this._service.updateMenuByRoutes(<Routes>PAGES_MENU );
+			this._router.navigate(['/komunikat']);
+			this._service.updateMenuByRoutes(<Routes>PAGES_MENU);
+	}
 }

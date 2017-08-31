@@ -6,6 +6,7 @@ import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper'
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { BaMenuService } from '../../theme';
 import { ProfileService } from './profile.service';
+import { MessagesService } from '../messages/messages.service';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -14,7 +15,7 @@ let moment = require('../../../../node_modules/moment/moment');
   encapsulation: ViewEncapsulation.None,
   styles: [require('./profile.scss')],
   template: require('./profile.html'),
-  providers: [ProfileService, BaMenuService]
+  providers: [ProfileService, MessagesService]
 })
 
 export class ProfileComponent implements OnInit {
@@ -38,7 +39,7 @@ export class ProfileComponent implements OnInit {
     image:any;
     myReader: FileReader;
 
-    constructor(private http: Http, private profileService: ProfileService, private router: Router, private menuService: BaMenuService){
+    constructor(private http: Http, private profileService: ProfileService, private router: Router, private menuService: BaMenuService, private messageService: MessagesService){
 
         this.cropperSettings = new CropperSettings();
         this.cropperSettings.width = 200;
@@ -137,11 +138,13 @@ export class ProfileComponent implements OnInit {
             user => {
                 this.profileService.addImage(o, user.company.id).subscribe(
                     images => {
+                        
                         console.log('added photo');
                         console.dir(images);
                         this.otherImgs = images;
-                        this.name = null;
                         this.menuService.changeImage(images.imageUrl);
+                        this.messageService.changeImage(images.imageUrl);
+                        this.name = null;
                     },
                     error => {
                         console.dir(error);

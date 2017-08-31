@@ -6,6 +6,7 @@ import { MessageList } from './messageList.model';
 import { BaPageTopService} from '../../theme';
 import { KomunikatServiceComponent } from '../komunikat-single/komunikat-single.service';
 import { ObjectList } from '../komunikat/komunikat';
+import { ProfileService } from '../profile/profile.service';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -14,7 +15,7 @@ let moment = require('../../../../node_modules/moment/moment');
     encapsulation: ViewEncapsulation.None,
     styles: [require('./messages.scss')],
     template: require('./messages.component.html'),
-    providers: [ MessagesService, KomunikatServiceComponent, {provide: LOCALE_ID, useValue: "pl"} ]
+    providers: [ MessagesService, KomunikatServiceComponent, {provide: LOCALE_ID, useValue: "pl"}, ProfileService ]
 })
 
 export class MessagesComponent implements OnInit{
@@ -53,6 +54,15 @@ export class MessagesComponent implements OnInit{
     ){
         let moment = require('../../../../node_modules/moment/moment.js');
         moment.locale('pl');
+
+        this.messageService.changeImageSubject.subscribe(
+            url => {
+                console.log('IM GETTING URL IN MESSAGES COMPONENT');
+                this.messageList.messages.forEach(m => {
+                    m.mainImageUrl = url;
+                });
+            }
+        );
     }
 
     ngOnInit():void{
