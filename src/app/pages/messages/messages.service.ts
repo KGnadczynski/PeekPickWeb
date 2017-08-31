@@ -114,8 +114,15 @@ export class MessagesService{
     }
 
     getMessageCount(id: number): Observable<any>  {
-        return this.http.get(url + '/messages/companyId/' + id + '/count').map((response: Response) => response.json())
+
+        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        let token = currentUser.token;
+        let headers = new Headers({'Authorization': 'Bearer '+ token.access_token});
+
+        return this.http.get(url + '/companycredits/companyId/' + id, {headers: headers}).map((response: Response) => response.json())
         .catch((error: any) => Observable.throw(error.json()) || 'Server output');
+        //return this.http.get(url + '/messages/companyId/' + id + '/count').map((response: Response) => response.json())
+        //.catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
 
     handleError(error: any){

@@ -53,7 +53,7 @@ export class BaMenu implements OnInit {
               );
               this.messageService.getMessageCount(user.company.id).subscribe(
                 count => {
-                  this.messagesCount = count.count;
+                  this.messagesCount = count.credit;
                   console.log('count from constructor:' + this.messagesCount);
                   console.dir(count);
                 }
@@ -105,7 +105,7 @@ export class BaMenu implements OnInit {
               
             this.messageService.getMessageCount(user.company.id).subscribe(
               count => {
-                this.messagesCount = count.count;
+                this.messagesCount = count.credit;
                 console.log('count:' + this.messagesCount);
                 console.dir(count);
               }
