@@ -51,6 +51,13 @@ export class BaMenu implements OnInit {
                       this.name = user.company.name;
                   }
               );
+              this.messageService.getMessageCount(user.company.id).subscribe(
+                count => {
+                  this.messagesCount = count.count;
+                  console.log('count from constructor:' + this.messagesCount);
+                  console.dir(count);
+                }
+              );
           },
           error => {
               this.isLoggedIn = false;
