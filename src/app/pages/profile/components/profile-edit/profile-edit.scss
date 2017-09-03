@@ -2,6 +2,7 @@
 @import "../../profile.scss";
 
 div#companyInfo{
+    margin-top: 15px;
 
     div.removeDiv{
         @include button('przycisk.png', 16, 160, 50);
@@ -9,9 +10,10 @@ div#companyInfo{
 
     div.header{
         text-align: center;
-        margin-top: 15px;
+        margin: 10px 0;
         h3{
-            @include margin(5, 5);
+            // @include margin(5, 5);
+            margin: 0;
             font-size: 20px;
             font-family: $sanchezFont, serif;
             color: $redColor;
@@ -35,10 +37,7 @@ div#companyInfo{
 }
 div#editProfile{
 
-    
-
     margin: auto;
-    margin-bottom: 2%;
     @media(max-width: 565px){
         width: 90%;
     }
@@ -53,15 +52,15 @@ div#editProfile{
     }
     div#editH{
         text-align: center;
-        margin: 3% 0;
+        margin: 10px 0;
         h3{
-            margin: 5px 0;
             font-size: 20px;
             font-family: $sanchezFont, serif;
             color: $redColor;
             display: inline-block;
             width: auto;
             font-weight: normal;
+            margin: 0;
         }
     }
     

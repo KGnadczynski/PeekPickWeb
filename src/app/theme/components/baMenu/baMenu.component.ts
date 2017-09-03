@@ -38,7 +38,6 @@ export class BaMenu implements OnInit {
 	subscription: Subscription;
 
 	constructor(private _router: Router, private _service: BaMenuService, private _state: GlobalState, private profileService: ProfileService, private pageTopService: BaPageTopService, private messageService: MessagesService) {
-		console.log('constructor in menu works');
 		this._service.imageChange.subscribe((url) => {
 			this.imageUrl = url;
 			this.name = null;
@@ -61,8 +60,6 @@ export class BaMenu implements OnInit {
 					this.messageService.getMessageCount(user.company.id).subscribe(
 						count => {
 							this.messagesCount = count.credit;
-							console.log('count from constructor:' + this.messagesCount);
-							console.dir(count);
 						}
 					);
 				},
@@ -91,8 +88,6 @@ export class BaMenu implements OnInit {
 
 		this.profileService.getUser().subscribe(
 				user => {
-					console.log('logged in: ');
-					console.dir(user);
 					this.companyName = user.company.name;
 					this.email = user.email;
 					this.isLoggedIn = true;
@@ -110,14 +105,10 @@ export class BaMenu implements OnInit {
 					this.messageService.getMessageCount(user.company.id).subscribe(
 						count => {
 							this.messagesCount = count.credit;
-							console.log('count:' + this.messagesCount);
-							console.dir(count);
 						}
 					);
 				},
 				error => {
-					console.log('not logged in, in bamenu component: ');
-					console.dir(error);
 					this.isLoggedIn = false;
 					this._service.updateMenuByRoutes(<Routes>PAGES_MENU);
 				}

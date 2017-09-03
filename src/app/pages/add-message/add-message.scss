@@ -180,12 +180,32 @@ div.daterangepicker {
     z-index: 1051;
     @media(min-width: 992px){
         left: 45% !important;
-        width: 30% !important;
+        width: 340px !important;
     }
 
     div.calendar{
         float: none !important;
         margin: auto !important;
+        div.calendar-time{
+            select{
+                text-indent: 1px;
+                text-overflow: '';
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                padding-left: 10px;
+            }
+        }
+        div.calendar-table{
+            table.table-condensed{
+                select{
+                    text-indent: 1px;
+                    text-overflow: '';
+                    -moz-appearance: none;
+                    -webkit-appearance: none;
+                    padding-left: 10px;
+                }
+            }
+        }
     }
 
     td.active{

@@ -107,13 +107,13 @@
         input[type=#{$checkOrRadio}]:checked + label:after{
             opacity: 1;
         }
-        
-        input[type=#{$checkOrRadio}]:checked + label:after{
-            opacity: 1;
-        }
 
         input[type=#{$checkOrRadio}] + label.changed:after{
             opacity: 1;
+        }
+
+        input[type=#{$checkOrRadio}] + label.unchanged:after{
+            opacity: 0;
         }
 
         input[type=#{$checkOrRadio}]{

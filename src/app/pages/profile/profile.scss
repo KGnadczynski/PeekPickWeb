@@ -37,6 +37,7 @@ div.modal-content{
         overflow: hidden;
         div.header{
             position: relative;
+            margin: 10px 0;
             @media(max-width: 565px){
                 margin-top: 10px;
             }
@@ -214,7 +215,7 @@ div#profile{
     div.errorDiv{
         color: $redColor;
         text-align: center;
-        padding: 2% 0;
+        margin: 10px 0;
     }
 
     img.companyImg{

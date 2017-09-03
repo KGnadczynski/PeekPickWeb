@@ -26,9 +26,7 @@
 	height: 0 !important;
   }
 
-  ::-moz-scrollbar {
-	width: 0 !important;
-	}
+  .al-sidebar{ margin-right:-14px!important; overflow-y:scroll; overflow-x:hidden;}
 
   ::-webkit-scrollbar-thumb {
     background: $foreground-color;

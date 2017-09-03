@@ -16,7 +16,7 @@
 				<div *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="alert alert-danger">Wpisz hasło.</div>
 			</div>
 			<div class="actionButtons">
-				<a routerLink="/login">zapomniałem hasła</a>
+				<a routerLink="/pages/change-password">zapomniałem hasła</a>
 				<button [ngClass]="{'disabled': !form.valid}" [disabled]="!form.valid" type="submit">zaloguj</button>
 
 				<div *ngIf="error" class="alert alert-danger">

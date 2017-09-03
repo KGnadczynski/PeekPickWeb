@@ -6,16 +6,16 @@
 		<div class="message" *ngFor="let message of messageList.messages">
 			
 			<div class="message-icon">
-				<a *ngIf="message.user.company.mainImageUrl" [routerLink]="['/pages/company', message.nearestCompanyBranch.company.id]">
+				<a *ngIf="message.user.company.mainImageUrl" [routerLink]="['/pages/company', message.user.company.id]">
 					<img *ngIf="message.user.company.mainImageUrl" class="photo-icon" src="{{ message.user.company.mainImageUrl }}">
 				</a>
-				<a *ngIf="!message.user.company.mainImageUrl" [routerLink]="['/pages/company', message.nearestCompanyBranch.company.id]">
-					<ng2-letter-avatar *ngIf="!message.user.company.mainImageUrl" avatar-data='{{message.user.company.name}}' ></ng2-letter-avatar>
+				<a *ngIf="!message.user.company.mainImageUrl" [routerLink]="['/pages/company', message.user.company.id]">
+					<ng2-letter-avatar *ngIf="!message.user.company.mainImageUrl" avatar-data='{{message.user.company.name}}'></ng2-letter-avatar>
 				</a>
 			</div>
 
 			<div class="message-text-block">
-				<a [routerLink]="['/pages/company', message.nearestCompanyBranch.company.id]" (click)='$event.stopPropagation()'>
+				<a [routerLink]="['/pages/company', message.user.company.id]" (click)='$event.stopPropagation()'>
 					{{ message.user.name }}
 				</a>
 				<p>{{ message.user.company.category.name }}</p>

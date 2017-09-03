@@ -343,6 +343,11 @@ export class AddMessageComponent implements OnInit {
     }
 
     selectEndDate(message) {
+        if($('#checkboxAdd + label').hasClass('changed')){
+            this.isCollapsed = !this.isCollapsed;
+            $('#checkboxAdd + label').removeClass('changed');
+            $('#checkboxAdd + label').addClass('unchanged');
+        }
         this.msgAddModel.endDate = moment(new Date(message.end._d)).format("YYYY-MM-DD HH:mm:ss");
         if(this.msgAddModel.startDate && this.msgAddModel.endDate){
             if(this.msgAddModel.startDate > this.msgAddModel.endDate){
@@ -386,8 +391,10 @@ export class AddMessageComponent implements OnInit {
 
         if($('#checkboxAdd + label').hasClass('changed')){
             $('#checkboxAdd + label').removeClass('changed');
+            $('#checkboxAdd + label').addClass('unchanged');
         } else {
             $('#checkboxAdd + label').addClass('changed');
+            $('#checkboxAdd + label').removeClass('unchanged');
         }
     }
 
