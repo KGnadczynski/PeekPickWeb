@@ -200,6 +200,12 @@ div.message{
         width: 100%;
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        div.info{
+            font-family: $openSansFont, sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+        }
         div#edit, div#continue, div#delete {
             @include button('przycisk.png', 16, 140, 50);
             cursor: pointer;

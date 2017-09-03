@@ -68,6 +68,7 @@ export interface ObjectList {
   mainImageUrl: string;
   companyBranchCount: number;
   nearestCompanyBranch?: NearestCompanyBranch;
+  info: string;
 }
 
 

@@ -2,6 +2,11 @@
 @import "../../profile.scss";
 
 div#companyInfo{
+
+    div.removeDiv{
+        @include button('przycisk.png', 16, 160, 50);
+    }
+
     div.header{
         text-align: center;
         margin-top: 15px;
@@ -29,6 +34,9 @@ div#companyInfo{
     }
 }
 div#editProfile{
+
+    
+
     margin: auto;
     margin-bottom: 2%;
     @media(max-width: 565px){
@@ -92,7 +100,7 @@ div#editProfile{
         div#name{
             margin: 0;
             float: right;
-            width: 60%;
+            width: 100%;
             padding-left: 5px;
         }
         div#address{

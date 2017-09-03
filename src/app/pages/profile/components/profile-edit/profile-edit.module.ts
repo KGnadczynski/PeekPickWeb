@@ -5,9 +5,13 @@ import { ProfileEditComponent } from './profile-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../../../../theme/nga.module';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 @NgModule({
-    imports: [ routing, FormsModule, ReactiveFormsModule, CommonModule, NgaModule, CollapseModule ],
+    imports: [ routing, FormsModule, ReactiveFormsModule, CommonModule, NgaModule, CollapseModule, ConfirmationPopoverModule.forRoot({
+        confirmText: 'usuń',
+        cancelText: 'anuluj'
+    }), ],
     declarations: [ ProfileEditComponent ],
     exports: [ProfileEditComponent ]
 })

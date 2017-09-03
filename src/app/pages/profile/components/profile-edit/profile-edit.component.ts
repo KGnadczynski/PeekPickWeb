@@ -3,8 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EqualPasswordsValidator } from '../../../../theme/validators';
 import { ProfileService } from '../../profile.service';
 import { ImageModel } from '../../../add-message/imagemodel';
-import { BaMenuService } from '../../../../theme';
+import { BaMenuService, BaPageTopService } from '../../../../theme';
 import { NgUploaderOptions } from 'ngx-uploader';
+import { Router, Routes } from '@angular/router';
+import { PAGES_MENU } from '../../../../pages/pages.menu';
 
 @Component({
   selector: 'profile-edit',
@@ -19,7 +21,6 @@ export class ProfileEditComponent implements OnInit {
     passwordForm: FormGroup;
     companyForm: FormGroup;
     emailForm: FormGroup;
-    messageAfter: boolean = false;
     messageAfterUpdateCompany: boolean = false;
     companyBranches: any[];
     imageUrl: string = "";
@@ -32,12 +33,17 @@ export class ProfileEditComponent implements OnInit {
     //     url: '',
     // };
     isCollapse:boolean = true;
+    afterEmailChange: string = "";
+    afterPasswordChange: string = "";
+    title: string = "czy jesteś pewien że chcesz usunąć konto?";
 
     @Input() otherUser: any;
     // @ViewChild('fileUpload') fileUpload:any;
     @Output() sendImage: EventEmitter<string> = new EventEmitter<string>();
+    confirmClicked: boolean = false;
+    cancelClicked: boolean = false;
 
-    constructor(private fb: FormBuilder, private profileService: ProfileService, private menuService: BaMenuService){
+    constructor(private fb: FormBuilder, private profileService: ProfileService, private menuService: BaMenuService, private pageTopService: BaPageTopService, private router: Router){
         this.passwordForm = fb.group({
             'oldPassword': [null, Validators.required],
             'passwords': fb.group({
@@ -97,10 +103,15 @@ export class ProfileEditComponent implements OnInit {
     }
 
     udpatePassword(values: any){
-        this.profileService.updateUserPassword(values.oldPassword, values.passwords.password).subscribe(result => {
-            this.passwordForm.reset();
-            this.messageAfter = true;
-        });
+        this.profileService.updateUserPassword(values.oldPassword, values.passwords.password).subscribe(
+            result => {
+                this.passwordForm.reset();
+                this.afterPasswordChange = "Pomyślnie zmieniono hasło";
+            },
+            error => {
+
+            }
+        );
     }
 
     udpateCompanyName(value: any){
@@ -156,13 +167,48 @@ export class ProfileEditComponent implements OnInit {
             updated => {
                 console.log('updated:');
                 console.dir(updated);
+                this.afterEmailChange = "Pomyślnie zmieniono e-mail";
             },
             error =>{
                 console.log('error:');
                 console.dir(error);
+                if(error.error === 'EMAIL_ADDRESS_IS_USED')
+                    this.afterEmailChange = "Podano aktualny email";
+                else if(error.error === 'WRONG_PASSWORD')
+                    this.afterEmailChange = "Podano nieprawidłowe hasło";
             }
-        )
+        );
 
+        this.emailForm.reset();
+
+    }
+
+    removeUser(): void {
+
+        this.profileService.getUser().subscribe(
+            user => {
+                this.profileService.removeUser(user.id).subscribe(
+                    removedUser => {
+                        console.log('removed user:');
+                        console.dir(removedUser);
+                        console.log('logging out');
+                        localStorage.removeItem('currentUserToken');
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('isTokenFCMRegister'); 
+                        localStorage.removeItem('latitude');
+                        localStorage.removeItem('longitude');
+                        this.menuService.changedLoggedFlag(-1);
+                        this.pageTopService.changedLoggedFlag(-1);
+                        this.pageTopService.showLoadingBar(false);
+                        this.menuService.updateMenuByRoutes(<Routes>PAGES_MENU );
+                        this.router.navigate(['/komunikat']);
+                        this.menuService.updateMenuByRoutes(<Routes>PAGES_MENU);
+                    },
+                    error => {}
+                );
+            },
+            error => {}
+        );
     }
 
 }

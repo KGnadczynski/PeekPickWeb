@@ -100,7 +100,6 @@ export class MessagesComponent implements OnInit{
         }
 
         if(!this.messageList.isLastPage){
-        // if(!this.messageList.isLastPage && this.messageList.messages.length > 0){
             if(this.canScrool){
                 this.pageNumber += 1;
                 this.canScrool = false;
@@ -119,15 +118,6 @@ export class MessagesComponent implements OnInit{
                 }
                 else {
                     this.getMessages(this.pageNumber);
-                    /*if(this.pageNumber === 1){
-                        this.getMessages(this.pageNumber);
-                    } else {
-                        let i = 1;
-                        while(i <= this.pageNumber){
-                            this.getMessages(i);
-                            i++;
-                        }
-                    }*/
                 }
             }
             
@@ -158,8 +148,8 @@ export class MessagesComponent implements OnInit{
                              this.pageTopService.showLoadingBar(false);
                         });
                     }, (error) => {
-                            this.pageTopService.showLoadingBar(false);
-                           this.getMessagesWhenGeolocationDisabled(page);
+                        this.pageTopService.showLoadingBar(false);
+                        this.getMessagesWhenGeolocationDisabled(page);
                     });
                 } else {
                     this.busy = this.messageService.getMessages(page, 0, 0).subscribe(result => {           
@@ -183,10 +173,9 @@ export class MessagesComponent implements OnInit{
                         this.latitude = position.coords.latitude;
                         this.longitude = position.coords.longitude;
                         this.busy = this.messageService.getCompanyMessages(page, this.id, this.latitude, this.longitude).subscribe(result => {
-                            console.log('page: ' + page);
                             if(page === 1){
-                                
                                 this.messageList = result;
+                                
                                 console.log('komunikatY p1: ');
                                 console.dir(this.messageList);
                             }
@@ -196,8 +185,6 @@ export class MessagesComponent implements OnInit{
                                     this.messageList.messages = this.messageList.messages.concat(result.messages);
                                     this.messageList.isLastPage = result.isLastPage;
                                     this.canScrool = true;
-                               
-                                
                             }
                              this.pageTopService.showLoadingBar(false);
                         });
@@ -359,6 +346,12 @@ export class MessagesComponent implements OnInit{
             this.busy = this.messageService.getMessages(page, 0, 0).subscribe(result => {           
             if(page === 1) {
                 this.messageList = result;
+                this.messageList.messages.forEach(m => {
+                    m["info"] = "ten post wygasza " + moment(m.startDate).add(14, 'days').format("DD.MM.YYYY")
+                    + ", godz. " + moment(m.startDate).add(14, 'days').format("HH:mm");
+                });
+                console.log('messages:');
+                console.dir(this.messageList);
                 this.sendMessagesLength.emit({count: result.messages.length, s: 'a'});
             } else {
                 this.messageList.messages = this.messageList.messages.concat(result.messages);
@@ -495,10 +488,14 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getActiveMessages(this.pageNumber, date, this.latitude, this.longitude, this.id).subscribe(
                     result => {
                         this.messageList = result;
+                        this.messageList.messages.forEach(m => {
+                            m["info"] = "ten post wygasza " + moment(m.startDate).add(14, 'days').format("DD.MM.YYYY")
+                            + ", godz. " + moment(m.startDate).add(14, 'days').format("HH:mm");
+                        });
                         this.sendMessagesLength.emit({count: result.messages.length, s: 'a'});
                         this.pageTopService.showLoadingBar(false);
                         console.log('active posts: ');
-                        console.dir(result);
+                        console.dir(this.messageList);
                     },
                     err => {
                         this.pageTopService.showLoadingBar(false);

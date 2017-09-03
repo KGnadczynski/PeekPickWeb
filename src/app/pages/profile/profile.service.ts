@@ -201,4 +201,16 @@ export class ProfileService{
         .map((response: Response) => response.json())
         .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
+
+    removeUser(id: number): Observable<any>{
+        
+        let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
+        let token = currentUser.token;
+        let headers = new Headers({'Authorization': 'Bearer '+ token.access_token});
+
+        return this.http.delete(url + '/users/' + id, {headers: headers})
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json()) || 'Server output');
+        
+    }
 }

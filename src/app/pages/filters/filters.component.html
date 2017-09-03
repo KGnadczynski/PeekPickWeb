@@ -49,7 +49,7 @@
             </div>
             
             <p id="distance">
-                <span *ngIf="someValue !== 101">{{ someValue }}</span>
+                <span *ngIf="someValue !== 101">{{ someValue }} km</span>
                 <span *ngIf="someValue === 101">brak ograniczeń</span> 
             </p>
 
@@ -74,6 +74,10 @@
                         <i *ngIf="messageType.name === 'PROMOTION'" class="material-icons">loyalty</i>
                     </div>
                 </div>
+            </div>
+
+            <div class="line">
+                <div></div>
             </div>
 
             <h5 *ngIf="id === undefined">Branża</h5>

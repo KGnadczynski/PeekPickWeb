@@ -20,8 +20,6 @@ export class ProfileMessagesComponent implements OnInit {
     }
 
     setLength(event: any): void{
-        console.log('dostalem length: ');
-        console.dir(event);
 
         switch (event.s) {
             case 'a':

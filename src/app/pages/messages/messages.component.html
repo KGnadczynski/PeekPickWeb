@@ -12,7 +12,6 @@
 				<a *ngIf="!message.user.company.mainImageUrl" [routerLink]="['/pages/company', message.nearestCompanyBranch.company.id]">
 					<ng2-letter-avatar *ngIf="!message.user.company.mainImageUrl" avatar-data='{{message.user.company.name}}' ></ng2-letter-avatar>
 				</a>
-				
 			</div>
 
 			<div class="message-text-block">
@@ -36,7 +35,6 @@
 			<div class="message-content" (click)="goToSingle(message.id)">
 				<div>
 					<p>
-						<!-- {{ message.content }}, length: {{message.content.length}} -->
 						{{ message.content }}
 					</p>
 				</div>
@@ -101,12 +99,16 @@
 				<div id="continue" >
 					<button href="#" *ngIf="dest === 'ended'">powtórz</button>
 				</div>
+				<div class="info" *ngIf="dest === 'active'">
+					{{ message.info }}
+				</div>
 				<div id="delete">
 					<button mwlConfirmationPopover [title]="title" placement="left" (confirm)="deleteMessage(message.id)"
       					(cancel)="cancelClicked = true" [(isOpen)]="isOpen">
 						usuń
 					</button>
 				</div>
+				
 			</div>
 		</div>
 	</div>

@@ -167,17 +167,17 @@ export class BaMenu implements OnInit {
 	}
 
 	logout(): void {
-			console.log('logging out');
-			localStorage.removeItem('currentUserToken');
-			localStorage.removeItem('user');
-			localStorage.removeItem('isTokenFCMRegister'); 
-			localStorage.removeItem('latitude');
-			localStorage.removeItem('longitude');
-			this._service.changedLoggedFlag(-1);
-			this.pageTopService.changedLoggedFlag(-1);
-			this.pageTopService.showLoadingBar(false);
-			this._service.updateMenuByRoutes(<Routes>PAGES_MENU );
-			this._router.navigate(['/komunikat']);
-			this._service.updateMenuByRoutes(<Routes>PAGES_MENU);
+		console.log('logging out');
+		localStorage.removeItem('currentUserToken');
+		localStorage.removeItem('user');
+		localStorage.removeItem('isTokenFCMRegister'); 
+		localStorage.removeItem('latitude');
+		localStorage.removeItem('longitude');
+		this._service.changedLoggedFlag(-1);
+		this.pageTopService.changedLoggedFlag(-1);
+		this.pageTopService.showLoadingBar(false);
+		this._service.updateMenuByRoutes(<Routes>PAGES_MENU );
+		this._router.navigate(['/komunikat']);
+		this._service.updateMenuByRoutes(<Routes>PAGES_MENU);
 	}
 }

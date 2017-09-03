@@ -59,8 +59,11 @@
                 </div>
             </div>
 
+            <div class="errorDiv">
+                {{ afterEmailChange }}
+            </div>
+
             <button [ngClass]="{valid: (emailForm.valid), invalid: (!emailForm.valid)}" type="submit" [disabled]="!emailForm.valid">Zapisz</button>
-            
         </form>
 
     <div class="header">
@@ -82,15 +85,25 @@
                 <span>Hasła nie są takie same</span>
             </div>
         </div>
+        <div class="errorDiv">
+            {{ afterPasswordChange }}
+        </div>
         <button type="submit" [disabled]="!passwordForm.valid">Zapisz</button>
         
     </form>
 
-    
-
-    <div class="errorDiv">
-        <span *ngIf="messageAfter">Pomyślnie zmieniono hasło</span>
+    <div class="removeDiv">
+        <button 
+            mwlConfirmationPopover 
+            [title]="title"
+            placement="top"
+            (confirm)="removeUser()"
+            (cancel)="cancelClicked = true"
+        >
+            skasuj konto
+        </button>
     </div>
+    
 
 </div>
 

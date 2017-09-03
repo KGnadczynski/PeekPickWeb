@@ -18,15 +18,17 @@
 
 @mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white, 50%)) {
   ::-webkit-scrollbar {
-    // width: $size;
     width: 0.4em;
-    // height: $size;
     height: 0.5em;
   }
   .al-sidebar::-webkit-scrollbar {
-    width: 0 !important;
-    height: 0 !important;
+	width: 0 !important;  
+	height: 0 !important;
   }
+
+  ::-moz-scrollbar {
+	width: 0 !important;
+	}
 
   ::-webkit-scrollbar-thumb {
     background: $foreground-color;
