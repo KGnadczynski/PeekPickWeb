@@ -5,16 +5,19 @@ import 'rxjs/add/operator/map';
 import { url } from '../../globals/url';
 
 @Injectable()
-export class ChangePasswordService {
+export class ChangePasswordTokenService {
 
     constructor(private http: Http){}
 
-    passwordReset(email: any): Observable<any> {
-        
-        return this.http.put(url + '/users/password/reset', email)
+    updatePasswordWithToken(token: string, password: string): Observable<any>{
+
+        let form = {
+            "password": password
+        };
+
+        return this.http.put('http://localhost:8080/users/password/reset/token/' + token, form)
         .map((response: Response) => response.json())
         .catch((error: any) => Observable.throw(error.json()) || 'Server output');
-
     }
 
 }

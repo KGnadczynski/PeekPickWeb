@@ -1,21 +1,19 @@
-import {Component, ViewEncapsulation, OnInit, NgZone, ViewChild} from '@angular/core';
-import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
-import {RegisterService} from "./registerservice.component";
-import {MainBranze, PodKategoria} from "./mainbranze";
-import {RegisterObject} from "./user";
-import {LoginService} from "../login/loginservice.component";
-import {Router} from "@angular/router";
-import {Subscription} from "rxjs";
-import * as authorization from "auth-header";
-import {DiggitsObject} from "./user";
-import {URLSearchParams} from "@angular/http";
-import {User} from "../komunikat/komunikatdodanie";
+import { Component, ViewEncapsulation, OnInit, NgZone, ViewChild } from '@angular/core';
+import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Router, Routes } from "@angular/router";
+import { URLSearchParams } from "@angular/http";
+import { Subscription } from "rxjs";
+import { EmailValidator, EqualPasswordsValidator } from '../../theme/validators';
+import { MainBranze, PodKategoria } from "./mainbranze";
+import { RegisterObject, DiggitsObject } from "./user";
+import { User } from "../komunikat/komunikatdodanie";
+import { PAGES_MENU_LOGGED } from '../../pages/pageslogged.menu';
+import { RegisterService } from "./registerservice.component";
+import { LoginService } from "../login/loginservice.component";
 import { BaMenuService , BaPageTopService} from '../../theme';
-import { Routes } from '@angular/router';
-import { PAGES_MENU_LOGGED } from '../pageslogged.menu';
 import { ProfileService } from '../profile/profile.service';
-import {AgmMap, MapsAPILoader } from '@agm/core';
+import * as authorization from "auth-header";
+import { AgmMap, MapsAPILoader } from '@agm/core';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
@@ -56,7 +54,6 @@ export class Register implements OnInit {
  	static latitude;
   	static  longitude;
  	isLocationCollapsed: boolean = true;
-  	// error: any;
   	geocoder:any;
  	registerError:boolean = false;
   	lat: number = 52.0409;
@@ -64,11 +61,10 @@ export class Register implements OnInit {
   	localization:any;
   	zoom: number = 6;
   	@ViewChild('childModal') childModal: ModalDirective;
-  	@ViewChild(AgmMap) sebmGoogleMap: any;
+	@ViewChild(AgmMap) sebmGoogleMap: any;
+	error: string = ""  ;
   
   	ngOnInit() {
-
-		
 
 	    this.registerService.getBranze().subscribe(
 			data => {
@@ -209,7 +205,6 @@ export class Register implements OnInit {
 		var latlng = {lat: this.lat, lng:this.lng};
 		
 		this.geocoder.geocode( { 'location': latlng}, function(results, status) {
-			// and this is function which processes response
 			if (status == google.maps.GeocoderStatus.OK) {
 				console.log('geocoder inside: '+results[1].formatted_address);  
 				address=results[0].formatted_address;
@@ -320,24 +315,23 @@ export class Register implements OnInit {
 					},
 					error => {
 						this.pageTopService.showLoadingBar(false);
-						// console.log('HELLO this is errror:');
-						this.addToast('error');
-						// console.dir(error);
-						/*if(error === 'PHONE_NUMBER_IS_USED'){
-							console.log('!!!!!!!!!!!!!!!!!!!!!! ERROR')
-							this.addToast('Podany');
-						}*/
+						console.log('HELLO this is errror:');
+						// this.addToast('error');
+						console.dir(error);
 
-						/*this.error= error;
-						if(this.error.error_description === "PHONE_NUMBER_IS_USED") {
-							this.error.error_description = "Podany numer telefonu jest już w użyciu";
-							console.log('RARARAAAAAAAA');
-							this.addToast('Podany numer telefonu jest już w użyciu');
-						} else if (this.error.error_description === "EMAIL_IS_USED") {
-							this.error.error_description = "Podany email jest już w użyciu";
-						} else {
-							this.error.error_description = "Podany adres nie istnieje";
-						}*/
+						switch (error) {
+							case 'PHONE_NUMBER_IS_USED':
+								this.error = 'Podany numer telefonu jest już w użyciu';
+								break;
+							case 'EMAIL_ADDRESS_IS_USED':
+								this.error = 'Podany email jest już w użyciu';
+								break;
+							default:
+								this.error = 'Podany adres nie istnieje';
+								break;
+						}
+
+						console.log('this.error: ' + this.error);
 					}
 				); 
 			},
@@ -406,10 +400,5 @@ export class Register implements OnInit {
 		this.selectedKategoria.name = name;
 		this.selectedKategoria.id = id;
 	}
-
-/*	testowaFunkcja(): void {
-		console.log('testowa fcja');
-		this.addToast('Meciej Zbierowski');
-	}*/
 
 }

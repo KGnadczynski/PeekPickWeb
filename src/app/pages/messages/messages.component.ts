@@ -347,7 +347,7 @@ export class MessagesComponent implements OnInit{
             if(page === 1) {
                 this.messageList = result;
                 this.messageList.messages.forEach(m => {
-                    m["info"] = "ten post wygasza " + moment(m.startDate).add(14, 'days').format("DD.MM.YYYY")
+                    m["info"] = "ten post wygaza " + moment(m.startDate).add(14, 'days').format("DD.MM.YYYY")
                     + ", godz. " + moment(m.startDate).add(14, 'days').format("HH:mm");
                 });
                 console.log('messages:');
@@ -489,7 +489,7 @@ export class MessagesComponent implements OnInit{
                     result => {
                         this.messageList = result;
                         this.messageList.messages.forEach(m => {
-                            m["info"] = "ten post wygasza " + moment(m.startDate).add(14, 'days').format("DD.MM.YYYY")
+                            m["info"] = "ten post wygasa " + moment(m.startDate).add(14, 'days').format("DD.MM.YYYY")
                             + ", godz. " + moment(m.startDate).add(14, 'days').format("HH:mm");
                         });
                         this.sendMessagesLength.emit({count: result.messages.length, s: 'a'});

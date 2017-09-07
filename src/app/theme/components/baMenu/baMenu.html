@@ -11,15 +11,16 @@
 			<img id="main" *ngIf="imageUrl" src="{{ imageUrl }}" alt="">
 			<ng2-letter-avatar *ngIf="name" avatar-data='{{name}}' ></ng2-letter-avatar>
 			<p>{{ companyName }}</p>
-			<span>{{ email }}</span>
-			<h5>
-				dostępne posty: 
+			<span *ngIf="email.length < 28">{{ email }}</span>
+			<span *ngIf="email.length >= 28">{{ emailPart1 }}</span>
+			<span *ngIf="email.length >= 28">{{ emailPart2 }}</span>
+			<h5>dostępne posty:
 				<span *ngIf="messagesCount">{{ messagesCount }}</span>
 				<span *ngIf="!messagesCount">0</span>
 			</h5>
 			<button>dokup</button>
 		</div>
-		<div class="mLine" *ngIf="isLoggedIn"></div>
+		<div class="mLine"></div>
 		
 		<ba-menu-item [menuItem]="item" (itemHover)="hoverItem($event)" (toggleSubMenu)="toggleSubMenu($event)" [section] = "'under'" *ngFor="let item of menuItems"></ba-menu-item>
 		
