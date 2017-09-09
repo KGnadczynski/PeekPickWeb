@@ -23,6 +23,9 @@
       <div [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}" class="formRegDiv">
           <input [formControl]="name" type="text" [(ngModel)]="user.name" placeholder="Nazwa firmy">
       </div>
+      <div [ngClass]="{'has-error': (!phoneNumberControl.valid && phoneNumberControl.touched), 'has-success': (phoneNumberControl.valid && phoneNumberControl.touched)}" class="formRegDiv">
+          <input [formControl]="phoneNumberControl" type="text" [(ngModel)]="user.phoneNumber" placeholder="Numer telefonu">
+      </div>
       
       <div class="line">
           <div></div>
@@ -94,7 +97,9 @@
       
       <div [ngBusy]="{busy: busy, message: 'Czekaj...', backdrop: false, delay: 200, minDuration: 600}"></div>
       <div class="buttons">
+        <div id="recaptcha-container"></div>
         <button [ngClass]="{valid: (form.valid), invalid: (!form.valid)}" [disabled]="!form.valid" type="submit">utwórz konto</button>
+        
         <!-- <button routerLink="/pages/login">zaloguj</button> -->
         <!-- <div *ngIf="error" class="alert alert-danger">
           {{error.error_description}}
@@ -104,7 +109,12 @@
       
     </form>
 </div>
-
+ <div class="sms-content" *ngIf="windowRef.confirmationResult">
+            <hr>
+            <label for="code">Enter your Verification Code Here</label><br>
+            <input type="text" name="code" [(ngModel)]="verificationCode">
+            <button (click)="verifyLoginCode()">Verify</button>
+         </div>
 <div bsModal #childModal="bs-modal" class="modal fade" [config]="{backdrop: 'static', keyboard: false}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

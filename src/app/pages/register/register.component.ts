@@ -1,6 +1,6 @@
 import {Component, ViewEncapsulation, OnInit, NgZone, ViewChild} from '@angular/core';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
+import {EmailValidator, EqualPasswordsValidator,PhoneNumberValidator} from '../../theme/validators';
 import {RegisterService} from "./registerservice.component";
 import {MainBranze, PodKategoria} from "./mainbranze";
 import {RegisterObject} from "./user";
@@ -18,8 +18,10 @@ import { ProfileService } from '../profile/profile.service';
 import {AgmMap, MapsAPILoader } from '@agm/core';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
-
-declare var window: any
+import * as firebase from 'firebase';
+import {PhoneNumber} from "./phonenumber"
+import { environment } from '../../globals/environment';
+import { WindowService } from '../../window.service';
 
 @Component({
 	selector: 'register',
@@ -39,10 +41,12 @@ export class Register implements OnInit {
 	public email: AbstractControl;
 	public password: AbstractControl;
 	public repeatPassword: AbstractControl;
+	public phoneNumberControl: AbstractControl;
 	public passwords: FormGroup;
 	busy: Subscription;
  
   	public submitted: boolean = false;
+	public  showSMS: boolean = false;
 
   	user:any = {};
   	company:any = {};
@@ -63,13 +67,20 @@ export class Register implements OnInit {
   	lng: number = 19.2850;
   	localization:any;
   	zoom: number = 6;
+	phoneNumber = new PhoneNumber()
+    verificationCode: string;
+	windowRef: any;	
+  	userFire: any;
+	provider = new firebase.auth.PhoneAuthProvider;
   	@ViewChild('childModal') childModal: ModalDirective;
   	@ViewChild(AgmMap) sebmGoogleMap: any;
   
   	ngOnInit() {
-
-		
-
+		this.windowRef = this.win.windowRef
+		console.log('window '+this.windowRef)
+		this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container')
+		this.windowRef.recaptchaVerifier.render()
+		console.log('window '+this.windowRef)
 	    this.registerService.getBranze().subscribe(
 			data => {
 				this.kategorieGlowne = data;
@@ -101,6 +112,7 @@ export class Register implements OnInit {
 		private mapsAPILoader: MapsAPILoader,
 		private toastyService: ToastyService,
 		private toastyConfig: ToastyConfig,
+		private win: WindowService,
   	){
 
 		this.mapsAPILoader.load().then(() => {
@@ -109,14 +121,11 @@ export class Register implements OnInit {
 			console.log(this.geocoder);
 		});
 
-	    window.angularComponentRef = {
-	    	zone: this.zone,
-	    	component: this
-	    };
 
 	    this.form = fb.group({
 	    	'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
 	      	'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
+			'phoneNumberControl': ['', Validators.compose([Validators.required, PhoneNumberValidator.validate])],
 	      	'passwords': fb.group({
 	        	'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
 	        	'repeatPassword': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -125,9 +134,11 @@ export class Register implements OnInit {
 
 	    this.name = this.form.controls['name'];
 	    this.email = this.form.controls['email'];
+		this.phoneNumberControl = this.form.controls['phoneNumberControl'];
 	    this.passwords = <FormGroup> this.form.controls['passwords'];
 	    this.password = this.passwords.controls['password'];
 	    this.repeatPassword = this.passwords.controls['repeatPassword'];
+
   	}
 
 	addToast(message: string): void {
@@ -173,7 +184,6 @@ export class Register implements OnInit {
     registerCallback(value) :void {
 
 		if(value.error == null) {
-			window.onLoginButtonClick();
 			this.registerJson = new RegisterObject();
 			this.registerJson.user.name = this.user.name;
 			this.registerJson.user.email = this.user.email;
@@ -191,6 +201,7 @@ export class Register implements OnInit {
 			this.registerJson.companyBranch.company.category.id = this.selectedKategoria.id;
 			this.registerJson.companyBranch.company.category.parentCategory.name = this.selectedParentKategoria.name;
 			this.registerJson.companyBranch.company.category.parentCategory.id = this.selectedParentKategoria.id;
+			this.sendLoginCode();
 		} else {
 			this.registerError = true;
 			this.childModal.show();
@@ -350,9 +361,6 @@ export class Register implements OnInit {
 		);
 	}
 
-	onLoginButtonClick() {
-		window.onLoginButtonClick();
-	}
 
 	hideChildModal(): void {
 		this.childModal.hide();
@@ -367,7 +375,6 @@ export class Register implements OnInit {
 
     confirmMap(): void {
 		this.hideChildModal();
-		window.onLoginButtonClick();
 		this.registerJson = new RegisterObject();
 		this.registerJson.user.name = this.user.name;
 		this.registerJson.user.email = this.user.email;
@@ -406,6 +413,111 @@ export class Register implements OnInit {
 		this.selectedKategoria.name = name;
 		this.selectedKategoria.id = id;
 	}
+
+	 sendLoginCode() {
+		 console.log('Send login code'+this.user.phoneNumber)
+		const appVerifier = this.windowRef.recaptchaVerifier;
+		const num = this.user.phoneNumber;
+		firebase.auth().signInWithPhoneNumber(num, appVerifier)
+				.then(result => {
+					console.log('HELLLO')
+					this.windowRef.confirmationResult = result;
+				})
+				.catch( error => console.log(error) );
+  }
+  verifyLoginCode() {
+		this.windowRef.confirmationResult
+					.confirm(this.verificationCode)
+					.then( result => {
+						this.userFire = result.user;
+						console.log('userFire');
+						this.register()
+						
+		})
+		.catch( error => console.log(error, "Incorrect code entered?"));
+  }
+
+  public register(): void {
+		console.log('REGISTRING1')
+		this.registerJson.user.phoneNumber = this.phoneNumber.e164;
+		console.log(JSON.stringify(this.userFire));
+		console.log(this.userFire.phoneNumber);
+		console.log(this.userFire.authDomain);
+		this.registerJson.token.value = this.userFire.stsTokenManager.accessToken;
+		console.log('REGISTRING2')
+		this.busy = this.registerService.register(this.registerJson).subscribe(
+			data => {
+				console.log(data);
+				localStorage.setItem('latitude', this.registerJson.companyBranch.latitude.toString()); 
+				localStorage.setItem('longitude', this.registerJson.companyBranch.longitude.toString()); 
+				localStorage.setItem('user', JSON.stringify({ user: data}));
+				let body = new URLSearchParams();
+				body.set('password', this.registerJson.user.password);
+				body.set('username', this.registerJson.user.email);
+				body.set('grant_type', "password");
+				body.set('client_secret', "client_secret");
+				this.pageTopService.showLoadingBar(true);  
+				this.loginService.login(body).subscribe(
+					data => {
+						localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
+						this.loginService.getInfo().subscribe(
+						data => {
+							this.userFromServer = data
+							console.log(this.userFromServer.company.id);
+							localStorage.setItem('user', JSON.stringify({ user: data}));    
+							this.loginService.getInfoForCompanyFromUser(this.userFromServer.company.id).subscribe(
+								data => {
+									localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
+									this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
+									this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);    
+									this._menuService.changedLoggedFlag(this.userFromServer.company.id);
+									this.pageTopService.showLoadingBar(false);
+									this.router.navigate(['/komunikat']);
+								},
+								error => {
+									this.pageTopService.showLoadingBar(false);
+									console.log('error in inside');
+								}
+							);                    
+						},
+						error => {
+							this.pageTopService.showLoadingBar(false);
+							console.log('error inside');
+						}
+						);
+					},
+					error => {
+						this.pageTopService.showLoadingBar(false);
+					}
+				);
+			},
+			error => {
+				this.pageTopService.showLoadingBar(false);
+				// console.log('HELLO this is errror:');
+				this.addToast('error');
+				// console.dir(error);
+				/*if(error === 'PHONE_NUMBER_IS_USED'){
+					console.log('!!!!!!!!!!!!!!!!!!!!!! ERROR')
+					this.addToast('Podany');
+				}*/
+
+				/*this.error= error;
+				if(this.error.error_description === "PHONE_NUMBER_IS_USED") {
+					this.error.error_description = "Podany numer telefonu jest już w użyciu";
+					console.log('RARARAAAAAAAA');
+					this.addToast('Podany numer telefonu jest już w użyciu');
+				} else if (this.error.error_description === "EMAIL_IS_USED") {
+					this.error.error_description = "Podany email jest już w użyciu";
+				} else {
+					this.error.error_description = "Podany adres nie istnieje";
+				}*/
+			}
+		); 
+
+  }
+
+
+
 
 /*	testowaFunkcja(): void {
 		console.log('testowa fcja');
