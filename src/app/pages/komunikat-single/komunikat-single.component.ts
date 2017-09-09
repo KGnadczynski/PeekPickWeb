@@ -29,6 +29,7 @@ export class KomunikatSingleComponent implements OnInit {
     lat: number;
     lng: number;
     address: string = "";
+    addressMap: string = "";
 
     @ViewChild('childModal') public childModal: ModalDirective;
 
@@ -53,13 +54,17 @@ export class KomunikatSingleComponent implements OnInit {
 
         if(komunikat.location){
             this.address = komunikat.location.address;
+            this.addressMap = komunikat.location.address;
         } else if(komunikat.companyBranchList.length === 1){
             this.address = komunikat.companyBranchList[0].city +','+ komunikat.companyBranchList[0].street+" "+ komunikat.companyBranchList[0].streetNo;
+            this.addressMap = komunikat.companyBranchList[0].city +','+ komunikat.companyBranchList[0].street+" "+ komunikat.companyBranchList[0].streetNo;
         } else if(komunikat.companyBranchList.length > 1 && komunikat.companyBranchList.length < 5) {
            this.address = komunikat.companyBranchList.length+" lokalizacje, Najbliższa: "+komunikat.companyBranchList[0].city +','+ komunikat.companyBranchList[0].street+" "+ komunikat.companyBranchList[0].streetNo;
+           this.addressMap = komunikat.companyBranchList[0].city +','+ komunikat.companyBranchList[0].street+" "+ komunikat.companyBranchList[0].streetNo;
         }
         else if(komunikat.companyBranchList.length >= 5) {
            this.address = komunikat.companyBranchList.length+" lokalizacji, Najbliższa: "+komunikat.companyBranchList[0].city +','+ komunikat.companyBranchList[0].street+" "+ komunikat.companyBranchList[0].streetNo;
+           this.addressMap = komunikat.companyBranchList[0].city +','+ komunikat.companyBranchList[0].street+" "+ komunikat.companyBranchList[0].streetNo;
         }
 
         let kilometers;
@@ -114,6 +119,7 @@ export class KomunikatSingleComponent implements OnInit {
         return '';
     }
 
+
     ngAfterViewInit(): void {
       this.showChildModal();
     }
@@ -156,18 +162,17 @@ export class KomunikatSingleComponent implements OnInit {
 
     }
 
-    navigateToMap(id: number){
-        console.log('odpalamy mape');
-          console.log('odpalamy mape');
-            this.komunikatSingleService.getKomunikat(id).subscribe(komunikat => {
-                    this.message = komunikat;
-                    console.log('mapa lng '+JSON.stringify(this.message));
-                    this.lat =  this.message.companyBranchList[0].latitude;
-                    this.lng = this.message.companyBranchList[0].longitude;
-                    console.log('mapa lng '+this.lat);
-                    var URL =  "https://maps.google.com/maps?q="+this.lat+","+this.lng;
-                    var win = window.open(URL, "_blank");
-            });
+    navigateToMap(location: any){
+        console.log('odpalamy mape '+location);
+        var URL =  "https://maps.google.com/maps?q="+location;
+        var win = window.open(URL, "_blank");
+        if (win) {
+        //Browser has allowed it to be opened
+            win.focus();
+        } else {
+            //Browser has blocked it
+            alert('Zezwól na wyskakujące okienka aby wyświetlić trasę');
+        }
     }
 
     showSocialShare() {
