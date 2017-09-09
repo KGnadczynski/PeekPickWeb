@@ -105,7 +105,7 @@ export class ClickedKomunikatModal implements CloseGuard, ModalComponent<CustomM
 
 
   onDateChanged(event:any) {
-  console.log('onDateChangedd(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+  console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
 }
 
   fileChange(event) {
