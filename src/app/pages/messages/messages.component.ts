@@ -319,26 +319,17 @@ export class MessagesComponent implements OnInit{
 
     }
 
-    navigateToMap(id: number){
-        console.log('odpalamy mape');
-        this.komunikatSingleService.getKomunikat(id).subscribe(komunikat => {
-                this.message = komunikat;
-                 console.log('mapa lng '+JSON.stringify(this.message));
-                this.lat =  this.message.companyBranchList[0].latitude;
-                this.lng = this.message.companyBranchList[0].longitude;
-                console.log('mapa lng '+this.lat);
-                var URL =  "https://maps.google.com/maps?q="+this.lat+","+this.lng;
-                var win = window.open(URL, "_blank");
-                if (win) {
-                //Browser has allowed it to be opened
-                    win.focus();
-                } else {
-                    //Browser has blocked it
-                    alert('Zezwól na wyskakujące okienka aby wyświetlić trasę');
-                }
-        });
-         
-      //  this.router.navigate(['/pages/mapmodal', id]);
+    navigateToMap(location: string){
+        console.log('odpalamy mape '+location);
+        var URL =  "https://maps.google.com/maps?q="+location;
+        var win = window.open(URL, "_blank");
+        if (win) {
+        //Browser has allowed it to be opened
+            win.focus();
+        } else {
+            //Browser has blocked it
+            alert('Zezwól na wyskakujące okienka aby wyświetlić trasę');
+        }
     }
 
     getMessagesWhenGeolocationDisabled(page :any) {
@@ -577,6 +568,22 @@ export class MessagesComponent implements OnInit{
             return message.companyBranchCount+" lokalizacje, Najbliższa: "+message.nearestCompanyBranch.city +','+ message.nearestCompanyBranch.street+" "+ message.nearestCompanyBranch.streetNo;
         } else if(message.companyBranchCount >= 5) {
             return message.companyBranchCount+" lokalizacji, Najbliższa: "+message.nearestCompanyBranch.city +','+ message.nearestCompanyBranch.street+" "+ message.nearestCompanyBranch.streetNo;
+         }
+
+        return '';
+    }
+
+     getLocationForMap(message:any): string {
+        if(message.location !== null){
+            return message.location.address;
+        } else if(message.companyBranchCount == 1){
+            if(message.nearestCompanyBranch !== null){
+                return message.nearestCompanyBranch.city +','+ message.nearestCompanyBranch.street+" "+ message.nearestCompanyBranch.streetNo;
+            }
+        } else if(message.companyBranchCount > 1 && message.companyBranchCount < 5) {
+            return message.nearestCompanyBranch.city +','+ message.nearestCompanyBranch.street+" "+ message.nearestCompanyBranch.streetNo;
+        } else if(message.companyBranchCount >= 5) {
+            return message.nearestCompanyBranch.city +','+ message.nearestCompanyBranch.street+" "+ message.nearestCompanyBranch.streetNo;
          }
 
         return '';
