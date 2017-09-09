@@ -561,7 +561,8 @@ export class AddMessageComponent implements OnInit {
     }
 
     closeModal(){
-        this.router.navigateByUrl('/pages/komunikat');
+        // this.router.navigateByUrl('/pages/komunikat');
+        this._location.back();
     }
 
 }

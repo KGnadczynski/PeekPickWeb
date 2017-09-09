@@ -168,6 +168,7 @@ export class ProfileEditComponent implements OnInit {
                 console.log('updated:');
                 console.dir(updated);
                 this.afterEmailChange = "Pomyślnie zmieniono e-mail";
+                this.emailForm.reset();
             },
             error =>{
                 console.log('error:');
@@ -179,7 +180,7 @@ export class ProfileEditComponent implements OnInit {
             }
         );
 
-        this.emailForm.reset();
+        
 
     }
 

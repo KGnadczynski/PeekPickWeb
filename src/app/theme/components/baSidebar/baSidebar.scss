@@ -12,14 +12,10 @@ $angle-right: "\f101";
   left: 0;
   z-index: 1001;
   display: block;
-  // min-height: 100%;
   background-color: white;
-  // height: 100%;
   height: 100%;
   position: fixed;
   overflow: scroll;
-
-  
 
   @media(max-width: 1200px){
       background-color: white !important;
@@ -66,24 +62,27 @@ div.mLine{
     button{
       display: initial;
       margin: initial;
-      margin-top: 26px;
+      clear: initial;
+      float: right;
+      margin-top: 0;
     }
 	
     overflow: hidden;
 
     h5{
-		clear: both;
-		float: left;
-		color: $redColor;
-		font-family: 'Open Sans', sans-serif;
-		font-size: 16px;
-		width: auto;
-		margin-top: 10px;
-		margin-left: 15px;
-		span{
-			font-size: 16px;
-			margin-left: 3px;
-		}
+      clear: both;
+      float: left;
+      color: $redColor;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+      width: auto;
+      margin-top: 10px;
+      margin-left: 10px;
+      span{
+        font-family: 'Open Sans', sans-serif;
+        font-size: 15px;
+        margin-left: 3px;
+      }
     }
 
     ng2-letter-avatar{
@@ -99,7 +98,7 @@ div.mLine{
         width: 77px;
         height: 77px;
         float: left;
-        margin-left: 15px;
+        margin-left: 10px;
     }
 
     p{
@@ -119,33 +118,6 @@ div.mLine{
         color: $blackColor;
         margin-right: 9px;
     }
-
-    /*ul {
-        clear: both;
-        float: left;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 0;
-        list-style-type: none;
-        margin-top: 20px;
-        li{
-          margin-bottom: 10px;
-          a {
-            cursor: pointer;
-              img{
-                  width: 32px;
-              }
-              span {
-                  float: none;
-                  font-size: 16px;
-                  font-family: 'Sanchez', serif;
-                  color: $redColor;
-              }
-          }
-          
-        }
-    }*/
 
   }
 }

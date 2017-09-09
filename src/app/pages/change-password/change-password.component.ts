@@ -31,6 +31,7 @@ export class ChangePasswordComponent implements OnInit {
             reset => {
                 console.log('reset:');
                 console.dir(reset);
+                
             },
             error => {
                 console.log('error:');

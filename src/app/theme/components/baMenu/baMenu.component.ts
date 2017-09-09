@@ -36,6 +36,8 @@ export class BaMenu implements OnInit {
 	public isLoggedIn: boolean = false;
 	messagesCount: number;
 	subscription: Subscription;
+	emailPart1: string;
+	emailPart2: string;
 
 	constructor(private _router: Router, private _service: BaMenuService, private _state: GlobalState, private profileService: ProfileService, private pageTopService: BaPageTopService, private messageService: MessagesService) {
 		this._service.imageChange.subscribe((url) => {
@@ -49,6 +51,8 @@ export class BaMenu implements OnInit {
 					this.isLoggedIn = true;
 					this.companyName = user.company.name;
 					this.email = user.email;
+					
+					
 					this.profileService.getUserImages(value).subscribe(
 							images => {
 									this.imageUrl = images.imageUrl;
@@ -90,6 +94,13 @@ export class BaMenu implements OnInit {
 				user => {
 					this.companyName = user.company.name;
 					this.email = user.email;
+					console.log('this.email.length: ' + this.email.length);
+					if(this.email.length >= 28){
+						this.emailPart1 = user.email.substr(0, user.email.indexOf('@'));
+						this.emailPart2 = user.email.substr(user.email.indexOf('@'), user.email.length);
+						console.log('emailPart1:' + this.emailPart1);
+						console.log('emailPart2:' + this.emailPart2);
+					}
 					this.isLoggedIn = true;
 					this.profileService.getUserImages(user.company.id).subscribe(
 							images => {
