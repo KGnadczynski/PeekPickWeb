@@ -15,7 +15,7 @@ export class ChangePasswordTokenService {
             "password": password
         };
 
-        return this.http.put('http://localhost:8080/users/password/reset/token/' + token, form)
+        return this.http.put(url + '/users/password/reset/token/' + token, form)
         .map((response: Response) => response.json())
         .catch((error: any) => Observable.throw(error.json()) || 'Server output');
     }
