@@ -93,12 +93,6 @@ export class MessagesComponent implements OnInit{
 
     onScrollDown(){
 
-        if(this.params){
-            console.log('sa paramsy');
-        } else{
-            console.log('nie ma paramsow');
-        }
-
         if(!this.messageList.isLastPage){
             if(this.canScrool){
                 this.pageNumber += 1;

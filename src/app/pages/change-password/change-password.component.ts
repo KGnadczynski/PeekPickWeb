@@ -14,6 +14,7 @@ export class ChangePasswordComponent implements OnInit {
 
     emailForm: FormGroup;
     title: string = "podaj przypisany do Twojego konta adres e-mail. Wyślemy Ci link do zmiany hasła.";
+    message: string = "";
 
     constructor(private changePasswordService: ChangePasswordService, private fb: FormBuilder){
         this.emailForm = fb.group({
@@ -31,7 +32,8 @@ export class ChangePasswordComponent implements OnInit {
             reset => {
                 console.log('reset:');
                 console.dir(reset);
-                
+                this.message = "Na adres: " + emailForm.email + " wysłano wiadomość z linkiem";
+                this.emailForm.reset();
             },
             error => {
                 console.log('error:');

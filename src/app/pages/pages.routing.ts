@@ -1,9 +1,9 @@
 import { Routes, RouterModule }  from '@angular/router';
 import { Pages } from './pages.component';
 import { ChangePasswordTokenComponent } from './change-password-token/change-password-token.component';
+import { ChangeEmailComponent } from '../pages/change-email/change-email.component';
 import { ModuleWithProviders } from '@angular/core';
 // noinspection TypeScriptValidateTypes
-
 // export function loadChildren(path) { return System.import(path); };
 
 export const routes: Routes = [
@@ -34,6 +34,10 @@ export const routes: Routes = [
       { path: 'change-password', loadChildren: 'app/pages/change-password/change-password.module#ChangePasswordModule'}
       // { path: 'tokens/value/:token', loadChildren: 'app/pages/change-password-token/change-password-token.module#ChangePasswordTokenModule'},
     ]
+  },
+  {
+    path: 'tokens',
+    component: ChangeEmailComponent
   },
   {
     path: 'tokens/value/:token',

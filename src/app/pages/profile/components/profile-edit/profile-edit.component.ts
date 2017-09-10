@@ -167,7 +167,7 @@ export class ProfileEditComponent implements OnInit {
             updated => {
                 console.log('updated:');
                 console.dir(updated);
-                this.afterEmailChange = "Pomyślnie zmieniono e-mail";
+                this.afterEmailChange = "Na adres: " + value.email + " został wysłana wiadomość.";
                 this.emailForm.reset();
             },
             error =>{
