@@ -22,6 +22,8 @@ import { PagesModule } from './pages/pages.module';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './globals/environment';
+import { WindowService } from "./window.service";
+import * as firebase from "firebase";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -40,6 +42,7 @@ export type StoreType = {
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
+firebase.initializeApp(environment.firebase);
 @NgModule({
   bootstrap: [App],
   declarations: [
@@ -64,6 +67,7 @@ export type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
+    WindowService,
     CommunicationService
   ]
 })
