@@ -42,7 +42,7 @@ export class Register implements OnInit {
 	public phoneNumberControl: AbstractControl;
 	public passwords: FormGroup;
 	busy: Subscription;
- 
+
   	public submitted: boolean = false;
 	public  showSMS: boolean = false;
 
@@ -66,13 +66,14 @@ export class Register implements OnInit {
   	zoom: number = 6;
 	phoneNumber = new PhoneNumber()
     verificationCode: string;
-	windowRef: any;	
-  	userFire: any;
+	windowRef: any;
+  	userFire: firebase.User;
+	sms:boolean = false;
 	provider = new firebase.auth.PhoneAuthProvider;
   	@ViewChild('childModal') childModal: ModalDirective;
 	@ViewChild(AgmMap) sebmGoogleMap: any;
 	error: string = ""  ;
-  
+
   	ngOnInit() {
 		this.windowRef = this.win.windowRef
 		console.log('window '+this.windowRef)
@@ -85,9 +86,9 @@ export class Register implements OnInit {
 			},
 				error => {
 		});
-		
+
 		let currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
-		
+
 		if(currentUser != null){
 			this.profileService.getUser().subscribe(
 				result => {
@@ -99,7 +100,7 @@ export class Register implements OnInit {
   	}
 
   	constructor(
-	    private fb: FormBuilder, 
+	    private fb: FormBuilder,
 	    private registerService: RegisterService,
 	    private loginService: LoginService,
 	    private router: Router,
@@ -156,7 +157,7 @@ export class Register implements OnInit {
   	public onSubmit(values: Object): void {
     	var value :any = {};
      	this.registerUser(value,fun => {
-        	this.registerCallback(value);  
+        	this.registerCallback(value);
         });
   	}
 
@@ -176,7 +177,7 @@ export class Register implements OnInit {
 				console.log('wrong  address');
 				fn(value);
 			}
-		}); 
+		});
 	}
 
     registerCallback(value) :void {
@@ -190,7 +191,7 @@ export class Register implements OnInit {
 			this.registerJson.companyBranch.main = false;
 			this.registerJson.companyBranch.latitude = value.latitude;
 			this.registerJson.companyBranch.longitude = value.longitude;
-			
+
 			this.registerJson.companyBranch.name = this.user.name;
 			this.registerJson.companyBranch.street = this.company.street;
 			this.registerJson.companyBranch.streetNo = this.company.streetNo;
@@ -204,7 +205,7 @@ export class Register implements OnInit {
 			this.registerError = true;
 			this.childModal.show();
 			setTimeout(() => this.sebmGoogleMap.triggerResize().then(res => {
-				console.log('triggerResize');  
+				console.log('triggerResize');
 				console.log('this.lat: ' + this.lat);
 				this.sebmGoogleMap._mapsWrapper.setCenter({lat: this.lat, lng: this.lng});
 				this.changeAddress(this.callbackEdit);
@@ -216,10 +217,10 @@ export class Register implements OnInit {
 
 		var address="";
 		var latlng = {lat: this.lat, lng:this.lng};
-		
+
 		this.geocoder.geocode( { 'location': latlng}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
-				console.log('geocoder inside: '+results[1].formatted_address);  
+				console.log('geocoder inside: '+results[1].formatted_address);
 				address=results[0].formatted_address;
 			} else {
 				console.log("Geocode was not successful for the following reason: " + status);
@@ -229,7 +230,7 @@ export class Register implements OnInit {
 	}
 
     callbackEdit = (address: string) : void => {
-        console.log('callbackEdit');  
+        console.log('callbackEdit');
          this.localization = address;
     }
 
@@ -243,33 +244,33 @@ export class Register implements OnInit {
 		var credentials = req.credentials;
 		var verified = true;
 		var messages = [];
-		
+
 		var auth = authorization.parse(credentials);
 		console.log(auth);
-		
+
 		if (auth.scheme != 'OAuth') {
 			verified = false;
 			messages.push('Invalid auth type.');
 		}
-		
+
 		if (auth.params.oauth_consumer_key != 'ZzsVNIxtpghaF2Lroz0cZC9q9') {
 			verified = false;
 			messages.push('The Digits API key does not match.');
 		}
-		
+
 		var hostname = apiUrl;
 		if (hostname != 'api.digits.com' && hostname != 'api.twitter.com') {
 			verified = false;
 			messages.push('Invalid API hostname.');
 		}
-		
+
 		var options = {
 			url: apiUrl,
 			headers: {
 				'Authorization': credentials
 			}
 		};
-		
+
 		var digitsObject = new DiggitsObject();
 		digitsObject.url = apiUrl;
 		digitsObject.credentials = credentials;
@@ -283,15 +284,15 @@ export class Register implements OnInit {
 				this.busy = this.registerService.register(this.registerJson).subscribe(
 					data => {
 						console.log(data);
-						localStorage.setItem('latitude', this.registerJson.companyBranch.latitude.toString()); 
-						localStorage.setItem('longitude', this.registerJson.companyBranch.longitude.toString()); 
+						localStorage.setItem('latitude', this.registerJson.companyBranch.latitude.toString());
+						localStorage.setItem('longitude', this.registerJson.companyBranch.longitude.toString());
 						localStorage.setItem('user', JSON.stringify({ user: data}));
 						let body = new URLSearchParams();
 						body.set('password', this.registerJson.user.password);
 						body.set('username', this.registerJson.user.email);
 						body.set('grant_type', "password");
 						body.set('client_secret', "client_secret");
-						this.pageTopService.showLoadingBar(true);  
+						this.pageTopService.showLoadingBar(true);
 						this.loginService.login(body).subscribe(
 							data => {
 								localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
@@ -299,12 +300,12 @@ export class Register implements OnInit {
 								data => {
 									this.userFromServer = data
 									console.log(this.userFromServer.company.id);
-									localStorage.setItem('user', JSON.stringify({ user: data}));    
+									localStorage.setItem('user', JSON.stringify({ user: data}));
 									this.loginService.getInfoForCompanyFromUser(this.userFromServer.company.id).subscribe(
 										data => {
-											localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
+											localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data}));
 											this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
-											this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);    
+											this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);
 											this._menuService.changedLoggedFlag(this.userFromServer.company.id);
 											this.pageTopService.showLoadingBar(false);
 											this.router.navigate(['/komunikat']);
@@ -313,7 +314,7 @@ export class Register implements OnInit {
 											this.pageTopService.showLoadingBar(false);
 											console.log('error in inside');
 										}
-									);                    
+									);
 								},
 								error => {
 									this.pageTopService.showLoadingBar(false);
@@ -346,7 +347,7 @@ export class Register implements OnInit {
 
 						console.log('this.error: ' + this.error);
 					}
-				); 
+				);
 			},
 			error => {
 				this.pageTopService.showLoadingBar(false);
@@ -414,6 +415,9 @@ export class Register implements OnInit {
 		 console.log('Send login code'+this.user.phoneNumber)
 		const appVerifier = this.windowRef.recaptchaVerifier;
 		const num = this.user.phoneNumber;
+		this.registerJson.user.phoneNumber = this.user.phoneNumber;
+		this.sms=true;
+		console.log('show sms'+this.sms)
 		firebase.auth().signInWithPhoneNumber(num, appVerifier)
 				.then(result => {
 					console.log('HELLLO')
@@ -426,89 +430,75 @@ export class Register implements OnInit {
 					.confirm(this.verificationCode)
 					.then( result => {
 						this.userFire = result.user;
-						console.log('userFire');
 						this.register()
-						
+
 		})
 		.catch( error => console.log(error, "Incorrect code entered?"));
   }
 
   public register(): void {
 		console.log('REGISTRING1')
-		this.registerJson.user.phoneNumber = this.phoneNumber.e164;
+		console.log('PHONE NUMBER 2 ' +this.registerJson.user.phoneNumber)
 		console.log(JSON.stringify(this.userFire));
-		console.log(this.userFire.phoneNumber);
-		console.log(this.userFire.authDomain);
-		this.registerJson.token.value = this.userFire.stsTokenManager.accessToken;
-		console.log('REGISTRING2')
-		this.busy = this.registerService.register(this.registerJson).subscribe(
-			data => {
-				console.log(data);
-				localStorage.setItem('latitude', this.registerJson.companyBranch.latitude.toString()); 
-				localStorage.setItem('longitude', this.registerJson.companyBranch.longitude.toString()); 
-				localStorage.setItem('user', JSON.stringify({ user: data}));
-				let body = new URLSearchParams();
-				body.set('password', this.registerJson.user.password);
-				body.set('username', this.registerJson.user.email);
-				body.set('grant_type', "password");
-				body.set('client_secret', "client_secret");
-				this.pageTopService.showLoadingBar(true);  
-				this.loginService.login(body).subscribe(
-					data => {
-						localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
-						this.loginService.getInfo().subscribe(
+		 this.userFire.getIdToken(true).then(result => {
+					console.log(result)
+					this.registerJson.token.value = result;
+					this.registerService.register(this.registerJson).subscribe(
 						data => {
-							this.userFromServer = data
-							console.log(this.userFromServer.company.id);
-							localStorage.setItem('user', JSON.stringify({ user: data}));    
-							this.loginService.getInfoForCompanyFromUser(this.userFromServer.company.id).subscribe(
+							console.log(data);
+							console.log('PHONE NUMBER 2 ' +this.registerJson.user.phoneNumber)
+							localStorage.setItem('latitude', this.registerJson.companyBranch.latitude.toString());
+							localStorage.setItem('longitude', this.registerJson.companyBranch.longitude.toString());
+							localStorage.setItem('user', JSON.stringify({ user: data}));
+							let body = new URLSearchParams();
+							body.set('password', this.registerJson.user.password);
+							body.set('username', this.registerJson.user.email);
+							body.set('grant_type', "password");
+							body.set('client_secret', "client_secret");
+							this.pageTopService.showLoadingBar(true);
+							this.loginService.login(body).subscribe(
 								data => {
-									localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data})); 
-									this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
-									this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);    
-									this._menuService.changedLoggedFlag(this.userFromServer.company.id);
-									this.pageTopService.showLoadingBar(false);
-									this.router.navigate(['/komunikat']);
+									localStorage.setItem('currentUserToken', JSON.stringify({ token: data, name: name }));
+									this.loginService.getInfo().subscribe(
+									data => {
+										this.userFromServer = data
+										console.log(this.userFromServer.company.id);
+										localStorage.setItem('user', JSON.stringify({ user: data}));
+										this.loginService.getInfoForCompanyFromUser(this.userFromServer.company.id).subscribe(
+											data => {
+												localStorage.setItem('companyBranchList', JSON.stringify({ companyBranchList: data}));
+												this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_LOGGED );
+												this.pageTopService.changedLoggedFlag(this.userFromServer.company.id);
+												this._menuService.changedLoggedFlag(this.userFromServer.company.id);
+												this.pageTopService.showLoadingBar(false);
+												this.router.navigate(['/komunikat']);
+											},
+											error => {
+												this.pageTopService.showLoadingBar(false);
+												console.log('error in inside');
+											}
+										);
+									},
+									error => {
+										this.pageTopService.showLoadingBar(false);
+										console.log('error inside');
+									}
+									);
 								},
 								error => {
 									this.pageTopService.showLoadingBar(false);
-									console.log('error in inside');
 								}
-							);                    
+							);
 						},
 						error => {
 							this.pageTopService.showLoadingBar(false);
-							console.log('error inside');
+							this.addToast('error');
 						}
-						);
-					},
-					error => {
-						this.pageTopService.showLoadingBar(false);
-					}
-				);
-			},
-			error => {
-				this.pageTopService.showLoadingBar(false);
-				// console.log('HELLO this is errror:');
-				this.addToast('error');
-				// console.dir(error);
-				/*if(error === 'PHONE_NUMBER_IS_USED'){
-					console.log('!!!!!!!!!!!!!!!!!!!!!! ERROR')
-					this.addToast('Podany');
-				}*/
+							);
+				})
+				.catch( error => console.log(error) );
+		console.log('REGISTRING2')
 
-				/*this.error= error;
-				if(this.error.error_description === "PHONE_NUMBER_IS_USED") {
-					this.error.error_description = "Podany numer telefonu jest już w użyciu";
-					console.log('RARARAAAAAAAA');
-					this.addToast('Podany numer telefonu jest już w użyciu');
-				} else if (this.error.error_description === "EMAIL_IS_USED") {
-					this.error.error_description = "Podany email jest już w użyciu";
-				} else {
-					this.error.error_description = "Podany adres nie istnieje";
-				}*/
-			}
-		); 
 
   }
 
