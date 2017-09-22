@@ -33,6 +33,7 @@ export class ProfileEditComponent implements OnInit {
     //     url: '',
     // };
     isCollapse:boolean = true;
+    isEmailCollapse: boolean = true;
     afterEmailChange: string = "";
     afterPasswordChange: string = "";
     title: string = "czy jesteś pewien że chcesz usunąć konto?";

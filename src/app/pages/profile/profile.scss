@@ -1,7 +1,11 @@
 @import '../../theme/sass/general/general.scss';
 
-$image_width: 125px;
-$image_height: 125px;
+$image_width: 100px;
+$image_height: 100px;
+
+.profileAll{
+    background: $backgroundColor;
+}
 
 div.popover{
     border: 1px solid $blackColor;
@@ -181,7 +185,15 @@ div.modal-content{
 
 div#profile{
 
+    -webkit-box-shadow: 0px 0px 3px 2px rgba(230,236,240,0.8);
+    -moz-box-shadow: 0px 0px 3px 2px rgba(230,236,240,0.8);
+    box-shadow: 0px 0px 3px 2px rgba(230,236,240,0.8);
+
+    background: white;
+    width: 50%;
+    margin-bottom: 20px;
     div.headProfile{
+        padding-top: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -195,6 +207,7 @@ div#profile{
         h2{
             width: auto;
             margin-left: 20px;
+            font-size: 20px;
         }
 
         @include button('przycisk.png', 18, 108, 47);
@@ -210,7 +223,7 @@ div#profile{
     }
 
     margin: auto;
-    padding-top: 40px;
+    margin-top: 40px;
 
     div.errorDiv{
         color: $redColor;
@@ -226,7 +239,6 @@ div#profile{
         }
     }
     h2{
-        margin: 4% 0;
         text-align: center;
         font-family: 'Open Sans', sans-serif;
         color: $blackColor;
@@ -265,18 +277,18 @@ div#profile{
             }
             @media(min-width: 992px){
                 justify-content: space-evenly;
-                width: 75%;
+                width: 96%;
                 margin: auto;
             }
         }
         div.md-tab-label{
             img{
-                width: 40px;
+                width: 35px;
             }
             p{
                 margin: 0;
                 font-family: 'Open Sans', sans-serif;
-                font-size: 16px;
+                font-size: 15px;
             }
             height: 100px;
             background: white;

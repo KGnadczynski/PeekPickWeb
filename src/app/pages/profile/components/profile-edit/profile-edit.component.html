@@ -1,6 +1,6 @@
 <div id="editProfile">
     <div id="editH">
-        <h3>edytuj profil</h3>
+        <h3>zmień dane</h3>
     </div>
 
     <form id="changeCI" [formGroup]="companyForm" (ngSubmit)="udpateCompanyName(companyForm.value)">
@@ -37,10 +37,10 @@
 <div id="companyInfo">
 
     <div class="header">
-        <h3 style="cursor:auto;">zmień e-mail</h3>
+        <h3 (click) = "isEmailCollapse = !isEmailCollapse">zmień e-mail</h3>
     </div>
 
-        <form class="changeEP" [formGroup]="emailForm" (ngSubmit)="updateEmail(emailForm.value)">
+        <form [collapse]="isEmailCollapse" class="changeEP" [formGroup]="emailForm" (ngSubmit)="updateEmail(emailForm.value)">
             <div>
                 <input type="email" id="email" formControlName="email" placeholder="nowe e-mail">
                 <div class="errorDiv" *ngIf="emailForm.controls['email'].hasError('required') && emailForm.controls['email'].touched">
@@ -92,8 +92,8 @@
         
     </form>
 
-    <div class="removeDiv">
-        <button 
+    <div class="removeDiv header">
+        <h3
             mwlConfirmationPopover 
             [title]="title"
             placement="top"
@@ -101,7 +101,7 @@
             (cancel)="cancelClicked = true"
         >
             skasuj konto
-        </button>
+    </h3>
     </div>
     
 

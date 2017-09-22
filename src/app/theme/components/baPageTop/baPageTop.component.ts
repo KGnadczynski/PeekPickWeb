@@ -71,10 +71,10 @@ export class BaPageTop implements OnInit{
         
         });
 
-        this.pageTopService.showLoading.subscribe((value) => { 
-            if(value) this.startLoading();
-            else this.completeLoading();
-        });
+        // this.pageTopService.showLoading.subscribe((value) => { 
+        //     if(value) this.startLoading();
+        //     else this.completeLoading();
+        // });
     }
 
     sendMessage():void {

@@ -84,9 +84,9 @@
 
             <div id="companyCategories" *ngIf="id === undefined">
                 <div class="categoriesI" *ngFor="let category of categories">
-                    <div class="line">
+                    <!-- <div class="line">
                         <div></div>
-                    </div>
+                    </div> -->
                     <button type="button" (click)="category.bol = !category.bol" [ngSwitch]="category.id">
                         <img *ngSwitchCase="1" src="../../meta/menu_icons/kultura_i_rozrywka.png" alt="">
                         <img *ngSwitchCase="2" src="../../meta/menu_icons/gastronomia_i_nocne_zycie.png" alt="">
@@ -95,7 +95,7 @@
                         <img *ngSwitchCase="5" src="../../meta/menu_icons/uslugi_dla_ciala.png" alt="">
                         <img *ngSwitchCase="6" src="../../meta/menu_icons/uslugi_inne.png" alt="">
                         <img *ngSwitchCase="7" src="../../meta/menu_icons/sport_i_turystyka.png" alt="">
-                        {{ category.name }}
+                        <span>{{ category.name }}</span>
                     </button>
                     
                     <div [collapse]="category.bol" *ngFor="let subcategory of category.subcategories">

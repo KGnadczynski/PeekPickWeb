@@ -8,7 +8,7 @@ $angle-right: "\f101";
 .al-sidebar {
 
   width: $sidebar-width;
-  top: 58px;
+  top: 51px;
   left: 0;
   z-index: 1001;
   display: block;
@@ -169,9 +169,12 @@ div.mLine{
   }
 
   &.selected:not(.with-sub-menu) {
-    background-color: $sidebar-elem;
+    // background-color: $sidebar-elem;
+    // background: yellow;
+
     a.al-sidebar-list-link {
-      color: white;
+      color: $redColor;
+      font-weight: bold;
       b {
         color: $sidebar-text;
       }

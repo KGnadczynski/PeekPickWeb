@@ -12,7 +12,7 @@ html, body, main {
 }
 
 .al-main {
-	padding-top: 57px;
+	padding-top: 47px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -20,7 +20,7 @@ html, body, main {
 }
 
 .al-content {
-  
+  background: $backgroundColor;
   position: relative;
   ba-search{
       z-index: 2;

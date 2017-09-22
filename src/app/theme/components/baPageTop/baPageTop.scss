@@ -21,7 +21,7 @@ $redColor: #A20E12;
     background-color: $siderbarTopColour;
     position: fixed;
     z-index: 904;
-    height: 56px;
+    height: 49px;
     width: 100%;
     padding: 0 12px;
 
@@ -35,7 +35,7 @@ $redColor: #A20E12;
         outline: none !important;
         
         img{
-            width: 50px;
+            width: 40px;
         }
     }
 
@@ -50,7 +50,7 @@ $redColor: #A20E12;
     }
 
     span{
-        font-size: 20px;
+        font-size: 18px;
         color: $redColor;
         font-family: 'Sanchez', serif;
     }
@@ -103,6 +103,7 @@ $redColor: #A20E12;
         }
         i#dropdownMenuButton{
             outline: 0;
+            font-size: 25px;
         }
 
     }
@@ -113,6 +114,7 @@ $redColor: #A20E12;
         text-align: right;
         outline: 0;
         margin-right: 10px;
+        font-size: 25px;
     }
 
     div.line{

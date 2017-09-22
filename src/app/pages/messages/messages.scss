@@ -18,7 +18,7 @@ div.message{
     padding: 10px 10px 0 10px;
     border-radius: 2px;
     background: white;
-    margin-bottom: 7px;
+    margin-bottom: 4px;
     div.message-icon{
         float: left;
         overflow: hidden;
@@ -47,6 +47,10 @@ div.message{
         }
     
         @include pElement(11, 2, none, left);
+        p{
+            color: #676061;
+            font-style: italic;
+        }
     }
 
     div.message-distance-message-icon-work{

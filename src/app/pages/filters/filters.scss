@@ -6,7 +6,7 @@ div#filterInside{
     width: 375px;
     margin: auto;
     @media(min-width: 992px){
-        width: 315px;
+        width: 268px;
 	}
 	
 	div#head{
@@ -34,6 +34,7 @@ div#filterInside{
 		overflow: hidden;
 		margin: auto;
 		width: 90%;
+		padding-top: 8px;
 		div.geolocationError{
 			@include pElement(16, 10, none, center);
 			clear: both;
@@ -163,7 +164,7 @@ input.searchLocation{
 }
 
 img.locationImage{
-	width: 30px;
+	width: 25px;
 	cursor: pointer;
 	float: right;
 	margin-top: 8px;
@@ -233,7 +234,7 @@ p#distance{
 }
 
 div#companyCategories{
-	width: 85%;
+	width: 95%;
 	margin: auto;
 	font-size: 16px;
 	overflow: hidden;
@@ -248,7 +249,7 @@ div#companyCategories{
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
+		// align-items: center;
 		
 		button{
 			color: $blackColor;
@@ -257,11 +258,13 @@ div#companyCategories{
 			background: white;
 			text-transform: lowercase;
 			height: auto;
-			margin: 5px 0;
+			width: auto;
+			margin: 7px 0;
 			font-family: "Open Sans", sans-serif;
 			font-size: 14px;
 			img{
 				width: 23px;
+				margin-right: 6px;
 			}
 		}
 	}
@@ -276,6 +279,7 @@ div#companyCategories{
 			@include checkboxMixin(checkbox, 0, -2);
 			label.newLabel{
 				margin: 2px 8px !important;
+				font-size: 14px;
 				text-transform: lowercase;
 				cursor: pointer;
 			}

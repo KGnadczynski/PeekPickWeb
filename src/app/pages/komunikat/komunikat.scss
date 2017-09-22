@@ -10,7 +10,7 @@ div.mainPage{
     display: flex;
 	background: #f7f7f9;
     div.blankDiv, div.messagesDiv, div.filterMessages{
-		padding-top: $paddingTop;
+		margin-top: 6px;
 	}
 	
 	@media(max-width: 565px){
@@ -80,9 +80,9 @@ div.mainPage{
 			padding-right: 10px;
 			// border-left: 1px solid $redColor;
 			// border-bottom: 1px solid $redColor
-			-webkit-box-shadow: -2px 2px 0px 0px rgba(230,236,240,0.8);
-			-moz-box-shadow: -2px 2px 0px 0px rgba(230,236,240,0.8);
-			box-shadow: -2px 2px 0px 0px rgba(230,236,240,0.8);
+			-webkit-box-shadow: -2px 2px 3px 0px rgba(230,236,240,0.8);
+			-moz-box-shadow: -2px 2px 3px 0px rgba(230,236,240,0.8);
+			box-shadow: -2px 2px 3px 0px rgba(230,236,240,0.8);
 			background: white;
 		}
 	}
