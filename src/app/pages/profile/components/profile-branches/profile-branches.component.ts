@@ -147,10 +147,6 @@ export class ProfileBranchesComponent implements OnInit {
                 }); 
     }
 
-
-
-   
-
     addNewBranchLatLng(value): void {
      /*   this.addNewBranch(value,function(value) {
             console.log('ADRESS '+value.lat);
@@ -181,19 +177,52 @@ export class ProfileBranchesComponent implements OnInit {
     }
 
     editBranchCallback(id,value) : void {
-           this.profileService.getCompanyBranch(id).subscribe(companyBranch => {
+
+		console.log('value:');
+		console.dir(value);
+		console.log('id: ' + id);
+
+        this.profileService.getCompanyBranch(id).subscribe(
+			branch => {
+				console.log('branch:');
+				console.dir(branch);
+				// branch.main = true;
+				this.profileService.editBranch(branch, id).subscribe(
+					editedBranch => {
+						console.log('edited branch:');
+						console.dir(editedBranch);
+					},
+					error => {
+						console.log('errorEdited:');
+						console.dir(error);
+					}
+				);
+			},
+			error => {
+				console.log('error');
+				console.dir(error);
+			}
+		);
+           /*this.profileService.getCompanyBranch(id).subscribe(companyBranch => {
+
+            console.log('companyBranch before:');
+            console.dir(companyBranch);
 
             Object.keys(value).forEach((key) => {
                 if(value[key])
                     companyBranch[key] = value[key];
             });
 
+            console.log('companyBranch after:');
+            console.dir(companyBranch);
+
             this.profileService.editBranch(companyBranch, companyBranch.id).subscribe(editedBranch => {
+                
                 let objIndex = this.companyBranches.findIndex((obj => obj.id === companyBranch.id));
                 this.companyBranches[objIndex] = editedBranch;
                 this.companyBranches[objIndex].collapse = !this.companyBranches[objIndex].collapse;
             });
-        });
+        });*/
     }
 
    addNewBranchCallback(value) : void {

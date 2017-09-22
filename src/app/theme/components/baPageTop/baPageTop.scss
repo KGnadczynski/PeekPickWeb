@@ -5,7 +5,9 @@ $siderbarTopColour: white;
 $redColor: #A20E12;
 
 .page-top {
-
+    -webkit-box-shadow: 0px 2px 3px 0px rgba(230,236,240,0.8);
+    -moz-box-shadow: 0px 2px 3px 0px rgba(230,236,240,0.8);
+    box-shadow: 0px 2px 3px 0px rgba(230,236,240,0.8);
     div.baPageTop{
         display: flex;
         justify-content: space-between;

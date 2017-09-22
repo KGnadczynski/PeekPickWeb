@@ -11,6 +11,7 @@ export class BaMenuService {
   menuItems = new BehaviorSubject<any[]>([]);
   loggedChange: Subject<number> = new Subject<number>();
   public imageChange: Subject<any>;
+  mailChange: Subject<string> = new Subject<string>();
 
   protected _currentMenuItem = {};
   protected _previousMenuItem = {};
@@ -25,6 +26,10 @@ export class BaMenuService {
 
   changeImage(imageUrl: string){
       this.imageChange.next(imageUrl);
+  }
+
+  changeEmail(mail: string){
+    this.mailChange.next(mail);
   }
 
   /**

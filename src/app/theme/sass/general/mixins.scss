@@ -82,22 +82,23 @@
         label{
             cursor: pointer;
             position: absolute;
-            width: 25px;
-            height: 25px;
+            width: 24px;
+            height: 24px;
             top: -$top + px;
             left: 0;
             background-image: url('../../meta/selection.png');
-            background-size: 25px;
+            background-size: 22px;
+            background-repeat: no-repeat;
             margin: 0;
             &:after{
                 opacity: 0;
                 content: '';
                 position: absolute;
                 background-image: url('../../meta/checkbox-blank.png');
-                width: 28px;
-                height: 28px;
-                top: -5px;
-                left: -5px;
+                width: 27px;
+                height: 27px;
+                top: -6px;
+                left: -6px;
             }
             &:hover::after{
                 opacity: 0;

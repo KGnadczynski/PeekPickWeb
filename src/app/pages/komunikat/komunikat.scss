@@ -8,6 +8,7 @@ div.mainPage{
     display: -moz-flex;
     display: -webkit-flex;
     display: flex;
+	background: #f7f7f9;
     div.blankDiv, div.messagesDiv, div.filterMessages{
 		padding-top: $paddingTop;
 	}
@@ -51,7 +52,7 @@ div.mainPage{
       		width: 96%;
 		}
 		@media(min-width: 768px){
-			width: 590px;
+			width: 486px;
 		}
 		@media(min-width: 992px){
 			order: 2;
@@ -77,8 +78,12 @@ div.mainPage{
 			width: auto;
 			margin-left: 20px;
 			padding-right: 10px;
-			border-left: 1px solid $redColor;
-			border-bottom: 1px solid $redColor
+			// border-left: 1px solid $redColor;
+			// border-bottom: 1px solid $redColor
+			-webkit-box-shadow: -2px 2px 0px 0px rgba(230,236,240,0.8);
+			-moz-box-shadow: -2px 2px 0px 0px rgba(230,236,240,0.8);
+			box-shadow: -2px 2px 0px 0px rgba(230,236,240,0.8);
+			background: white;
 		}
 	}
 }

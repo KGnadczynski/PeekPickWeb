@@ -15,7 +15,7 @@ import { AgmCoreModule } from '@agm/core';
         ReactiveFormsModule,
         CollapseModule,
         NouisliderModule,
-        AgmCoreModule
+        AgmCoreModule,
     ],
     declarations: [
         FiltersComponent

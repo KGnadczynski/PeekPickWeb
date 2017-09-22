@@ -45,6 +45,19 @@ export class BaMenu implements OnInit {
 			this.name = null;
 		});
 
+		this._service.mailChange.subscribe(
+			email => {
+				this.email = email;
+				console.log('this.email.length: ' + this.email.length);
+				if(this.email.length >= 28){
+					this.emailPart1 = email.substr(0, email.indexOf('@'));
+					this.emailPart2 = email.substr(email.indexOf('@'), email.length);
+					console.log('emailPart1:' + this.emailPart1);
+					console.log('emailPart2:' + this.emailPart2);
+				}
+			}
+		);
+
 		this._service.loggedChange.subscribe((value) => {
 			this.profileService.getUser().subscribe(
 				user => {

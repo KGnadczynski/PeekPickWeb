@@ -3,13 +3,14 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ChangeEmailService } from './change-email.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EqualPasswordsValidator } from '../../theme/validators';
+import { BaMenuService } from '../../theme';
 
 @Component({
     selector: 'change-email',
     encapsulation: ViewEncapsulation.None,
     template: require('./change-email.component.html'),
     styles: [require('./change-email.scss')],
-    providers: [ChangeEmailService]
+    providers: [ChangeEmailService, BaMenuService]
 })
 
 export class ChangeEmailComponent implements OnInit {
@@ -22,7 +23,7 @@ export class ChangeEmailComponent implements OnInit {
     emailForm: FormGroup;
     message: string = "";
 
-    constructor(private activatedRoute: ActivatedRoute, private service: ChangeEmailService, private fb: FormBuilder){
+    constructor(private activatedRoute: ActivatedRoute, private service: ChangeEmailService, private fb: FormBuilder, private menuService: BaMenuService){
         this.emailForm = fb.group({
             "passwords": fb.group({
                 "password": ['', Validators.compose([Validators.required])],
@@ -46,6 +47,7 @@ export class ChangeEmailComponent implements OnInit {
                         result => {
                             console.log('result:');
                             console.dir(result);
+                            this.menuService.changeEmail(result.data);
                         },
                         error => {
                             console.log('error:');

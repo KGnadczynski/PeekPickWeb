@@ -173,10 +173,13 @@ export class ProfileEditComponent implements OnInit {
             error =>{
                 console.log('error:');
                 console.dir(error);
+                this.emailForm.reset();
                 if(error.error === 'EMAIL_ADDRESS_IS_USED')
                     this.afterEmailChange = "Podano aktualny email";
                 else if(error.error === 'WRONG_PASSWORD')
                     this.afterEmailChange = "Podano nieprawidłowe hasło";
+                else
+                    this.afterEmailChange = "Błąd podczas wysyłania maila";
             }
         );
 
