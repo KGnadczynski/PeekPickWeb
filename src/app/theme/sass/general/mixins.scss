@@ -1,7 +1,7 @@
 @import "colorsAndFonts.scss";
 
 @mixin button($url, $fontSize, $width, $height){
-    button, input.searchLocation {
+    button {
         color: $redColor;
         font-size: $fontSize + px;
         font-family: 'Sanchez', serif;

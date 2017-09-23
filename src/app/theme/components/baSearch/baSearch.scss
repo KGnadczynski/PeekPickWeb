@@ -7,42 +7,54 @@ div.ba-search-div{
     padding-top: $paddingTop;
     @include line(1, $blackColor, 94, 15);
     div.showAdvanced{
-        background-image: url('../../../meta/przycisk.png');
-        background-size: 100% 100%;
-        width: 210px;
-        height: 80px;
-        margin: auto;
-        font-family: $sanchezFont, serif;
-        font-size: 16px;
         text-align: center;
-        padding: 13px 20px;
-        cursor: pointer;
-        color: $blackColor;
+        margin: 10px 0;
+        h3{
+            margin: 0;
+            font-size: 16px;
+            font-family: $sanchezFont, serif;
+            color: $blackColor;
+            display: inline-block;
+            width: auto;
+            font-weight: normal;
+            cursor: pointer;
+            &:hover{
+                color: $redColor;
+            }
+        }
     }
 
     h3{
         font-family: $sanchezFont, serif;
-        font-size: 20px;
+        font-size: 18px;
         text-align: center;
         color: $redColor;
     }
 
     form{
-        padding-bottom: 20px;
+        padding: 0 10px;
     }
 
     div.inputs{
         display: flex;
         justify-content: space-around;
         @include margin(20, 20);
-        @include button('przycisk2.png', 16, 260, 50);
+        @include button('przycisk.png', 16, 180, 50);
         button.searchSubmit{
+
             &.disabled{
                 color: $blackColor;
             }
         }
         input.searchLocation{
             color: $blackColor;
+            outline: 0;
+            height: 50px;
+            background-image: url('../../../../meta/przycisk.png');
+            border: 0;
+            background-size: 100% 100%;
+            width: 180px;
+            text-align: center;
             &::placeholder{
                 color: $blackColor;
             }
@@ -67,9 +79,10 @@ p.distance{
 }
 
 p.distance2{
+    clear: both;
     color: $blackColor;
     text-align: right;
-    font-size: 15px;
+    font-size: 13px;
     font-family: $openSansFont, sans-serif;
     margin-right: 35px;
 }

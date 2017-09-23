@@ -1,66 +1,5 @@
-$redColor: #A20E12;
-$blackColor: #263238;
-
-@mixin checkboxMixin() {
-    div.checkbox{
-        width: 25px;
-        margin-bottom: 10px;
-        margin-top: 10px;
-        position: relative;
-        float: left;
-        clear: both;
-        label{
-            cursor: pointer;
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            top: -2px;
-            left: 0;
-            background-image: url('../../meta/selection.png');
-            background-size: 25px;
-            margin: 0;
-            &:after{
-                opacity: 0;
-                    content: '';
-                    background-image: url(../../meta/checkbox-blank.png);
-                    width: 28px;
-                    height: 28px;
-                    position: absolute;
-                    top: -5px;
-                    left: -5px;
-            }
-            &:hover::after{
-                opacity: 0;
-            }
-        }
-        input[type=radio]:checked + label:after{
-            opacity: 1;
-        }
-        input[type=radio]{
-            opacity: 0;
-        }
-        span {
-            position: absolute;
-            left: 30px;
-            top: 0px;
-            width: 100px;
-        }
-        
-      }
-}
-
-@mixin line($color, $width){
-    div.lineF{
-        width: $width;
-        background: $color;
-        height: 2px;
-        margin: auto;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-}
-
-@include line($redColor, 88%);
+@import '../../theme/sass/general/nouislider.scss';
+@import '../../theme/sass/general/general.scss';
 
 h4{
     color: $redColor;
@@ -69,6 +8,21 @@ h4{
     text-align: center;
     margin: 20px 0;
     font-size: 20px;
+}
+
+
+div.favourites{
+    @include line(1, $redColor, 70%, 10);
+    margin: auto;
+    @media(max-width: 565px){
+        width: 96%;
+    }
+    @media(min-width: 566px){
+        width: 96%;
+    }
+    @media(min-width: 768px){
+        width: 709px;
+    }
 }
 
 form.favForm {
@@ -86,7 +40,7 @@ form.favForm {
     }
     
     div#filterBy{
-        @include checkboxMixin();
+        @include checkboxMixin(radio, 0, -2);
         display: flex;
         justify-content: space-around;
     }
@@ -106,21 +60,9 @@ form.favForm {
         }
     }
 
-    @include line($blackColor, 70%);
+    @include line(1, $blackColor, 70%, 10);
 }
 
-div.favourites{
-    margin: auto;
-    @media(max-width: 565px){
-        width: 96%;
-    }
-    @media(min-width: 566px){
-        width: 96%;
-    }
-    @media(min-width: 768px){
-        width: 709px;
-    }
-}
 
 div.fav-messages{
     margin: auto;

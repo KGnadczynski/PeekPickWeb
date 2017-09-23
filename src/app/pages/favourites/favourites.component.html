@@ -5,7 +5,9 @@
         {{ name }}
     </h4>
 
-    <div class="lineF"></div>
+    <div class="line">
+        <div></div>
+    </div>
 
     <form class="favForm" [formGroup]="filterForm" novalidate>
         <h5>sortuj po:</h5>
@@ -26,7 +28,8 @@
         <div *ngIf="!ifGeolocation" class="geolocationError">
                 <p>jeśli chcesz sortować po <span>najbliższych</span> pozwól na dostęp do lokalizacji lub wpisz miasto</p>
             </div>
-        <div class="lineF"></div>    
+        <div class="line">
+            <div></div></div>    
     </form>
 
     <div class="fav-messages">

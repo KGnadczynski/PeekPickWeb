@@ -1,5 +1,9 @@
 @import '../../theme/sass/general/general.scss';
 
+.registerAll{
+    background: $backgroundColor;
+}
+
 .digits-button {
 	width: 320px;
 	margin: 30px auto 0;
@@ -60,6 +64,14 @@ div.modal-content{
 }
 
 div#registerFormMain{
+
+    background: white;
+    border: 2px solid #e0e0e0;
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(195,195,195,0.8);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(195,195,195,0.8);
+    box-shadow: 2px 2px 2px 0px rgba(195,195,195,0.8);
+    margin-top: 15px !important;
+    padding: 10px 20px;
 
     margin: auto;
     @media(max-width: 565px){

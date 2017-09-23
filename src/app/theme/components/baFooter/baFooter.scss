@@ -1,7 +1,7 @@
 @import '../../sass/general/general.scss';
 
 div#footer{
-
+    background: white;
     @include line(2, $redColor, 80, 10);
 
     div#inside{

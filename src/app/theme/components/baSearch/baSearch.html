@@ -14,7 +14,7 @@
         <div class="searchError" *ngIf="searchForm.controls['searchTerm'].hasError('required') && searchForm.controls['searchTerm'].touched">Wpisz szukaną frazę</div>
 
         <div class="showAdvanced" (click)="showAdvanced = !showAdvanced">
-            zaawansowane szukanie
+            <h3>zaawansowane szukanie</h3>
         </div>
          
         <div [collapse] = "showAdvanced"> 
@@ -50,11 +50,13 @@
                 </div>
             </div>
 
+            <div class="line">
+                <div></div>
+            </div>
+
             <div id="companyCategories">
                 <div class="categoriesI" *ngFor="let category of categories">
-                    <div class="line">
-                        <div></div>
-                    </div>
+                    
                     <button type="button" (click)="category.bol = !category.bol" [ngSwitch]="category.id">
                         <img *ngSwitchCase="1" src="../../meta/menu_icons/kultura_i_rozrywka.png" alt="">
                         <img *ngSwitchCase="2" src="../../meta/menu_icons/gastronomia_i_nocne_zycie.png" alt="">

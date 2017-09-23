@@ -9,11 +9,15 @@ div.alert-danger{
 }
 
 div#loginFormMain{
-    border: 2px solid $blackColor;
+    border: 2px solid #e0e0e0;
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(195,195,195,0.8);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(195,195,195,0.8);
+    box-shadow: 2px 2px 2px 0px rgba(195,195,195,0.8);
     margin: auto;
     padding: 20px;
     width: 343px;
     min-height: 342px;
+    background: white;
     @include margin(20, 20);
 
     div#loginFormBlock{

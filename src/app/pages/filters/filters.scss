@@ -145,8 +145,16 @@ div#nouisliderDiv{
 @include button('przycisk2.png', 16, 260, 50);
 input.searchLocation{
 	color: $blackColor;
-	font-size: 14px;
-	padding: 0 20px;
+	outline: 0;
+	height: 50px;
+	background-image: url('../../../../meta/przycisk.png');
+	border: 0;
+	background-size: 100% 100%;
+	width: 180px;
+	text-align: center;
+	&::placeholder{
+		color: $blackColor;
+	}
 
 	&.not-geo{
 		margin: auto;
@@ -158,9 +166,6 @@ input.searchLocation{
 		float: left;
 	}
 
-	&::placeholder{
-		color: $blackColor;
-	}
 }
 
 img.locationImage{
