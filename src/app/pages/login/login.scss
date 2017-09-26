@@ -1,10 +1,18 @@
 @import '../../theme/sass/general/general.scss';
 
+$h1Size: 18px;
+$width: 343px;
+$height: 320px;
+
+div.auth-main{
+    min-height: 320px;
+}
+
 div.alert-danger{
     border: 0;
     color: $redColor;
     background: white;
-    margin: 1% 0;
+    margin: 0;
     border-radius: 0;
 }
 
@@ -15,8 +23,8 @@ div#loginFormMain{
     box-shadow: 2px 2px 2px 0px rgba(195,195,195,0.8);
     margin: auto;
     padding: 20px;
-    width: 343px;
-    min-height: 342px;
+    width: $width;
+    min-height: $height;
     background: white;
     @include margin(20, 20);
 
@@ -26,8 +34,9 @@ div#loginFormMain{
             text-align: center;
             text-transform: uppercase;
             color: $redColor;
-            font-size: 20px;
+            font-size: $h1Size;
             font-family: $sanchezFont, serif;
+            margin: 0;
         }
         form{
             overflow: hidden;
@@ -38,19 +47,18 @@ div#loginFormMain{
                 width: 80%;
                 margin: auto;
                 @include margin(10,10);
-                label{
-                    font-size: 18px;
-                    margin-right: 2%;
-                }
-                @include inputBlack(10, 16, 100);
-                
+                @include inputBlack(5, 15, 100);
             }
             div.actionButtons{
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 text-transform: lowercase;
-                @include button('przycisk2.png', 20, 184, 60);
+                @include button('przycisk.png', 17, 155, 50);
+
+                button.disabled{
+                    color: $blackColor;
+                }
 
                 a{
                     @include margin(20, 20);

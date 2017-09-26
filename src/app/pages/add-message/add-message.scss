@@ -1,12 +1,16 @@
 @import '../../theme/sass/general/general.scss';
 
 div.checkBoxDiv{
+    display: flex;
+    justify-content: center;
     overflow: hidden;
     @include margin(10, 10);
     @include checkboxMixin(checkbox, 0, -2);
     span{
         color: $blackColor;
         margin-left: 5px;
+        font-family: $openSansFont, sans-serif;
+        font-size: 15px;
     }
 }
 
@@ -26,13 +30,14 @@ div.modal-content{
                 justify-content: center;
                 align-items: center;
                 i{
-                    font-size: 30px;
+                    font-size: 25px;
                     color: $redColor;
+                    cursor: default;
                 }
                 h3{
                     width: auto;
                     color: $redColor;
-                    font-size: 25px;
+                    font-size: 23px;
                     font-weight: normal;
                     text-transform: lowercase;
                     font-family: $sanchezFont, serif;
@@ -71,7 +76,7 @@ div.modal-content{
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                @include pElement(16, 5, left, center);
+                @include pElement(15, 5, left, center);
             }
         }
 
@@ -79,11 +84,12 @@ div.modal-content{
             width: 100%;
             clear: both;
             
-            @include pElement(15, 0, right, right);
+            @include pElement(14, 0, right, right);
             p{
                 margin-right: 10%;
             }
             textarea{
+                font-size: 15px;
                 margin: auto;
                 display: block;
                 width: 80%;
@@ -319,8 +325,7 @@ div#addPhoto, div#addLocalization, div.odzialFirmy{
     }
     
     div.checkBoxDiv{
-        display: flex;
-        justify-content: center;
+        
     }
 }
 

@@ -53,7 +53,7 @@ div#footer{
                 padding: 5px;
             }
 
-            @include button('przycisk2.png', 15, 184, 47);
+            @include button('przycisk2.png', 14, 150, 47);
             button{
                 img{
                     position: absolute;
@@ -105,10 +105,10 @@ div#footer{
             div.text{
                 font-family: $openSansFont, sans-serif;
                 text-align: center;
-                @include pElement(16, 0, none, left);
+                @include pElement(15, 0, none, left);
                 a{
                     color: $redColor;
-                    font-size: 16px;
+                    font-size: 13px;
                 }
             }
         }
@@ -144,7 +144,7 @@ div#footer{
                             font-size: 12px;
                         }
                         @media(min-width: 566px){
-                            font-size: 15px;
+                            font-size: 13px;
                         }
                     }
                 }

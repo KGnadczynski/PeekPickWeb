@@ -24,7 +24,7 @@ div#activeAndEndedPosts{
 
     div.tab-contents{
         border: 0 !important;
-        width: 590px;
+        width: 486px;
         margin: auto;
         margin-top: 15px;
 
@@ -35,5 +35,10 @@ div#activeAndEndedPosts{
             color: #A20E12;
         }
 
+        div.message-content{
+            div {
+                width: 100%;
+            }
+        }
     }
 }

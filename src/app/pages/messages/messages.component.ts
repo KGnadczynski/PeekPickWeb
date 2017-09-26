@@ -85,9 +85,7 @@ export class MessagesComponent implements OnInit{
             } else {
                 this.getMessages(this.pageNumber);
             }
-            
         });
-
         
     }
 
@@ -130,31 +128,43 @@ export class MessagesComponent implements OnInit{
                         this.busy = this.messageService.getMessages(page, this.latitude, this.longitude).subscribe(result => {
                             if(page === 1) {
                                 this.messageList = result;
+                                this.messageList.messages.forEach(
+                                    obj => {obj.collapse = false;}
+                                );
                                 console.log('komunikaty: ');
                                 console.dir(this.messageList);
                             } else {
                                 this.messageList.messages = this.messageList.messages.concat(result.messages);
+                                this.messageList.messages.forEach(
+                                    obj => {obj.collapse = false;}
+                                );
                                 this.messageList.isLastPage = result.isLastPage;
                                 this.canScrool = true;
                                 console.log('komunikaty: ');
                                 console.dir(this.messageList);
                             }
-                             this.pageTopService.showLoadingBar(false);
+                            //  this.pageTopService.showLoadingBar(false);
                         });
                     }, (error) => {
-                        this.pageTopService.showLoadingBar(false);
+                        // this.pageTopService.showLoadingBar(false);
                         this.getMessagesWhenGeolocationDisabled(page);
                     });
                 } else {
                     this.busy = this.messageService.getMessages(page, 0, 0).subscribe(result => {           
                         if(page === 1) {
                             this.messageList = result;
+                            this.messageList.messages.forEach(
+                                obj => {obj.collapse = false;}
+                            );
                         } else {
                             this.messageList.messages = this.messageList.messages.concat(result.messages);
+                            this.messageList.messages.forEach(
+                                obj => {obj.collapse = false;}
+                            );
                             this.messageList.isLastPage = result.isLastPage;
                             this.canScrool = true;
                         }
-                         this.pageTopService.showLoadingBar(false);
+                        //  this.pageTopService.showLoadingBar(false);
                     });
                 }
                 
@@ -169,7 +179,9 @@ export class MessagesComponent implements OnInit{
                         this.busy = this.messageService.getCompanyMessages(page, this.id, this.latitude, this.longitude).subscribe(result => {
                             if(page === 1){
                                 this.messageList = result;
-                                
+                                this.messageList.messages.forEach(
+                                    obj => {obj.collapse = false;}
+                                );
                                 console.log('komunikatY p1: ');
                                 console.dir(this.messageList);
                             }
@@ -177,25 +189,35 @@ export class MessagesComponent implements OnInit{
                                 console.log('komunikatY p>1: ');
                                 console.dir(this.messageList);
                                     this.messageList.messages = this.messageList.messages.concat(result.messages);
+                                    this.messageList.messages.forEach(
+                                        obj => {obj.collapse = false;}
+                                    );
                                     this.messageList.isLastPage = result.isLastPage;
                                     this.canScrool = true;
                             }
-                             this.pageTopService.showLoadingBar(false);
+                            //  this.pageTopService.showLoadingBar(false);
                         });
                     }, (error) => {
-                            this.pageTopService.showLoadingBar(false);
+                            // this.pageTopService.showLoadingBar(false);
                            this.getMessagesWhenGeolocationDisabled(page);
                     });
                 } else {
                     this.busy = this.messageService.getCompanyMessages(page, this.id, 0, 0).subscribe(result => {
-                        if(page === 1)
+                        if(page === 1){
                             this.messageList = result;
+                            this.messageList.messages.forEach(
+                                obj => {obj.collapse = false;}
+                            );
+                        }
                         else {
                             this.messageList.messages = this.messageList.messages.concat(result.messages);
+                            this.messageList.messages.forEach(
+                                obj => {obj.collapse = false;}
+                            );
                             this.messageList.isLastPage = result.isLastPage;
                             this.canScrool = true;
                         }
-                         this.pageTopService.showLoadingBar(false);
+                        //  this.pageTopService.showLoadingBar(false);
                     });
                 }
                 
@@ -213,19 +235,22 @@ export class MessagesComponent implements OnInit{
                             this.longitude = position.coords.longitude;
                             this.busy = this.messageService.getMessagesList(x.join(';'), this.latitude, this.longitude, page).subscribe(result => {
                                 this.messageList = result;
+                                this.messageList.messages.forEach(
+                                    obj => {obj.collapse = false;}
+                                );
                                 console.log('favsy message list:');
                                 console.dir(result);
-                                 this.pageTopService.showLoadingBar(false);
+                                //  this.pageTopService.showLoadingBar(false);
                             });
                         }, (error) => {
-                            this.pageTopService.showLoadingBar(false);
+                            // this.pageTopService.showLoadingBar(false);
                            this.getMessagesWhenGeolocationDisabled(page);
                     });
                     }
                 }
                 else
                     this.messageList = {messages: [], isLastPage: false};
-                    this.pageTopService.showLoadingBar(false);
+                    // this.pageTopService.showLoadingBar(false);
                 break;
 
                 case 'companyCategory':
@@ -237,12 +262,18 @@ export class MessagesComponent implements OnInit{
                             this.busy = this.messageService.getCompanyCategoryMessages(this.id, page, this.latitude, this.longitude).subscribe(result => {
                                 if(page === 1){
                                     this.messageList = result;
+                                    this.messageList.messages.forEach(
+                                        obj => {obj.collapse = false;}
+                                    );
                                     console.log('komunikaty: ');
                                     console.dir(this.messageList);
                                     
                                 }
                                 else {
                                     this.messageList.messages = this.messageList.messages.concat(result.messages);
+                                    this.messageList.messages.forEach(
+                                        obj => {obj.collapse = false;}
+                                    );
                                     this.messageList.isLastPage = result.isLastPage;
                                     this.canScrool = true;
                                 }
@@ -331,6 +362,9 @@ export class MessagesComponent implements OnInit{
             this.busy = this.messageService.getMessages(page, 0, 0).subscribe(result => {           
             if(page === 1) {
                 this.messageList = result;
+                this.messageList.messages.forEach(
+                    obj => {obj.collapse = false; }
+                );
                 this.messageList.messages.forEach(m => {
                     m["info"] = "ten post wygaza " + moment(m.startDate).add(14, 'days').format("DD.MM.YYYY")
                     + ", godz. " + moment(m.startDate).add(14, 'days').format("HH:mm");
@@ -340,6 +374,9 @@ export class MessagesComponent implements OnInit{
                 this.sendMessagesLength.emit({count: result.messages.length, s: 'a'});
             } else {
                 this.messageList.messages = this.messageList.messages.concat(result.messages);
+                this.messageList.messages.forEach(
+                    obj => {obj.collapse = false; }
+                );
                 this.messageList.isLastPage = result.isLastPage;
                 this.canScrool = true;
             }
@@ -391,6 +428,9 @@ export class MessagesComponent implements OnInit{
                     console.log('lok params: ' + params);
                     this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
                         this.messageList = result;
+                        this.messageList.messages.forEach(
+                            obj => {obj.collapse = false; }
+                        );
                         this.pageTopService.showLoadingBar(false);
                         console.log('result: ');
                         console.dir(result);
@@ -409,6 +449,9 @@ export class MessagesComponent implements OnInit{
                     console.log('not lok params: ' + params);
                     this.messageService.getFilterMessages(params, this.pageNumber).subscribe(result => {
                         this.messageList = result;
+                        this.messageList.messages.forEach(
+                            obj => {obj.collapse = false; }
+                        );
                         this.pageTopService.showLoadingBar(false);
                         console.log('result: ');
                         console.dir(result);
@@ -425,6 +468,9 @@ export class MessagesComponent implements OnInit{
         this.pageTopService.showLoadingBar(true);
         this.messageService.getFilterMessages('sortType=' + sortType, this.pageNumber).subscribe(result => {
             this.messageList = result;
+            this.messageList.messages.forEach(
+                obj => {obj.collapse = false; }
+            );
             this.pageTopService.showLoadingBar(false);
         });
     }
@@ -441,6 +487,9 @@ export class MessagesComponent implements OnInit{
                 console.log('search term in messages component: ' + searchTerm);
                 this.messageService.searchMessages(searchTerm, this.pageNumber, this.latitude, this.longitude).subscribe(result => {
                     this.messageList = result;
+                    this.messageList.messages.forEach(
+                        obj => {obj.collapse = false; }
+                    );
                     this.pageTopService.showLoadingBar(false);
                     console.log('search msgs:')
                     console.dir(result);
@@ -449,6 +498,9 @@ export class MessagesComponent implements OnInit{
          } else {
                 this.messageService.searchMessages(searchTerm, this.pageNumber, 0, 0).subscribe(result => {
                     this.messageList = result;
+                    this.messageList.messages.forEach(
+                        obj => {obj.collapse = false;}
+                    );
                     this.pageTopService.showLoadingBar(false);
                     console.log('search msgs:')
                     console.dir(result);
@@ -473,6 +525,9 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getActiveMessages(this.pageNumber, date, this.latitude, this.longitude, this.id).subscribe(
                     result => {
                         this.messageList = result;
+                        this.messageList.messages.forEach(
+                            obj => {obj.collapse = false;}
+                        );
                         this.messageList.messages.forEach(m => {
                             m["info"] = "ten post wygasa " + moment(m.startDate).add(14, 'days').format("DD.MM.YYYY")
                             + ", godz. " + moment(m.startDate).add(14, 'days').format("HH:mm");
@@ -508,6 +563,9 @@ export class MessagesComponent implements OnInit{
                 this.busy = this.messageService.getFilterMessages(params, this.pageNumber).subscribe(
                     result => {
                         this.messageList = result;
+                        this.messageList.messages.forEach(
+                            obj => {obj.collapse = false;}
+                        );
                         this.sendMessagesLength.emit({count: result.messages.length, s: 'e'});
                         this.pageTopService.showLoadingBar(false);
                         console.log('ended posts: ');

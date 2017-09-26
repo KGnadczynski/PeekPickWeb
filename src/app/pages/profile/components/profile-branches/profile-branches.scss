@@ -14,12 +14,13 @@ div#branches{
         width: 82%;
     }
     @media(min-width: 992px){
-        width: 50%;
+        width: 70%;
     }
 
     div.branch{
         clear: both;
         h2{
+            font-size: 20px;
             margin: 10px 0;
             font-family: $openSansFont, sans-serif;
             color: $blackColor;
@@ -32,6 +33,10 @@ div#branches{
         p{
             @media(max-width: 565px){
                 margin: 10px 0;
+            }
+            span{
+                font-family: $openSansFont, sans-serif;
+                font-size: 13px;
             }
         }
         span.error{
@@ -46,6 +51,8 @@ div#branches{
         text-align: center;
         margin: auto;
         display: block;
+        font-size: 35px;
+        margin-top: 10px;
     }
     div#addCollapseDiv{
         clear: both;
@@ -64,12 +71,12 @@ div#branches{
             justify-content: flex-start;
         }
 
-        @include button('przycisk2.png', 16, 140, 57);
+        @include button('przycisk2.png', 14, 120, 50);
         button {
             margin: initial;
             &.mainBranchButton{
-                height: 57px;
-                width: 255px;
+                height: 50px;
+                width: 210px;
             }
         }
     }

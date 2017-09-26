@@ -166,6 +166,8 @@ div.message{
                 margin: 0;
                 share-button{
                     padding: 0;
+                    min-width: auto;
+                    margin-right: 20px;
                     button {
                         outline: 0;
                         width: auto;
@@ -211,7 +213,7 @@ div.message{
         div.info{
             font-family: $openSansFont, sans-serif;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
         }
         div#edit, div#continue, div#delete {
             @include button('przycisk.png', 16, 140, 50);

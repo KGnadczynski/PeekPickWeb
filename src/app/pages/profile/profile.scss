@@ -5,6 +5,7 @@ $image_height: 100px;
 
 .profileAll{
     background: $backgroundColor;
+    padding-bottom: 20px;
 }
 
 div.popover{
@@ -182,7 +183,6 @@ div.modal-content{
     
 }
 
-
 div#profile{
 
     -webkit-box-shadow: 0px 0px 3px 2px rgba(230,236,240,0.8);
@@ -190,7 +190,19 @@ div#profile{
     box-shadow: 0px 0px 3px 2px rgba(230,236,240,0.8);
 
     background: white;
-    width: 50%;
+    
+    @media(max-width: 565px){
+        width: 98%;
+    }
+    @media(min-width: 565px){
+        width: 95%;
+    }
+    @media(min-width: 768px){
+        width: 60%;
+    }
+    // @media(min-width: 992px){
+    //     width: 60%;
+    // }
     margin-bottom: 20px;
     div.headProfile{
         padding-top: 10px;
@@ -256,6 +268,7 @@ div#profile{
     
     md-tab-group{
         div.md-tab-body{
+            padding-bottom: 20px;
             margin: auto;
             @media(max-width: 544px){
                 width: 96%;

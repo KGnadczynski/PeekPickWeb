@@ -8,7 +8,7 @@ div.mainPage{
     display: -moz-flex;
     display: -webkit-flex;
     display: flex;
-	background: #f7f7f9;
+	background: $backgroundColor;
     div.blankDiv, div.messagesDiv, div.filterMessages{
 		margin-top: 6px;
 	}

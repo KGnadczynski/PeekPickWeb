@@ -18,11 +18,6 @@
 			<div class="actionButtons">
 				<a routerLink="/pages/change-password">zapomniałem hasła</a>
 				<button [ngClass]="{'disabled': !form.valid}" [disabled]="!form.valid" type="submit">zaloguj</button>
-
-				<div *ngIf="error" class="alert alert-danger">
-					{{error.error_description}}
-				</div>
-
 				<button routerLink="/pages/register">utwórz konto</button>
 			</div>
 

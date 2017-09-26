@@ -11,7 +11,7 @@ export class CompanyService{
 
     constructor(private http: Http){}
 
-    getCompany(id: number){
+    getCompanyMainBranch(id: number){
         return this.http.get(url + `/companybranches/companyId/${id}/main`).map((response: Response) => response.json())
         .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }

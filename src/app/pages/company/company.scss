@@ -5,10 +5,10 @@ $topImageSize: 120px;
 
 div#companyWhole{
     @media(max-width: 565px){
-        padding: 0 3%;
+        padding: 0 3vw;
     }
     @media(min-width: 566px){
-        padding: 0 10%;
+        padding: 0 10vw;
     }
 }
 
@@ -45,7 +45,7 @@ div#topComp{
         }
 }
 
-div#mapaFirmy, div#companyMain, div#messages{
+div#mapaFirmy, div#companyMain, div.branches{
     @media(max-width: 565px){
         padding: 2vw 7vw;
     }
@@ -71,6 +71,7 @@ div#companyMain{
     overflow: hidden;
     font-family: $openSansFont, sans-serif;
     color: $blackColor;
+    margin-top: 15px;
 
     @include line(2, $blackColor, 80, 10);
 
@@ -97,13 +98,13 @@ div#companyMain{
         }
 
         a{
-
             font-family: $openSansFont, sans-serif;
             font-size: 16px;
         }
         div{
             display: flex;
             width: 35%;
+            margin-right: 10px;
         }
         p {
             span{
@@ -149,7 +150,7 @@ div#messages{
     }
 }
 
-md-tab-group{
+md-tab-group {
 
     div.md-tab-body-wrapper{
         @media(min-width: 566px){
@@ -172,6 +173,20 @@ md-tab-group{
         }
     }
     div.md-tab-label{
+        @media(max-width: 575px){
+            min-width: 30px !important;
+            height: 50px !important;
+            &:focus{
+                background-color: white !important;
+            }
+        }
+        @media (min-width: 576px) and (max-width: 992px){
+            min-width: 30px !important;
+            height: 50px !important;
+            &:focus{
+                background-color: white !important;
+            }
+        }
         img{
             width: 30px;
             margin-top: 10px;
@@ -199,57 +214,20 @@ md-tab-group{
     }
 }
 
-    
-@media(max-width: 575px){
-    
-    md-tab-group{
-        div.md-tab-label{
-            min-width: 30px !important;
-            height: 50px !important;
-            &:focus{
-                background-color: white !important;
-            }
-        }
-    }
-}
-@media (min-width: 576px) and (max-width: 992px){
-   md-tab-group{
-        div.md-tab-label{
-            min-width: 30px !important;
-            height: 50px !important;
-            &:focus{
-                background-color: white !important;
-            }
-        }
-    }
-}
-
 div.branches{
-    margin: 20px 0;
-    @media(max-width: 565px){
-        padding: 2vw 7vw;
-    }
-    @media(min-width: 566px){
-        padding: 2vw 3vw;
-    }
-    @media(min-width: 992px){
-        padding: 0vw 8vw;
-    }
-    @media(min-width: 1200px){
-        padding: 0 16vw;
-    }
     div.branch{
         margin: 20px 0;
         h2{
             font-family: $sanchezFont, serif;
             font-size: 22px;
+            margin-bottom: 5px;
         }
         p {
-            font-family: $openSansFont, sans-serif;
-            
             span{
                 font-size: 15px;
+                font-family: $openSansFont, sans-serif;
             }
+            margin: 0;
         }
     }
 }
