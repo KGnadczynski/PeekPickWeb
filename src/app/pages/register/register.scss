@@ -32,6 +32,19 @@ div.sms-content{
     margin: auto;
     width: 50%;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    label{
+        margin: 0;
+        text-align: center;
+        font-family: $openSansFont, sans-serif;
+    }
+    input{
+        margin: 10px 0;
+        font-family: $openSansFont, sans-serif;
+        outline: 0;
+    }
+    @include button('przycisk.png', 18, 108, 47);
 }
 
 div.modal-content{
@@ -107,12 +120,12 @@ div#registerFormMain{
             }
             padding-left: 20px;
             
-		}
-		div.formRegDiv {
-            clear: both;
+        }
+        div.formRegDivS{
             display: flex;
             justify-content: center;
-
+            clear: both;
+            margin-top: 10px;
             div.dropdown-menu{
                 min-width: 280px;
                 div{
@@ -135,7 +148,6 @@ div#registerFormMain{
                     }
                 }
             }
-
             div.select{
                 float: left;
                 button{
@@ -165,6 +177,13 @@ div#registerFormMain{
                 }
                 clear: both;
             }
+        }
+		div.formRegDiv {
+            clear: both;
+
+            
+
+            
             @include margin(5, 5);
 			span{
 				color: $redColor;
@@ -178,13 +197,18 @@ div#registerFormMain{
             clear: both;
 			display: flex;
 			justify-content: center;
-			align-items: center;
+            align-items: center;
+            flex-direction: column;
             @include button('przycisk.png', 16, 160, 50);
             button.invalid{
                 color: $blackColor;
             }
             button.invalid{
                 color: $blackColor;
+            }
+            div#recaptcha-container{
+                margin-top: 10px;
+                margin-bottom: 10px;
             }
 		}
 

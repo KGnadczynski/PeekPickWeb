@@ -1,5 +1,7 @@
-$blackColor: #263238;
-$redColor: #A20E12;
+@import '../../theme/sass/general/nouislider.scss';
+@import '../../theme/sass/general/general.scss';
+
+$topImageSize: 120px;
 
 div#companyWhole{
     @media(max-width: 565px){
@@ -22,29 +24,44 @@ div#topComp{
         flex-direction: row;
     }
         img{
-            width: 140px;
-            height: 140px;
+            width: $topImageSize;
+            height: $topImageSize;
         }
         h4{
             width: auto;
-            font-family: 'Open Sans', sans-serif;
+            font-family: $openSansFont, sans-serif;
             text-align: center;
             color: $blackColor;
-            font-size: 30px;
+            font-size: 25px;
             @media(max-width: 565px){
                 margin-left: 0;
                 margin-top: 10px;
             }
             @media(min-width: 566px){
-                margin-left: 20px;
+                margin-left: 10px;
                 margin-top: 0;
             }
             
         }
 }
 
+div#mapaFirmy, div#companyMain, div#messages{
+    @media(max-width: 565px){
+        padding: 2vw 7vw;
+    }
+    @media(min-width: 566px){
+        padding: 2vw 3vw;
+    }
+    @media(min-width: 992px){
+        padding: 0vw 8vw;
+    }
+    @media(min-width: 1200px){
+        padding: 0 16vw;
+    }
+}
+
 div#mapaFirmy{
-    margin-top: 5%;
+    margin-top: 20px;
     agm-map{
         height: 300px;
     }
@@ -52,38 +69,20 @@ div#mapaFirmy{
 
 div#companyMain{
     overflow: hidden;
-    font-family: 'Open Sans', sans-serif;
+    font-family: $openSansFont, sans-serif;
     color: $blackColor;
-    @media(min-width: 992px){
-    }
 
-    div.cLine{
-        div{
-            width: 80%;
-            margin: auto;
-            height: 2px;
-            background: $blackColor;
-        }
-        width: 100%;
-        float: left;
-        clear: both;
-        margin-top: 2%;
-        margin-bottom: 2%;
-    }
+    @include line(2, $blackColor, 80, 10);
 
     h4{
-        // float: left;
-        // margin: 3px 0 0 6px;
-        // text-align: left;
         width: auto;
-        font-size: 20px;
+        font-size: 17px;
         font-weight: normal;
         text-transform: lowercase;
         color: $blackColor;
-        font-family: 'Open Sans', sans-serif;
+        font-family: $openSansFont, sans-serif;
     }
     i{
-        // float: left;
         color: $redColor;
     }
     div.compDiv, div.compDivD{
@@ -99,7 +98,7 @@ div#companyMain{
 
         a{
 
-            font-family: 'Open Sans', sans-serif;
+            font-family: $openSansFont, sans-serif;
             font-size: 16px;
         }
         div{
@@ -107,10 +106,12 @@ div#companyMain{
             width: 35%;
         }
         p {
-            font-family: 'Open Sans', sans-serif;
-            line-height: 20px;
-            font-size: 16px;
-            color: $blackColor;
+            span{
+                font-family: $openSansFont, sans-serif;
+                line-height: 20px;
+                font-size: 15px;
+                color: $blackColor;
+            }
             &.opening{
                 white-space: pre-wrap;
             }
@@ -137,20 +138,26 @@ div#messages{
         width: 96%;
     }
     @media(min-width: 768px){
-        width: 590px;
+        width: 486px;
+    }
+    div.message{
+        div.message-content{
+            div{
+                width: 100%;
+            }
+        }
     }
 }
 
 md-tab-group{
-    div.md-tab-body{
-        
-        @media(min-width: 992px){
-            padding: 0 4%;
-        }
-        @media(min-width: 1200px){
-            padding: 0 18%;
+
+    div.md-tab-body-wrapper{
+        @media(min-width: 566px){
+            width: 80%;
+            margin: auto;
         }
     }
+
     div.md-tab-header{
         
         border: none !important;
@@ -166,13 +173,13 @@ md-tab-group{
     }
     div.md-tab-label{
         img{
-            width: 40px;
+            width: 30px;
             margin-top: 10px;
         }
         background: white !important;
         opacity: 1 !important;
         padding: 0 !important;
-        font-family: 'Open Sans', sans-serif;
+        font-family: $openSansFont, sans-serif;
         color: $blackColor;
         &:focus{
             border: none !important;
@@ -219,16 +226,29 @@ md-tab-group{
 
 div.branches{
     margin: 20px 0;
+    @media(max-width: 565px){
+        padding: 2vw 7vw;
+    }
+    @media(min-width: 566px){
+        padding: 2vw 3vw;
+    }
+    @media(min-width: 992px){
+        padding: 0vw 8vw;
+    }
+    @media(min-width: 1200px){
+        padding: 0 16vw;
+    }
     div.branch{
         margin: 20px 0;
         h2{
-            font-family: 'Sanchez', serif;
+            font-family: $sanchezFont, serif;
+            font-size: 22px;
         }
         p {
-            font-family: 'Open Sans', sans-serif;
+            font-family: $openSansFont, sans-serif;
             
             span{
-                font-size: 16px;
+                font-size: 15px;
             }
         }
     }
