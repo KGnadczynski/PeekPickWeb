@@ -2,21 +2,22 @@
 @import '../../theme/sass/general/general.scss';
 
 $topImageSize: 120px;
-
-div#companyWhole{
-    @media(max-width: 565px){
-        padding: 0 3vw;
-    }
-    @media(min-width: 566px){
-        padding: 0 10vw;
-    }
-}
+$bodyWrapperWidth: 640px;
 
 div#topComp{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
+    width: $bodyWrapperWidth;
+    @media(max-width: $bodyWrapperWidth){
+        width: 96%;
+    }
+    background: $otherBackgroundColor;
+    margin: auto;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+
     @media(max-width: 565px){
         flex-direction: column;
     }
@@ -43,21 +44,6 @@ div#topComp{
             }
             
         }
-}
-
-div#mapaFirmy, div#companyMain, div.branches{
-    @media(max-width: 565px){
-        padding: 2vw 7vw;
-    }
-    @media(min-width: 566px){
-        padding: 2vw 3vw;
-    }
-    @media(min-width: 992px){
-        padding: 0vw 8vw;
-    }
-    @media(min-width: 1200px){
-        padding: 0 16vw;
-    }
 }
 
 div#mapaFirmy{
@@ -150,69 +136,7 @@ div#messages{
     }
 }
 
-md-tab-group {
-
-    div.md-tab-body-wrapper{
-        @media(min-width: 566px){
-            width: 80%;
-            margin: auto;
-        }
-    }
-
-    div.md-tab-header{
-        
-        border: none !important;
-        @media(max-width: 565px){
-            justify-content: space-around;
-        }
-        @media(min-width: 566px){
-            justify-content: space-around;
-        }
-        @media(min-width: 992px){
-            justify-content: center;
-        }
-    }
-    div.md-tab-label{
-        @media(max-width: 575px){
-            min-width: 30px !important;
-            height: 50px !important;
-            &:focus{
-                background-color: white !important;
-            }
-        }
-        @media (min-width: 576px) and (max-width: 992px){
-            min-width: 30px !important;
-            height: 50px !important;
-            &:focus{
-                background-color: white !important;
-            }
-        }
-        img{
-            width: 30px;
-            margin-top: 10px;
-        }
-        background: white !important;
-        opacity: 1 !important;
-        padding: 0 !important;
-        font-family: $openSansFont, sans-serif;
-        color: $blackColor;
-        &:focus{
-            border: none !important;
-        }
-        &.md-tab-active{
-            opacity: 1 !important;
-            background: white !important;
-            p{
-                color: $blackColor;
-            }
-        }
-    }
-    md-ink-bar{
-        top: 0;
-        color: white !important;
-        background-color: $redColor !important;
-    }
-}
+@include mdTabGroup(640, company);
 
 div.branches{
     div.branch{

@@ -140,6 +140,81 @@
     }
 }
 
+@mixin mdTabGroup($bodyWrapperWidth, $dest){
+    md-tab-group {
+        margin-bottom: 20px;
+        div.md-tab-body-wrapper{
+            width: $bodyWrapperWidth+px;
+            @media(max-width: $bodyWrapperWidth+px){
+                width: 96%;
+            }
+            margin: auto;
+            background: $otherBackgroundColor;
+            padding: 0 15px;
+        }
+        div.md-tab-header{
+            border: none !important;
+            background: $otherBackgroundColor;
+            @media(min-width: $bodyWrapperWidth+px){
+                background: transparent;
+            }
+            @media(max-width: $bodyWrapperWidth+px){
+                width: 96%;
+                margin: auto;
+            }
+            @media(max-width: 565px){
+                justify-content: space-around;
+            }
+            @media(min-width: 566px){
+                justify-content: center;
+            }
+            div.md-tab-label{
+                background: white !important;
+                opacity: 1 !important;
+                padding: 0 !important;
+                font-family: $openSansFont, sans-serif;
+                color: $blackColor;
+                @if $dest == "profile"{
+                    height: 110px !important;
+                }
+                img{
+                    width: 30px;
+                    margin-top: 10px;
+                }
+                @media(max-width: 575px){
+                    min-width: 30px !important;
+                    height: 50px !important;
+                    &:focus{
+                        background-color: white !important;
+                    }
+                }
+                @media (min-width: 992px){
+                    &:focus{
+                        background-color: white !important;
+                    }
+                }
+                &:focus{
+                    border: none !important;
+                }
+                &.md-tab-active{
+                    opacity: 1 !important;
+                    background: white !important;
+                    p{
+                        color: $blackColor;
+                    }
+                }
+            }
+        }
+        md-ink-bar{
+            color: white !important;
+            background-color: $redColor !important;
+            @if $dest == "profile"{
+                top: 50px !important;
+            }
+        }
+    }
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus

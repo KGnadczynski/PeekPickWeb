@@ -116,111 +116,76 @@ export class MessagesComponent implements OnInit{
         }
     }
 
+    getMessagesFunction(page: number, result: MessageList): void {
+        if(page === 1) {
+            this.messageList = result;
+            this.messageList.messages.forEach(
+                obj => {obj.collapse = false;}
+            );
+            console.log('komunikaty: ');
+            console.dir(this.messageList);
+        } else {
+            this.messageList.messages = this.messageList.messages.concat(result.messages);
+            this.messageList.messages.forEach(
+                obj => {obj.collapse = false;}
+            );
+            this.messageList.isLastPage = result.isLastPage;
+            this.canScrool = true;
+            console.log('komunikaty: ');
+            console.dir(this.messageList);
+        }
+    }
+
     getMessages(page: any){
-        this.pageTopService.showLoadingBar(true);
-        switch (this.dest) {
+
+		switch (this.dest) {
             case '':
                 console.log('switch: same messages');
                 if("geolocation"  in navigator){
-                    navigator.geolocation.getCurrentPosition((position) => {
-                        this.latitude = position.coords.latitude;
-                        this.longitude = position.coords.longitude;
-                        this.busy = this.messageService.getMessages(page, this.latitude, this.longitude).subscribe(result => {
-                            if(page === 1) {
-                                this.messageList = result;
-                                this.messageList.messages.forEach(
-                                    obj => {obj.collapse = false;}
-                                );
-                                console.log('komunikaty: ');
-                                console.dir(this.messageList);
-                            } else {
-                                this.messageList.messages = this.messageList.messages.concat(result.messages);
-                                this.messageList.messages.forEach(
-                                    obj => {obj.collapse = false;}
-                                );
-                                this.messageList.isLastPage = result.isLastPage;
-                                this.canScrool = true;
-                                console.log('komunikaty: ');
-                                console.dir(this.messageList);
-                            }
-                            //  this.pageTopService.showLoadingBar(false);
-                        });
-                    }, (error) => {
-                        // this.pageTopService.showLoadingBar(false);
-                        this.getMessagesWhenGeolocationDisabled(page);
-                    });
+                    navigator.geolocation.getCurrentPosition(
+						position => {
+							this.latitude = position.coords.latitude;
+							this.longitude = position.coords.longitude;
+							this.busy = this.messageService.getMessages(page, this.latitude, this.longitude).subscribe(
+								result => {
+									this.getMessagesFunction(page, result);
+								}
+							);
+						},
+						error => {
+	                        this.getMessagesWhenGeolocationDisabled(page);
+						}
+					);
                 } else {
-                    this.busy = this.messageService.getMessages(page, 0, 0).subscribe(result => {           
-                        if(page === 1) {
-                            this.messageList = result;
-                            this.messageList.messages.forEach(
-                                obj => {obj.collapse = false;}
-                            );
-                        } else {
-                            this.messageList.messages = this.messageList.messages.concat(result.messages);
-                            this.messageList.messages.forEach(
-                                obj => {obj.collapse = false;}
-                            );
-                            this.messageList.isLastPage = result.isLastPage;
-                            this.canScrool = true;
-                        }
-                        //  this.pageTopService.showLoadingBar(false);
-                    });
+                    this.busy = this.messageService.getMessages(page, 0, 0).subscribe(
+						result => {
+							this.getMessagesFunction(page, result);
+						}
+					);
                 }
-                
                 break;
             
             case 'company':
             case 'profile':
                 if("geolocation"  in navigator){
-                    navigator.geolocation.getCurrentPosition((position) => {
-                        this.latitude = position.coords.latitude;
-                        this.longitude = position.coords.longitude;
-                        this.busy = this.messageService.getCompanyMessages(page, this.id, this.latitude, this.longitude).subscribe(result => {
-                            if(page === 1){
-                                this.messageList = result;
-                                this.messageList.messages.forEach(
-                                    obj => {obj.collapse = false;}
-                                );
-                                console.log('komunikatY p1: ');
-                                console.dir(this.messageList);
-                            }
-                            else {
-                                console.log('komunikatY p>1: ');
-                                console.dir(this.messageList);
-                                    this.messageList.messages = this.messageList.messages.concat(result.messages);
-                                    this.messageList.messages.forEach(
-                                        obj => {obj.collapse = false;}
-                                    );
-                                    this.messageList.isLastPage = result.isLastPage;
-                                    this.canScrool = true;
-                            }
-                            //  this.pageTopService.showLoadingBar(false);
-                        });
-                    }, (error) => {
-                            // this.pageTopService.showLoadingBar(false);
+                    navigator.geolocation.getCurrentPosition(
+						position => {
+							this.latitude = position.coords.latitude;
+							this.longitude = position.coords.longitude;
+							this.busy = this.messageService.getCompanyMessages(page, this.id, this.latitude, this.longitude).subscribe(
+								result => {
+									this.getMessagesFunction(page, result);
+								}
+							);
+                    	}, error => {
                            this.getMessagesWhenGeolocationDisabled(page);
-                    });
+						}
+					);
                 } else {
                     this.busy = this.messageService.getCompanyMessages(page, this.id, 0, 0).subscribe(result => {
-                        if(page === 1){
-                            this.messageList = result;
-                            this.messageList.messages.forEach(
-                                obj => {obj.collapse = false;}
-                            );
-                        }
-                        else {
-                            this.messageList.messages = this.messageList.messages.concat(result.messages);
-                            this.messageList.messages.forEach(
-                                obj => {obj.collapse = false;}
-                            );
-                            this.messageList.isLastPage = result.isLastPage;
-                            this.canScrool = true;
-                        }
-                        //  this.pageTopService.showLoadingBar(false);
+                        this.getMessagesFunction(page, result);
                     });
                 }
-                
                 break;
 
             case 'favourites':
@@ -240,63 +205,36 @@ export class MessagesComponent implements OnInit{
                                 );
                                 console.log('favsy message list:');
                                 console.dir(result);
-                                //  this.pageTopService.showLoadingBar(false);
                             });
                         }, (error) => {
-                            // this.pageTopService.showLoadingBar(false);
                            this.getMessagesWhenGeolocationDisabled(page);
                     });
                     }
                 }
                 else
                     this.messageList = {messages: [], isLastPage: false};
-                    // this.pageTopService.showLoadingBar(false);
                 break;
 
                 case 'companyCategory':
                 console.log('switch: companyCategory');
                      if("geolocation"  in navigator){
-                        navigator.geolocation.getCurrentPosition((position) => {
-                            this.latitude = position.coords.latitude;
-                            this.longitude = position.coords.longitude;
-                            this.busy = this.messageService.getCompanyCategoryMessages(this.id, page, this.latitude, this.longitude).subscribe(result => {
-                                if(page === 1){
-                                    this.messageList = result;
-                                    this.messageList.messages.forEach(
-                                        obj => {obj.collapse = false;}
-                                    );
-                                    console.log('komunikaty: ');
-                                    console.dir(this.messageList);
-                                    
-                                }
-                                else {
-                                    this.messageList.messages = this.messageList.messages.concat(result.messages);
-                                    this.messageList.messages.forEach(
-                                        obj => {obj.collapse = false;}
-                                    );
-                                    this.messageList.isLastPage = result.isLastPage;
-                                    this.canScrool = true;
-                                }
-                                 this.pageTopService.showLoadingBar(false);
-                            });
-                        }, (error) => {
-                            this.pageTopService.showLoadingBar(false);
-                           this.getMessagesWhenGeolocationDisabled(page);
-                        });
+                        navigator.geolocation.getCurrentPosition(
+							position => {
+								this.latitude = position.coords.latitude;
+								this.longitude = position.coords.longitude;
+								this.busy = this.messageService.getCompanyCategoryMessages(this.id, page, this.latitude, this.longitude).subscribe(
+									result => {
+										this.getMessagesFunction(page, result);
+									}
+								);
+							},
+							error => {
+                           		this.getMessagesWhenGeolocationDisabled(page);
+							}
+						);
                     } else {
                         this.busy = this.messageService.getCompanyCategoryMessages(this.id, page, 0, 0).subscribe(result => {
-                            if(page === 1){
-                                this.messageList = result;
-                                console.log('komunikaty: ');
-                                console.dir(this.messageList);
-                                
-                            }
-                            else {
-                                this.messageList.messages = this.messageList.messages.concat(result.messages);
-                                this.messageList.isLastPage = result.isLastPage;
-                                this.canScrool = true;
-                            }
-                             this.pageTopService.showLoadingBar(false);
+                            this.getMessagesFunction(page, result);
                         });
                     }
                 break;

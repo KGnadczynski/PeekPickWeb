@@ -25,6 +25,9 @@ div#activeAndEndedPosts{
     div.tab-contents{
         border: 0 !important;
         width: 486px;
+        @media(max-width: 485px){
+            width: 100%;
+        }
         margin: auto;
         margin-top: 15px;
 
