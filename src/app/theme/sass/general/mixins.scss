@@ -151,6 +151,7 @@
             margin: auto;
             background: $otherBackgroundColor;
             padding: 0 15px;
+            padding-bottom: 20px;
         }
         div.md-tab-header{
             border: none !important;
@@ -175,11 +176,15 @@
                 font-family: $openSansFont, sans-serif;
                 color: $blackColor;
                 @if $dest == "profile"{
-                    height: 110px !important;
+                    height: 95px !important;
                 }
                 img{
                     width: 30px;
                     margin-top: 10px;
+                }
+                p{
+                    font-family: $openSansFont, sans-serif;
+                    margin: 0;
                 }
                 @media(max-width: 575px){
                     min-width: 30px !important;

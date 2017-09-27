@@ -210,6 +210,9 @@ div.message{
         display: flex;
         justify-content: space-between;
         align-items: center;
+        @media(max-width: 430px){
+            flex-direction: column;
+        }
         div.info{
             font-family: $openSansFont, sans-serif;
             font-weight: bold;
