@@ -7,6 +7,7 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 import { BaMenuService } from '../../theme';
 import { ProfileService } from './profile.service';
 import { MessagesService } from '../messages/messages.service';
+import { GlobalState } from '../../global.state';
 
 let moment = require('../../../../node_modules/moment/moment');
 
@@ -39,7 +40,9 @@ export class ProfileComponent implements OnInit {
     image:any;
     myReader: FileReader;
 
-    constructor(private http: Http, private profileService: ProfileService, private router: Router, private menuService: BaMenuService, private messageService: MessagesService){
+    constructor(private http: Http, private profileService: ProfileService, private _state: GlobalState, private router: Router, private menuService: BaMenuService, private messageService: MessagesService){
+
+        this._state.notifyDataChanged('menu.isCollapsed',true);
 
         this.cropperSettings = new CropperSettings();
         this.cropperSettings.width = 200;

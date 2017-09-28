@@ -20,6 +20,7 @@ import * as firebase from 'firebase';
 import {PhoneNumber} from "./phonenumber"
 import { environment } from '../../globals/environment';
 import { WindowService } from '../../window.service';
+import { GlobalState } from '../../global.state';
 
 @Component({
 	selector: 'register',
@@ -112,7 +113,10 @@ export class Register implements OnInit {
 		private toastyService: ToastyService,
 		private toastyConfig: ToastyConfig,
 		private win: WindowService,
+		private _state: GlobalState
   	){
+
+		this._state.notifyDataChanged('menu.isCollapsed',true);
 
 		this.mapsAPILoader.load().then(() => {
 			console.log('google script loaded');

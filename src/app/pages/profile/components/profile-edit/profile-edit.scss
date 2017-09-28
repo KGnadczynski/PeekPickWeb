@@ -66,11 +66,6 @@ div#editProfile{
     
     
     form#changeCI{
-        // div.picture-group{
-        //     border: none;
-        //     width: auto;
-        //     height: auto;
-        // }
         @include inputBlack(0, 17, 100);
         div.image-upload{
             width: 40%;
@@ -92,15 +87,16 @@ div#editProfile{
                     }
                 }
             }
-            // a.change-picture, i.ion-ios-close-outline{
-            //     display: none;
-            // }
+
         }
         div#name{
             margin: 0;
             float: right;
             width: 100%;
             padding-left: 5px;
+            @media(max-width: 565px){
+                padding-left: 0;
+            }
         }
         div#address{
             clear: both;
@@ -111,7 +107,7 @@ div#editProfile{
             display: flex;
             justify-content: space-around;
             @media(max-width: 565px){
-                padding: 0 6%;
+                // padding: 0 6%;
             }
             @media(max-width: 565px){
                 flex-direction: column;

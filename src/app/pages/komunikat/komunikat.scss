@@ -46,10 +46,11 @@ div.mainPage{
 	div.messagesDiv{
 		@media(max-width: 565px){
 			order: 2;
+			width: 96%;
 		}
 		@media(min-width: 566px){
 			order: 2;
-      		width: 96%;
+			width: 486px;
 		}
 		@media(min-width: 768px){
 			width: 486px;
@@ -59,19 +60,25 @@ div.mainPage{
 		}
 	}
 	div.filterMessages{
+		-webkit-box-shadow: -2px 2px 5px 0px rgba(195,195,195,0.8);
+		-moz-box-shadow: -2px 2px 5px 0px rgba(195,195,195,0.8);
+		box-shadow: -2px 2px 5px 0px rgba(195,195,195,0.8);
+		background: white;
 		@media(max-width: 565px){
 			order: 1;
 			width: 100%;
+			width: 96%;
 		}
 		@media(min-width: 566px){
 			order: 1;
-      		width: 100%;
+			width: 486px;
 		}
 		@media(min-width: 768px){
 			h4{
 				padding: 0;
 				margin: 0;
 			}
+			width: 486px
 		}
 		@media(min-width: 992px){
 			order: 3;
@@ -80,10 +87,7 @@ div.mainPage{
 			padding-right: 10px;
 			// border-left: 1px solid $redColor;
 			// border-bottom: 1px solid $redColor
-			-webkit-box-shadow: -2px 2px 5px 0px rgba(195,195,195,0.8);
-			-moz-box-shadow: -2px 2px 5px 0px rgba(195,195,195,0.8);
-			box-shadow: -2px 2px 5px 0px rgba(195,195,195,0.8);
-			background: white;
+			
 		}
 	}
 }

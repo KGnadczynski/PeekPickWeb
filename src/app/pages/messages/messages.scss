@@ -81,7 +81,7 @@ div.message{
             @include pElement(16, 0, none, left);
             background-image: url('../../meta/chmurka_5_linijek.png');
             background-size: 100% 100%;
-            @media(max-width: 507px){
+            @media(max-width: 565px){
                 width: 100%;
             }
             p{

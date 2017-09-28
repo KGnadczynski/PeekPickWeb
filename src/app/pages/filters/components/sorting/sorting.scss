@@ -8,6 +8,7 @@ h5.sortH5{
     font-size: 13px;
     text-transform: lowercase;
     width: auto;
+    margin-right: 10px;
 }
 
 div.filterBy{
@@ -19,19 +20,6 @@ div.filterBy{
     margin-bottom: 10px;
 
     @include checkboxMixin(radio, 0, -2);
-
-    // label{
-    //     width: 24px !important;
-    //     height: 24px !important;
-    //     background-repeat: no-repeat;
-    //     background-size: 22px !important;
-    //     &::after{
-    //         width: 27px !important;
-    //         height: 27px !important;
-    //         top: -6px !important;
-    //         left: -6px !important;
-    //     }
-    // }
 
     label.newLabel{
         left: 28px !important;
@@ -47,7 +35,6 @@ div.filterBy{
 
 div.geolocationError{
     overflow: hidden;
-    // @include pElement(16, 10, none, center);
     text-align: center;
     p{
         font-size: 13px;

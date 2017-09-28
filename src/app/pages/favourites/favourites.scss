@@ -6,14 +6,18 @@ h4{
     text-transform: lowercase;
     font-family: 'Sanchez', serif;
     text-align: center;
-    margin: 20px 0;
+    margin: 7px 0;
     font-size: 20px;
 }
 
 
 div.favourites{
-    @include line(1, $redColor, 70%, 10);
+    background: white;
+    padding: 10px;
     margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    @include line(1, $redColor, 70%, 10);
     @media(max-width: 565px){
         width: 96%;
     }
@@ -21,7 +25,7 @@ div.favourites{
         width: 96%;
     }
     @media(min-width: 768px){
-        width: 709px;
+        width: 510px;
     }
 }
 
@@ -43,6 +47,11 @@ form.favForm {
         @include checkboxMixin(radio, 0, -2);
         display: flex;
         justify-content: space-around;
+        div.checkbox{
+            span {
+                left: 28px;
+            }
+        }
     }
 
     div.geolocationError{
@@ -66,10 +75,11 @@ form.favForm {
 
 div.fav-messages{
     margin: auto;
-    @media(min-width: 566px){
+    clear: both;
+    @media(max-width: 486px){
         width: 96%;
     }
-    @media(min-width: 768px){
-        width: 590px;
+    @media(min-width: 486px){
+        width: 486px;
     }
 }

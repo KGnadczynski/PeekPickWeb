@@ -5,6 +5,7 @@ import { Company } from './company';
 import { CompanyService } from './company.service';
 import { ObjectList,MarkerObject } from './company';
 import { AgmMap, MapsAPILoader} from '@agm/core';
+import { GlobalState } from '../../global.state'
 
 @Component({
 	selector: 'company',
@@ -29,7 +30,9 @@ export class CompanyComponent implements OnInit {
 	zoom: number = 7;
 	@ViewChild(AgmMap) sebmGoogleMap: any;
 
-	constructor(private route: ActivatedRoute, private _companyService: CompanyService, private mapsAPILoader: MapsAPILoader) {}
+	constructor(private route: ActivatedRoute, private _companyService: CompanyService, private mapsAPILoader: MapsAPILoader, private _state: GlobalState) {
+		this._state.notifyDataChanged('menu.isCollapsed',true);
+	}
 
 	ngOnInit() {
 

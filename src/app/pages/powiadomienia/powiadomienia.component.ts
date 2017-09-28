@@ -4,6 +4,7 @@ import { PowiadomieniaService } from './powiadomienia.service';
 import { PowiadomieniaList } from './powiadomieniaList.model';
 import { ProfileService } from '../profile/profile.service';
 import { Router } from '@angular/router';
+import { GlobalState } from '../../global.state';
 
 @Component({
     selector: 'powiadomienia',
@@ -19,7 +20,9 @@ export class PowiadomieniaComponent implements OnInit{
     powiadomieniaList: PowiadomieniaList;
      canScrool: boolean = true;
     
-    constructor(private powiadomieniaService: PowiadomieniaService, private profileService: ProfileService, private router: Router){}
+    constructor(private powiadomieniaService: PowiadomieniaService, private profileService: ProfileService, private router: Router, private _state: GlobalState){
+        this._state.notifyDataChanged('menu.isCollapsed',true);
+    }
 
     ngOnInit(): void {
         

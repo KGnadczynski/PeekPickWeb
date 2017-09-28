@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder} from '@angular/forms';
 import { MessagesComponent } from '../messages/messages.component';
+import { GlobalState } from '../../global.state'
 
 @Component({
     selector: 'favourites',
@@ -16,7 +17,10 @@ export class FavouritesComponent implements OnInit{
     @ViewChild("messageComponent") messageComponent: MessagesComponent;
     ifGeolocation: boolean = true;
 
-    constructor(private fb: FormBuilder){
+    constructor(private fb: FormBuilder, private _state:GlobalState){
+
+        this._state.notifyDataChanged('menu.isCollapsed',true);
+
         this.filterForm = this.fb.group({
             filterBy: 'CREATE_DATE'
         });

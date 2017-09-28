@@ -10,7 +10,7 @@ import { Routes } from '@angular/router';
 import { PAGES_MENU_LOGGED } from '../pageslogged.menu';
 import { ProfileService } from '../profile/profile.service';
 import { ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
-import { GlobalState } from '../../global.state'
+import { GlobalState } from '../../global.state';
 
 @Component({
 	selector: 'login',
@@ -50,7 +50,7 @@ export class Login implements OnInit{
 
 		this.email = this.form.controls['email'];
 		this.password = this.form.controls['password'];
-		
+		this._state.notifyDataChanged('menu.isCollapsed',true);
 	}
 
 	ngOnInit(): void{

@@ -8,6 +8,9 @@ div#filterInside{
     @media(min-width: 992px){
         width: 268px;
 	}
+	@media(max-width: 565px){
+		width: auto;
+	}
 	
 	div#head{
 		overflow: hidden;

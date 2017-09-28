@@ -41,7 +41,9 @@ export class KomunikatComponent implements OnInit {
     private profileService: ProfileService,
     private topService: BaPageTopService,
     private _state:GlobalState
-  ){}
+  ){
+    this._state.notifyDataChanged('menu.isCollapsed',true);
+  }
 
   ngOnInit() {
         this._state.notifyDataChanged('menu.isCollapsed',false);  

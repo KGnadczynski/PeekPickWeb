@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ProfileService } from '../profile/profile.service';
 import { Router } from "@angular/router";
-import {GlobalState} from '../../global.state'
+import { GlobalState } from '../../global.state'
 
 @Component({
     selector: 'home',
